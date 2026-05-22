@@ -41,6 +41,7 @@
 - Add analytics instrumentation harness. (Phase 12 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Lock submission readiness and Toss SDK integration queues. (Phase 8 done pending CI)
+- Add client error monitoring hooks. (Phase 21 done pending CI)
 
 ## Engineering
 

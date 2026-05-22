@@ -44,6 +44,11 @@ Rewards:
 - `coin_award`
 - `recipe_piece_award`
 
+Debug:
+
+- `client_error`
+- `unhandled_rejection`
+
 ## Retention Questions Covered
 
 This harness can already answer:
@@ -55,6 +60,7 @@ This harness can already answer:
 - Did the player submit a clean ranked score?
 - Did replay attempts start after restart?
 - Did the player claim the fixed completion reward?
+- Did the client capture runtime errors during QA?
 
 ## Guardrails
 

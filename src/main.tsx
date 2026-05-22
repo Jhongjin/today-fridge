@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { installClientErrorTracking } from "./platform/errorMonitoring";
 import { App } from "./ui/App";
 import "./ui/styles.css";
+
+installClientErrorTracking();
 
 const rootElement = document.getElementById("root");
 
@@ -14,4 +17,3 @@ createRoot(rootElement).render(
     <App />
   </StrictMode>
 );
-

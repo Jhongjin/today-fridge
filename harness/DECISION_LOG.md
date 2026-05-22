@@ -38,3 +38,4 @@
 - Phase 18 recipe progress display added: result panel shows active recipe piece progress and updates after completion reward claim.
 - Phase 19 listing copy package added: recommended title `오늘의 냉장고`, 10-second pitch, listing copy, policy-safe wording, and screenshot plan.
 - Phase 20 app metadata aligned: title, description, Open Graph metadata, Korean manifest, and browser metadata assertions.
+- Phase 21 client error hooks added: startup installs local analytics capture for browser errors and unhandled promise rejections.

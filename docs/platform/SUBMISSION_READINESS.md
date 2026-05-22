@@ -24,7 +24,7 @@ References:
 | Share reward | Pending | Not implemented. |
 | Rewarded ads | Pending | Not implemented. |
 | Promotion points | Pending | Policy documented only. |
-| Error monitoring | Pending | Sentry or equivalent not configured. |
+| Error monitoring | Partial | Local `client_error` and `unhandled_rejection` analytics hooks exist; production transport still pending. |
 | QR test | Pending | Requires Apps in Toss console setup. |
 
 ## 2. Submission Blockers
@@ -79,4 +79,3 @@ Production deploy remains manual through `Commander Production Deploy`.
 - Verify no text overlap on common Android/iOS devices.
 - Verify network failures do not trap the player.
 - Verify error logging captures client failures.
-
