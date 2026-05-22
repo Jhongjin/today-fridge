@@ -29,6 +29,11 @@ Daily rewards:
 
 Minimum reward should exist even after failure to reduce frustration.
 
+Daily habit cue:
+
+- The first screen can show a local consecutive-day count.
+- The streak is informational and does not pay out by rank, score, or random chance.
+
 ## 3. Weekly Loop
 
 Weekly content should reward 3-5 days of participation, not perfect attendance.
@@ -111,7 +116,6 @@ Light social/event currency.
 
 Earned from:
 
-- Share rewards.
 - Event participation.
 - Friend cheer milestones.
 
@@ -223,7 +227,7 @@ Include:
 - Fridge coins.
 - Recipe pieces.
 - Today leaderboard.
-- Friend challenge/share reward.
+- Friend challenge/share cue.
 - Optional rewarded ad.
 - Weekly missions.
 
@@ -255,4 +259,3 @@ Risk:
 - Booster shortage failure loops.
 - Promotion condition CS.
 - Rank fairness complaints.
-

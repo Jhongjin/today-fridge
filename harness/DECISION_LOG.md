@@ -53,3 +53,4 @@
 - Phase 33 QA analytics inspector added: `?qa=analytics` exposes a local live event panel for QR and device checks.
 - Phase 34 daily refresh cue added: first screen now shows the next 05:00 KST fridge refresh and countdown.
 - Phase 35 result share loop added: completion results can be shared with analytics and SFX, without reward or rank advantage.
+- Phase 36 daily streak habit cue added: local consecutive-day count appears beside the refresh cue without economic reward.

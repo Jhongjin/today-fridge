@@ -16,6 +16,7 @@ import {
   trackEvent,
   type AnalyticsEvent
 } from "../platform/analytics";
+import { recordDailyStreak } from "../platform/dailyStreak";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
@@ -31,6 +32,7 @@ import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = applyKstDailySeed(firstDailyBoard);
 const dailyRunKey = `${board.id}:${board.seed}`;
+const dailyDateKey = board.seed.slice(0, 10);
 
 const createPlayId = () => `${board.seed}-${Date.now()}`;
 
@@ -243,6 +245,7 @@ export const App = () => {
   const [rewardWallet, setRewardWallet] = useState(readRewardWallet);
   const [rewardStatus, setRewardStatus] = useState<"idle" | "claimed" | "already_claimed">("idle");
   const [dailyRefreshInfo, setDailyRefreshInfo] = useState(getDailyRefreshInfo);
+  const [dailyStreak] = useState(() => recordDailyStreak(dailyDateKey));
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
@@ -609,7 +612,10 @@ export const App = () => {
         <section className="daily-refresh-strip" aria-label="다음 냉장고" data-testid="daily-refresh-strip">
           <span>다음 냉장고</span>
           <strong data-testid="daily-refresh-countdown">{dailyRefreshInfo.remainingLabel}</strong>
-          <small data-testid="daily-refresh-time">{dailyRefreshInfo.refreshTimeLabel}</small>
+          <div className="daily-refresh-strip__meta">
+            <small data-testid="daily-streak">연속 {dailyStreak.streakDays}일</small>
+            <small data-testid="daily-refresh-time">{dailyRefreshInfo.refreshTimeLabel}</small>
+          </div>
         </section>
 
         <section className="goal-strip" aria-label="오늘의 목표">
