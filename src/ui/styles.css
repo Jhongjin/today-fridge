@@ -33,9 +33,7 @@ button {
   display: grid;
   place-items: center;
   padding: 16px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(237, 245, 240, 0.92)),
-    radial-gradient(circle at top left, rgba(101, 159, 111, 0.18), transparent 34%);
+  background: linear-gradient(180deg, #f8fbf9 0%, #edf5f0 100%);
 }
 
 .phone-frame {
@@ -82,8 +80,9 @@ button {
 
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: 20px;
   letter-spacing: 0;
+  line-height: 1.2;
 }
 
 .icon-button {
@@ -95,6 +94,11 @@ h1 {
   color: #26392d;
   display: grid;
   place-items: center;
+}
+
+button:focus-visible {
+  outline: 3px solid #f0b84f;
+  outline-offset: 2px;
 }
 
 .icon-button[aria-pressed="true"] {
@@ -218,7 +222,7 @@ h1 {
 }
 
 .tile__label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -362,6 +366,7 @@ h1 {
 .result-panel {
   position: fixed;
   inset: auto 16px 16px;
+  width: calc(100vw - 32px);
   max-width: 430px;
   margin: 0 auto;
   left: 50%;
@@ -414,7 +419,7 @@ h1 {
   }
 
   .tile__label {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .top-actions {

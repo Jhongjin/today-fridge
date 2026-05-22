@@ -27,3 +27,4 @@
 - Phase 7 board validation added: first daily board has a tested clean completion route and UI score submission test.
 - Phase 8 submission readiness documented against official Apps in Toss guides, with Toss SDK integration split into future queues.
 - Phase 9 audio placeholder added: mute-aware sound event controller, gameplay event hooks, and audio event map.
+- Phase 10 polish pass removed orb-like decoration, added focus styling, stabilized result panel width, and improved tile label readability.

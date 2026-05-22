@@ -23,6 +23,7 @@
 - Define SFX list and trigger map.
 - Add first-play accessibility toggles and result submit UX. (Phase 5 done pending CI)
 - Add audio event map and mute-aware sound hooks. (Phase 9 done pending CI)
+- Run mobile UI polish/accessibility pass. (Phase 10 done pending CI)
 
 ## Platform
 
