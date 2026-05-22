@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { CLEAN_ROUTE, playCleanRoute, playFailedParticipationRoute, playRoute } from "./helpers/gameplay";
 
 const pageIssues = new WeakMap<object, string[]>();
 
@@ -63,12 +64,7 @@ test("qa analytics panel shows live event history", async ({ page }) => {
 test("qa analytics panel shows terminal mission summary", async ({ page }) => {
   await page.goto("/?qa=analytics");
 
-  await page.getByTestId("cell-tofu_1_fresh").click();
-  await page.getByTestId("cell-tofu_2_fresh").click();
-  await page.getByTestId("cell-tofu_4_expiring").click();
-  await page.getByTestId("cell-rice_5_expiring").click();
-  await page.getByTestId("cell-kimchi_5_expiring").click();
-  await page.getByTestId("cell-egg_5_expiring").click();
+  await playCleanRoute(page);
 
   await expect(page.getByTestId("mission-summary-count")).toHaveText("3/3");
   await expect(page.getByTestId("qa-event-list")).toContainText("round_complete");
@@ -112,14 +108,10 @@ test("player can complete the main recipe", async ({ page }) => {
 test("player can finish a clean board and submit the score", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByTestId("cell-tofu_1_fresh").click();
-  await page.getByTestId("cell-tofu_2_fresh").click();
-  await page.getByTestId("cell-tofu_4_expiring").click();
+  await playRoute(page, CLEAN_ROUTE.slice(0, 3));
   await expect(page.getByTestId("tutorial-strip")).toContainText("밥 + 김치 + 계란");
   await expect(page.getByTestId("cell-rice_5_expiring")).toHaveClass(/tile--highlighted/);
-  await page.getByTestId("cell-rice_5_expiring").click();
-  await page.getByTestId("cell-kimchi_5_expiring").click();
-  await page.getByTestId("cell-egg_5_expiring").click();
+  await playRoute(page, CLEAN_ROUTE.slice(3));
 
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
   const resultPanelBox = await page.locator(".result-panel").boundingBox();
@@ -155,12 +147,7 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
 test("qa Toss bridge path handles submit and leaderboard open", async ({ page }) => {
   await page.goto("/?qa=toss-bridge");
 
-  await page.getByTestId("cell-tofu_1_fresh").click();
-  await page.getByTestId("cell-tofu_2_fresh").click();
-  await page.getByTestId("cell-tofu_4_expiring").click();
-  await page.getByTestId("cell-rice_5_expiring").click();
-  await page.getByTestId("cell-kimchi_5_expiring").click();
-  await page.getByTestId("cell-egg_5_expiring").click();
+  await playCleanRoute(page);
 
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
   await expect(page.getByRole("button", { name: "기록 제출 완료" })).toBeVisible();
@@ -189,12 +176,7 @@ test("hint booster marks the run outside clean leaderboard", async ({ page }) =>
   await expect(page.getByTestId("fairness-note")).toContainText("랭킹 제출 제외");
   await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
 
-  await page.getByTestId("cell-tofu_1_fresh").click();
-  await page.getByTestId("cell-tofu_2_fresh").click();
-  await page.getByTestId("cell-tofu_4_expiring").click();
-  await page.getByTestId("cell-rice_5_expiring").click();
-  await page.getByTestId("cell-kimchi_5_expiring").click();
-  await page.getByTestId("cell-egg_5_expiring").click();
+  await playCleanRoute(page);
 
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
@@ -208,12 +190,7 @@ test("hint booster marks the run outside clean leaderboard", async ({ page }) =>
 test("failed round can still claim a small participation coin reward", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByTestId("cell-zucchini_1_fresh").click();
-  await page.getByTestId("cell-soy_sauce_1_fresh").click();
-  await page.getByTestId("cell-mushroom_2_fresh").click();
-  await page.getByTestId("cell-green_onion_2_fresh").click();
-  await page.getByTestId("cell-tofu_1_fresh").click();
-  await page.getByTestId("cell-rice_1_fresh").click();
+  await playFailedParticipationRoute(page);
 
   await expect(page.getByRole("heading", { name: "한 수만 더 깔끔했어요" })).toBeVisible();
   await expect(page.getByTestId("coin-balance")).toHaveText("0");
