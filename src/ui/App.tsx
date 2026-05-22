@@ -127,7 +127,7 @@ export const App = () => {
         <section className="score-strip" aria-label="현재 점수">
           <div>
             <span>점수</span>
-            <strong>{score.toLocaleString()}</strong>
+            <strong data-testid="score-value">{score.toLocaleString()}</strong>
           </div>
           <div>
             <span>이동</span>
@@ -152,7 +152,9 @@ export const App = () => {
           <Trophy size={28} aria-hidden="true" />
         </section>
 
-        <p className="coach-message">{gameState.message}</p>
+        <p className="coach-message" data-testid="coach-message">
+          {gameState.message}
+        </p>
 
         <section className="fridge-board" aria-label="냉장고 보드" data-testid="fridge-board">
           {gameState.board.map((cell) => (

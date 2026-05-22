@@ -19,3 +19,4 @@
 - Phase 3 QA harness added: Playwright mobile viewports, first-screen smoke test, basic interaction tests, and CI browser verification.
 - Phase 3 CI hotfix: Vitest unit-test include narrowed so Playwright specs run only under Playwright.
 - Phase 3 CI hotfix: app check workflow split into dependency, unit, build, browser-install, and browser-test steps for actionable failure diagnosis.
+- Phase 3 CI hotfix: Playwright locators switched to stable test IDs for mobile browser checks.
