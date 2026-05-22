@@ -11,7 +11,7 @@ const formatBytes = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
 
 const walk = async (dir) => {
   const entries = await readdir(dir, { withFileTypes: true });
-  const sizes = await Promise.all(
+  const files = await Promise.all(
     entries.map(async (entry) => {
       const path = join(dir, entry.name);
 
@@ -20,11 +20,16 @@ const walk = async (dir) => {
       }
 
       const file = await stat(path);
-      return file.size;
+      return [
+        {
+          path,
+          size: file.size
+        }
+      ];
     })
   );
 
-  return sizes.reduce((sum, size) => sum + size, 0);
+  return files.flat();
 };
 
 if (!existsSync(distDir)) {
@@ -37,10 +42,17 @@ if (!Number.isFinite(budgetBytes) || budgetBytes <= 0) {
   process.exit(1);
 }
 
-const totalBytes = await walk(distDir);
+const files = await walk(distDir);
+const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+const sourceMaps = files.filter((file) => file.path.endsWith(".map"));
 console.log(`Bundle size: ${formatBytes(totalBytes)} / ${formatBytes(budgetBytes)} budget`);
 
 if (totalBytes > budgetBytes) {
   console.error(`Bundle budget exceeded by ${formatBytes(totalBytes - budgetBytes)}.`);
+  process.exit(1);
+}
+
+if (sourceMaps.length > 0) {
+  console.error(`Production build contains source maps: ${sourceMaps.map((file) => file.path).join(", ")}`);
   process.exit(1);
 }

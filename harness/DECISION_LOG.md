@@ -64,3 +64,4 @@
 - Phase 44 haptic feedback added: supported mobile browsers get short confirmation vibrations, disabled by reduced motion.
 - Phase 45 submission screenshot set expanded: captures now include recipe book and QA Toss bridge result states.
 - Phase 46 UI panel refactor completed: recipe book and analytics QA panels moved into focused components.
+- Phase 47 production source map guard added: bundle check now fails if `.map` files appear in `dist`.

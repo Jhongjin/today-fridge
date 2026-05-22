@@ -56,7 +56,7 @@ Validation includes:
 
 - Unit tests.
 - Production build.
-- Static `dist` bundle budget check.
+- Static `dist` bundle budget check and source map guard.
 - Playwright mobile browser tests.
 
 ## Commander Production Deploy

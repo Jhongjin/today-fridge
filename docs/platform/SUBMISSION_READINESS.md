@@ -15,7 +15,7 @@ References:
 | First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
 | Manifest/app icon | Pass | Web manifest references the SVG app icon. |
-| Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget. Must recheck after assets/audio. |
+| Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget and blocks source maps. Must recheck after assets/audio. |
 | Sound controls | Placeholder | Mute toggle exists. Actual BGM/SFX engine not implemented yet. |
 | Background sound handling | Pending | Needs real audio lifecycle once audio exists. |
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
