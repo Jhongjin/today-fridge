@@ -27,7 +27,8 @@ It is a fixed completion reward, so it stays separate from leaderboard competiti
 2. Result panel shows wallet balances.
 3. Player taps `참여 보상 받기`.
 4. Wallet updates immediately.
-5. The claim button becomes `참여 보상 받음`.
+5. Recipe progress updates, for example `김치볶음밥 1/3`.
+6. The claim button becomes `참여 보상 받음`.
 
 Failed round:
 
@@ -47,6 +48,10 @@ Failed round:
 The first implementation uses local storage through `src/platform/rewards.ts`.
 
 Future server-backed storage can keep the same public claim/read behavior.
+
+## Recipe Progress
+
+The current unlock target is 3 pieces per recipe. The result panel shows the active recipe's progress so the player can understand why recipe pieces matter before a full recipe book screen exists.
 
 ## Future Queues
 

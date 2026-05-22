@@ -52,6 +52,7 @@ const tutorialHighlightCells: Record<Exclude<TutorialStep, "done">, string[]> = 
 };
 
 const cleanRouteCellIds = ["E1", "B3", "C6", "E5", "A6", "B6"];
+const recipePieceTarget = 3;
 
 const findNextHintCellId = (cells: BoardCell[]): string | null => {
   const routeCellId = cleanRouteCellIds.find((cellId) => cells.some((cell) => cell.id === cellId && cell.front));
@@ -154,6 +155,8 @@ export const App = () => {
   const bestGap = Math.max(0, personalBest - score);
   const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
   const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
+  const recipePieceProgress = Math.min(recipePieceCount, recipePieceTarget);
+  const recipePieceProgressPercent = `${Math.round((recipePieceProgress / recipePieceTarget) * 100)}%`;
   const completionRewardClaimed = hasClaimedCompletionReward(board.id, rewardWallet);
   const participationRewardClaimed = hasClaimedParticipationReward(board.id, rewardWallet);
   const highlightedCells = useMemo(() => {
@@ -576,6 +579,25 @@ export const App = () => {
               <div>
                 <span>레시피 조각</span>
                 <strong data-testid="recipe-piece-balance">{recipePieceCount.toLocaleString()}</strong>
+              </div>
+            </div>
+            <div className="recipe-progress" data-testid="recipe-progress">
+              <div className="recipe-progress__title">
+                <span>레시피북</span>
+                <strong>{recipe.name}</strong>
+              </div>
+              <span className="recipe-progress__count" data-testid="recipe-piece-progress">
+                {recipePieceProgress}/{recipePieceTarget}
+              </span>
+              <div
+                className="recipe-progress__bar"
+                role="progressbar"
+                aria-label={`${recipe.name} 레시피 조각`}
+                aria-valuenow={recipePieceProgress}
+                aria-valuemin={0}
+                aria-valuemax={recipePieceTarget}
+              >
+                <span style={{ width: recipePieceProgressPercent }} />
               </div>
             </div>
             <button className="primary-action" type="button" onClick={restart}>

@@ -521,6 +521,51 @@ button:focus-visible {
   font-size: 18px;
 }
 
+.recipe-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px 12px;
+  margin: -4px 0 12px;
+  padding: 9px 10px;
+  border: 1px solid #f0ddba;
+  border-radius: 8px;
+  background: #fffaf0;
+}
+
+.recipe-progress__title {
+  min-width: 0;
+}
+
+.recipe-progress__title span {
+  display: block;
+  color: #6b5530;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.recipe-progress__title strong,
+.recipe-progress__count {
+  color: #3f321d;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.recipe-progress__bar {
+  grid-column: 1 / -1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f1e4c7;
+}
+
+.recipe-progress__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #287c49;
+}
+
 .primary-action {
   width: 100%;
   background: #287c49;

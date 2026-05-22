@@ -18,6 +18,7 @@
 - Add personal best competition loop. (Phase 13 done pending CI)
 - Add fixed completion reward and recipe pieces. (Phase 16 done pending CI)
 - Add failed-round participation reward. (Phase 17 done pending CI)
+- Add recipe-piece progress display. (Phase 18 done pending CI)
 
 ## UX Creative
 
