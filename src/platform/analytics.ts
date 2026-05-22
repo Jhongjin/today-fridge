@@ -26,8 +26,13 @@ export type AnalyticsEvent = {
   properties: AnalyticsProperties;
 };
 
+export type AnalyticsTransport = {
+  send: (event: AnalyticsEvent) => void | Promise<void>;
+};
+
 const events: AnalyticsEvent[] = [];
 const listeners = new Set<(events: AnalyticsEvent[]) => void>();
+let analyticsTransport: AnalyticsTransport | undefined;
 
 const detectPlatform = (): AnalyticsPlatform => {
   const userAgent = globalThis.navigator?.userAgent.toLowerCase() ?? "";
@@ -81,6 +86,26 @@ export const configureAnalyticsContext = (patch: Partial<AnalyticsContext>): Ana
 
 export const getAnalyticsContext = (): AnalyticsContext => ({ ...analyticsContext });
 
+export const setAnalyticsTransport = (transport?: AnalyticsTransport): void => {
+  analyticsTransport = transport;
+};
+
+const sendToTransport = (event: AnalyticsEvent) => {
+  if (!analyticsTransport) {
+    return;
+  }
+
+  try {
+    const result = analyticsTransport.send(event);
+
+    if (result && typeof result.catch === "function") {
+      void result.catch(() => undefined);
+    }
+  } catch {
+    // Analytics transport failures must never block gameplay.
+  }
+};
+
 export const trackEvent = (eventName: string, properties: AnalyticsProperties = {}): AnalyticsEvent => {
   const event: AnalyticsEvent = {
     eventName,
@@ -96,6 +121,7 @@ export const trackEvent = (eventName: string, properties: AnalyticsProperties = 
 
   events.push(event);
   emitAnalyticsSnapshot();
+  sendToTransport(event);
   return event;
 };
 

@@ -59,6 +59,10 @@ Open the app with `?qa=analytics` or `?analytics_debug` to show a local event in
 
 The panel is only a client-side QA aid. It reads the same in-memory event buffer used by tests and updates as new events are tracked.
 
+## Transport Boundary
+
+`src/platform/analytics.ts` exposes `setAnalyticsTransport`. A production transport can be injected later without changing gameplay code. Transport failures are swallowed so analytics outages never block play, reward claims, or leaderboard actions.
+
 ## Retention Questions Covered
 
 This harness can already answer:
@@ -79,10 +83,11 @@ This harness can already answer:
 - No personal data is collected in the client harness.
 - The Toss user key is represented only by `user_key_status`.
 - Ranked fairness flags stay with leaderboard submission events.
-- The event store is local and in-memory until the real Toss/vendor analytics queue is selected.
+- The event store remains local and in-memory by default.
+- A production transport can be injected through `setAnalyticsTransport`.
 
 ## Future Queues
 
-- Add a transport adapter with batching and retry policy.
+- Add a concrete vendor/server transport with batching and retry policy.
 - Add sampled `client_error` and `asset_load_error` capture.
 - Add product dashboard queries for replay rate, completion rate, and leaderboard submit rate.

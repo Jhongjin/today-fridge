@@ -1,8 +1,9 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   clearTrackedEvents,
   configureAnalyticsContext,
   getTrackedEvents,
+  setAnalyticsTransport,
   subscribeToTrackedEvents,
   trackEvent
 } from "./analytics";
@@ -17,6 +18,7 @@ describe("analytics event harness", () => {
       sessionId: "session-test",
       userKeyStatus: "mock"
     });
+    setAnalyticsTransport(undefined);
   });
 
   it("adds the shared Toss funnel envelope to every event", () => {
@@ -74,5 +76,36 @@ describe("analytics event harness", () => {
     trackEvent("move_commit");
 
     expect(snapshots).toEqual([[], ["app_open"], ["app_open", "round_start"]]);
+  });
+
+  it("sends tracked events to the configured transport", () => {
+    const send = vi.fn();
+    setAnalyticsTransport({ send });
+
+    const event = trackEvent("app_open");
+
+    expect(send).toHaveBeenCalledWith(event);
+  });
+
+  it("keeps gameplay analytics alive when transport throws", () => {
+    setAnalyticsTransport({
+      send: () => {
+        throw new Error("transport unavailable");
+      }
+    });
+
+    expect(() => trackEvent("round_start")).not.toThrow();
+    expect(getTrackedEvents()).toHaveLength(1);
+  });
+
+  it("keeps gameplay analytics alive when async transport rejects", async () => {
+    const send = vi.fn().mockRejectedValue(new Error("network unavailable"));
+    setAnalyticsTransport({ send });
+
+    trackEvent("round_start");
+    await Promise.resolve();
+
+    expect(getTrackedEvents()).toHaveLength(1);
+    expect(send).toHaveBeenCalledTimes(1);
   });
 });
