@@ -53,6 +53,8 @@ Future server-backed storage can keep the same public claim/read behavior.
 
 The current unlock target is 3 pieces per recipe. The result panel shows the active recipe's progress so the player can understand why recipe pieces matter before a full recipe book screen exists.
 
+The first recipe book panel now lists recipe-piece progress across the MVP recipe set. It remains informational and does not change scoring or rewards.
+
 ## Future Queues
 
 - Add recipe book UI.

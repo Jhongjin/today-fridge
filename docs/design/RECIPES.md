@@ -77,3 +77,15 @@ Daily board should expose:
 
 The recipe book may show locked recipes, but the play screen should not show too many recipes at once.
 
+## 6. MVP Recipe Book
+
+The first app build includes a compact recipe book panel from the first screen.
+
+It shows:
+
+- Total completed recipes.
+- Recipe difficulty.
+- Required ingredients.
+- Recipe-piece progress toward the current 3-piece unlock target.
+
+The panel is informational in MVP. It does not grant score, ranked advantage, or Toss points.

@@ -1,10 +1,10 @@
-import { Pause, Share2, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
+import { BookOpen, Pause, Share2, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
 import { createWebAudioOutput } from "../audio/webAudioOutput";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
-import { getRecipe } from "../game/data/recipes";
+import { getRecipe, recipes } from "../game/data/recipes";
 import { applyKstDailySeed, getMsUntilNextKstRefresh, getNextKstRefreshAt } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
@@ -27,6 +27,7 @@ import {
   hasClaimedParticipationReward,
   readRewardWallet
 } from "../platform/rewards";
+import type { RewardWallet } from "../platform/rewards";
 import { createMockShareClient, createResultShareService } from "../platform/share";
 import { createTossMockClient } from "../platform/tossMockClient";
 
@@ -146,6 +147,66 @@ const AnalyticsQaPanel = ({ enabled }: { enabled: boolean }) => {
   );
 };
 
+const RecipeBookPanel = ({
+  wallet,
+  activeRecipeId,
+  onClose
+}: {
+  wallet: RewardWallet;
+  activeRecipeId: string;
+  onClose: () => void;
+}) => {
+  const recipeList = Object.values(recipes);
+  const completedCount = recipeList.filter((item) => (wallet.recipePieces[item.id] ?? 0) >= recipePieceTarget).length;
+
+  return (
+    <section className="recipe-book-panel" data-testid="recipe-book-panel" aria-label="레시피북">
+      <header className="recipe-book-panel__header">
+        <div>
+          <p className="eyebrow">레시피북</p>
+          <h2>모은 레시피</h2>
+        </div>
+        <button className="icon-button" type="button" aria-label="레시피북 닫기" onClick={onClose}>
+          <X size={18} />
+        </button>
+      </header>
+      <div className="recipe-book-summary" data-testid="recipe-book-summary">
+        <span>완성 {completedCount.toLocaleString()}</span>
+        <strong>{recipeList.length.toLocaleString()}개 중</strong>
+      </div>
+      <div className="recipe-book-list">
+        {recipeList.map((item) => {
+          const pieceCount = wallet.recipePieces[item.id] ?? 0;
+          const progress = Math.min(pieceCount, recipePieceTarget);
+          const progressPercent = `${Math.round((progress / recipePieceTarget) * 100)}%`;
+
+          return (
+            <article
+              className={`recipe-book-card${item.id === activeRecipeId ? " recipe-book-card--active" : ""}`}
+              key={item.id}
+              data-testid={`recipe-book-card-${item.id}`}
+            >
+              <div className="recipe-book-card__title">
+                <strong>{item.name}</strong>
+                <span>{item.difficulty}</span>
+              </div>
+              <p>{item.ingredientIds.map((id) => getIngredient(id).name).join(" + ")}</p>
+              <div className="recipe-book-card__progress">
+                <span>
+                  {progress}/{recipePieceTarget}
+                </span>
+                <div aria-hidden="true">
+                  <i style={{ width: progressPercent }} />
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 const findNextHintCellId = (cells: BoardCell[]): string | null => {
   const routeCellId = cleanRouteCellIds.find((cellId) => cells.some((cell) => cell.id === cellId && cell.front));
 
@@ -246,6 +307,7 @@ export const App = () => {
   const [rewardStatus, setRewardStatus] = useState<"idle" | "claimed" | "already_claimed">("idle");
   const [dailyRefreshInfo, setDailyRefreshInfo] = useState(getDailyRefreshInfo);
   const [dailyStreak] = useState(() => recordDailyStreak(dailyDateKey));
+  const [recipeBookOpen, setRecipeBookOpen] = useState(false);
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
@@ -624,7 +686,12 @@ export const App = () => {
             <strong>{recipe.name}</strong>
             <p>{recipe.ingredientIds.map((id) => getIngredient(id).name).join(" + ")}</p>
           </div>
-          <Trophy size={28} aria-hidden="true" />
+          <div className="goal-strip__actions">
+            <Trophy size={28} aria-hidden="true" />
+            <button className="icon-button icon-button--compact" type="button" aria-label="레시피북 열기" data-testid="recipe-book-open" onClick={() => setRecipeBookOpen(true)}>
+              <BookOpen size={18} />
+            </button>
+          </div>
         </section>
 
         <p className="coach-message" data-testid="coach-message">
@@ -820,6 +887,9 @@ export const App = () => {
           </section>
         ) : null}
       </section>
+      {recipeBookOpen ? (
+        <RecipeBookPanel wallet={rewardWallet} activeRecipeId={recipe.id} onClose={() => setRecipeBookOpen(false)} />
+      ) : null}
       <AnalyticsQaPanel enabled={analyticsQaEnabled} />
     </main>
   );

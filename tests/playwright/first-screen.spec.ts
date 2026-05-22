@@ -52,6 +52,18 @@ test("qa analytics panel shows live event history", async ({ page }) => {
   await expect(page.getByTestId("qa-event-list")).toContainText("move_commit");
 });
 
+test("recipe book opens from the first screen", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByTestId("recipe-book-open").click();
+
+  await expect(page.getByTestId("recipe-book-panel")).toBeVisible();
+  await expect(page.getByTestId("recipe-book-summary")).toContainText("0");
+  await expect(page.getByTestId("recipe-book-card-kimchi_fried_rice")).toContainText("0/3");
+  await page.getByRole("button", { name: "레시피북 닫기" }).click();
+  await expect(page.getByTestId("recipe-book-panel")).toHaveCount(0);
+});
+
 test("player can clear three matching ingredients", async ({ page }) => {
   await page.goto("/");
 
