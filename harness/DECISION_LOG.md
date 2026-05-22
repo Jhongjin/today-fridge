@@ -82,3 +82,4 @@
 - Phase 62 analytics transport boundary added: production event delivery can be injected without changing gameplay code.
 - Phase 63 HTTP analytics transport added: builds can send events to `VITE_ANALYTICS_ENDPOINT` through beacon/fetch fallback.
 - Phase 64 game rating evidence checklist added: Toss review now has a concrete GRAC/store-rating evidence path.
+- Phase 65 Toss bridge failure QA added: failed leaderboard submits stay retryable and have a browser smoke path.

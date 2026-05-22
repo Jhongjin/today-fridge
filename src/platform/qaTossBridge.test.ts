@@ -44,6 +44,23 @@ describe("QA Toss bridge", () => {
     expect(getRuntimeAppsInTossBridge()).toBe(existingBridge);
   });
 
+  it("can install a bridge that returns a submit failure", async () => {
+    vi.stubGlobal("location", {
+      search: "?qa=toss-bridge-error"
+    });
+
+    expect(installQaAppsInTossBridge()).toBe(true);
+
+    const bridge = getRuntimeAppsInTossBridge();
+    await expect(bridge?.submitGameCenterLeaderBoardScore?.({ score: "1700" })).resolves.toEqual({
+      statusCode: "QA_SUBMIT_FAILED"
+    });
+
+    expect((globalThis as Record<string, unknown>)[eventGlobalKey]).toEqual([
+      { type: "submit", score: "1700", statusCode: "QA_SUBMIT_FAILED" }
+    ]);
+  });
+
   it("stays off for normal URLs", () => {
     vi.stubGlobal("location", {
       search: ""

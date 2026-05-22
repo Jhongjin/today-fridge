@@ -177,6 +177,25 @@ test("qa Toss bridge path handles submit and leaderboard open", async ({ page })
   ]);
 });
 
+test("qa Toss bridge submit failure leaves the player recoverable", async ({ page }) => {
+  await page.goto("/?qa=toss-bridge-error");
+
+  await playCleanRoute(page);
+  await page.getByTestId("leaderboard-submit").click();
+
+  await expect(page.getByTestId("submit-note")).toContainText("clean ranked");
+  await expect(page.getByTestId("leaderboard-submit")).toBeEnabled();
+
+  const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
+  expect(bridgeEvents).toEqual([
+    {
+      type: "submit",
+      score: "1700",
+      statusCode: "QA_SUBMIT_FAILED"
+    }
+  ]);
+});
+
 test("hint booster marks the run outside clean leaderboard", async ({ page }) => {
   await page.goto("/");
 

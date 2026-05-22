@@ -88,8 +88,11 @@ export const createLeaderboardService = (client: TossClient) => {
       };
     }
 
-    submittedPlayIds.add(playId);
     const result = await client.submitLeaderboardScore(score, playId);
+
+    if (result.ok) {
+      submittedPlayIds.add(playId);
+    }
 
     trackEvent("leaderboard_submit", {
       play_id: playId,

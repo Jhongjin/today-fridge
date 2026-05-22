@@ -8,6 +8,7 @@ export type QaTossBridgeEvent =
   | {
       type: "submit";
       score: string;
+      statusCode?: string;
     }
   | {
       type: "open";
@@ -18,15 +19,25 @@ type GlobalWithQaBridge = typeof globalThis & {
   [eventGlobalKey]?: QaTossBridgeEvent[];
 };
 
-const isQaTossBridgeEnabled = () => {
+const getQaTossBridgeMode = (): "success" | "submit-error" | null => {
   const search = globalThis.location?.search;
 
   if (!search) {
-    return false;
+    return null;
   }
 
   const params = new URLSearchParams(search);
-  return params.get("qa") === "toss-bridge" || params.has("toss_bridge");
+  const qaMode = params.get("qa");
+
+  if (qaMode === "toss-bridge-error") {
+    return "submit-error";
+  }
+
+  if (qaMode === "toss-bridge" || params.has("toss_bridge")) {
+    return "success";
+  }
+
+  return null;
 };
 
 const pushQaEvent = (event: QaTossBridgeEvent) => {
@@ -35,19 +46,24 @@ const pushQaEvent = (event: QaTossBridgeEvent) => {
 };
 
 export const installQaAppsInTossBridge = (): boolean => {
-  if (!isQaTossBridgeEnabled() || getRuntimeAppsInTossBridge()) {
+  const mode = getQaTossBridgeMode();
+
+  if (!mode || getRuntimeAppsInTossBridge()) {
     return false;
   }
 
   (globalThis as GlobalWithQaBridge)[bridgeGlobalKey] = {
     isMinVersionSupported: () => true,
     async submitGameCenterLeaderBoardScore({ score }) {
+      const statusCode = mode === "submit-error" ? "QA_SUBMIT_FAILED" : undefined;
+
       pushQaEvent({
         type: "submit",
-        score
+        score,
+        ...(statusCode ? { statusCode } : {})
       });
 
-      return { statusCode: "SUCCESS" };
+      return { statusCode: statusCode ?? "SUCCESS" };
     },
     async openGameCenterLeaderboard() {
       pushQaEvent({

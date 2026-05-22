@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { clearTrackedEvents, getTrackedEvents } from "./analytics";
 import { cleanRankedFlags } from "./fairness";
 import { createLeaderboardService } from "./leaderboard";
@@ -92,6 +92,36 @@ describe("leaderboard service", () => {
         error_code: "BOOSTER_USED"
       }
     });
+  });
+
+  it("allows a retry after a failed platform submit", async () => {
+    clearTrackedEvents();
+    const submitLeaderboardScore = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: false, errorCode: "NETWORK_ERROR" })
+      .mockResolvedValueOnce({ ok: true });
+    const service = createLeaderboardService({
+      getUserKey: async () => "user",
+      submitLeaderboardScore,
+      openLeaderboard: vi.fn()
+    });
+
+    await expect(
+      service.submit({
+        playId: "play-retry",
+        score: 1700,
+        flags: cleanRankedFlags()
+      })
+    ).resolves.toEqual({ ok: false, errorCode: "NETWORK_ERROR" });
+    await expect(
+      service.submit({
+        playId: "play-retry",
+        score: 1700,
+        flags: cleanRankedFlags()
+      })
+    ).resolves.toEqual({ ok: true });
+
+    expect(submitLeaderboardScore).toHaveBeenCalledTimes(2);
   });
 
   it("opens the leaderboard and tracks the source", async () => {
