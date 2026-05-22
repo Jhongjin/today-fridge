@@ -2,9 +2,9 @@
 
 ## 1. Purpose
 
-This document locks the sound-event contract before real BGM/SFX assets are added.
+This document locks the sound-event contract before custom BGM/SFX assets are added.
 
-The current implementation records sound events through `src/audio/audioController.ts`. It does not yet play real audio. This keeps gameplay, settings, and tests stable while creative audio assets are still pending.
+The current implementation records sound events through `src/audio/audioController.ts` and uses a lightweight Web Audio output adapter when the browser supports it. This keeps gameplay, settings, and tests stable while custom creative audio assets are still pending.
 
 ## 2. Sound Events
 
@@ -35,11 +35,12 @@ Current:
 
 - Sound event controller exists.
 - Mute suppresses sound events.
+- Web Audio output plays short synthetic SFX when supported.
 - Gameplay calls sound events on select, clear, rescue, completion, failure, and leaderboard submit.
 
 Pending:
 
-- Actual audio asset loading.
+- Custom audio asset loading.
 - Separate BGM/SFX volume.
 - Background pause/resume.
 - Haptic feedback mapping.

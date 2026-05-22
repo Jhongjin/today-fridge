@@ -1,6 +1,7 @@
 import { Pause, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
+import { createWebAudioOutput } from "../audio/webAudioOutput";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
 import { getRecipe } from "../game/data/recipes";
@@ -172,7 +173,7 @@ export const App = () => {
     return cellIds;
   }, [boosterHintCellId, tutorialStep]);
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
-  const audioController = useMemo(() => createAudioController(), []);
+  const audioController = useMemo(() => createAudioController(createWebAudioOutput()), []);
 
   useEffect(() => {
     const context = getAnalyticsContext();

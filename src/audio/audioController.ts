@@ -17,7 +17,11 @@ export type AudioController = {
   clearHistory: () => void;
 };
 
-export const createAudioController = (): AudioController => {
+export type AudioOutput = {
+  play: (event: SoundEvent) => void;
+};
+
+export const createAudioController = (output?: AudioOutput): AudioController => {
   let muted = false;
   const history: SoundEvent[] = [];
 
@@ -34,6 +38,7 @@ export const createAudioController = (): AudioController => {
       }
 
       history.push(event);
+      output?.play(event);
     },
     getHistory() {
       return [...history];

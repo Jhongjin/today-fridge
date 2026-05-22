@@ -47,3 +47,4 @@
 - Phase 27 daily storage scope fixed: personal bests and reward claims now key off `board.id:board.seed`.
 - Phase 28 commander deploy runbook added: preview requirements, production approval steps, failure triage, and current blockers documented.
 - Phase 29 submission screenshot script added: local mobile captures for first playable, result, reward, and hint fairness states.
+- Phase 30 Web Audio SFX output added: sound events now drive low-fatigue synthetic browser tones while mute remains authoritative.
