@@ -56,6 +56,7 @@
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
 - Add analytics instrumentation harness. (Phase 12 done pending CI)
 - Add injectable analytics transport boundary. (Phase 62 done pending CI)
+- Add optional HTTP analytics endpoint transport. (Phase 63 done pending CI)
 - Add QA-only analytics event inspector. (Phase 33 done pending CI)
 - Add mission summary analytics event. (Phase 52 done pending CI)
 - Add QA analytics mission-summary browser coverage. (Phase 53 done pending CI)

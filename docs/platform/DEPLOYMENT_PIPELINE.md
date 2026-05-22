@@ -51,6 +51,7 @@ Optional variable:
 
 - `VERCEL_CLI_VERSION`, for example `latest` or a pinned version.
 - `BUNDLE_BUDGET_BYTES`, when the default 5 MB static `dist` budget needs to be raised for approved assets.
+- `VITE_ANALYTICS_ENDPOINT`, when preview/production builds should deliver analytics events to an HTTP endpoint.
 
 Validation includes:
 

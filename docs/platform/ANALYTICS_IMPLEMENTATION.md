@@ -63,6 +63,8 @@ The panel is only a client-side QA aid. It reads the same in-memory event buffer
 
 `src/platform/analytics.ts` exposes `setAnalyticsTransport`. A production transport can be injected later without changing gameplay code. Transport failures are swallowed so analytics outages never block play, reward claims, or leaderboard actions.
 
+`src/platform/httpAnalyticsTransport.ts` provides the first concrete transport. Set `VITE_ANALYTICS_ENDPOINT` at build time to send events with `navigator.sendBeacon` and fall back to `fetch` with `keepalive`.
+
 ## Retention Questions Covered
 
 This harness can already answer:
@@ -88,6 +90,6 @@ This harness can already answer:
 
 ## Future Queues
 
-- Add a concrete vendor/server transport with batching and retry policy.
+- Add batching and retry policy if the selected endpoint requires it.
 - Add sampled `client_error` and `asset_load_error` capture.
 - Add product dashboard queries for replay rate, completion rate, and leaderboard submit rate.

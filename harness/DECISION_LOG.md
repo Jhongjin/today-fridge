@@ -80,3 +80,4 @@
 - Phase 60 QA analytics audit visibility added: leaderboard submit receipts now surface in the local QA panel.
 - Phase 61 audio lifecycle suspension added: SFX now pauses while the page is hidden or unloading.
 - Phase 62 analytics transport boundary added: production event delivery can be injected without changing gameplay code.
+- Phase 63 HTTP analytics transport added: builds can send events to `VITE_ANALYTICS_ENDPOINT` through beacon/fetch fallback.
