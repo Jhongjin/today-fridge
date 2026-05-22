@@ -21,3 +21,4 @@
 - Phase 3 CI hotfix: app check workflow split into dependency, unit, build, browser-install, and browser-test steps for actionable failure diagnosis.
 - Phase 3 CI hotfix: Playwright locators switched to stable test IDs for mobile browser checks.
 - Phase 3 CI hotfix: Playwright mobile viewport projects pinned to Chromium so CI only needs the Chromium browser install.
+- Phase 4 platform adapter added: fairness flags, clean ranked score eligibility, idempotent leaderboard service, and unit tests.

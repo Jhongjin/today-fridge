@@ -27,6 +27,7 @@
 - Confirm leaderboard API constraints.
 - Confirm promotion review requirements.
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
+- Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 
 ## Engineering
 
