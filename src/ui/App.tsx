@@ -40,6 +40,7 @@ const IngredientTile = ({
       className={`tile tile--${instance.state}`}
       type="button"
       onClick={onClick}
+      data-testid={`cell-${instance.instanceId}`}
       aria-label={`${ingredient.name}${instance.state === "expiring" ? " 임박" : ""}`}
     >
       {hiddenBack ? <span className="tile__stack" aria-hidden="true" /> : null}
@@ -153,7 +154,7 @@ export const App = () => {
 
         <p className="coach-message">{gameState.message}</p>
 
-        <section className="fridge-board" aria-label="냉장고 보드">
+        <section className="fridge-board" aria-label="냉장고 보드" data-testid="fridge-board">
           {gameState.board.map((cell) => (
             <IngredientTile
               key={cell.id}
@@ -165,7 +166,7 @@ export const App = () => {
           ))}
         </section>
 
-        <section className="tray" aria-label="준비대">
+        <section className="tray" aria-label="준비대" data-testid="prep-tray">
           <span className="tray__label">준비대</span>
           {Array.from({ length: board.traySlots }).map((_, index) => (
             <TraySlot key={index} instance={gameState.tray[index]} />
@@ -204,4 +205,3 @@ export const App = () => {
     </main>
   );
 };
-
