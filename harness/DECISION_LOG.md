@@ -40,3 +40,4 @@
 - Phase 20 app metadata aligned: title, description, Open Graph metadata, Korean manifest, and browser metadata assertions.
 - Phase 21 client error hooks added: startup installs local analytics capture for browser errors and unhandled promise rejections.
 - Phase 22 Apps in Toss adapter contract added: official Game Center submit/open API shape, min-version mapping, tests, and SDK install blocker documentation.
+- Phase 23 leaderboard open action added: result panel opens mock leaderboard, tracks `leaderboard_open`, and extends competition flow tests.

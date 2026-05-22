@@ -55,5 +55,19 @@ describe("leaderboard service", () => {
       }
     });
   });
-});
 
+  it("opens the leaderboard and tracks the source", async () => {
+    clearTrackedEvents();
+    const service = createLeaderboardService(createTossMockClient());
+
+    await expect(service.open("result_panel")).resolves.toEqual({ ok: true });
+
+    expect(getTrackedEvents()[0]).toMatchObject({
+      eventName: "leaderboard_open",
+      properties: {
+        source: "result_panel",
+        status: "success"
+      }
+    });
+  });
+});

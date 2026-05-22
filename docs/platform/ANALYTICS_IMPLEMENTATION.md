@@ -37,6 +37,7 @@ Gameplay:
 Competition:
 
 - `leaderboard_submit`
+- `leaderboard_open`
 
 Rewards:
 

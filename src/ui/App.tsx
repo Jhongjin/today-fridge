@@ -143,6 +143,7 @@ export const App = () => {
   const [muted, setMuted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
+  const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(board.id));
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
@@ -313,6 +314,7 @@ export const App = () => {
     setBoosterHintCellId(null);
     setRewardStatus("idle");
     setSubmitStatus("idle");
+    setLeaderboardOpenStatus("idle");
   };
 
   const useHintBooster = () => {
@@ -405,6 +407,13 @@ export const App = () => {
     }
 
     setSubmitStatus(result.ok ? "success" : result.skipped ? "skipped" : "error");
+  };
+
+  const openLeaderboard = async () => {
+    setLeaderboardOpenStatus("opening");
+    const result = await leaderboardService.open("result_panel");
+
+    setLeaderboardOpenStatus(result.ok ? "opened" : "error");
   };
 
   return (
@@ -625,6 +634,19 @@ export const App = () => {
                     : submitStatus === "submitting"
                       ? "기록 제출 중"
                       : "오늘의 기록 제출"}
+                </button>
+                <button
+                  className="secondary-action"
+                  type="button"
+                  onClick={openLeaderboard}
+                  disabled={leaderboardOpenStatus === "opening"}
+                  data-testid="leaderboard-open"
+                >
+                  {leaderboardOpenStatus === "opened"
+                    ? "랭킹 열림"
+                    : leaderboardOpenStatus === "opening"
+                      ? "랭킹 여는 중"
+                      : "랭킹 보기"}
                 </button>
               </>
             ) : null}

@@ -75,6 +75,8 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
 
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
   await expect(page.getByRole("button", { name: "기록 제출 완료" })).toBeVisible();
+  await page.getByTestId("leaderboard-open").click();
+  await expect(page.getByTestId("leaderboard-open")).toHaveText("랭킹 열림");
 });
 
 test("hint booster marks the run outside clean leaderboard", async ({ page }) => {
