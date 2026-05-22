@@ -1,4 +1,4 @@
-import { Pause, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
+import { Pause, Share2, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
 import { createWebAudioOutput } from "../audio/webAudioOutput";
@@ -26,6 +26,7 @@ import {
   hasClaimedParticipationReward,
   readRewardWallet
 } from "../platform/rewards";
+import { createMockShareClient, createResultShareService } from "../platform/share";
 import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = applyKstDailySeed(firstDailyBoard);
@@ -34,6 +35,14 @@ const dailyRunKey = `${board.id}:${board.seed}`;
 const createPlayId = () => `${board.seed}-${Date.now()}`;
 
 const getLoadMs = () => (typeof performance !== "undefined" ? Math.round(performance.now()) : 0);
+
+const getResultShareUrl = () => {
+  if (typeof location === "undefined") {
+    return undefined;
+  }
+
+  return `${location.origin}${location.pathname}`;
+};
 
 const getDailyRefreshInfo = () => {
   const now = new Date();
@@ -225,6 +234,7 @@ export const App = () => {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
+  const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "success" | "error">("idle");
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(dailyRunKey));
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
@@ -252,6 +262,7 @@ export const App = () => {
     return cellIds;
   }, [boosterHintCellId, tutorialStep]);
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
+  const resultShareService = useMemo(() => createResultShareService(createMockShareClient()), []);
   const audioController = useMemo(() => createAudioController(createWebAudioOutput()), []);
   const analyticsQaEnabled = useMemo(isAnalyticsQaEnabled, []);
 
@@ -407,6 +418,7 @@ export const App = () => {
     setRewardStatus("idle");
     setSubmitStatus("idle");
     setLeaderboardOpenStatus("idle");
+    setShareStatus("idle");
   };
 
   const useHintBooster = () => {
@@ -506,6 +518,23 @@ export const App = () => {
     const result = await leaderboardService.open("result_panel");
 
     setLeaderboardOpenStatus(result.ok ? "opened" : "error");
+  };
+
+  const shareResult = async () => {
+    setShareStatus("sharing");
+    const result = await resultShareService.shareResult({
+      playId,
+      score,
+      boardTitle: board.title,
+      rankedMode: cleanRun,
+      url: getResultShareUrl()
+    });
+
+    if (result.ok) {
+      audioController.play("result_share");
+    }
+
+    setShareStatus(result.ok ? "success" : "error");
   };
 
   return (
@@ -720,6 +749,24 @@ export const App = () => {
                   data-testid="reward-claim"
                 >
                   {completionRewardClaimed || rewardStatus === "claimed" ? "참여 보상 받음" : "참여 보상 받기"}
+                </button>
+                <button
+                  className="secondary-action secondary-action--with-icon"
+                  type="button"
+                  onClick={shareResult}
+                  disabled={shareStatus === "sharing"}
+                  data-testid="result-share"
+                >
+                  <Share2 size={18} aria-hidden="true" />
+                  <span>
+                    {shareStatus === "success"
+                      ? "결과 공유됨"
+                      : shareStatus === "sharing"
+                        ? "공유 준비 중"
+                        : shareStatus === "error"
+                          ? "공유 실패"
+                          : "결과 공유"}
+                  </span>
                 </button>
                 <button
                   className="secondary-action"

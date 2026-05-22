@@ -11,7 +11,8 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 3. During play, the screen shows the gap to the current personal best.
 4. On completion, a higher score updates the personal best immediately.
 5. The result panel shows the improvement delta.
-6. The player can restart and try a cleaner route.
+6. The player can share the result without gaining reward or rank advantage.
+7. The player can restart and try a cleaner route.
 
 ## Why This Fits The Target
 
@@ -32,6 +33,7 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 - `personal_best_update`
 - `round_start`
 - `round_complete`
+- `result_share`
 - `leaderboard_submit`
 
 ## Future Queues

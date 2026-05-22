@@ -102,6 +102,8 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await expect(page.getByTestId("recipe-piece-balance")).toHaveText("1");
   await expect(page.getByTestId("recipe-piece-progress")).toHaveText("1/3");
   await expect(page.getByTestId("reward-claim")).toHaveText("참여 보상 받음");
+  await page.getByTestId("result-share").click();
+  await expect(page.getByTestId("result-share")).toContainText("결과 공유됨");
   await expect(page.getByRole("button", { name: "오늘의 기록 제출" })).toBeVisible();
 
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();

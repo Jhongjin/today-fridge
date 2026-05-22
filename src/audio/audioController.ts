@@ -7,7 +7,8 @@ export type SoundEvent =
   | "booster_use"
   | "round_complete"
   | "round_fail"
-  | "leaderboard_submit";
+  | "leaderboard_submit"
+  | "result_share";
 
 export type AudioController = {
   setMuted: (muted: boolean) => void;

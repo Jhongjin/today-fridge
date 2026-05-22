@@ -450,6 +450,20 @@ button:focus-visible {
   opacity: 0.68;
 }
 
+.secondary-action--with-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.secondary-action--with-icon span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .submit-note {
   margin: 8px 0 0;
   color: #6d5940;

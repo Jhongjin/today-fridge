@@ -19,6 +19,7 @@ The current implementation records sound events through `src/audio/audioControll
 | `round_complete` | Gentle completion flourish |
 | `round_fail` | Low soft notice |
 | `leaderboard_submit` | Short confirmation chime |
+| `result_share` | Light social confirmation tick |
 
 ## 3. Rules
 
@@ -36,7 +37,7 @@ Current:
 - Sound event controller exists.
 - Mute suppresses sound events.
 - Web Audio output plays short synthetic SFX when supported.
-- Gameplay calls sound events on select, clear, rescue, completion, failure, and leaderboard submit.
+- Gameplay calls sound events on select, clear, rescue, completion, failure, result share, and leaderboard submit.
 
 Pending:
 

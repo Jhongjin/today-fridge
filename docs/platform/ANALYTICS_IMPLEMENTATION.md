@@ -38,6 +38,7 @@ Competition:
 
 - `leaderboard_submit`
 - `leaderboard_open`
+- `result_share`
 
 Rewards:
 
@@ -66,6 +67,7 @@ This harness can already answer:
 - Which moves were committed before completion or failure?
 - Did the player complete the recipe and rescue targets?
 - Did the player submit a clean ranked score?
+- Did the player tap result sharing after completion?
 - Did replay attempts start after restart?
 - Did the player claim the fixed completion reward?
 - Did the client capture runtime errors during QA?
