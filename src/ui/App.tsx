@@ -9,6 +9,7 @@ import { applyKstDailySeed, getMsUntilNextKstRefresh, getNextKstRefreshAt } from
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
+import { createHapticsController } from "../haptics/hapticsController";
 import {
   getAnalyticsContext,
   getTrackedEvents,
@@ -337,6 +338,7 @@ export const App = () => {
   const leaderboardService = useMemo(() => createLeaderboardService(createRuntimeTossClient()), []);
   const resultShareService = useMemo(() => createResultShareService(createMockShareClient()), []);
   const audioController = useMemo(() => createAudioController(createWebAudioOutput()), []);
+  const hapticsController = useMemo(() => createHapticsController(), []);
   const analyticsQaEnabled = useMemo(isAnalyticsQaEnabled, []);
 
   useEffect(() => {
@@ -393,6 +395,7 @@ export const App = () => {
       score: totalScore(next.breakdown)
     });
     audioController.play("ingredient_select");
+    hapticsController.play("ingredient_select");
 
     if (next.lastClear?.type === "match") {
       trackEvent("match_clear", {
@@ -406,6 +409,7 @@ export const App = () => {
         setTutorialStep("recipe");
       }
       audioController.play("match_clear");
+      hapticsController.play("match_clear");
     }
 
     if (next.lastClear?.type === "recipe") {
@@ -418,6 +422,7 @@ export const App = () => {
         setTutorialStep("done");
       }
       audioController.play("recipe_complete");
+      hapticsController.play("recipe_complete");
     }
 
     if (next.rescuedCount > current.rescuedCount) {
@@ -432,6 +437,7 @@ export const App = () => {
       }
 
       audioController.play("expiring_rescue");
+      hapticsController.play("expiring_rescue");
     }
 
     if (next.status === "complete" && current.status === "playing") {
@@ -474,6 +480,7 @@ export const App = () => {
         rescued_count: next.rescuedCount
       });
       audioController.play("round_complete");
+      hapticsController.play("round_complete");
       setTutorialStep("done");
     }
 
@@ -485,6 +492,7 @@ export const App = () => {
         tray_state_hash: trayStateHash(next.tray)
       });
       audioController.play("round_fail");
+      hapticsController.play("round_fail");
     }
 
     setCurrentRoute(nextRoute);
@@ -533,6 +541,7 @@ export const App = () => {
       ranked_mode: runFlags.rankedMode
     });
     audioController.play("booster_use");
+    hapticsController.play("booster_use");
   };
 
   const claimReward = () => {
@@ -598,6 +607,7 @@ export const App = () => {
 
     if (result.ok) {
       audioController.play("leaderboard_submit");
+      hapticsController.play("leaderboard_submit");
     }
 
     setSubmitStatus(result.ok ? "success" : result.skipped ? "skipped" : "error");
@@ -622,6 +632,7 @@ export const App = () => {
 
     if (result.ok) {
       audioController.play("result_share");
+      hapticsController.play("result_share");
     }
 
     setShareStatus(result.ok ? "success" : "error");
@@ -656,7 +667,13 @@ export const App = () => {
               type="button"
               aria-label="모션 줄이기"
               aria-pressed={reduceMotion}
-              onClick={() => setReduceMotion((value) => !value)}
+              onClick={() =>
+                setReduceMotion((value) => {
+                  const nextReduceMotion = !value;
+                  hapticsController.setEnabled(!nextReduceMotion);
+                  return nextReduceMotion;
+                })
+              }
             >
               <Waves size={20} />
             </button>

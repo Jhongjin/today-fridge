@@ -29,6 +29,7 @@ The current implementation records sound events through `src/audio/audioControll
 - No casino-like reward sounds.
 - No audio-only critical feedback.
 - Sounds should remain short and low-fatigue.
+- Haptics must be short, optional, and suppressed when reduced motion is enabled.
 
 ## 4. Implementation Status
 
@@ -38,10 +39,10 @@ Current:
 - Mute suppresses sound events.
 - Web Audio output plays short synthetic SFX when supported.
 - Gameplay calls sound events on select, clear, rescue, completion, failure, result share, and leaderboard submit.
+- Haptic controller maps the same core gameplay confirmations to short vibration patterns when supported.
 
 Pending:
 
 - Custom audio asset loading.
 - Separate BGM/SFX volume.
 - Background pause/resume.
-- Haptic feedback mapping.
