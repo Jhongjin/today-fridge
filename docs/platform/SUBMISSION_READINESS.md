@@ -46,6 +46,7 @@ These must be completed before requesting review:
 - App bundle packaging path and `.ait` upload check.
 - Console-ready PNG logo, thumbnail, and screenshot assets.
 - Game rating classification evidence.
+- Rating evidence checklist is documented in `docs/platform/GAME_RATING_EVIDENCE.md`.
 
 ## 3. Policy-Sensitive Items
 

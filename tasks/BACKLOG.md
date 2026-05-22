@@ -53,6 +53,7 @@
 - Confirm leaderboard API constraints.
 - Confirm promotion review requirements.
 - Add official Toss requirements checkpoint. (Phase 57 done pending CI)
+- Add game rating evidence checklist. (Phase 64 done pending CI)
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
 - Add analytics instrumentation harness. (Phase 12 done pending CI)
 - Add injectable analytics transport boundary. (Phase 62 done pending CI)

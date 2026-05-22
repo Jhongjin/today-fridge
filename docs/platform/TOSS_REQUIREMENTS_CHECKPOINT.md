@@ -35,6 +35,7 @@ Official Apps in Toss docs rechecked on 2026-05-22.
 - Generate console-ready 600 x 600 PNG logo and 1932 x 828 PNG thumbnail with `npm run qa:console-assets`.
 - Generate at least 3 vertical 636 x 1048 PNG screenshots for upload with `npm run qa:console-assets`.
 - Prepare game rating evidence path and owner checklist.
+- See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready.
 - Resolve official SDK package install/import.
 - Decide whether deterministic client validation plus leaderboard audit receipts are sufficient for MVP, or add a server verification layer before wider promotion.
