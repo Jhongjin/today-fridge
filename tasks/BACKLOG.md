@@ -73,3 +73,4 @@
 - Add mobile viewport verification. (Phase 3 done pending CI)
 - Stabilize click side effects outside React state updater. (Phase 25 done pending CI)
 - Add Playwright-wide console/page error guard. (Phase 32 done pending CI)
+- Split large UI helper panels out of App. (Phase 46 done pending CI)
