@@ -548,6 +548,42 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.best-route {
+  display: grid;
+  gap: 7px;
+  margin: -4px 0 10px;
+  padding: 9px 10px;
+  border: 1px solid #d5e4e9;
+  border-radius: 8px;
+  background: #f2f7f9;
+}
+
+.best-route span {
+  color: #3d5660;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.best-route div {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 1px;
+}
+
+.best-route i {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d9e7de;
+  border-radius: 8px;
+  background: #ffffff;
+  font-style: normal;
+  font-size: 17px;
+}
+
 .score-breakdown {
   display: grid;
   gap: 5px;

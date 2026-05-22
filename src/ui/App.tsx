@@ -19,7 +19,13 @@ import {
 import { recordDailyStreak } from "../platform/dailyStreak";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
-import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
+import {
+  readPersonalBest,
+  readPersonalBestRoute,
+  recordPersonalBest,
+  recordPersonalBestRoute,
+  type PersonalBestRouteStep
+} from "../platform/personalBest";
 import {
   claimCompletionReward,
   claimParticipationReward,
@@ -299,6 +305,8 @@ export const App = () => {
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
   const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "success" | "error">("idle");
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(dailyRunKey));
+  const [bestRoute, setBestRoute] = useState(() => readPersonalBestRoute(dailyRunKey));
+  const [currentRoute, setCurrentRoute] = useState<PersonalBestRouteStep[]>([]);
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
   const [runFlags, setRunFlags] = useState(cleanRankedFlags);
@@ -361,6 +369,16 @@ export const App = () => {
     }
 
     const selectedIngredientId = cell.front?.ingredientId ?? null;
+    const nextRoute =
+      selectedIngredientId === null
+        ? currentRoute
+        : [
+            ...currentRoute,
+            {
+              cellId: cell.id,
+              ingredientId: selectedIngredientId
+            }
+          ];
 
     if (boosterHintCellId === cell.id) {
       setBoosterHintCellId(null);
@@ -426,6 +444,11 @@ export const App = () => {
 
         if (bestImproved) {
           recordPersonalBest(dailyRunKey, finalScore);
+          const recordedRoute = recordPersonalBestRoute(dailyRunKey, {
+            score: finalScore,
+            steps: nextRoute
+          });
+          setBestRoute(recordedRoute);
         }
 
         setPersonalBest(nextPersonalBest);
@@ -464,6 +487,7 @@ export const App = () => {
       audioController.play("round_fail");
     }
 
+    setCurrentRoute(nextRoute);
     setGameState(next);
   };
 
@@ -477,6 +501,7 @@ export const App = () => {
     setAttemptNo(nextAttemptNo);
     setRoundStartedAt(Date.now());
     setLastBestDelta(null);
+    setCurrentRoute([]);
     setTutorialStep((step) => (step === "done" ? "done" : "match"));
     setRunFlags(cleanRankedFlags());
     setBoosterHintCellId(null);
@@ -766,6 +791,18 @@ export const App = () => {
                   ? `내 최고 기록 +${lastBestDelta.toLocaleString()}`
                   : `내 최고 ${personalBest.toLocaleString()}점`}
               </p>
+            ) : null}
+            {bestRoute ? (
+              <div className="best-route" data-testid="best-route">
+                <span>최고 루트 {bestRoute.steps.length}수</span>
+                <div>
+                  {bestRoute.steps.map((step, index) => (
+                    <i key={`${step.cellId}-${index}`} aria-label={getIngredient(step.ingredientId).name}>
+                      {getIngredient(step.ingredientId).icon}
+                    </i>
+                  ))}
+                </div>
+              </div>
             ) : null}
             <div className="score-breakdown">
               {scoreRows(gameState.breakdown)

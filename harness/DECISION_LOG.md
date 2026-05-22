@@ -55,3 +55,4 @@
 - Phase 35 result share loop added: completion results can be shared with analytics and SFX, without reward or rank advantage.
 - Phase 36 daily streak habit cue added: local consecutive-day count appears beside the refresh cue without economic reward.
 - Phase 37 recipe book panel added: first screen now opens a collection view for MVP recipe-piece progress.
+- Phase 38 best route memory added: improved personal-best clears store and display the ingredient route.

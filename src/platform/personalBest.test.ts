@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readPersonalBest, recordPersonalBest } from "./personalBest";
+import { readPersonalBest, readPersonalBestRoute, recordPersonalBest, recordPersonalBestRoute } from "./personalBest";
 
 const createMemoryStorage = () => {
   const values = new Map<string, string>();
@@ -53,5 +53,38 @@ describe("personal best", () => {
 
     expect(readPersonalBest("daily-1:2026-05-22", storage)).toBe(1700);
     expect(readPersonalBest("daily-1:2026-05-23", storage)).toBe(900);
+  });
+
+  it("stores the ingredient route for a best score", () => {
+    const storage = createMemoryStorage();
+    const route = recordPersonalBestRoute(
+      "daily-1",
+      {
+        score: 1700,
+        steps: [
+          { cellId: "E1", ingredientId: "tofu" },
+          { cellId: "B3", ingredientId: "tofu" }
+        ]
+      },
+      storage
+    );
+
+    expect(route).toEqual({
+      score: 1700,
+      steps: [
+        { cellId: "E1", ingredientId: "tofu" },
+        { cellId: "B3", ingredientId: "tofu" }
+      ]
+    });
+    expect(readPersonalBestRoute("daily-1", storage)).toEqual(route);
+  });
+
+  it("ignores invalid route data", () => {
+    const storage = createMemoryStorage();
+
+    storage.setItem("today-fridge:daily-1:personal-best-route", "not-json");
+
+    expect(readPersonalBestRoute("daily-1", storage)).toBeNull();
+    expect(recordPersonalBestRoute("daily-1", { score: 0, steps: [] }, storage)).toBeNull();
   });
 });

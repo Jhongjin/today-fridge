@@ -107,6 +107,7 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await expect(page.getByTestId("score-value")).toHaveText("1,700");
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
   await expect(page.getByTestId("best-note")).toContainText("+1,700");
+  await expect(page.getByTestId("best-route")).toContainText("6수");
   await expect(page.getByTestId("coin-balance")).toHaveText("0");
   await expect(page.getByTestId("recipe-piece-balance")).toHaveText("0");
   await expect(page.getByTestId("recipe-piece-progress")).toHaveText("0/3");
