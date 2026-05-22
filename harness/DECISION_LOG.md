@@ -43,3 +43,4 @@
 - Phase 23 leaderboard open action added: result panel opens mock leaderboard, tracks `leaderboard_open`, and extends competition flow tests.
 - Phase 24 result overflow guard added: result panel now scrolls within viewport and browser tests assert mobile fit.
 - Phase 25 click side effects stabilized: selection now computes next state before dispatching analytics, audio, and local-storage effects once.
+- Phase 26 daily seed key added: runtime board seed now refreshes on the documented 05:00 KST boundary while preserving the MVP board body.

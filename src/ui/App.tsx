@@ -4,6 +4,7 @@ import { createAudioController } from "../audio/audioController";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
 import { getRecipe } from "../game/data/recipes";
+import { applyKstDailySeed } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
@@ -20,7 +21,7 @@ import {
 } from "../platform/rewards";
 import { createTossMockClient } from "../platform/tossMockClient";
 
-const board = firstDailyBoard;
+const board = applyKstDailySeed(firstDailyBoard);
 
 const createPlayId = () => `${board.seed}-${Date.now()}`;
 
