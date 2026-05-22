@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { firstDailyBoard } from "../data/boards";
-import { applyKstDailySeed, getKstDailyDateKey } from "./dailySeed";
+import { applyKstDailySeed, getKstDailyDateKey, getMsUntilNextKstRefresh, getNextKstRefreshAt } from "./dailySeed";
 
 describe("daily seed", () => {
   it("refreshes at 05:00 KST", () => {
@@ -13,5 +13,18 @@ describe("daily seed", () => {
 
     expect(board.seed).toBe("2026-06-01-KR-kimchi-rescue-v1");
     expect(board.cells).toBe(firstDailyBoard.cells);
+  });
+
+  it("finds the next 05:00 KST refresh boundary", () => {
+    expect(getNextKstRefreshAt(new Date("2026-05-21T19:59:59.000Z")).toISOString()).toBe(
+      "2026-05-21T20:00:00.000Z"
+    );
+    expect(getNextKstRefreshAt(new Date("2026-05-21T20:00:00.000Z")).toISOString()).toBe(
+      "2026-05-22T20:00:00.000Z"
+    );
+  });
+
+  it("returns remaining time until the next refresh", () => {
+    expect(getMsUntilNextKstRefresh(new Date("2026-05-21T19:30:00.000Z"))).toBe(30 * 60 * 1000);
   });
 });

@@ -29,6 +29,8 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByText("밥 + 김치 + 계란")).toBeVisible();
   await expect(page.getByTestId("fridge-board")).toBeVisible();
   await expect(page.getByTestId("prep-tray")).toBeVisible();
+  await expect(page.getByTestId("daily-refresh-strip")).toBeVisible();
+  await expect(page.getByTestId("daily-refresh-countdown")).toContainText(/후/);
   await expect(page.getByTestId("tutorial-strip")).toContainText("두부 3개");
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
   await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);

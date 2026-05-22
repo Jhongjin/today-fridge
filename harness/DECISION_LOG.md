@@ -51,3 +51,4 @@
 - Phase 31 asset load error analytics added: resource failures now emit `asset_load_error` through the local monitoring harness.
 - Phase 32 Playwright error guard added: every mobile browser test now fails on console errors or uncaught page errors.
 - Phase 33 QA analytics inspector added: `?qa=analytics` exposes a local live event panel for QR and device checks.
+- Phase 34 daily refresh cue added: first screen now shows the next 05:00 KST fridge refresh and countdown.

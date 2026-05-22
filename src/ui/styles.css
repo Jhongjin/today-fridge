@@ -52,6 +52,7 @@ button {
 .top-bar,
 .score-strip,
 .competition-strip,
+.daily-refresh-strip,
 .goal-strip,
 .tutorial-strip,
 .tray,
@@ -166,6 +167,38 @@ button:focus-visible {
   color: #1f2f27;
   font-size: 16px;
   letter-spacing: 0;
+}
+
+.daily-refresh-strip {
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #d5e4e9;
+  background: #f2f7f9;
+}
+
+.daily-refresh-strip span {
+  color: #3d5660;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.daily-refresh-strip strong {
+  min-width: 0;
+  color: #1f2f27;
+  font-size: 15px;
+  font-weight: 900;
+  text-align: right;
+}
+
+.daily-refresh-strip small {
+  color: #5d7165;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .goal-strip {

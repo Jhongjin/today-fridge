@@ -42,7 +42,13 @@ board.id + ":" + board.seed
 
 This means the same hand-authored board can reset best-score and reward state each day while keeping a deterministic seed for analytics and leaderboard submission.
 
+## Refresh Visibility
+
+The first screen now shows the next 05:00 KST refresh as a compact "next fridge" strip.
+
+This gives the daily loop a visible return cue without using pressure timers, random rewards, or rank-based compensation.
+
 ## Future Queues
 
 - Generate board variants from the seed.
-- Add a countdown to the next 05:00 KST refresh.
+- Add richer daily board variants after the first submission build is stable.

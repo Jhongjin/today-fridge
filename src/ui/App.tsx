@@ -5,7 +5,7 @@ import { createWebAudioOutput } from "../audio/webAudioOutput";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
 import { getRecipe } from "../game/data/recipes";
-import { applyKstDailySeed } from "../game/engine/dailySeed";
+import { applyKstDailySeed, getMsUntilNextKstRefresh, getNextKstRefreshAt } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
@@ -34,6 +34,28 @@ const dailyRunKey = `${board.id}:${board.seed}`;
 const createPlayId = () => `${board.seed}-${Date.now()}`;
 
 const getLoadMs = () => (typeof performance !== "undefined" ? Math.round(performance.now()) : 0);
+
+const getDailyRefreshInfo = () => {
+  const now = new Date();
+  const nextRefreshAt = getNextKstRefreshAt(now);
+  const totalMinutes = Math.max(1, Math.ceil(getMsUntilNextKstRefresh(now) / 60000));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const remainingLabel = hours > 0 ? `${hours}시간 ${minutes}분 후` : `${minutes}분 후`;
+  const refreshTimeLabel = new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(nextRefreshAt);
+
+  return {
+    remainingLabel,
+    refreshTimeLabel
+  };
+};
 
 const trayStateHash = (tray: IngredientInstance[]) =>
   tray.map((instance) => `${instance.ingredientId}:${instance.state}`).join("|") || "empty";
@@ -210,6 +232,7 @@ export const App = () => {
   const [boosterHintCellId, setBoosterHintCellId] = useState<string | null>(null);
   const [rewardWallet, setRewardWallet] = useState(readRewardWallet);
   const [rewardStatus, setRewardStatus] = useState<"idle" | "claimed" | "already_claimed">("idle");
+  const [dailyRefreshInfo, setDailyRefreshInfo] = useState(getDailyRefreshInfo);
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
@@ -243,6 +266,14 @@ export const App = () => {
       load_ms: getLoadMs()
     });
     trackRoundStart(playId, attemptNo);
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setDailyRefreshInfo(getDailyRefreshInfo());
+    }, 60000);
+
+    return () => window.clearInterval(interval);
   }, []);
 
   const selectCell = (cell: BoardCell) => {
@@ -544,6 +575,12 @@ export const App = () => {
             <span>최고까지</span>
             <strong>{bestGap > 0 ? `${bestGap.toLocaleString()}점` : "도전 중"}</strong>
           </div>
+        </section>
+
+        <section className="daily-refresh-strip" aria-label="다음 냉장고" data-testid="daily-refresh-strip">
+          <span>다음 냉장고</span>
+          <strong data-testid="daily-refresh-countdown">{dailyRefreshInfo.remainingLabel}</strong>
+          <small data-testid="daily-refresh-time">{dailyRefreshInfo.refreshTimeLabel}</small>
         </section>
 
         <section className="goal-strip" aria-label="오늘의 목표">
