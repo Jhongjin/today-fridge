@@ -37,5 +37,14 @@ describe("game engine", () => {
     expect(first).toEqual(second);
     expect(totalScore(first.breakdown)).toBe(totalScore(second.breakdown));
   });
-});
 
+  it("has a verified clean completion route for the first daily board", () => {
+    const state = play(["E1", "B3", "C6", "E5", "A6", "B6"]);
+
+    expect(state.status).toBe("complete");
+    expect(state.rescuedCount).toBe(4);
+    expect(state.completedRecipeIds).toContain("kimchi_fried_rice");
+    expect(state.breakdown.zeroWasteBonus).toBeGreaterThan(0);
+    expect(totalScore(state.breakdown)).toBeGreaterThan(1000);
+  });
+});

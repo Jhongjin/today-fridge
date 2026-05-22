@@ -118,16 +118,23 @@ Blocked cells:
 
 - `D6`, `E6` are large containers that cannot be selected. They visually create bottom clutter but do not affect solvability.
 
-## 9. Intended First-Time Route
+## 9. Verified Clean Completion Route
 
-This is not the only solution. It is a validation route proving solvability.
+This is not the only solution. It is the first automated validation route proving that the board can be completed without boosters.
 
-1. Clear 대파 x3.
-2. Clear 간장 x3.
-3. Reveal hidden rice/kimchi/egg pieces through front clears.
-4. Rescue at least two visible expiring items.
-5. Complete 김치볶음밥 with 밥, 김치, 계란.
-6. Use remaining moves to rescue the last expiring items.
+1. Select `E1` 두부.
+2. Select `B3` 두부.
+3. Select `C6` 임박 두부. This clears tofu and rescues 1 expiring ingredient.
+4. Select `E5` 임박 밥.
+5. Select `A6` 임박 김치.
+6. Select `B6` 임박 계란. This completes 김치볶음밥 and rescues 3 more expiring ingredients.
+
+Expected result:
+
+- Main recipe complete.
+- Expiring rescue count `4/4`.
+- Zero waste bonus earned.
+- Clean ranked score can be submitted.
 
 ## 10. Expected Score Range
 
@@ -160,4 +167,5 @@ Failure copy should avoid shame:
 - Recipe goal remains visible while playing.
 - Same move sequence produces same score.
 - No text overlaps at 360x740.
+- Verified route: `E1, B3, C6, E5, A6, B6`.
 

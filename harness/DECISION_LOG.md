@@ -24,3 +24,4 @@
 - Phase 4 platform adapter added: fairness flags, clean ranked score eligibility, idempotent leaderboard service, and unit tests.
 - Phase 5 UX flow added: sound/motion toggles, first-play hint chips, and result-screen clean leaderboard submit action wired to mock platform service.
 - Phase 6 content data added: app now carries 24 MVP ingredients, 20 MVP recipes, and content integrity tests.
+- Phase 7 board validation added: first daily board has a tested clean completion route and UI score submission test.
