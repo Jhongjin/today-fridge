@@ -31,6 +31,7 @@
 - Add audio event map and mute-aware sound hooks. (Phase 9 done pending CI)
 - Run mobile UI polish/accessibility pass. (Phase 10 done pending CI)
 - Add active hint booster and clean score separation. (Phase 15 done pending CI)
+- Guard result-panel overflow on mobile. (Phase 24 done pending CI)
 
 ## Platform
 

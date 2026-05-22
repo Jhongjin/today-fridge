@@ -59,6 +59,10 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await page.getByTestId("cell-egg_5_expiring").click();
 
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
+  const resultPanelBox = await page.locator(".result-panel").boundingBox();
+  expect(resultPanelBox).not.toBeNull();
+  expect(resultPanelBox!.y).toBeGreaterThanOrEqual(0);
+  expect(resultPanelBox!.height).toBeLessThanOrEqual(page.viewportSize()!.height);
   await expect(page.getByTestId("tutorial-strip")).toHaveCount(0);
   await expect(page.getByTestId("score-value")).toHaveText("1,700");
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
