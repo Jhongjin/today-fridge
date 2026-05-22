@@ -1,0 +1,11 @@
+{
+  "name": "오늘의 냉장고",
+  "short_name": "오늘의 냉장고",
+  "description": "냉장고 속 재료를 정리해 오늘의 집밥을 완성하고 내 최고 점수에 도전하는 1분 캐주얼 퍼즐.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfdfb",
+  "theme_color": "#f7faf8",
+  "lang": "ko",
+  "orientation": "portrait"
+}

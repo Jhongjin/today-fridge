@@ -5,6 +5,7 @@
 - Validate final Korean title. (Phase 19 first recommendation done pending CI)
 - Define 10-second user pitch. (Phase 19 done pending CI)
 - Define app store/Toss listing copy. (Phase 19 done pending CI)
+- Align app metadata with listing title and pitch. (Phase 20 done pending CI)
 
 ## Game Design
 
