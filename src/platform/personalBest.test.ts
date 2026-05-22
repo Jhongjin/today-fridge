@@ -44,4 +44,14 @@ describe("personal best", () => {
     });
     expect(readPersonalBest("daily-1", storage)).toBe(1700);
   });
+
+  it("keeps separate best scores for different daily keys", () => {
+    const storage = createMemoryStorage();
+
+    recordPersonalBest("daily-1:2026-05-22", 1700, storage);
+    recordPersonalBest("daily-1:2026-05-23", 900, storage);
+
+    expect(readPersonalBest("daily-1:2026-05-22", storage)).toBe(1700);
+    expect(readPersonalBest("daily-1:2026-05-23", storage)).toBe(900);
+  });
 });

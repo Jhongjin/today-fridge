@@ -32,8 +32,17 @@ Example runtime seed:
 
 This keeps the "today's fridge" promise without needing procedural generation yet. Later boards can reuse the same date-key utility while swapping themes and recipes.
 
+## Storage Scope
+
+Daily personal bests and fixed reward claims use:
+
+```text
+board.id + ":" + board.seed
+```
+
+This means the same hand-authored board can reset best-score and reward state each day while keeping a deterministic seed for analytics and leaderboard submission.
+
 ## Future Queues
 
 - Generate board variants from the seed.
-- Store daily best per daily seed instead of only board id.
 - Add a countdown to the next 05:00 KST refresh.

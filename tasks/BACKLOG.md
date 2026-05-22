@@ -14,6 +14,7 @@
 - Reflect MVP ingredients and recipes in app data. (Phase 6 done pending CI)
 - Design board seed format. (Phase 1 MVP done in `docs/design/FIRST_DAILY_BOARD.md`)
 - Add 05:00 KST runtime daily seed key. (Phase 26 done pending CI)
+- Scope best score and rewards to daily seed. (Phase 27 done pending CI)
 - Design tutorial board.
 - Add non-blocking first-play tutorial hints. (Phase 14 done pending CI)
 - Prototype scoring formula. (Phase 1 MVP done in `docs/design/SCORE_AND_RECOVERY.md`)

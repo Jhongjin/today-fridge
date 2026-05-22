@@ -22,6 +22,7 @@ import {
 import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = applyKstDailySeed(firstDailyBoard);
+const dailyRunKey = `${board.id}:${board.seed}`;
 
 const createPlayId = () => `${board.seed}-${Date.now()}`;
 
@@ -145,7 +146,7 @@ export const App = () => {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
-  const [personalBest, setPersonalBest] = useState(() => readPersonalBest(board.id));
+  const [personalBest, setPersonalBest] = useState(() => readPersonalBest(dailyRunKey));
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
   const [runFlags, setRunFlags] = useState(cleanRankedFlags);
@@ -159,8 +160,8 @@ export const App = () => {
   const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
   const recipePieceProgress = Math.min(recipePieceCount, recipePieceTarget);
   const recipePieceProgressPercent = `${Math.round((recipePieceProgress / recipePieceTarget) * 100)}%`;
-  const completionRewardClaimed = hasClaimedCompletionReward(board.id, rewardWallet);
-  const participationRewardClaimed = hasClaimedParticipationReward(board.id, rewardWallet);
+  const completionRewardClaimed = hasClaimedCompletionReward(dailyRunKey, rewardWallet);
+  const participationRewardClaimed = hasClaimedParticipationReward(dailyRunKey, rewardWallet);
   const highlightedCells = useMemo(() => {
     const cellIds = new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]);
 
@@ -259,7 +260,7 @@ export const App = () => {
         const nextPersonalBest = Math.max(personalBest, finalScore);
 
         if (bestImproved) {
-          recordPersonalBest(board.id, finalScore);
+          recordPersonalBest(dailyRunKey, finalScore);
         }
 
         setPersonalBest(nextPersonalBest);
@@ -348,7 +349,7 @@ export const App = () => {
       return;
     }
 
-    const result = claimCompletionReward(board.id, recipe.id);
+    const result = claimCompletionReward(dailyRunKey, recipe.id);
 
     setRewardWallet(result.wallet);
     setRewardStatus(result.claimed ? "claimed" : "already_claimed");
@@ -377,7 +378,7 @@ export const App = () => {
       return;
     }
 
-    const result = claimParticipationReward(board.id);
+    const result = claimParticipationReward(dailyRunKey);
 
     setRewardWallet(result.wallet);
     setRewardStatus(result.claimed ? "claimed" : "already_claimed");

@@ -44,3 +44,4 @@
 - Phase 24 result overflow guard added: result panel now scrolls within viewport and browser tests assert mobile fit.
 - Phase 25 click side effects stabilized: selection now computes next state before dispatching analytics, audio, and local-storage effects once.
 - Phase 26 daily seed key added: runtime board seed now refreshes on the documented 05:00 KST boundary while preserving the MVP board body.
+- Phase 27 daily storage scope fixed: personal bests and reward claims now key off `board.id:board.seed`.

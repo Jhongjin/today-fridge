@@ -77,6 +77,18 @@ describe("reward wallet", () => {
     expect(hasClaimedParticipationReward("daily-1", readRewardWallet(storage))).toBe(true);
   });
 
+  it("allows fixed rewards to reset across daily keys", () => {
+    const storage = createMemoryStorage();
+
+    const firstDay = claimCompletionReward("daily-1:2026-05-22", "kimchi_fried_rice", storage);
+    const secondDay = claimCompletionReward("daily-1:2026-05-23", "kimchi_fried_rice", storage);
+
+    expect(firstDay.claimed).toBe(true);
+    expect(secondDay.claimed).toBe(true);
+    expect(secondDay.wallet.fridgeCoins).toBe(60);
+    expect(secondDay.wallet.recipePieces.kimchi_fried_rice).toBe(2);
+  });
+
   it("falls back to an empty wallet when stored data is invalid", () => {
     const storage = createMemoryStorage();
     storage.setItem("today-fridge:reward-wallet", "not-json");
