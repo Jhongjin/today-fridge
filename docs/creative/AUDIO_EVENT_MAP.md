@@ -15,6 +15,7 @@ The current implementation records sound events through `src/audio/audioControll
 | `match_clear` | Clean container click or pop |
 | `recipe_complete` | Warm 2-3 second dish jingle |
 | `expiring_rescue` | Fresh sparkle, not an alarm |
+| `booster_use` | Soft helper tap, clearly less exciting than a clear |
 | `round_complete` | Gentle completion flourish |
 | `round_fail` | Low soft notice |
 | `leaderboard_submit` | Short confirmation chime |
@@ -42,4 +43,3 @@ Pending:
 - Separate BGM/SFX volume.
 - Background pause/resume.
 - Haptic feedback mapping.
-

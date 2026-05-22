@@ -8,7 +8,7 @@ import { createInitialState, selectIngredient } from "../game/engine/gameEngine"
 import { SCORE, totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
 import { getAnalyticsContext, trackEvent } from "../platform/analytics";
-import { cleanRankedFlags } from "../platform/fairness";
+import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
 import { createTossMockClient } from "../platform/tossMockClient";
@@ -42,6 +42,18 @@ const tutorialCopy: Record<Exclude<TutorialStep, "done">, string> = {
 const tutorialHighlightCells: Record<Exclude<TutorialStep, "done">, string[]> = {
   match: ["E1", "B3", "C6"],
   recipe: ["E5", "A6", "B6"]
+};
+
+const cleanRouteCellIds = ["E1", "B3", "C6", "E5", "A6", "B6"];
+
+const findNextHintCellId = (cells: BoardCell[]): string | null => {
+  const routeCellId = cleanRouteCellIds.find((cellId) => cells.some((cell) => cell.id === cellId && cell.front));
+
+  if (routeCellId) {
+    return routeCellId;
+  }
+
+  return cells.find((cell) => !cell.blocked && cell.front)?.id ?? null;
 };
 
 const IngredientTile = ({
@@ -126,13 +138,21 @@ export const App = () => {
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(board.id));
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
+  const [runFlags, setRunFlags] = useState(cleanRankedFlags);
+  const [boosterHintCellId, setBoosterHintCellId] = useState<string | null>(null);
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
-  const highlightedCells = useMemo(
-    () => new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]),
-    [tutorialStep]
-  );
+  const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
+  const highlightedCells = useMemo(() => {
+    const cellIds = new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]);
+
+    if (boosterHintCellId) {
+      cellIds.add(boosterHintCellId);
+    }
+
+    return cellIds;
+  }, [boosterHintCellId, tutorialStep]);
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
   const audioController = useMemo(() => createAudioController(), []);
 
@@ -155,6 +175,10 @@ export const App = () => {
 
       if (next !== current) {
         const selectedIngredientId = cell.front?.ingredientId ?? null;
+
+        if (boosterHintCellId === cell.id) {
+          setBoosterHintCellId(null);
+        }
 
         trackEvent("move_commit", {
           play_id: playId,
@@ -208,23 +232,28 @@ export const App = () => {
 
         if (next.status === "complete" && current.status === "playing") {
           const finalScore = totalScore(next.breakdown);
-          const bestImproved = finalScore > personalBest;
-          const bestDelta = bestImproved ? finalScore - personalBest : 0;
-          const nextPersonalBest = Math.max(personalBest, finalScore);
 
-          if (bestImproved) {
-            recordPersonalBest(board.id, finalScore);
-          }
+          if (cleanRun) {
+            const bestImproved = finalScore > personalBest;
+            const bestDelta = bestImproved ? finalScore - personalBest : 0;
+            const nextPersonalBest = Math.max(personalBest, finalScore);
 
-          setPersonalBest(nextPersonalBest);
-          setLastBestDelta(bestDelta);
+            if (bestImproved) {
+              recordPersonalBest(board.id, finalScore);
+            }
 
-          if (bestImproved) {
-            trackEvent("personal_best_update", {
-              old_score: personalBest,
-              new_score: nextPersonalBest,
-              delta: bestDelta
-            });
+            setPersonalBest(nextPersonalBest);
+            setLastBestDelta(bestDelta);
+
+            if (bestImproved) {
+              trackEvent("personal_best_update", {
+                old_score: personalBest,
+                new_score: nextPersonalBest,
+                delta: bestDelta
+              });
+            }
+          } else {
+            setLastBestDelta(null);
           }
 
           trackEvent("round_complete", {
@@ -265,7 +294,33 @@ export const App = () => {
     setRoundStartedAt(Date.now());
     setLastBestDelta(null);
     setTutorialStep((step) => (step === "done" ? "done" : "match"));
+    setRunFlags(cleanRankedFlags());
+    setBoosterHintCellId(null);
     setSubmitStatus("idle");
+  };
+
+  const useHintBooster = () => {
+    if (gameState.status !== "playing") {
+      return;
+    }
+
+    const hintCellId = findNextHintCellId(gameState.board);
+
+    if (!hintCellId) {
+      return;
+    }
+
+    setBoosterHintCellId(hintCellId);
+    setRunFlags((flags) => ({
+      ...flags,
+      boosterUsed: true
+    }));
+    trackEvent("booster_use", {
+      play_id: playId,
+      booster_id: "recipe_hint",
+      ranked_mode: runFlags.rankedMode
+    });
+    audioController.play("booster_use");
   };
 
   const submitScore = async () => {
@@ -273,7 +328,7 @@ export const App = () => {
     const result = await leaderboardService.submit({
       playId,
       score,
-      flags: cleanRankedFlags()
+      flags: runFlags
     });
 
     if (result.ok) {
@@ -406,10 +461,22 @@ export const App = () => {
         </section>
 
         <section className="booster-row" aria-label="부스터">
-          <button type="button">정리집게</button>
-          <button type="button">냉동칸</button>
-          <button type="button">힌트</button>
+          <button type="button" disabled>
+            정리집게
+          </button>
+          <button type="button" disabled>
+            냉동칸
+          </button>
+          <button type="button" onClick={useHintBooster} disabled={gameState.status !== "playing"} data-testid="hint-booster">
+            힌트
+          </button>
         </section>
+
+        {!cleanRun ? (
+          <p className="fairness-note" data-testid="fairness-note">
+            힌트 사용: 오늘 랭킹 제출 제외
+          </p>
+        ) : null}
 
         {gameState.status !== "playing" ? (
           <section className="result-panel" aria-live="polite">
@@ -453,7 +520,9 @@ export const App = () => {
               </button>
             ) : null}
             {submitStatus === "skipped" || submitStatus === "error" ? (
-              <p className="submit-note">기록 제출은 clean ranked 판에서만 가능해요.</p>
+              <p className="submit-note" data-testid="submit-note">
+                기록 제출은 clean ranked 판에서만 가능해요.
+              </p>
             ) : null}
           </section>
         ) : null}

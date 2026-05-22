@@ -390,6 +390,17 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.booster-row button:disabled {
+  opacity: 0.56;
+}
+
+.fairness-note {
+  margin: -2px 0 0;
+  color: #6d5940;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .secondary-action {
   width: 100%;
   min-height: 48px;

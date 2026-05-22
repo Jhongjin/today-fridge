@@ -4,6 +4,7 @@ export type SoundEvent =
   | "match_clear"
   | "recipe_complete"
   | "expiring_rescue"
+  | "booster_use"
   | "round_complete"
   | "round_fail"
   | "leaderboard_submit";
@@ -42,4 +43,3 @@ export const createAudioController = (): AudioController => {
     }
   };
 };
-

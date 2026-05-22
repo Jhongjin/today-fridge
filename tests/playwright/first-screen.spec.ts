@@ -66,3 +66,27 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
   await expect(page.getByRole("button", { name: "기록 제출 완료" })).toBeVisible();
 });
+
+test("hint booster marks the run outside clean leaderboard", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "첫 판 힌트 닫기" }).click();
+  await expect(page.getByTestId("tutorial-strip")).toHaveCount(0);
+
+  await page.getByTestId("hint-booster").click();
+  await expect(page.getByTestId("fairness-note")).toContainText("랭킹 제출 제외");
+  await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
+
+  await page.getByTestId("cell-tofu_1_fresh").click();
+  await page.getByTestId("cell-tofu_2_fresh").click();
+  await page.getByTestId("cell-tofu_4_expiring").click();
+  await page.getByTestId("cell-rice_5_expiring").click();
+  await page.getByTestId("cell-kimchi_5_expiring").click();
+  await page.getByTestId("cell-egg_5_expiring").click();
+
+  await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
+  await expect(page.getByTestId("personal-best-value")).toHaveText("0");
+
+  await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
+  await expect(page.getByTestId("submit-note")).toContainText("clean ranked");
+});
