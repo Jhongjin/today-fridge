@@ -31,10 +31,10 @@ References:
 
 These must be completed before requesting review:
 
-- Real Toss SDK adapter.
+- Real Toss SDK package import and runtime wiring. Adapter contract exists in `src/platform/appsInTossClient.ts`.
 - Game profile flow before gameplay.
 - Game user key flow and persistence strategy.
-- Leaderboard submit/open using Toss APIs.
+- Leaderboard submit/open real QR test using Toss APIs.
 - QR test on real Toss app.
 - Sound lifecycle once BGM/SFX are added.
 - Safe Area verification on iOS and Android.

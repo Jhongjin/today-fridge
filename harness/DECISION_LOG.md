@@ -39,3 +39,4 @@
 - Phase 19 listing copy package added: recommended title `오늘의 냉장고`, 10-second pitch, listing copy, policy-safe wording, and screenshot plan.
 - Phase 20 app metadata aligned: title, description, Open Graph metadata, Korean manifest, and browser metadata assertions.
 - Phase 21 client error hooks added: startup installs local analytics capture for browser errors and unhandled promise rejections.
+- Phase 22 Apps in Toss adapter contract added: official Game Center submit/open API shape, min-version mapping, tests, and SDK install blocker documentation.
