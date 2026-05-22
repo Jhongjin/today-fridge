@@ -1,4 +1,4 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/playwright",
@@ -21,24 +21,29 @@ export default defineConfig({
     {
       name: "mobile-360",
       use: {
-        ...devices["Pixel 5"],
+        browserName: "chromium",
+        isMobile: true,
+        hasTouch: true,
         viewport: { width: 360, height: 740 }
       }
     },
     {
       name: "mobile-390",
       use: {
-        ...devices["iPhone 13"],
+        browserName: "chromium",
+        isMobile: true,
+        hasTouch: true,
         viewport: { width: 390, height: 844 }
       }
     },
     {
       name: "mobile-430",
       use: {
-        ...devices["Pixel 7"],
+        browserName: "chromium",
+        isMobile: true,
+        hasTouch: true,
         viewport: { width: 430, height: 932 }
       }
     }
   ]
 });
-
