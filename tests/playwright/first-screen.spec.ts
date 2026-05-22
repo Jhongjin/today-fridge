@@ -1,13 +1,26 @@
 import { expect, test } from "@playwright/test";
 
-test("first playable screen is visible and readable", async ({ page }) => {
-  const consoleErrors: string[] = [];
+const pageIssues = new WeakMap<object, string[]>();
+
+test.beforeEach(async ({ page }) => {
+  const issues: string[] = [];
+  pageIssues.set(page, issues);
+
   page.on("console", (message) => {
     if (message.type() === "error") {
-      consoleErrors.push(message.text());
+      issues.push(message.text());
     }
   });
+  page.on("pageerror", (error) => {
+    issues.push(error.message);
+  });
+});
 
+test.afterEach(async ({ page }) => {
+  expect(pageIssues.get(page) ?? []).toEqual([]);
+});
+
+test("first playable screen is visible and readable", async ({ page }) => {
   await page.goto("/");
 
   await expect(page).toHaveTitle("오늘의 냉장고");
@@ -21,7 +34,6 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeVisible();
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
-  expect(consoleErrors).toEqual([]);
 });
 
 test("player can clear three matching ingredients", async ({ page }) => {
