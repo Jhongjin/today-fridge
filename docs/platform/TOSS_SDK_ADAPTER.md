@@ -36,6 +36,12 @@ The bridge is intentionally injected so the game can:
 - Keep local browser and CI builds stable.
 - Add the official SDK import in a later queue once dependency installation is unblocked.
 
+`src/platform/runtimeTossClient.ts` now selects the platform client:
+
+- If `globalThis.__TODAY_FRIDGE_TOSS_BRIDGE__` exists, the app uses `createAppsInTossClient`.
+- Otherwise, the app uses the local mock client for browser, CI, and preview stability.
+- This keeps the UI wired to the same service boundary while the official package install remains blocked.
+
 ## Mapping
 
 Leaderboard submit:
@@ -77,6 +83,6 @@ The adapter contract is ready, but the package import/bundle step remains a sepa
 ## Future Queues
 
 - Resolve package installation in a clean environment and bundle the official SDK.
-- Replace mock client in production build with `createAppsInTossClient`.
+- Replace the temporary global bridge hook with the official SDK import.
 - Add real leaderboard-open result button.
 - Add Toss QR test for supported and unsupported app versions.

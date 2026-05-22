@@ -34,8 +34,8 @@ import {
   readRewardWallet
 } from "../platform/rewards";
 import type { RewardWallet } from "../platform/rewards";
+import { createRuntimeTossClient } from "../platform/runtimeTossClient";
 import { createMockShareClient, createResultShareService } from "../platform/share";
-import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = applyKstDailySeed(firstDailyBoard);
 const dailyRunKey = `${board.id}:${board.seed}`;
@@ -334,7 +334,7 @@ export const App = () => {
 
     return cellIds;
   }, [boosterHintCellId, tutorialStep]);
-  const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
+  const leaderboardService = useMemo(() => createLeaderboardService(createRuntimeTossClient()), []);
   const resultShareService = useMemo(() => createResultShareService(createMockShareClient()), []);
   const audioController = useMemo(() => createAudioController(createWebAudioOutput()), []);
   const analyticsQaEnabled = useMemo(isAnalyticsQaEnabled, []);

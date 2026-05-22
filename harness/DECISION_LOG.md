@@ -58,3 +58,4 @@
 - Phase 38 best route memory added: improved personal-best clears store and display the ingredient route.
 - Phase 39 app icon asset added: manifest and HTML now reference a lightweight SVG fridge icon.
 - Phase 40 Toss SDK install retry documented: npm confirms `@apps-in-toss/web-framework@2.6.0`, but local install still times out before package files update.
+- Phase 41 runtime Toss client selector added: injected bridge wins, local mock remains the browser/CI fallback.
