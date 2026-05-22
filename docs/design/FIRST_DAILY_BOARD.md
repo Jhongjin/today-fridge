@@ -135,15 +135,16 @@ Expected result:
 - Expiring rescue count `4/4`.
 - Zero waste bonus earned.
 - Clean ranked score can be submitted.
+- Expected score: `1,700`.
 
 ## 10. Expected Score Range
 
 | Player Outcome | Expected Score |
 | --- | ---: |
-| First-time clear with some waste | 1,100-1,500 |
-| Clean clear, low combo | 1,600-2,100 |
-| Optimized route, zero waste | 2,300-2,800 |
-| Excellent route with combo chain | 2,900+ |
+| First-time clear with some waste | 900-1,400 |
+| Verified clean route | 1,700 |
+| Clean clear with extra combos | 1,800-2,300 |
+| Excellent route with hidden-item optimization | 2,400+ |
 
 ## 11. Failure Modes
 
@@ -168,4 +169,3 @@ Failure copy should avoid shame:
 - Same move sequence produces same score.
 - No text overlaps at 360x740.
 - Verified route: `E1, B3, C6, E5, A6, B6`.
-

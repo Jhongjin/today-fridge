@@ -45,6 +45,15 @@ describe("game engine", () => {
     expect(state.rescuedCount).toBe(4);
     expect(state.completedRecipeIds).toContain("kimchi_fried_rice");
     expect(state.breakdown.zeroWasteBonus).toBeGreaterThan(0);
-    expect(totalScore(state.breakdown)).toBeGreaterThan(1000);
+    expect(state.breakdown).toMatchObject({
+      clearPoints: 100,
+      recipePoints: 500,
+      rescueBonus: 320,
+      remainingTrayBonus: 180,
+      zeroWasteBonus: 500,
+      moveEfficiencyBonus: 100,
+      wastePenalty: 0
+    });
+    expect(totalScore(state.breakdown)).toBe(1700);
   });
 });

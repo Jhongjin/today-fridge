@@ -28,3 +28,4 @@
 - Phase 8 submission readiness documented against official Apps in Toss guides, with Toss SDK integration split into future queues.
 - Phase 9 audio placeholder added: mute-aware sound event controller, gameplay event hooks, and audio event map.
 - Phase 10 polish pass removed orb-like decoration, added focus styling, stabilized result panel width, and improved tile label readability.
+- Phase 11 score balance v1 locked: verified clean route `E1, B3, C6, E5, A6, B6` scores exactly 1,700.
