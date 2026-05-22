@@ -25,6 +25,14 @@ test("first playable screen is visible and readable", async ({ page }) => {
 
   await expect(page).toHaveTitle("오늘의 냉장고");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /냉장고 속 재료/);
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", "/icon.svg");
+  const manifest = await page.evaluate(async () => (await fetch("/manifest.webmanifest")).json());
+  expect(manifest.icons).toContainEqual(
+    expect.objectContaining({
+      src: "/icon.svg",
+      type: "image/svg+xml"
+    })
+  );
   await expect(page.getByRole("heading", { name: "오늘의 김치볶음밥 냉파" })).toBeVisible();
   await expect(page.getByText("밥 + 김치 + 계란")).toBeVisible();
   await expect(page.getByTestId("fridge-board")).toBeVisible();

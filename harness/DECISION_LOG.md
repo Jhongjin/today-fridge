@@ -56,3 +56,4 @@
 - Phase 36 daily streak habit cue added: local consecutive-day count appears beside the refresh cue without economic reward.
 - Phase 37 recipe book panel added: first screen now opens a collection view for MVP recipe-piece progress.
 - Phase 38 best route memory added: improved personal-best clears store and display the ingredient route.
+- Phase 39 app icon asset added: manifest and HTML now reference a lightweight SVG fridge icon.

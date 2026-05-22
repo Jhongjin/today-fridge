@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Today Fridge">
+  <rect width="512" height="512" rx="96" fill="#f7fbf8" />
+  <rect x="116" y="64" width="280" height="384" rx="42" fill="#287c49" />
+  <path d="M156 116c0-12 10-22 22-22h156c12 0 22 10 22 22v122H156V116Z" fill="#eef7f1" />
+  <path d="M156 262h200v118c0 16-13 30-30 30H186c-17 0-30-14-30-30V262Z" fill="#ffffff" />
+  <rect x="184" y="132" width="34" height="78" rx="17" fill="#f0b84f" />
+  <rect x="294" y="286" width="34" height="82" rx="17" fill="#287c49" />
+  <circle cx="234" cy="322" r="38" fill="#f0b84f" />
+  <path d="M222 322c18-42 60-64 99-51-5 43-38 74-82 75-9 0-14-8-17-24Z" fill="#db4c3f" />
+  <path d="M230 325c21 14 48 12 66-4" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" />
+</svg>

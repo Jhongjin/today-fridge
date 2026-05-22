@@ -14,6 +14,7 @@ References:
 | --- | --- | --- |
 | First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
+| Manifest/app icon | Pass | Web manifest references the SVG app icon. |
 | Bundle size | Pass for prototype | Current build JS/CSS is far below 100MB. Must recheck after assets/audio. |
 | Sound controls | Placeholder | Mute toggle exists. Actual BGM/SFX engine not implemented yet. |
 | Background sound handling | Pending | Needs real audio lifecycle once audio exists. |
