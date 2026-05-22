@@ -957,7 +957,9 @@ export const App = () => {
             ) : null}
             {submitStatus === "skipped" || submitStatus === "error" ? (
               <p className="submit-note" data-testid="submit-note">
-                기록 제출은 clean ranked 판에서만 가능해요.
+                {submitStatus === "skipped"
+                  ? "기록 제출은 clean ranked 판에서만 가능해요."
+                  : "기록 제출이 잠시 실패했어요. 다시 시도해 주세요."}
               </p>
             ) : null}
           </section>

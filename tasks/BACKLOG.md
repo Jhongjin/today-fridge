@@ -71,6 +71,7 @@
 - Add runtime Toss client selection seam. (Phase 41 done pending CI)
 - Add QA Toss bridge browser smoke path. (Phase 42 done pending CI)
 - Add QA Toss bridge submit-failure smoke path. (Phase 65 done pending CI)
+- Split leaderboard submit failure and skip copy. (Phase 66 done pending CI)
 - Add result-screen leaderboard open action. (Phase 23 done pending CI)
 - Document commander deployment runbook. (Phase 28 done pending CI)
 - Add submission screenshot QA script. (Phase 29 done pending CI)

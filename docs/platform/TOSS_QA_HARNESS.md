@@ -129,6 +129,7 @@ Current QA bridge:
 - The app installs `globalThis.__TODAY_FRIDGE_TOSS_BRIDGE__` only when no real bridge exists.
 - Browser automation can read `globalThis.__TODAY_FRIDGE_TOSS_QA_EVENTS__` to assert score submit/open calls.
 - Open `/?qa=toss-bridge-error` to force a leaderboard submit failure and verify retry/recovery UI.
+- Submit failure copy should say the submit temporarily failed and invite retry, while fairness skips should keep the clean-ranked explanation.
 
 Automated scenarios:
 

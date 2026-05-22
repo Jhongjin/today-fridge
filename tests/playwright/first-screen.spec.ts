@@ -183,11 +183,17 @@ test("qa Toss bridge submit failure leaves the player recoverable", async ({ pag
   await playCleanRoute(page);
   await page.getByTestId("leaderboard-submit").click();
 
-  await expect(page.getByTestId("submit-note")).toContainText("clean ranked");
+  await expect(page.getByTestId("submit-note")).toContainText("다시 시도");
   await expect(page.getByTestId("leaderboard-submit")).toBeEnabled();
+  await page.getByTestId("leaderboard-submit").click();
 
   const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
   expect(bridgeEvents).toEqual([
+    {
+      type: "submit",
+      score: "1700",
+      statusCode: "QA_SUBMIT_FAILED"
+    },
     {
       type: "submit",
       score: "1700",
