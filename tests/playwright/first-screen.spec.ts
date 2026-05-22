@@ -68,6 +68,7 @@ test("qa analytics panel shows terminal mission summary", async ({ page }) => {
 
   await expect(page.getByTestId("mission-summary-count")).toHaveText("3/3");
   await expect(page.getByTestId("qa-event-list")).toContainText("round_complete");
+  await expect(page.getByTestId("qa-event-list")).toContainText("score_tier:S");
   await expect(page.getByTestId("qa-event-list")).toContainText("mission_summary");
 });
 

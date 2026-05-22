@@ -8,10 +8,13 @@ import {
 const eventPropertySummary = (event: AnalyticsEvent) =>
   (event.eventName === "leaderboard_submit"
     ? ["status", "score", "board_id", "seed", "route_cells", "score_breakdown_receipt"]
-        .filter((key) => event.properties[key] !== undefined)
-        .map((key) => [key, event.properties[key]] as const)
-    : Object.entries(event.properties).slice(0, 2)
+    : event.eventName === "round_complete"
+      ? ["score", "score_tier", "moves_used", "rescued_count"]
+      : []
   )
+    .filter((key) => event.properties[key] !== undefined)
+    .map((key) => [key, event.properties[key]] as const)
+    .concat(event.eventName === "leaderboard_submit" || event.eventName === "round_complete" ? [] : Object.entries(event.properties).slice(0, 2))
     .map(([key, value]) => `${key}:${String(value)}`)
     .join(" ");
 

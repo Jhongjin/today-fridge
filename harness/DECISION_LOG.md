@@ -86,3 +86,4 @@
 - Phase 66 leaderboard submit failure copy split added: platform failures now show retry guidance distinct from clean-ranked skips.
 - Phase 67 score tier result cue added: result screens now show S/A/B/C, practice, or failed-run mastery labels.
 - Phase 68 score tier engine helper added: mastery thresholds now have focused unit coverage outside UI.
+- Phase 69 QA analytics score tier visibility added: round-complete events now surface score tier in the inspector.
