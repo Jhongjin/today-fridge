@@ -46,3 +46,4 @@
 - Phase 26 daily seed key added: runtime board seed now refreshes on the documented 05:00 KST boundary while preserving the MVP board body.
 - Phase 27 daily storage scope fixed: personal bests and reward claims now key off `board.id:board.seed`.
 - Phase 28 commander deploy runbook added: preview requirements, production approval steps, failure triage, and current blockers documented.
+- Phase 29 submission screenshot script added: local mobile captures for first playable, result, reward, and hint fairness states.
