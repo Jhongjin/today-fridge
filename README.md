@@ -30,6 +30,7 @@ Make a casual game that is instantly understandable, gently competitive, and sti
 - Agent roster: defined in `agents/ROSTER.md`
 - Queue protocol: defined in `harness/QUEUE_PROTOCOL.md`
 - Deployment pipeline: defined in `docs/platform/DEPLOYMENT_PIPELINE.md`
+- First playable scaffold: started in `src/`
 
 ## Operating Rule
 

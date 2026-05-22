@@ -31,6 +31,12 @@ jobs:
           test -f harness/COMMAND_CENTER.md
           test -f harness/REVIEW_GATES.md
 
+      - name: Setup Node when app exists
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Run app checks when app exists
         run: |
           if [ -f package.json ]; then
@@ -102,4 +108,3 @@ jobs:
             echo "- URL: $url"
             echo "- Commit: $GITHUB_SHA"
           } >> "$GITHUB_STEP_SUMMARY"
-

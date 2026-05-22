@@ -6,6 +6,7 @@ dist/
 build/
 .next/
 out/
+*.tsbuildinfo
 
 # Local env
 .env
@@ -29,4 +30,3 @@ playwright-report/
 Thumbs.db
 .vscode/
 .idea/
-

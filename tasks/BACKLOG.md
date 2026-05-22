@@ -31,6 +31,6 @@
 ## Engineering
 
 - Choose engine/framework. (Phase 1 MVP done in `docs/engineering/FRAMEWORK_DECISION.md`)
-- Build board prototype.
-- Build deterministic seed simulator.
+- Build board prototype. (Phase 2 scaffold done pending CI)
+- Build deterministic seed simulator. (Phase 2 scaffold done pending CI)
 - Add mobile viewport verification.

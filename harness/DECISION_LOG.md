@@ -15,3 +15,4 @@
 - Deployment policy set: queue completion commits trigger preview pipeline when configured; production requires commander approval.
 - Phase 1 prototype spec completed: ingredients, first 20 recipes, first daily board, score/recovery rules, first-screen wireframe, analytics schema, and framework decision.
 - Framework decision: Vite + React + TypeScript, DOM/CSS grid for MVP board, pure TypeScript engine for deterministic board and score tests.
+- Phase 2 playable scaffold started: Vite app shell, React DOM board, pure TypeScript game engine, mock Toss adapter, and CI app checks.
