@@ -18,3 +18,4 @@
 - Phase 2 playable scaffold started: Vite app shell, React DOM board, pure TypeScript game engine, mock Toss adapter, and CI app checks.
 - Phase 3 QA harness added: Playwright mobile viewports, first-screen smoke test, basic interaction tests, and CI browser verification.
 - Phase 3 CI hotfix: Vitest unit-test include narrowed so Playwright specs run only under Playwright.
+- Phase 3 CI hotfix: app check workflow split into dependency, unit, build, browser-install, and browser-test steps for actionable failure diagnosis.
