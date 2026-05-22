@@ -696,6 +696,9 @@ export const App = () => {
           <section className="result-panel" aria-live="polite">
             <h2>{gameState.status === "complete" ? "김치볶음밥 완성!" : "한 수만 더 깔끔했어요"}</h2>
             <strong className="result-score">{score.toLocaleString()}점</strong>
+            <p className="attempt-note" data-testid="attempt-note">
+              오늘 {attemptNo.toLocaleString()}번째 도전
+            </p>
             {lastBestDelta !== null ? (
               <p className="best-note" data-testid="best-note">
                 {lastBestDelta > 0

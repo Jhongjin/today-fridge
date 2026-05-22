@@ -65,3 +65,4 @@
 - Phase 45 submission screenshot set expanded: captures now include recipe book and QA Toss bridge result states.
 - Phase 46 UI panel refactor completed: recipe book and analytics QA panels moved into focused components.
 - Phase 47 production source map guard added: bundle check now fails if `.map` files appear in `dist`.
+- Phase 48 attempt-count cue added: result panel now shows today's attempt count to reinforce replay motivation.

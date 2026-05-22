@@ -537,6 +537,13 @@ button:focus-visible {
   font-size: 30px;
 }
 
+.attempt-note {
+  margin: -4px 0 10px;
+  color: #5d7165;
+  font-size: 14px;
+  font-weight: 900;
+}
+
 .best-note {
   margin: -4px 0 10px;
   padding: 8px 10px;
