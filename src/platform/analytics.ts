@@ -27,6 +27,7 @@ export type AnalyticsEvent = {
 };
 
 const events: AnalyticsEvent[] = [];
+const listeners = new Set<(events: AnalyticsEvent[]) => void>();
 
 const detectPlatform = (): AnalyticsPlatform => {
   const userAgent = globalThis.navigator?.userAgent.toLowerCase() ?? "";
@@ -94,6 +95,7 @@ export const trackEvent = (eventName: string, properties: AnalyticsProperties = 
   };
 
   events.push(event);
+  emitAnalyticsSnapshot();
   return event;
 };
 
@@ -101,4 +103,22 @@ export const getTrackedEvents = (): AnalyticsEvent[] => [...events];
 
 export const clearTrackedEvents = (): void => {
   events.length = 0;
+  emitAnalyticsSnapshot();
+};
+
+export const subscribeToTrackedEvents = (listener: (events: AnalyticsEvent[]) => void): (() => void) => {
+  listeners.add(listener);
+  listener(getTrackedEvents());
+
+  return () => {
+    listeners.delete(listener);
+  };
+};
+
+const emitAnalyticsSnapshot = () => {
+  const snapshot = getTrackedEvents();
+
+  for (const listener of listeners) {
+    listener(snapshot);
+  }
 };

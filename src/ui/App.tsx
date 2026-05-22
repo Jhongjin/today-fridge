@@ -9,7 +9,13 @@ import { applyKstDailySeed } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
-import { getAnalyticsContext, trackEvent } from "../platform/analytics";
+import {
+  getAnalyticsContext,
+  getTrackedEvents,
+  subscribeToTrackedEvents,
+  trackEvent,
+  type AnalyticsEvent
+} from "../platform/analytics";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
@@ -56,6 +62,56 @@ const tutorialHighlightCells: Record<Exclude<TutorialStep, "done">, string[]> = 
 
 const cleanRouteCellIds = ["E1", "B3", "C6", "E5", "A6", "B6"];
 const recipePieceTarget = 3;
+
+const isAnalyticsQaEnabled = () => {
+  if (typeof location === "undefined") {
+    return false;
+  }
+
+  const params = new URLSearchParams(location.search);
+  return params.get("qa") === "analytics" || params.has("analytics_debug");
+};
+
+const eventPropertySummary = (event: AnalyticsEvent) =>
+  Object.entries(event.properties)
+    .slice(0, 2)
+    .map(([key, value]) => `${key}:${String(value)}`)
+    .join(" ");
+
+const AnalyticsQaPanel = ({ enabled }: { enabled: boolean }) => {
+  const [events, setEvents] = useState<AnalyticsEvent[]>(() => (enabled ? getTrackedEvents() : []));
+
+  useEffect(() => {
+    if (!enabled) {
+      return undefined;
+    }
+
+    return subscribeToTrackedEvents(setEvents);
+  }, [enabled]);
+
+  if (!enabled) {
+    return null;
+  }
+
+  const recentEvents = events.slice(-8).reverse();
+
+  return (
+    <aside className="qa-analytics-panel" data-testid="qa-analytics-panel" aria-label="QA analytics events">
+      <div className="qa-analytics-panel__header">
+        <strong>QA Events</strong>
+        <span data-testid="qa-event-count">{events.length}</span>
+      </div>
+      <ol data-testid="qa-event-list">
+        {recentEvents.map((event, index) => (
+          <li key={`${event.event_time}-${event.eventName}-${index}`}>
+            <strong>{event.eventName}</strong>
+            <span>{eventPropertySummary(event)}</span>
+          </li>
+        ))}
+      </ol>
+    </aside>
+  );
+};
 
 const findNextHintCellId = (cells: BoardCell[]): string | null => {
   const routeCellId = cleanRouteCellIds.find((cellId) => cells.some((cell) => cell.id === cellId && cell.front));
@@ -174,6 +230,7 @@ export const App = () => {
   }, [boosterHintCellId, tutorialStep]);
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
   const audioController = useMemo(() => createAudioController(createWebAudioOutput()), []);
+  const analyticsQaEnabled = useMemo(isAnalyticsQaEnabled, []);
 
   useEffect(() => {
     const context = getAnalyticsContext();
@@ -673,6 +730,7 @@ export const App = () => {
           </section>
         ) : null}
       </section>
+      <AnalyticsQaPanel enabled={analyticsQaEnabled} />
     </main>
   );
 };

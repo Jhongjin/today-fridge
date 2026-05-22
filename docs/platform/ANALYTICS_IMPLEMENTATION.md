@@ -51,6 +51,12 @@ Debug:
 - `unhandled_rejection`
 - `asset_load_error`
 
+## QA Inspector
+
+Open the app with `?qa=analytics` or `?analytics_debug` to show a local event inspector.
+
+The panel is only a client-side QA aid. It reads the same in-memory event buffer used by tests and updates as new events are tracked.
+
 ## Retention Questions Covered
 
 This harness can already answer:
@@ -75,5 +81,4 @@ This harness can already answer:
 
 - Add a transport adapter with batching and retry policy.
 - Add sampled `client_error` and `asset_load_error` capture.
-- Add a debug overlay available only in development builds.
 - Add product dashboard queries for replay rate, completion rate, and leaderboard submit rate.

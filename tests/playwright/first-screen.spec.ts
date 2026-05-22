@@ -36,6 +36,19 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
 });
 
+test("qa analytics panel shows live event history", async ({ page }) => {
+  await page.goto("/?qa=analytics");
+
+  await expect(page.getByTestId("qa-analytics-panel")).toBeVisible();
+  await expect(page.getByTestId("qa-event-list")).toContainText("app_open");
+  await expect(page.getByTestId("qa-event-list")).toContainText("first_playable_ready");
+  await expect(page.getByTestId("qa-event-list")).toContainText("round_start");
+
+  await page.getByTestId("cell-green_onion_1_fresh").click();
+
+  await expect(page.getByTestId("qa-event-list")).toContainText("move_commit");
+});
+
 test("player can clear three matching ingredients", async ({ page }) => {
   await page.goto("/");
 

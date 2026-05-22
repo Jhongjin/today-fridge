@@ -1,5 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { clearTrackedEvents, configureAnalyticsContext, getTrackedEvents, trackEvent } from "./analytics";
+import {
+  clearTrackedEvents,
+  configureAnalyticsContext,
+  getTrackedEvents,
+  subscribeToTrackedEvents,
+  trackEvent
+} from "./analytics";
 
 describe("analytics event harness", () => {
   beforeEach(() => {
@@ -54,5 +60,19 @@ describe("analytics event harness", () => {
     });
 
     expect(getTrackedEvents().map((event) => event.eventName)).toEqual(["app_open", "leaderboard_submit"]);
+  });
+
+  it("notifies QA subscribers with live event snapshots", () => {
+    const snapshots: string[][] = [];
+    const unsubscribe = subscribeToTrackedEvents((events) => {
+      snapshots.push(events.map((event) => event.eventName));
+    });
+
+    trackEvent("app_open");
+    trackEvent("round_start");
+    unsubscribe();
+    trackEvent("move_commit");
+
+    expect(snapshots).toEqual([[], ["app_open"], ["app_open", "round_start"]]);
   });
 });
