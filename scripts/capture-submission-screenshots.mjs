@@ -1,6 +1,6 @@
 import { chromium } from "@playwright/test";
 import { spawn, spawnSync } from "node:child_process";
-import { mkdir } from "node:fs/promises";
+import { mkdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 const host = "127.0.0.1";
@@ -55,6 +55,7 @@ const server = spawn(npmCommand, ["run", "dev", "--", "--host", host, "--port", 
 });
 
 try {
+  await rm(outputDir, { recursive: true, force: true });
   await mkdir(outputDir, { recursive: true });
   await waitForServer();
 

@@ -67,6 +67,7 @@
 - Document commander deployment runbook. (Phase 28 done pending CI)
 - Add submission screenshot QA script. (Phase 29 done pending CI)
 - Expand submission screenshots for recipe book and QA bridge. (Phase 45 done pending CI)
+- Clean stale screenshot artifacts before capture. (Phase 56 done pending CI)
 - Add manifest app icon asset. (Phase 39 done pending CI)
 - Add CI bundle budget guard. (Phase 43 done pending CI)
 - Add production source map guard. (Phase 47 done pending CI)
