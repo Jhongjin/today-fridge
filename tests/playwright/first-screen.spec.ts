@@ -60,6 +60,21 @@ test("qa analytics panel shows live event history", async ({ page }) => {
   await expect(page.getByTestId("qa-event-list")).toContainText("move_commit");
 });
 
+test("qa analytics panel shows terminal mission summary", async ({ page }) => {
+  await page.goto("/?qa=analytics");
+
+  await page.getByTestId("cell-tofu_1_fresh").click();
+  await page.getByTestId("cell-tofu_2_fresh").click();
+  await page.getByTestId("cell-tofu_4_expiring").click();
+  await page.getByTestId("cell-rice_5_expiring").click();
+  await page.getByTestId("cell-kimchi_5_expiring").click();
+  await page.getByTestId("cell-egg_5_expiring").click();
+
+  await expect(page.getByTestId("mission-summary-count")).toHaveText("3/3");
+  await expect(page.getByTestId("qa-event-list")).toContainText("round_complete");
+  await expect(page.getByTestId("qa-event-list")).toContainText("mission_summary");
+});
+
 test("recipe book opens from the first screen", async ({ page }) => {
   await page.goto("/");
 
