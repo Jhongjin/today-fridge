@@ -544,6 +544,54 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.mission-summary {
+  display: grid;
+  gap: 8px;
+  margin: -2px 0 10px;
+  padding: 10px;
+  border: 1px solid #d9e7de;
+  border-radius: 8px;
+  background: #f8fbf9;
+}
+
+.mission-summary__header,
+.mission-summary__list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mission-summary__header {
+  justify-content: space-between;
+}
+
+.mission-summary__header span,
+.mission-summary__header strong {
+  color: #1f2f27;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.mission-summary__list {
+  flex-wrap: wrap;
+}
+
+.mission-summary__item {
+  padding: 4px 7px;
+  border: 1px solid #d5e4e9;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #5d7165;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.mission-summary__item--complete {
+  border-color: #287c49;
+  background: #eef7f1;
+  color: #287c49;
+}
+
 .best-note {
   margin: -4px 0 10px;
   padding: 8px 10px;

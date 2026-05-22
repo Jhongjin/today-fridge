@@ -66,3 +66,4 @@
 - Phase 46 UI panel refactor completed: recipe book and analytics QA panels moved into focused components.
 - Phase 47 production source map guard added: bundle check now fails if `.map` files appear in `dist`.
 - Phase 48 attempt-count cue added: result panel now shows today's attempt count to reinforce replay motivation.
+- Phase 49 result mission summary added: result panel shows recipe, rescue, and clean-record mission completion.

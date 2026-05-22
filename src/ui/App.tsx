@@ -220,6 +220,24 @@ export const App = () => {
   const recipePieceProgressPercent = `${Math.round((recipePieceProgress / recipePieceTarget) * 100)}%`;
   const completionRewardClaimed = hasClaimedCompletionReward(dailyRunKey, rewardWallet);
   const participationRewardClaimed = hasClaimedParticipationReward(dailyRunKey, rewardWallet);
+  const missionRows = [
+    {
+      id: "recipe",
+      label: "레시피 완성",
+      complete: gameState.completedRecipeIds.includes(recipe.id)
+    },
+    {
+      id: "rescue",
+      label: "임박 재료 구조",
+      complete: gameState.rescuedCount >= board.rescueTarget
+    },
+    {
+      id: "clean",
+      label: "클린 기록",
+      complete: gameState.status === "complete" && cleanRun
+    }
+  ];
+  const completedMissionCount = missionRows.filter((row) => row.complete).length;
   const highlightedCells = useMemo(() => {
     const cellIds = new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]);
 
@@ -699,6 +717,25 @@ export const App = () => {
             <p className="attempt-note" data-testid="attempt-note">
               오늘 {attemptNo.toLocaleString()}번째 도전
             </p>
+            <div className="mission-summary" data-testid="mission-summary">
+              <div className="mission-summary__header">
+                <span>오늘 미션</span>
+                <strong data-testid="mission-summary-count">
+                  {completedMissionCount}/{missionRows.length}
+                </strong>
+              </div>
+              <div className="mission-summary__list">
+                {missionRows.map((row) => (
+                  <span
+                    className={row.complete ? "mission-summary__item mission-summary__item--complete" : "mission-summary__item"}
+                    data-testid={`mission-${row.id}`}
+                    key={row.id}
+                  >
+                    {row.label}
+                  </span>
+                ))}
+              </div>
+            </div>
             {lastBestDelta !== null ? (
               <p className="best-note" data-testid="best-note">
                 {lastBestDelta > 0
