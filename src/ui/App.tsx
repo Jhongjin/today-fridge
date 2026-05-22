@@ -1,13 +1,13 @@
 import { Pause, Trophy, Volume2, VolumeX, Waves } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
 import { getRecipe } from "../game/data/recipes";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
-import { totalScore } from "../game/engine/scoring";
+import { SCORE, totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
-import { trackEvent } from "../platform/analytics";
+import { getAnalyticsContext, trackEvent } from "../platform/analytics";
 import { cleanRankedFlags } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import { createTossMockClient } from "../platform/tossMockClient";
@@ -15,6 +15,21 @@ import { createTossMockClient } from "../platform/tossMockClient";
 const board = firstDailyBoard;
 
 const createPlayId = () => `${board.seed}-${Date.now()}`;
+
+const getLoadMs = () => (typeof performance !== "undefined" ? Math.round(performance.now()) : 0);
+
+const trayStateHash = (tray: IngredientInstance[]) =>
+  tray.map((instance) => `${instance.ingredientId}:${instance.state}`).join("|") || "empty";
+
+const trackRoundStart = (playId: string, attemptNo: number) => {
+  trackEvent("round_start", {
+    play_id: playId,
+    board_id: board.id,
+    seed: board.seed,
+    attempt_no: attemptNo,
+    ranked_mode: true
+  });
+};
 
 const IngredientTile = ({
   instance,
@@ -88,6 +103,8 @@ const scoreRows = (breakdown: ReturnType<typeof createInitialState>["breakdown"]
 export const App = () => {
   const [gameState, setGameState] = useState(() => createInitialState(board));
   const [playId, setPlayId] = useState(createPlayId);
+  const [attemptNo, setAttemptNo] = useState(1);
+  const [roundStartedAt, setRoundStartedAt] = useState(() => Date.now());
   const [muted, setMuted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
@@ -96,36 +113,89 @@ export const App = () => {
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
   const audioController = useMemo(() => createAudioController(), []);
 
+  useEffect(() => {
+    const context = getAnalyticsContext();
+
+    trackEvent("app_open", {
+      entry_source: context.entrySource,
+      toss_app_version: null
+    });
+    trackEvent("first_playable_ready", {
+      load_ms: getLoadMs()
+    });
+    trackRoundStart(playId, attemptNo);
+  }, []);
+
   const selectCell = (cell: BoardCell) => {
     setGameState((current) => {
       const next = selectIngredient(current, board, cell.id);
 
       if (next !== current) {
+        const selectedIngredientId = cell.front?.ingredientId ?? null;
+
         trackEvent("move_commit", {
           play_id: playId,
           cell_id: cell.id,
+          ingredient_id: selectedIngredientId,
           move_no: next.movesUsed,
+          tray_state_hash: trayStateHash(next.tray),
           score: totalScore(next.breakdown)
         });
         audioController.play("ingredient_select");
 
         if (next.lastClear?.type === "match") {
+          trackEvent("match_clear", {
+            play_id: playId,
+            ingredient_id: next.lastClear.ingredientId,
+            count: next.lastClear.instances.length,
+            combo_index: next.lastClear.comboIndex,
+            points: next.lastClear.points
+          });
           audioController.play("match_clear");
         }
 
         if (next.lastClear?.type === "recipe") {
+          trackEvent("recipe_complete", {
+            play_id: playId,
+            recipe_id: next.lastClear.recipeId,
+            points: next.lastClear.points
+          });
           audioController.play("recipe_complete");
         }
 
         if (next.rescuedCount > current.rescuedCount) {
+          const rescuedInstances = next.lastClear?.instances.filter((instance) => instance.state === "expiring") ?? [];
+
+          for (const instance of rescuedInstances) {
+            trackEvent("expiring_rescue", {
+              play_id: playId,
+              ingredient_id: instance.ingredientId,
+              points: SCORE.expiringRescue
+            });
+          }
+
           audioController.play("expiring_rescue");
         }
 
-        if (next.status === "complete") {
+        if (next.status === "complete" && current.status === "playing") {
+          trackEvent("round_complete", {
+            play_id: playId,
+            score: totalScore(next.breakdown),
+            duration_ms: Math.max(0, Date.now() - roundStartedAt),
+            moves_used: next.movesUsed,
+            recipe_count: next.completedRecipeIds.length,
+            rescued_count: next.rescuedCount
+          });
           audioController.play("round_complete");
         }
 
-        if (next.status === "failed") {
+        if (next.status === "failed" && current.status === "playing") {
+          trackEvent("round_fail", {
+            play_id: playId,
+            fail_reason: next.movesUsed > board.moveLimit ? "MOVE_LIMIT" : "TRAY_OVERFLOW",
+            move_no: next.movesUsed,
+            tray_state_hash: trayStateHash(next.tray)
+          });
           audioController.play("round_fail");
         }
       }
@@ -135,13 +205,14 @@ export const App = () => {
   };
 
   const restart = () => {
-    trackEvent("round_start", {
-      board_id: board.id,
-      seed: board.seed,
-      ranked_mode: true
-    });
+    const nextAttemptNo = attemptNo + 1;
+    const nextPlayId = createPlayId();
+
+    trackRoundStart(nextPlayId, nextAttemptNo);
     setGameState(createInitialState(board));
-    setPlayId(createPlayId());
+    setPlayId(nextPlayId);
+    setAttemptNo(nextAttemptNo);
+    setRoundStartedAt(Date.now());
     setSubmitStatus("idle");
   };
 

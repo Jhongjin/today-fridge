@@ -29,3 +29,4 @@
 - Phase 9 audio placeholder added: mute-aware sound event controller, gameplay event hooks, and audio event map.
 - Phase 10 polish pass removed orb-like decoration, added focus styling, stabilized result panel width, and improved tile label readability.
 - Phase 11 score balance v1 locked: verified clean route `E1, B3, C6, E5, A6, B6` scores exactly 1,700.
+- Phase 12 analytics harness added: shared event envelope, first-play funnel hooks, gameplay clear/completion events, and local unit coverage.
