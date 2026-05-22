@@ -50,6 +50,14 @@ The workflow always validates required command-center files. It deploys preview 
 Optional variable:
 
 - `VERCEL_CLI_VERSION`, for example `latest` or a pinned version.
+- `BUNDLE_BUDGET_BYTES`, when the default 5 MB static `dist` budget needs to be raised for approved assets.
+
+Validation includes:
+
+- Unit tests.
+- Production build.
+- Static `dist` bundle budget check.
+- Playwright mobile browser tests.
 
 ## Commander Production Deploy
 

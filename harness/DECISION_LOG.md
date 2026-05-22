@@ -60,3 +60,4 @@
 - Phase 40 Toss SDK install retry documented: npm confirms `@apps-in-toss/web-framework@2.6.0`, but local install still times out before package files update.
 - Phase 41 runtime Toss client selector added: injected bridge wins, local mock remains the browser/CI fallback.
 - Phase 42 QA Toss bridge added: `?qa=toss-bridge` exercises submit/open through the injected bridge path in browser tests.
+- Phase 43 bundle budget guard added: CI now checks static `dist` output against a default 5 MB budget.
