@@ -29,6 +29,44 @@ describe("leaderboard service", () => {
     expect(getTrackedEvents().filter((event) => event.eventName === "leaderboard_submit")).toHaveLength(2);
   });
 
+  it("attaches score audit receipts to leaderboard analytics", async () => {
+    clearTrackedEvents();
+    const service = createLeaderboardService(createTossMockClient());
+
+    await service.submit({
+      playId: "play-audit",
+      score: 1700,
+      flags: cleanRankedFlags(),
+      audit: {
+        boardId: "first-daily-board",
+        seed: "2026-05-22:first-daily-board",
+        routeCells: "E1>B3>C6>E5>A6>B6",
+        routeIngredients: "tofu>tofu>tofu>rice>kimchi>egg",
+        routeLength: 6,
+        movesUsed: 6,
+        rescuedCount: 4,
+        completedRecipes: "kimchi_fried_rice",
+        scoreBreakdownReceipt: "clearPoints:100|recipePoints:500"
+      }
+    });
+
+    expect(getTrackedEvents()[0]).toMatchObject({
+      eventName: "leaderboard_submit",
+      properties: {
+        status: "success",
+        board_id: "first-daily-board",
+        seed: "2026-05-22:first-daily-board",
+        route_cells: "E1>B3>C6>E5>A6>B6",
+        route_ingredients: "tofu>tofu>tofu>rice>kimchi>egg",
+        route_length: 6,
+        moves_used: 6,
+        rescued_count: 4,
+        completed_recipes: "kimchi_fried_rice",
+        score_breakdown_receipt: "clearPoints:100|recipePoints:500"
+      }
+    });
+  });
+
   it("does not submit booster-assisted scores to clean leaderboard", async () => {
     clearTrackedEvents();
     const service = createLeaderboardService(createTossMockClient());

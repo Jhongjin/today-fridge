@@ -75,7 +75,7 @@ Required events:
 | `recipe_complete` | play_id, recipe_id |
 | `round_complete` | play_id, board_id, score, duration_ms, clear_count, recipe_count |
 | `round_fail` | play_id, board_id, fail_reason |
-| `leaderboard_submit` | play_id, score, status, error_code |
+| `leaderboard_submit` | play_id, score, status, error_code, board_id, seed, route_cells, route_ingredients, score_breakdown_receipt |
 | `leaderboard_open` | source, status |
 | `share_reward_event` | event_type, reward_amount, reward_unit |
 | `ad_reward` | ad_group_id, status, event_type |
@@ -137,6 +137,7 @@ Automated scenarios:
 4. Complete one fixed-seed round.
 5. Verify same seed and move sequence produce same score.
 6. Mock leaderboard success, failure, duplicate submit.
+7. Confirm leaderboard submit analytics contains the board seed, selected route, and score receipt.
 7. Verify QA Toss bridge submit/open path.
 8. Mock share reward event variants.
 9. Mock rewarded ad loaded, reward, dismissed, failed.

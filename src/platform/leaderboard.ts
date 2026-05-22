@@ -1,11 +1,24 @@
 import type { TossClient } from "./tossClient";
-import { trackEvent } from "./analytics";
+import { trackEvent, type AnalyticsProperties } from "./analytics";
 import { getScoreSubmissionEligibility, type RunFairnessFlags } from "./fairness";
 
 export type LeaderboardSubmission = {
   playId: string;
   score: number;
   flags: RunFairnessFlags;
+  audit?: LeaderboardScoreAudit;
+};
+
+export type LeaderboardScoreAudit = {
+  boardId: string;
+  seed: string;
+  routeCells: string;
+  routeIngredients: string;
+  routeLength: number;
+  movesUsed: number;
+  rescuedCount: number;
+  completedRecipes: string;
+  scoreBreakdownReceipt: string;
 };
 
 export type LeaderboardSubmissionResult = {
@@ -23,7 +36,22 @@ export type LeaderboardOpenResult = {
 export const createLeaderboardService = (client: TossClient) => {
   const submittedPlayIds = new Set<string>();
 
-  const submit = async ({ playId, score, flags }: LeaderboardSubmission): Promise<LeaderboardSubmissionResult> => {
+  const auditProperties = (audit?: LeaderboardScoreAudit): AnalyticsProperties =>
+    audit
+      ? {
+          board_id: audit.boardId,
+          seed: audit.seed,
+          route_cells: audit.routeCells,
+          route_ingredients: audit.routeIngredients,
+          route_length: audit.routeLength,
+          moves_used: audit.movesUsed,
+          rescued_count: audit.rescuedCount,
+          completed_recipes: audit.completedRecipes,
+          score_breakdown_receipt: audit.scoreBreakdownReceipt
+        }
+      : {};
+
+  const submit = async ({ playId, score, flags, audit }: LeaderboardSubmission): Promise<LeaderboardSubmissionResult> => {
     const eligibility = getScoreSubmissionEligibility(flags);
 
     if (!eligibility.submittable) {
@@ -32,7 +60,8 @@ export const createLeaderboardService = (client: TossClient) => {
         score,
         status: "skipped",
         error_code: eligibility.reason ?? null,
-        ranked_mode: flags.rankedMode
+        ranked_mode: flags.rankedMode,
+        ...auditProperties(audit)
       });
 
       return {
@@ -48,7 +77,8 @@ export const createLeaderboardService = (client: TossClient) => {
         score,
         status: "duplicate",
         error_code: "DUPLICATE_PLAY_ID",
-        ranked_mode: flags.rankedMode
+        ranked_mode: flags.rankedMode,
+        ...auditProperties(audit)
       });
 
       return {
@@ -66,7 +96,8 @@ export const createLeaderboardService = (client: TossClient) => {
       score,
       status: result.ok ? "success" : "error",
       error_code: result.errorCode ?? null,
-      ranked_mode: flags.rankedMode
+      ranked_mode: flags.rankedMode,
+      ...auditProperties(audit)
     });
 
     return result.ok ? { ok: true } : { ok: false, errorCode: result.errorCode };

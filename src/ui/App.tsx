@@ -8,7 +8,7 @@ import { getRecipe } from "../game/data/recipes";
 import { applyKstDailySeed, getMsUntilNextKstRefresh, getNextKstRefreshAt } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
-import type { BoardCell, IngredientInstance } from "../game/types";
+import type { BoardCell, IngredientInstance, ScoreBreakdown } from "../game/types";
 import { createHapticsController } from "../haptics/hapticsController";
 import { getAnalyticsContext, trackEvent } from "../platform/analytics";
 import { recordDailyStreak } from "../platform/dailyStreak";
@@ -73,6 +73,11 @@ const getDailyRefreshInfo = () => {
 
 const trayStateHash = (tray: IngredientInstance[]) =>
   tray.map((instance) => `${instance.ingredientId}:${instance.state}`).join("|") || "empty";
+
+const scoreBreakdownReceipt = (breakdown: ScoreBreakdown) =>
+  Object.entries(breakdown)
+    .map(([key, value]) => `${key}:${value}`)
+    .join("|");
 
 const trackRoundStart = (playId: string, attemptNo: number) => {
   trackEvent("round_start", {
@@ -549,7 +554,18 @@ export const App = () => {
     const result = await leaderboardService.submit({
       playId,
       score,
-      flags: runFlags
+      flags: runFlags,
+      audit: {
+        boardId: board.id,
+        seed: board.seed,
+        routeCells: currentRoute.map((step) => step.cellId).join(">") || "none",
+        routeIngredients: currentRoute.map((step) => step.ingredientId).join(">") || "none",
+        routeLength: currentRoute.length,
+        movesUsed: gameState.movesUsed,
+        rescuedCount: gameState.rescuedCount,
+        completedRecipes: gameState.completedRecipeIds.join(",") || "none",
+        scoreBreakdownReceipt: scoreBreakdownReceipt(gameState.breakdown)
+      }
     });
 
     if (result.ok) {

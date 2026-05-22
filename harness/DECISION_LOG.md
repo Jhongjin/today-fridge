@@ -76,3 +76,4 @@
 - Phase 56 screenshot artifact cleanup added: submission capture now clears stale screenshots before writing a fresh set.
 - Phase 57 Toss requirements checkpoint added: current official launch, Game Center, asset, and rating requirements are mapped to project gaps.
 - Phase 58 console asset capture added: QA can now generate Apps in Toss logo, thumbnail, and upload-size screenshot PNGs.
+- Phase 59 leaderboard score audit receipts added: submit analytics now carries board, route, and score-breakdown evidence.

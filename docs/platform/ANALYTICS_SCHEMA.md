@@ -47,7 +47,7 @@ Every event should include:
 
 | Event | Required Properties |
 | --- | --- |
-| `leaderboard_submit` | `play_id`, `score`, `ranked_mode`, `status`, `error_code` |
+| `leaderboard_submit` | `play_id`, `score`, `ranked_mode`, `status`, `error_code`, `board_id`, `seed`, `route_cells`, `route_ingredients`, `score_breakdown_receipt` |
 | `leaderboard_open` | `source`, `status` |
 | `friend_challenge_open` | `source`, `board_id` |
 | `friend_challenge_send` | `board_id`, `status` |
@@ -75,6 +75,7 @@ Add these properties to relevant events:
 | `ad_recovery_used` | boolean | Any ad recovery used |
 | `share_bonus_used` | boolean | Share reward affected run |
 | `score_submittable` | boolean | Can submit to clean leaderboard |
+| `score_breakdown_receipt` | string | Deterministic score component receipt for later server-side validation |
 
 Clean leaderboard submit condition:
 

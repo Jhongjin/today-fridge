@@ -37,4 +37,4 @@ Official Apps in Toss docs rechecked on 2026-05-22.
 - Prepare game rating evidence path and owner checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready.
 - Resolve official SDK package install/import.
-- Decide whether deterministic client validation is sufficient for MVP, or add a server verification layer before wider promotion.
+- Decide whether deterministic client validation plus leaderboard audit receipts are sufficient for MVP, or add a server verification layer before wider promotion.
