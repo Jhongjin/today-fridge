@@ -49,6 +49,7 @@ Debug:
 
 - `client_error`
 - `unhandled_rejection`
+- `asset_load_error`
 
 ## Retention Questions Covered
 

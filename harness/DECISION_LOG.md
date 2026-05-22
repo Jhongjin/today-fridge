@@ -48,3 +48,4 @@
 - Phase 28 commander deploy runbook added: preview requirements, production approval steps, failure triage, and current blockers documented.
 - Phase 29 submission screenshot script added: local mobile captures for first playable, result, reward, and hint fairness states.
 - Phase 30 Web Audio SFX output added: sound events now drive low-fatigue synthetic browser tones while mute remains authoritative.
+- Phase 31 asset load error analytics added: resource failures now emit `asset_load_error` through the local monitoring harness.

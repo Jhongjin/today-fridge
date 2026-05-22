@@ -51,4 +51,22 @@ describe("error monitoring", () => {
       }
     });
   });
+
+  it("captures asset load errors separately", () => {
+    installClientErrorTracking();
+
+    const image = document.createElement("img");
+    image.src = "https://example.invalid/missing.png";
+    document.body.appendChild(image);
+    image.dispatchEvent(new Event("error", { bubbles: true }));
+
+    expect(getTrackedEvents()[0]).toMatchObject({
+      eventName: "asset_load_error",
+      properties: {
+        source: "client",
+        tag_name: "img",
+        url: "https://example.invalid/missing.png"
+      }
+    });
+  });
 });

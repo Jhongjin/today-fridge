@@ -8,6 +8,7 @@ Captured events:
 
 - `client_error`
 - `unhandled_rejection`
+- `asset_load_error`
 
 Current transport:
 
@@ -28,6 +29,12 @@ Current transport:
 - `source`
 - `message`
 
+`asset_load_error`:
+
+- `source`
+- `tag_name`
+- `url`
+
 ## Guardrails
 
 - No personal data is attached.
@@ -42,5 +49,4 @@ This does not replace production monitoring. It prepares the event contract and 
 
 - Add production error transport.
 - Add build/version metadata from CI.
-- Add sampled asset-load failures.
 - Add a QA-only event inspector.

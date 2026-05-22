@@ -46,6 +46,7 @@
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Lock submission readiness and Toss SDK integration queues. (Phase 8 done pending CI)
 - Add client error monitoring hooks. (Phase 21 done pending CI)
+- Add asset load error analytics. (Phase 31 done pending CI)
 - Add Apps in Toss Game Center adapter contract. (Phase 22 done pending CI)
 - Add result-screen leaderboard open action. (Phase 23 done pending CI)
 - Document commander deployment runbook. (Phase 28 done pending CI)
