@@ -8,15 +8,15 @@
 
 ## Game Design
 
-- Define complete ingredient taxonomy.
-- Define first 20 recipes.
-- Design board seed format.
+- Define complete ingredient taxonomy. (Phase 1 MVP done in `docs/design/INGREDIENTS.md`)
+- Define first 20 recipes. (Phase 1 MVP done in `docs/design/RECIPES.md`)
+- Design board seed format. (Phase 1 MVP done in `docs/design/FIRST_DAILY_BOARD.md`)
 - Design tutorial board.
-- Prototype scoring formula.
+- Prototype scoring formula. (Phase 1 MVP done in `docs/design/SCORE_AND_RECOVERY.md`)
 
 ## UX Creative
 
-- Create first-screen wireframe.
+- Create first-screen wireframe. (Phase 1 MVP done in `docs/creative/FIRST_SCREEN_WIREFRAME.md`)
 - Define ingredient icon style.
 - Define BGM mood references.
 - Define SFX list and trigger map.
@@ -26,12 +26,11 @@
 - Verify latest Apps in Toss SDK requirements.
 - Confirm leaderboard API constraints.
 - Confirm promotion review requirements.
-- Define analytics event schema.
+- Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
 
 ## Engineering
 
-- Choose engine/framework.
+- Choose engine/framework. (Phase 1 MVP done in `docs/engineering/FRAMEWORK_DECISION.md`)
 - Build board prototype.
 - Build deterministic seed simulator.
 - Add mobile viewport verification.
-

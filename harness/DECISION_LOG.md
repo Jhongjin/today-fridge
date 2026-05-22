@@ -13,3 +13,5 @@
 - Sub-agent outputs integrated by command center with a key correction: this remains a game, not a real fridge-management utility.
 - GitHub remote set to `https://github.com/Jhongjin/today-fridge.git`.
 - Deployment policy set: queue completion commits trigger preview pipeline when configured; production requires commander approval.
+- Phase 1 prototype spec completed: ingredients, first 20 recipes, first daily board, score/recovery rules, first-screen wireframe, analytics schema, and framework decision.
+- Framework decision: Vite + React + TypeScript, DOM/CSS grid for MVP board, pure TypeScript engine for deterministic board and score tests.
