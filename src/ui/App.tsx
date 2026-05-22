@@ -11,6 +11,7 @@ import { getAnalyticsContext, trackEvent } from "../platform/analytics";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
+import { claimCompletionReward, hasClaimedCompletionReward, readRewardWallet } from "../platform/rewards";
 import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = firstDailyBoard;
@@ -140,10 +141,14 @@ export const App = () => {
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
   const [runFlags, setRunFlags] = useState(cleanRankedFlags);
   const [boosterHintCellId, setBoosterHintCellId] = useState<string | null>(null);
+  const [rewardWallet, setRewardWallet] = useState(readRewardWallet);
+  const [rewardStatus, setRewardStatus] = useState<"idle" | "claimed" | "already_claimed">("idle");
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
   const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
+  const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
+  const completionRewardClaimed = hasClaimedCompletionReward(board.id, rewardWallet);
   const highlightedCells = useMemo(() => {
     const cellIds = new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]);
 
@@ -296,6 +301,7 @@ export const App = () => {
     setTutorialStep((step) => (step === "done" ? "done" : "match"));
     setRunFlags(cleanRankedFlags());
     setBoosterHintCellId(null);
+    setRewardStatus("idle");
     setSubmitStatus("idle");
   };
 
@@ -321,6 +327,35 @@ export const App = () => {
       ranked_mode: runFlags.rankedMode
     });
     audioController.play("booster_use");
+  };
+
+  const claimReward = () => {
+    if (gameState.status !== "complete") {
+      return;
+    }
+
+    const result = claimCompletionReward(board.id, recipe.id);
+
+    setRewardWallet(result.wallet);
+    setRewardStatus(result.claimed ? "claimed" : "already_claimed");
+    trackEvent("daily_reward_claim", {
+      reward_id: result.rewardId,
+      reward_type: "completion",
+      amount: result.coinAmount,
+      status: result.claimed ? "success" : "duplicate"
+    });
+
+    if (result.claimed) {
+      trackEvent("coin_award", {
+        source: "daily_completion",
+        amount: result.coinAmount
+      });
+      trackEvent("recipe_piece_award", {
+        recipe_id: recipe.id,
+        source: "daily_completion",
+        amount: result.recipePieceAmount
+      });
+    }
   };
 
   const submitScore = async () => {
@@ -502,22 +537,45 @@ export const App = () => {
                   </div>
                 ))}
             </div>
+            {gameState.status === "complete" ? (
+              <div className="reward-summary" data-testid="reward-summary">
+                <div>
+                  <span>냉장고 코인</span>
+                  <strong data-testid="coin-balance">{rewardWallet.fridgeCoins.toLocaleString()}</strong>
+                </div>
+                <div>
+                  <span>레시피 조각</span>
+                  <strong data-testid="recipe-piece-balance">{recipePieceCount.toLocaleString()}</strong>
+                </div>
+              </div>
+            ) : null}
             <button className="primary-action" type="button" onClick={restart}>
               다시 도전
             </button>
             {gameState.status === "complete" ? (
-              <button
-                className="secondary-action"
-                type="button"
-                onClick={submitScore}
-                disabled={submitStatus === "submitting" || submitStatus === "success"}
-              >
-                {submitStatus === "success"
-                  ? "기록 제출 완료"
-                  : submitStatus === "submitting"
-                    ? "기록 제출 중"
-                    : "오늘의 기록 제출"}
-              </button>
+              <>
+                <button
+                  className="secondary-action"
+                  type="button"
+                  onClick={claimReward}
+                  disabled={completionRewardClaimed}
+                  data-testid="reward-claim"
+                >
+                  {completionRewardClaimed || rewardStatus === "claimed" ? "참여 보상 받음" : "참여 보상 받기"}
+                </button>
+                <button
+                  className="secondary-action"
+                  type="button"
+                  onClick={submitScore}
+                  disabled={submitStatus === "submitting" || submitStatus === "success"}
+                >
+                  {submitStatus === "success"
+                    ? "기록 제출 완료"
+                    : submitStatus === "submitting"
+                      ? "기록 제출 중"
+                      : "오늘의 기록 제출"}
+                </button>
+              </>
             ) : null}
             {submitStatus === "skipped" || submitStatus === "error" ? (
               <p className="submit-note" data-testid="submit-note">

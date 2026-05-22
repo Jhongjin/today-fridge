@@ -492,6 +492,35 @@ button:focus-visible {
   font-size: 14px;
 }
 
+.reward-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.reward-summary div {
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 1px solid #d9e7de;
+  border-radius: 8px;
+  background: #f7fbf8;
+}
+
+.reward-summary span {
+  display: block;
+  color: #5d7165;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.reward-summary strong {
+  display: block;
+  margin-top: 2px;
+  color: #1f2f27;
+  font-size: 18px;
+}
+
 .primary-action {
   width: 100%;
   background: #287c49;

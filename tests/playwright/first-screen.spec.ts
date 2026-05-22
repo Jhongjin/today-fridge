@@ -61,6 +61,12 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await expect(page.getByTestId("score-value")).toHaveText("1,700");
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
   await expect(page.getByTestId("best-note")).toContainText("+1,700");
+  await expect(page.getByTestId("coin-balance")).toHaveText("0");
+  await expect(page.getByTestId("recipe-piece-balance")).toHaveText("0");
+  await page.getByTestId("reward-claim").click();
+  await expect(page.getByTestId("coin-balance")).toHaveText("30");
+  await expect(page.getByTestId("recipe-piece-balance")).toHaveText("1");
+  await expect(page.getByTestId("reward-claim")).toHaveText("참여 보상 받음");
   await expect(page.getByRole("button", { name: "오늘의 기록 제출" })).toBeVisible();
 
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();

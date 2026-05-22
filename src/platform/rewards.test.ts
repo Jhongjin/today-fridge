@@ -1,0 +1,57 @@
+import { describe, expect, it } from "vitest";
+import { claimCompletionReward, hasClaimedCompletionReward, readRewardWallet } from "./rewards";
+
+const createMemoryStorage = () => {
+  const values = new Map<string, string>();
+
+  return {
+    getItem: (key: string) => values.get(key) ?? null,
+    setItem: (key: string, value: string) => {
+      values.set(key, value);
+    }
+  };
+};
+
+describe("reward wallet", () => {
+  it("claims a fixed completion reward once per board", () => {
+    const storage = createMemoryStorage();
+
+    const first = claimCompletionReward("daily-1", "kimchi_fried_rice", storage);
+    const second = claimCompletionReward("daily-1", "kimchi_fried_rice", storage);
+
+    expect(first).toMatchObject({
+      claimed: true,
+      coinAmount: 30,
+      recipePieceAmount: 1,
+      wallet: {
+        fridgeCoins: 30,
+        recipePieces: {
+          kimchi_fried_rice: 1
+        }
+      }
+    });
+    expect(second).toMatchObject({
+      claimed: false,
+      coinAmount: 0,
+      recipePieceAmount: 0,
+      wallet: {
+        fridgeCoins: 30,
+        recipePieces: {
+          kimchi_fried_rice: 1
+        }
+      }
+    });
+    expect(hasClaimedCompletionReward("daily-1", readRewardWallet(storage))).toBe(true);
+  });
+
+  it("falls back to an empty wallet when stored data is invalid", () => {
+    const storage = createMemoryStorage();
+    storage.setItem("today-fridge:reward-wallet", "not-json");
+
+    expect(readRewardWallet(storage)).toEqual({
+      fridgeCoins: 0,
+      recipePieces: {},
+      claimedRewardIds: []
+    });
+  });
+});

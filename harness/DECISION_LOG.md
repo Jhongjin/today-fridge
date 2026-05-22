@@ -33,3 +33,4 @@
 - Phase 13 personal best loop added: per-board local best, best-gap display, improvement result note, and replay motivation coverage.
 - Phase 14 first-play hint rail added: non-blocking route prompts, highlighted opening cells, dismiss control, and mobile progression coverage.
 - Phase 15 booster fairness added: active hint booster, non-clean run flagging, clean personal-best protection, and skipped leaderboard submission coverage.
+- Phase 16 reward loop added: once-per-board fixed completion reward, local wallet, recipe piece progress, and reward analytics coverage.
