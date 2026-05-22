@@ -23,3 +23,4 @@
 - Phase 3 CI hotfix: Playwright mobile viewport projects pinned to Chromium so CI only needs the Chromium browser install.
 - Phase 4 platform adapter added: fairness flags, clean ranked score eligibility, idempotent leaderboard service, and unit tests.
 - Phase 5 UX flow added: sound/motion toggles, first-play hint chips, and result-screen clean leaderboard submit action wired to mock platform service.
+- Phase 6 content data added: app now carries 24 MVP ingredients, 20 MVP recipes, and content integrity tests.

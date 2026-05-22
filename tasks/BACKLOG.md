@@ -10,6 +10,7 @@
 
 - Define complete ingredient taxonomy. (Phase 1 MVP done in `docs/design/INGREDIENTS.md`)
 - Define first 20 recipes. (Phase 1 MVP done in `docs/design/RECIPES.md`)
+- Reflect MVP ingredients and recipes in app data. (Phase 6 done pending CI)
 - Design board seed format. (Phase 1 MVP done in `docs/design/FIRST_DAILY_BOARD.md`)
 - Design tutorial board.
 - Prototype scoring formula. (Phase 1 MVP done in `docs/design/SCORE_AND_RECOVERY.md`)
