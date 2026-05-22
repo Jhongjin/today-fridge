@@ -36,3 +36,4 @@
 - Phase 16 reward loop added: once-per-board fixed completion reward, local wallet, recipe piece progress, and reward analytics coverage.
 - Phase 17 failed participation reward added: failed rounds can claim 10 coins once per board without recipe pieces or rank linkage.
 - Phase 18 recipe progress display added: result panel shows active recipe piece progress and updates after completion reward claim.
+- Phase 19 listing copy package added: recommended title `오늘의 냉장고`, 10-second pitch, listing copy, policy-safe wording, and screenshot plan.
