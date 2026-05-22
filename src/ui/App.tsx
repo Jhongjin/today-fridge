@@ -186,117 +186,118 @@ export const App = () => {
   }, []);
 
   const selectCell = (cell: BoardCell) => {
-    setGameState((current) => {
-      const next = selectIngredient(current, board, cell.id);
+    const current = gameState;
+    const next = selectIngredient(current, board, cell.id);
 
-      if (next !== current) {
-        const selectedIngredientId = cell.front?.ingredientId ?? null;
+    if (next === current) {
+      return;
+    }
 
-        if (boosterHintCellId === cell.id) {
-          setBoosterHintCellId(null);
-        }
+    const selectedIngredientId = cell.front?.ingredientId ?? null;
 
-        trackEvent("move_commit", {
+    if (boosterHintCellId === cell.id) {
+      setBoosterHintCellId(null);
+    }
+
+    trackEvent("move_commit", {
+      play_id: playId,
+      cell_id: cell.id,
+      ingredient_id: selectedIngredientId,
+      move_no: next.movesUsed,
+      tray_state_hash: trayStateHash(next.tray),
+      score: totalScore(next.breakdown)
+    });
+    audioController.play("ingredient_select");
+
+    if (next.lastClear?.type === "match") {
+      trackEvent("match_clear", {
+        play_id: playId,
+        ingredient_id: next.lastClear.ingredientId,
+        count: next.lastClear.instances.length,
+        combo_index: next.lastClear.comboIndex,
+        points: next.lastClear.points
+      });
+      if (tutorialStep === "match") {
+        setTutorialStep("recipe");
+      }
+      audioController.play("match_clear");
+    }
+
+    if (next.lastClear?.type === "recipe") {
+      trackEvent("recipe_complete", {
+        play_id: playId,
+        recipe_id: next.lastClear.recipeId,
+        points: next.lastClear.points
+      });
+      if (tutorialStep === "recipe") {
+        setTutorialStep("done");
+      }
+      audioController.play("recipe_complete");
+    }
+
+    if (next.rescuedCount > current.rescuedCount) {
+      const rescuedInstances = next.lastClear?.instances.filter((instance) => instance.state === "expiring") ?? [];
+
+      for (const instance of rescuedInstances) {
+        trackEvent("expiring_rescue", {
           play_id: playId,
-          cell_id: cell.id,
-          ingredient_id: selectedIngredientId,
-          move_no: next.movesUsed,
-          tray_state_hash: trayStateHash(next.tray),
-          score: totalScore(next.breakdown)
+          ingredient_id: instance.ingredientId,
+          points: SCORE.expiringRescue
         });
-        audioController.play("ingredient_select");
-
-        if (next.lastClear?.type === "match") {
-          trackEvent("match_clear", {
-            play_id: playId,
-            ingredient_id: next.lastClear.ingredientId,
-            count: next.lastClear.instances.length,
-            combo_index: next.lastClear.comboIndex,
-            points: next.lastClear.points
-          });
-          if (tutorialStep === "match") {
-            setTutorialStep("recipe");
-          }
-          audioController.play("match_clear");
-        }
-
-        if (next.lastClear?.type === "recipe") {
-          trackEvent("recipe_complete", {
-            play_id: playId,
-            recipe_id: next.lastClear.recipeId,
-            points: next.lastClear.points
-          });
-          if (tutorialStep === "recipe") {
-            setTutorialStep("done");
-          }
-          audioController.play("recipe_complete");
-        }
-
-        if (next.rescuedCount > current.rescuedCount) {
-          const rescuedInstances = next.lastClear?.instances.filter((instance) => instance.state === "expiring") ?? [];
-
-          for (const instance of rescuedInstances) {
-            trackEvent("expiring_rescue", {
-              play_id: playId,
-              ingredient_id: instance.ingredientId,
-              points: SCORE.expiringRescue
-            });
-          }
-
-          audioController.play("expiring_rescue");
-        }
-
-        if (next.status === "complete" && current.status === "playing") {
-          const finalScore = totalScore(next.breakdown);
-
-          if (cleanRun) {
-            const bestImproved = finalScore > personalBest;
-            const bestDelta = bestImproved ? finalScore - personalBest : 0;
-            const nextPersonalBest = Math.max(personalBest, finalScore);
-
-            if (bestImproved) {
-              recordPersonalBest(board.id, finalScore);
-            }
-
-            setPersonalBest(nextPersonalBest);
-            setLastBestDelta(bestDelta);
-
-            if (bestImproved) {
-              trackEvent("personal_best_update", {
-                old_score: personalBest,
-                new_score: nextPersonalBest,
-                delta: bestDelta
-              });
-            }
-          } else {
-            setLastBestDelta(null);
-          }
-
-          trackEvent("round_complete", {
-            play_id: playId,
-            score: finalScore,
-            duration_ms: Math.max(0, Date.now() - roundStartedAt),
-            moves_used: next.movesUsed,
-            recipe_count: next.completedRecipeIds.length,
-            rescued_count: next.rescuedCount
-          });
-          audioController.play("round_complete");
-          setTutorialStep("done");
-        }
-
-        if (next.status === "failed" && current.status === "playing") {
-          trackEvent("round_fail", {
-            play_id: playId,
-            fail_reason: next.movesUsed > board.moveLimit ? "MOVE_LIMIT" : "TRAY_OVERFLOW",
-            move_no: next.movesUsed,
-            tray_state_hash: trayStateHash(next.tray)
-          });
-          audioController.play("round_fail");
-        }
       }
 
-      return next;
-    });
+      audioController.play("expiring_rescue");
+    }
+
+    if (next.status === "complete" && current.status === "playing") {
+      const finalScore = totalScore(next.breakdown);
+
+      if (cleanRun) {
+        const bestImproved = finalScore > personalBest;
+        const bestDelta = bestImproved ? finalScore - personalBest : 0;
+        const nextPersonalBest = Math.max(personalBest, finalScore);
+
+        if (bestImproved) {
+          recordPersonalBest(board.id, finalScore);
+        }
+
+        setPersonalBest(nextPersonalBest);
+        setLastBestDelta(bestDelta);
+
+        if (bestImproved) {
+          trackEvent("personal_best_update", {
+            old_score: personalBest,
+            new_score: nextPersonalBest,
+            delta: bestDelta
+          });
+        }
+      } else {
+        setLastBestDelta(null);
+      }
+
+      trackEvent("round_complete", {
+        play_id: playId,
+        score: finalScore,
+        duration_ms: Math.max(0, Date.now() - roundStartedAt),
+        moves_used: next.movesUsed,
+        recipe_count: next.completedRecipeIds.length,
+        rescued_count: next.rescuedCount
+      });
+      audioController.play("round_complete");
+      setTutorialStep("done");
+    }
+
+    if (next.status === "failed" && current.status === "playing") {
+      trackEvent("round_fail", {
+        play_id: playId,
+        fail_reason: next.movesUsed > board.moveLimit ? "MOVE_LIMIT" : "TRAY_OVERFLOW",
+        move_no: next.movesUsed,
+        tray_state_hash: trayStateHash(next.tray)
+      });
+      audioController.play("round_fail");
+    }
+
+    setGameState(next);
   };
 
   const restart = () => {

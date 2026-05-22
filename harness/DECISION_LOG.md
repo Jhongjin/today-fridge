@@ -42,3 +42,4 @@
 - Phase 22 Apps in Toss adapter contract added: official Game Center submit/open API shape, min-version mapping, tests, and SDK install blocker documentation.
 - Phase 23 leaderboard open action added: result panel opens mock leaderboard, tracks `leaderboard_open`, and extends competition flow tests.
 - Phase 24 result overflow guard added: result panel now scrolls within viewport and browser tests assert mobile fit.
+- Phase 25 click side effects stabilized: selection now computes next state before dispatching analytics, audio, and local-storage effects once.

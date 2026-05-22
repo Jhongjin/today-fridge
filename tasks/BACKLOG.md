@@ -52,3 +52,4 @@
 - Build board prototype. (Phase 2 scaffold done pending CI)
 - Build deterministic seed simulator. (Phase 2 scaffold done pending CI)
 - Add mobile viewport verification. (Phase 3 done pending CI)
+- Stabilize click side effects outside React state updater. (Phase 25 done pending CI)
