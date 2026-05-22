@@ -14,6 +14,7 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByText("밥 + 김치 + 계란")).toBeVisible();
   await expect(page.getByTestId("fridge-board")).toBeVisible();
   await expect(page.getByTestId("prep-tray")).toBeVisible();
+  await expect(page.getByTestId("personal-best-value")).toHaveText("0");
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeVisible();
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
   expect(consoleErrors).toEqual([]);
@@ -53,6 +54,8 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
 
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
   await expect(page.getByTestId("score-value")).toHaveText("1,700");
+  await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
+  await expect(page.getByTestId("best-note")).toContainText("+1,700");
   await expect(page.getByRole("button", { name: "오늘의 기록 제출" })).toBeVisible();
 
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();

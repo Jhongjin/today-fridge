@@ -10,6 +10,7 @@ import type { BoardCell, IngredientInstance } from "../game/types";
 import { getAnalyticsContext, trackEvent } from "../platform/analytics";
 import { cleanRankedFlags } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
+import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
 import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = firstDailyBoard;
@@ -108,8 +109,11 @@ export const App = () => {
   const [muted, setMuted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
+  const [personalBest, setPersonalBest] = useState(() => readPersonalBest(board.id));
+  const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
+  const bestGap = Math.max(0, personalBest - score);
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
   const audioController = useMemo(() => createAudioController(), []);
 
@@ -178,9 +182,29 @@ export const App = () => {
         }
 
         if (next.status === "complete" && current.status === "playing") {
+          const finalScore = totalScore(next.breakdown);
+          const bestImproved = finalScore > personalBest;
+          const bestDelta = bestImproved ? finalScore - personalBest : 0;
+          const nextPersonalBest = Math.max(personalBest, finalScore);
+
+          if (bestImproved) {
+            recordPersonalBest(board.id, finalScore);
+          }
+
+          setPersonalBest(nextPersonalBest);
+          setLastBestDelta(bestDelta);
+
+          if (bestImproved) {
+            trackEvent("personal_best_update", {
+              old_score: personalBest,
+              new_score: nextPersonalBest,
+              delta: bestDelta
+            });
+          }
+
           trackEvent("round_complete", {
             play_id: playId,
-            score: totalScore(next.breakdown),
+            score: finalScore,
             duration_ms: Math.max(0, Date.now() - roundStartedAt),
             moves_used: next.movesUsed,
             recipe_count: next.completedRecipeIds.length,
@@ -213,6 +237,7 @@ export const App = () => {
     setPlayId(nextPlayId);
     setAttemptNo(nextAttemptNo);
     setRoundStartedAt(Date.now());
+    setLastBestDelta(null);
     setSubmitStatus("idle");
   };
 
@@ -289,6 +314,17 @@ export const App = () => {
           </div>
         </section>
 
+        <section className="competition-strip" aria-label="오늘 기록">
+          <div>
+            <span>내 최고</span>
+            <strong data-testid="personal-best-value">{personalBest.toLocaleString()}</strong>
+          </div>
+          <div>
+            <span>최고까지</span>
+            <strong>{bestGap > 0 ? `${bestGap.toLocaleString()}점` : "도전 중"}</strong>
+          </div>
+        </section>
+
         <section className="goal-strip" aria-label="오늘의 목표">
           <div>
             <span className="goal-strip__label">목표</span>
@@ -337,6 +373,13 @@ export const App = () => {
           <section className="result-panel" aria-live="polite">
             <h2>{gameState.status === "complete" ? "김치볶음밥 완성!" : "한 수만 더 깔끔했어요"}</h2>
             <strong className="result-score">{score.toLocaleString()}점</strong>
+            {lastBestDelta !== null ? (
+              <p className="best-note" data-testid="best-note">
+                {lastBestDelta > 0
+                  ? `내 최고 기록 +${lastBestDelta.toLocaleString()}`
+                  : `내 최고 ${personalBest.toLocaleString()}점`}
+              </p>
+            ) : null}
             <div className="score-breakdown">
               {scoreRows(gameState.breakdown)
                 .filter(([, value]) => value !== 0)

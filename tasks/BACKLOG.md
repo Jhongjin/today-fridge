@@ -14,6 +14,7 @@
 - Design board seed format. (Phase 1 MVP done in `docs/design/FIRST_DAILY_BOARD.md`)
 - Design tutorial board.
 - Prototype scoring formula. (Phase 1 MVP done in `docs/design/SCORE_AND_RECOVERY.md`)
+- Add personal best competition loop. (Phase 13 done pending CI)
 
 ## UX Creative
 
