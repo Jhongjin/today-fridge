@@ -1,5 +1,6 @@
 import { Pause, Trophy, Volume2, VolumeX, Waves } from "lucide-react";
 import { useMemo, useState } from "react";
+import { createAudioController } from "../audio/audioController";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
 import { getRecipe } from "../game/data/recipes";
@@ -93,6 +94,7 @@ export const App = () => {
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
+  const audioController = useMemo(() => createAudioController(), []);
 
   const selectCell = (cell: BoardCell) => {
     setGameState((current) => {
@@ -105,6 +107,27 @@ export const App = () => {
           move_no: next.movesUsed,
           score: totalScore(next.breakdown)
         });
+        audioController.play("ingredient_select");
+
+        if (next.lastClear?.type === "match") {
+          audioController.play("match_clear");
+        }
+
+        if (next.lastClear?.type === "recipe") {
+          audioController.play("recipe_complete");
+        }
+
+        if (next.rescuedCount > current.rescuedCount) {
+          audioController.play("expiring_rescue");
+        }
+
+        if (next.status === "complete") {
+          audioController.play("round_complete");
+        }
+
+        if (next.status === "failed") {
+          audioController.play("round_fail");
+        }
       }
 
       return next;
@@ -130,6 +153,10 @@ export const App = () => {
       flags: cleanRankedFlags()
     });
 
+    if (result.ok) {
+      audioController.play("leaderboard_submit");
+    }
+
     setSubmitStatus(result.ok ? "success" : result.skipped ? "skipped" : "error");
   };
 
@@ -147,7 +174,13 @@ export const App = () => {
               type="button"
               aria-label={muted ? "소리 켜기" : "소리 끄기"}
               aria-pressed={muted}
-              onClick={() => setMuted((value) => !value)}
+              onClick={() =>
+                setMuted((value) => {
+                  const nextMuted = !value;
+                  audioController.setMuted(nextMuted);
+                  return nextMuted;
+                })
+              }
             >
               {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>

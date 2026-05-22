@@ -178,6 +178,7 @@ export const selectIngredient = (state: GameState, board: BoardDefinition, cellI
     ...next,
     tray: [...next.tray, selected],
     movesUsed: next.movesUsed + 1,
+    lastClear: undefined,
     message: selected.state === "expiring" ? "임박 재료를 담았어요. 빨리 정리하면 보너스예요." : "준비대에 담았어요."
   };
 
