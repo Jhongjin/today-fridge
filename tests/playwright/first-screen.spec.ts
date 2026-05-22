@@ -131,6 +131,7 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
   await expect(page.getByTestId("attempt-note")).toContainText("1번째");
   await expect(page.getByTestId("mission-summary-count")).toHaveText("3/3");
+  await expect(page.getByTestId("mission-clean")).toHaveAttribute("aria-label", "클린 기록 완료");
   await expect(page.getByTestId("best-note")).toContainText("+1,700");
   await expect(page.getByTestId("best-route")).toContainText("6수");
   await expect(page.getByTestId("coin-balance")).toHaveText("0");
@@ -198,6 +199,7 @@ test("hint booster marks the run outside clean leaderboard", async ({ page }) =>
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
   await expect(page.getByTestId("mission-summary-count")).toHaveText("2/3");
+  await expect(page.getByTestId("mission-clean")).toHaveAttribute("aria-label", "클린 기록 미완료");
 
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
   await expect(page.getByTestId("submit-note")).toContainText("clean ranked");

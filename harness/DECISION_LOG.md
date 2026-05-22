@@ -71,3 +71,4 @@
 - Phase 51 QR test plan added: Android/iOS entry, game flow, Game Center, and observability checks are defined.
 - Phase 52 mission summary analytics added: terminal rounds now emit completed mission counts and per-mission booleans.
 - Phase 53 QA analytics coverage added: browser tests now verify `mission_summary` appears in the live QA panel.
+- Phase 54 mission summary accessibility labels added: result missions now expose complete/incomplete state to assistive tech.

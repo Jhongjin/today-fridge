@@ -41,6 +41,7 @@
 - Add lightweight Web Audio SFX output. (Phase 30 done pending CI)
 - Add reduced-motion-aware haptic feedback. (Phase 44 done pending CI)
 - Run mobile UI polish/accessibility pass. (Phase 10 done pending CI)
+- Add mission summary accessibility labels. (Phase 54 done pending CI)
 - Add active hint booster and clean score separation. (Phase 15 done pending CI)
 - Guard result-panel overflow on mobile. (Phase 24 done pending CI)
 

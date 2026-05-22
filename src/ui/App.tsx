@@ -763,6 +763,7 @@ export const App = () => {
                 {missionRows.map((row) => (
                   <span
                     className={row.complete ? "mission-summary__item mission-summary__item--complete" : "mission-summary__item"}
+                    aria-label={`${row.label} ${row.complete ? "완료" : "미완료"}`}
                     data-testid={`mission-${row.id}`}
                     key={row.id}
                   >
