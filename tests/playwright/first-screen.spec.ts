@@ -96,3 +96,23 @@ test("hint booster marks the run outside clean leaderboard", async ({ page }) =>
   await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
   await expect(page.getByTestId("submit-note")).toContainText("clean ranked");
 });
+
+test("failed round can still claim a small participation coin reward", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByTestId("cell-zucchini_1_fresh").click();
+  await page.getByTestId("cell-soy_sauce_1_fresh").click();
+  await page.getByTestId("cell-mushroom_2_fresh").click();
+  await page.getByTestId("cell-green_onion_2_fresh").click();
+  await page.getByTestId("cell-tofu_1_fresh").click();
+  await page.getByTestId("cell-rice_1_fresh").click();
+
+  await expect(page.getByRole("heading", { name: "한 수만 더 깔끔했어요" })).toBeVisible();
+  await expect(page.getByTestId("coin-balance")).toHaveText("0");
+  await expect(page.getByTestId("recipe-piece-balance")).toHaveText("0");
+
+  await page.getByTestId("failure-reward-claim").click();
+  await expect(page.getByTestId("coin-balance")).toHaveText("10");
+  await expect(page.getByTestId("recipe-piece-balance")).toHaveText("0");
+  await expect(page.getByTestId("failure-reward-claim")).toHaveText("참여 코인 받음");
+});

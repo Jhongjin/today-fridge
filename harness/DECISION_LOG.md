@@ -34,3 +34,4 @@
 - Phase 14 first-play hint rail added: non-blocking route prompts, highlighted opening cells, dismiss control, and mobile progression coverage.
 - Phase 15 booster fairness added: active hint booster, non-clean run flagging, clean personal-best protection, and skipped leaderboard submission coverage.
 - Phase 16 reward loop added: once-per-board fixed completion reward, local wallet, recipe piece progress, and reward analytics coverage.
+- Phase 17 failed participation reward added: failed rounds can claim 10 coins once per board without recipe pieces or rank linkage.

@@ -11,7 +11,13 @@ import { getAnalyticsContext, trackEvent } from "../platform/analytics";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import { readPersonalBest, recordPersonalBest } from "../platform/personalBest";
-import { claimCompletionReward, hasClaimedCompletionReward, readRewardWallet } from "../platform/rewards";
+import {
+  claimCompletionReward,
+  claimParticipationReward,
+  hasClaimedCompletionReward,
+  hasClaimedParticipationReward,
+  readRewardWallet
+} from "../platform/rewards";
 import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = firstDailyBoard;
@@ -149,6 +155,7 @@ export const App = () => {
   const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
   const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
   const completionRewardClaimed = hasClaimedCompletionReward(board.id, rewardWallet);
+  const participationRewardClaimed = hasClaimedParticipationReward(board.id, rewardWallet);
   const highlightedCells = useMemo(() => {
     const cellIds = new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]);
 
@@ -358,6 +365,30 @@ export const App = () => {
     }
   };
 
+  const claimFailureReward = () => {
+    if (gameState.status !== "failed") {
+      return;
+    }
+
+    const result = claimParticipationReward(board.id);
+
+    setRewardWallet(result.wallet);
+    setRewardStatus(result.claimed ? "claimed" : "already_claimed");
+    trackEvent("daily_reward_claim", {
+      reward_id: result.rewardId,
+      reward_type: "participation",
+      amount: result.coinAmount,
+      status: result.claimed ? "success" : "duplicate"
+    });
+
+    if (result.claimed) {
+      trackEvent("coin_award", {
+        source: "failed_round_participation",
+        amount: result.coinAmount
+      });
+    }
+  };
+
   const submitScore = async () => {
     setSubmitStatus("submitting");
     const result = await leaderboardService.submit({
@@ -537,18 +568,16 @@ export const App = () => {
                   </div>
                 ))}
             </div>
-            {gameState.status === "complete" ? (
-              <div className="reward-summary" data-testid="reward-summary">
-                <div>
-                  <span>냉장고 코인</span>
-                  <strong data-testid="coin-balance">{rewardWallet.fridgeCoins.toLocaleString()}</strong>
-                </div>
-                <div>
-                  <span>레시피 조각</span>
-                  <strong data-testid="recipe-piece-balance">{recipePieceCount.toLocaleString()}</strong>
-                </div>
+            <div className="reward-summary" data-testid="reward-summary">
+              <div>
+                <span>냉장고 코인</span>
+                <strong data-testid="coin-balance">{rewardWallet.fridgeCoins.toLocaleString()}</strong>
               </div>
-            ) : null}
+              <div>
+                <span>레시피 조각</span>
+                <strong data-testid="recipe-piece-balance">{recipePieceCount.toLocaleString()}</strong>
+              </div>
+            </div>
             <button className="primary-action" type="button" onClick={restart}>
               다시 도전
             </button>
@@ -576,6 +605,17 @@ export const App = () => {
                       : "오늘의 기록 제출"}
                 </button>
               </>
+            ) : null}
+            {gameState.status === "failed" ? (
+              <button
+                className="secondary-action"
+                type="button"
+                onClick={claimFailureReward}
+                disabled={participationRewardClaimed}
+                data-testid="failure-reward-claim"
+              >
+                {participationRewardClaimed || rewardStatus === "claimed" ? "참여 코인 받음" : "참여 코인 받기"}
+              </button>
             ) : null}
             {submitStatus === "skipped" || submitStatus === "error" ? (
               <p className="submit-note" data-testid="submit-note">

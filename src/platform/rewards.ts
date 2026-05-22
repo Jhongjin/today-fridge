@@ -6,7 +6,7 @@ export type RewardWallet = {
   claimedRewardIds: string[];
 };
 
-export type CompletionRewardResult = {
+export type RewardClaimResult = {
   rewardId: string;
   claimed: boolean;
   coinAmount: number;
@@ -37,6 +37,7 @@ const normalizeWallet = (wallet: Partial<RewardWallet>): RewardWallet => ({
 });
 
 export const completionRewardId = (boardId: string) => `${boardId}:completion-reward`;
+export const participationRewardId = (boardId: string) => `${boardId}:participation-reward`;
 
 export const readRewardWallet = (storage = getDefaultStorage()): RewardWallet => {
   if (!storage) {
@@ -58,11 +59,14 @@ const writeRewardWallet = (wallet: RewardWallet, storage = getDefaultStorage()) 
 export const hasClaimedCompletionReward = (boardId: string, wallet: RewardWallet): boolean =>
   wallet.claimedRewardIds.includes(completionRewardId(boardId));
 
+export const hasClaimedParticipationReward = (boardId: string, wallet: RewardWallet): boolean =>
+  wallet.claimedRewardIds.includes(participationRewardId(boardId));
+
 export const claimCompletionReward = (
   boardId: string,
   recipeId: string,
   storage = getDefaultStorage()
-): CompletionRewardResult => {
+): RewardClaimResult => {
   const rewardId = completionRewardId(boardId);
   const wallet = readRewardWallet(storage);
 
@@ -94,6 +98,38 @@ export const claimCompletionReward = (
     claimed: true,
     coinAmount,
     recipePieceAmount,
+    wallet: nextWallet
+  };
+};
+
+export const claimParticipationReward = (boardId: string, storage = getDefaultStorage()): RewardClaimResult => {
+  const rewardId = participationRewardId(boardId);
+  const wallet = readRewardWallet(storage);
+
+  if (wallet.claimedRewardIds.includes(rewardId)) {
+    return {
+      rewardId,
+      claimed: false,
+      coinAmount: 0,
+      recipePieceAmount: 0,
+      wallet
+    };
+  }
+
+  const coinAmount = 10;
+  const nextWallet: RewardWallet = {
+    ...wallet,
+    fridgeCoins: wallet.fridgeCoins + coinAmount,
+    claimedRewardIds: [...wallet.claimedRewardIds, rewardId]
+  };
+
+  writeRewardWallet(nextWallet, storage);
+
+  return {
+    rewardId,
+    claimed: true,
+    coinAmount,
+    recipePieceAmount: 0,
     wallet: nextWallet
   };
 };

@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { claimCompletionReward, hasClaimedCompletionReward, readRewardWallet } from "./rewards";
+import {
+  claimCompletionReward,
+  claimParticipationReward,
+  hasClaimedCompletionReward,
+  hasClaimedParticipationReward,
+  readRewardWallet
+} from "./rewards";
 
 const createMemoryStorage = () => {
   const values = new Map<string, string>();
@@ -42,6 +48,33 @@ describe("reward wallet", () => {
       }
     });
     expect(hasClaimedCompletionReward("daily-1", readRewardWallet(storage))).toBe(true);
+  });
+
+  it("claims a smaller participation reward once per board", () => {
+    const storage = createMemoryStorage();
+
+    const first = claimParticipationReward("daily-1", storage);
+    const second = claimParticipationReward("daily-1", storage);
+
+    expect(first).toMatchObject({
+      claimed: true,
+      coinAmount: 10,
+      recipePieceAmount: 0,
+      wallet: {
+        fridgeCoins: 10,
+        recipePieces: {}
+      }
+    });
+    expect(second).toMatchObject({
+      claimed: false,
+      coinAmount: 0,
+      recipePieceAmount: 0,
+      wallet: {
+        fridgeCoins: 10,
+        recipePieces: {}
+      }
+    });
+    expect(hasClaimedParticipationReward("daily-1", readRewardWallet(storage))).toBe(true);
   });
 
   it("falls back to an empty wallet when stored data is invalid", () => {

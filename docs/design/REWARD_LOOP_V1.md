@@ -2,12 +2,12 @@
 
 ## Phase 16 Scope
 
-The MVP now has a local fixed completion reward:
+The MVP now has local fixed rewards:
 
-- 30 fridge coins
-- 1 recipe piece for the completed recipe
+- Completion: 30 fridge coins and 1 recipe piece for the completed recipe.
+- Failed round participation: 10 fridge coins.
 
-The reward is claimed once per board id.
+Each reward type is claimed once per board id.
 
 ## Policy Guardrail
 
@@ -29,6 +29,13 @@ It is a fixed completion reward, so it stays separate from leaderboard competiti
 4. Wallet updates immediately.
 5. The claim button becomes `참여 보상 받음`.
 
+Failed round:
+
+1. Player fills the tray without a clear.
+2. Result panel shows wallet balances.
+3. Player taps `참여 코인 받기`.
+4. Wallet adds 10 fridge coins.
+
 ## Events
 
 - `daily_reward_claim`
@@ -43,7 +50,6 @@ Future server-backed storage can keep the same public claim/read behavior.
 
 ## Future Queues
 
-- Add failure participation reward.
 - Add recipe book UI.
 - Add weekly mission progress.
 - Add rewarded-ad extra chest only after result.
