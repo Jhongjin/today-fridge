@@ -57,11 +57,26 @@ Game user key:
 
 ## Dependency Note
 
-`npm install @apps-in-toss/web-framework@^2.6.0` timed out twice in the local Windows workspace on 2026-05-22, including a 5-minute attempt. The adapter contract is ready, but the package import/bundle step remains a separate queue.
+`npm view @apps-in-toss/web-framework version` confirms `2.6.0` is available from npm.
+
+Install attempts in the local Windows workspace still time out:
+
+- Earlier `npm install @apps-in-toss/web-framework@^2.6.0` attempts timed out, including a 5-minute attempt.
+- A fresh exact install for `@apps-in-toss/web-framework@2.6.0` also timed out at 5 minutes.
+- A repeated exact install timed out at 10 minutes and left an npm process running, which was stopped manually.
+- The package body partially appeared in ignored `node_modules`, but `package.json` and `package-lock.json` were not updated.
+
+Package metadata notes:
+
+- Tarball: `https://registry.npmjs.org/@apps-in-toss/web-framework/-/web-framework-2.6.0.tgz`
+- Unpacked size: about 27.7 MB
+- The package pulls several Apps in Toss and Granite dependencies, so a Linux CI or clean package-manager cache may be a better place to complete installation.
+
+The adapter contract is ready, but the package import/bundle step remains a separate queue.
 
 ## Future Queues
 
-- Resolve package installation and bundle the official SDK.
+- Resolve package installation in a clean environment and bundle the official SDK.
 - Replace mock client in production build with `createAppsInTossClient`.
 - Add real leaderboard-open result button.
 - Add Toss QR test for supported and unsupported app versions.

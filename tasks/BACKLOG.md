@@ -44,6 +44,7 @@
 ## Platform
 
 - Verify latest Apps in Toss SDK requirements.
+- Retry Apps in Toss package install and document blocker. (Phase 40 done pending CI)
 - Confirm leaderboard API constraints.
 - Confirm promotion review requirements.
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)

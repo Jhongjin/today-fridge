@@ -20,6 +20,7 @@ Output:
 
 ## Queue 2: Real Toss Client
 
+- Blocked locally: exact package install for `@apps-in-toss/web-framework@2.6.0` timed out at 5 and 10 minutes in the Windows workspace without updating package files.
 - Implement `TossClient` using official SDK.
 - Keep `tossMockClient` for browser/CI.
 - Add runtime adapter selection.
@@ -72,4 +73,3 @@ Output:
 
 - Ad/promotion mock tests.
 - Review checklist update.
-
