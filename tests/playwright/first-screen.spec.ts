@@ -71,6 +71,17 @@ test("qa analytics panel shows terminal mission summary", async ({ page }) => {
   await expect(page.getByTestId("qa-event-list")).toContainText("mission_summary");
 });
 
+test("qa analytics panel shows leaderboard score audit receipt", async ({ page }) => {
+  await page.goto("/?qa=analytics");
+
+  await playCleanRoute(page);
+  await page.getByTestId("leaderboard-submit").click();
+
+  await expect(page.getByTestId("qa-event-list")).toContainText("leaderboard_submit");
+  await expect(page.getByTestId("qa-event-list")).toContainText("route_cells:E1>B3>C6>E5>A6>B6");
+  await expect(page.getByTestId("qa-event-list")).toContainText("score_breakdown_receipt:clearPoints:100");
+});
+
 test("recipe book opens from the first screen", async ({ page }) => {
   await page.goto("/");
 

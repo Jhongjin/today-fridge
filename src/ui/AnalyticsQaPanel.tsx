@@ -6,8 +6,12 @@ import {
 } from "../platform/analytics";
 
 const eventPropertySummary = (event: AnalyticsEvent) =>
-  Object.entries(event.properties)
-    .slice(0, 2)
+  (event.eventName === "leaderboard_submit"
+    ? ["status", "score", "board_id", "seed", "route_cells", "score_breakdown_receipt"]
+        .filter((key) => event.properties[key] !== undefined)
+        .map((key) => [key, event.properties[key]] as const)
+    : Object.entries(event.properties).slice(0, 2)
+  )
     .map(([key, value]) => `${key}:${String(value)}`)
     .join(" ");
 

@@ -55,7 +55,7 @@ Debug:
 
 ## QA Inspector
 
-Open the app with `?qa=analytics` or `?analytics_debug` to show a local event inspector.
+Open the app with `?qa=analytics` or `?analytics_debug` to show a local event inspector. Leaderboard submit events show score-audit fields directly so QR testers can confirm the board seed, selected route, and score receipt.
 
 The panel is only a client-side QA aid. It reads the same in-memory event buffer used by tests and updates as new events are tracked.
 

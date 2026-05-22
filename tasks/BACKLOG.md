@@ -57,6 +57,7 @@
 - Add QA-only analytics event inspector. (Phase 33 done pending CI)
 - Add mission summary analytics event. (Phase 52 done pending CI)
 - Add QA analytics mission-summary browser coverage. (Phase 53 done pending CI)
+- Show leaderboard score audit receipts in QA analytics panel. (Phase 60 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Lock submission readiness and Toss SDK integration queues. (Phase 8 done pending CI)

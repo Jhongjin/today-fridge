@@ -886,6 +886,7 @@ export const App = () => {
                   type="button"
                   onClick={submitScore}
                   disabled={submitStatus === "submitting" || submitStatus === "success"}
+                  data-testid="leaderboard-submit"
                 >
                   {submitStatus === "success"
                     ? "기록 제출 완료"
