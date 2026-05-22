@@ -37,6 +37,7 @@ These must be completed before requesting review:
 - Game user key flow and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.
 - QR test on real Toss app.
+- QR test plan is documented in `docs/platform/QR_TEST_PLAN.md`.
 - Sound lifecycle once BGM/SFX are added.
 - Safe Area verification on iOS and Android.
 - Error monitoring.

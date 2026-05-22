@@ -68,6 +68,7 @@
 - Add CI bundle budget guard. (Phase 43 done pending CI)
 - Add production source map guard. (Phase 47 done pending CI)
 - Add MVP status checkpoint. (Phase 50 done pending CI)
+- Add QR device test plan. (Phase 51 done pending CI)
 
 ## Engineering
 

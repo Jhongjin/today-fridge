@@ -21,7 +21,7 @@
 ## Current Submission Blockers
 
 - Official `@apps-in-toss/web-framework` package install still times out in the local Windows workspace.
-- Real Apps in Toss QR test is still pending.
+- Real Apps in Toss QR test is still pending; see `docs/platform/QR_TEST_PLAN.md`.
 - Real Game Center profile/user-key flow is still pending.
 - Real leaderboard submit/open needs QR-device verification.
 - BGM/custom SFX assets are not final.
