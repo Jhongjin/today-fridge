@@ -33,6 +33,7 @@ Gameplay:
 - `expiring_rescue`
 - `round_complete`
 - `round_fail`
+- `mission_summary`
 
 Competition:
 
@@ -66,6 +67,7 @@ This harness can already answer:
 - Did the player start the first round?
 - Which moves were committed before completion or failure?
 - Did the player complete the recipe and rescue targets?
+- Which result missions were completed or missed?
 - Did the player submit a clean ranked score?
 - Did the player tap result sharing after completion?
 - Did replay attempts start after restart?

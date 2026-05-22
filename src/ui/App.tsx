@@ -84,6 +84,29 @@ const trackRoundStart = (playId: string, attemptNo: number) => {
   });
 };
 
+const trackMissionSummary = ({
+  playId,
+  recipeCompleted,
+  rescueCompleted,
+  cleanRecordCompleted
+}: {
+  playId: string;
+  recipeCompleted: boolean;
+  rescueCompleted: boolean;
+  cleanRecordCompleted: boolean;
+}) => {
+  const completedCount = [recipeCompleted, rescueCompleted, cleanRecordCompleted].filter(Boolean).length;
+
+  trackEvent("mission_summary", {
+    play_id: playId,
+    completed_count: completedCount,
+    total_count: 3,
+    recipe_completed: recipeCompleted,
+    rescue_completed: rescueCompleted,
+    clean_record_completed: cleanRecordCompleted
+  });
+};
+
 type TutorialStep = "match" | "recipe" | "done";
 
 const tutorialCopy: Record<Exclude<TutorialStep, "done">, string> = {
@@ -391,6 +414,12 @@ export const App = () => {
         recipe_count: next.completedRecipeIds.length,
         rescued_count: next.rescuedCount
       });
+      trackMissionSummary({
+        playId,
+        recipeCompleted: next.completedRecipeIds.includes(board.mainRecipeId),
+        rescueCompleted: next.rescuedCount >= board.rescueTarget,
+        cleanRecordCompleted: cleanRun
+      });
       audioController.play("round_complete");
       hapticsController.play("round_complete");
       setTutorialStep("done");
@@ -402,6 +431,12 @@ export const App = () => {
         fail_reason: next.movesUsed > board.moveLimit ? "MOVE_LIMIT" : "TRAY_OVERFLOW",
         move_no: next.movesUsed,
         tray_state_hash: trayStateHash(next.tray)
+      });
+      trackMissionSummary({
+        playId,
+        recipeCompleted: next.completedRecipeIds.includes(board.mainRecipeId),
+        rescueCompleted: next.rescuedCount >= board.rescueTarget,
+        cleanRecordCompleted: false
       });
       audioController.play("round_fail");
       hapticsController.play("round_fail");

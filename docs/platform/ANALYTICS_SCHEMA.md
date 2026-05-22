@@ -41,6 +41,7 @@ Every event should include:
 | `booster_use` | `play_id`, `booster_id`, `ranked_mode` |
 | `round_complete` | `play_id`, `score`, `duration_ms`, `moves_used`, `recipe_count`, `rescued_count` |
 | `round_fail` | `play_id`, `fail_reason`, `move_no`, `tray_state_hash` |
+| `mission_summary` | `play_id`, `completed_count`, `total_count`, `recipe_completed`, `rescue_completed`, `clean_record_completed` |
 
 ## 4. Competition Events
 
@@ -92,6 +93,7 @@ AND share_bonus_used == false
 | First playable load | `app_open`, `first_playable_ready` |
 | Tutorial completion | `tutorial_start`, `tutorial_complete` |
 | First round completion | `round_start`, `round_complete` |
+| Mission completion | `mission_summary` |
 | Replay rate | multiple `round_start` per `session_id` |
 | Leaderboard engagement | `leaderboard_submit`, `leaderboard_open` |
 | Friend challenge | `friend_challenge_open`, `friend_challenge_send` |
@@ -107,4 +109,3 @@ Use only in development or sampled production logs:
 - `asset_load_error`
 - `score_determinism_mismatch`
 - `sdk_mock_mode_used`
-

@@ -53,6 +53,7 @@
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
 - Add analytics instrumentation harness. (Phase 12 done pending CI)
 - Add QA-only analytics event inspector. (Phase 33 done pending CI)
+- Add mission summary analytics event. (Phase 52 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Lock submission readiness and Toss SDK integration queues. (Phase 8 done pending CI)
 - Add client error monitoring hooks. (Phase 21 done pending CI)

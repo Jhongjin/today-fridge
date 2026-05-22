@@ -69,3 +69,4 @@
 - Phase 49 result mission summary added: result panel shows recipe, rescue, and clean-record mission completion.
 - Phase 50 MVP status checkpoint added: current strengths, verified commands, and submission blockers are summarized.
 - Phase 51 QR test plan added: Android/iOS entry, game flow, Game Center, and observability checks are defined.
+- Phase 52 mission summary analytics added: terminal rounds now emit completed mission counts and per-mission booleans.
