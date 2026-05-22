@@ -24,6 +24,7 @@
 - Real Apps in Toss QR test is still pending; see `docs/platform/QR_TEST_PLAN.md`.
 - Real Game Center profile/user-key flow is still pending.
 - Real leaderboard submit/open needs QR-device verification.
+- Console-ready PNG logo, thumbnail, screenshot uploads, and game rating evidence are still pending.
 - BGM/custom SFX assets are not final.
 - iOS/Android safe-area and background audio lifecycle need device checks.
 - Production monitoring transport is not selected.

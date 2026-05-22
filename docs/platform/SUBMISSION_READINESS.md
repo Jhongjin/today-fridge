@@ -7,6 +7,7 @@ References:
 - [Game launch guide](https://developers-apps-in-toss.toss.im/checklist/app-game.html)
 - [Mini app deploy guide](https://developers-apps-in-toss.toss.im/development/deploy.html)
 - [Game profile and leaderboard intro](https://developers-apps-in-toss.toss.im/game-center/intro.html)
+- [Toss requirements checkpoint](./TOSS_REQUIREMENTS_CHECKPOINT.md)
 
 ## 1. Current Readiness
 
@@ -15,6 +16,7 @@ References:
 | First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
 | Manifest/app icon | Pass | Web manifest references the SVG app icon. |
+| Console upload assets | Pending | Console logo/thumbnail/screenshot dimensions are now tracked in `TOSS_REQUIREMENTS_CHECKPOINT.md`. |
 | Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget and blocks source maps. Must recheck after assets/audio. |
 | Sound controls | Placeholder | Mute toggle exists. Actual BGM/SFX engine not implemented yet. |
 | Background sound handling | Pending | Needs real audio lifecycle once audio exists. |
@@ -42,6 +44,8 @@ These must be completed before requesting review:
 - Safe Area verification on iOS and Android.
 - Error monitoring.
 - App bundle packaging path and `.ait` upload check.
+- Console-ready PNG logo, thumbnail, and screenshot assets.
+- Game rating classification evidence.
 
 ## 3. Policy-Sensitive Items
 

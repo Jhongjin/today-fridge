@@ -51,6 +51,7 @@
 - Retry Apps in Toss package install and document blocker. (Phase 40 done pending CI)
 - Confirm leaderboard API constraints.
 - Confirm promotion review requirements.
+- Add official Toss requirements checkpoint. (Phase 57 done pending CI)
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
 - Add analytics instrumentation harness. (Phase 12 done pending CI)
 - Add QA-only analytics event inspector. (Phase 33 done pending CI)
@@ -69,6 +70,7 @@
 - Expand submission screenshots for recipe book and QA bridge. (Phase 45 done pending CI)
 - Clean stale screenshot artifacts before capture. (Phase 56 done pending CI)
 - Add manifest app icon asset. (Phase 39 done pending CI)
+- Generate console-ready PNG logo, thumbnail, and upload screenshots.
 - Add CI bundle budget guard. (Phase 43 done pending CI)
 - Add production source map guard. (Phase 47 done pending CI)
 - Add MVP status checkpoint. (Phase 50 done pending CI)
