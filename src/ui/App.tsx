@@ -1,4 +1,4 @@
-import { Pause, Trophy, Volume2, VolumeX, Waves } from "lucide-react";
+import { Pause, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
 import { firstDailyBoard } from "../game/data/boards";
@@ -32,15 +32,29 @@ const trackRoundStart = (playId: string, attemptNo: number) => {
   });
 };
 
+type TutorialStep = "match" | "recipe" | "done";
+
+const tutorialCopy: Record<Exclude<TutorialStep, "done">, string> = {
+  match: "두부 3개 먼저 정리",
+  recipe: "밥 + 김치 + 계란 완성"
+};
+
+const tutorialHighlightCells: Record<Exclude<TutorialStep, "done">, string[]> = {
+  match: ["E1", "B3", "C6"],
+  recipe: ["E5", "A6", "B6"]
+};
+
 const IngredientTile = ({
   instance,
   hiddenBack,
   blocked,
+  highlighted,
   onClick
 }: {
   instance?: IngredientInstance;
   hiddenBack?: boolean;
   blocked?: boolean;
+  highlighted?: boolean;
   onClick?: () => void;
 }) => {
   if (blocked) {
@@ -59,7 +73,7 @@ const IngredientTile = ({
 
   return (
     <button
-      className={`tile tile--${instance.state}`}
+      className={`tile tile--${instance.state}${highlighted ? " tile--highlighted" : ""}`}
       type="button"
       onClick={onClick}
       data-testid={`cell-${instance.instanceId}`}
@@ -111,9 +125,14 @@ export const App = () => {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(board.id));
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
+  const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
+  const highlightedCells = useMemo(
+    () => new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]),
+    [tutorialStep]
+  );
   const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
   const audioController = useMemo(() => createAudioController(), []);
 
@@ -155,6 +174,9 @@ export const App = () => {
             combo_index: next.lastClear.comboIndex,
             points: next.lastClear.points
           });
+          if (tutorialStep === "match") {
+            setTutorialStep("recipe");
+          }
           audioController.play("match_clear");
         }
 
@@ -164,6 +186,9 @@ export const App = () => {
             recipe_id: next.lastClear.recipeId,
             points: next.lastClear.points
           });
+          if (tutorialStep === "recipe") {
+            setTutorialStep("done");
+          }
           audioController.play("recipe_complete");
         }
 
@@ -211,6 +236,7 @@ export const App = () => {
             rescued_count: next.rescuedCount
           });
           audioController.play("round_complete");
+          setTutorialStep("done");
         }
 
         if (next.status === "failed" && current.status === "playing") {
@@ -238,6 +264,7 @@ export const App = () => {
     setAttemptNo(nextAttemptNo);
     setRoundStartedAt(Date.now());
     setLastBestDelta(null);
+    setTutorialStep((step) => (step === "done" ? "done" : "match"));
     setSubmitStatus("idle");
   };
 
@@ -338,6 +365,20 @@ export const App = () => {
           {gameState.message}
         </p>
 
+        {tutorialStep !== "done" ? (
+          <section className="tutorial-strip" data-testid="tutorial-strip" aria-label="첫 판 힌트">
+            <span>{tutorialCopy[tutorialStep]}</span>
+            <button
+              className="tutorial-skip"
+              type="button"
+              aria-label="첫 판 힌트 닫기"
+              onClick={() => setTutorialStep("done")}
+            >
+              <X size={18} />
+            </button>
+          </section>
+        ) : null}
+
         <section className="hint-row" aria-label="첫 플레이 힌트">
           <span>같은 재료 3개</span>
           <span>임박 먼저</span>
@@ -351,6 +392,7 @@ export const App = () => {
               instance={cell.front}
               hiddenBack={Boolean(cell.back)}
               blocked={cell.blocked}
+              highlighted={highlightedCells.has(cell.id)}
               onClick={() => selectCell(cell)}
             />
           ))}

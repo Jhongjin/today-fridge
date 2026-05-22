@@ -14,7 +14,9 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByText("밥 + 김치 + 계란")).toBeVisible();
   await expect(page.getByTestId("fridge-board")).toBeVisible();
   await expect(page.getByTestId("prep-tray")).toBeVisible();
+  await expect(page.getByTestId("tutorial-strip")).toContainText("두부 3개");
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
+  await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeVisible();
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
   expect(consoleErrors).toEqual([]);
@@ -48,11 +50,14 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await page.getByTestId("cell-tofu_1_fresh").click();
   await page.getByTestId("cell-tofu_2_fresh").click();
   await page.getByTestId("cell-tofu_4_expiring").click();
+  await expect(page.getByTestId("tutorial-strip")).toContainText("밥 + 김치 + 계란");
+  await expect(page.getByTestId("cell-rice_5_expiring")).toHaveClass(/tile--highlighted/);
   await page.getByTestId("cell-rice_5_expiring").click();
   await page.getByTestId("cell-kimchi_5_expiring").click();
   await page.getByTestId("cell-egg_5_expiring").click();
 
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
+  await expect(page.getByTestId("tutorial-strip")).toHaveCount(0);
   await expect(page.getByTestId("score-value")).toHaveText("1,700");
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
   await expect(page.getByTestId("best-note")).toContainText("+1,700");
