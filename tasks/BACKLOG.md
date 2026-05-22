@@ -67,6 +67,7 @@
 - Add manifest app icon asset. (Phase 39 done pending CI)
 - Add CI bundle budget guard. (Phase 43 done pending CI)
 - Add production source map guard. (Phase 47 done pending CI)
+- Add MVP status checkpoint. (Phase 50 done pending CI)
 
 ## Engineering
 
