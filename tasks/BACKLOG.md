@@ -47,6 +47,7 @@
 - Add client error monitoring hooks. (Phase 21 done pending CI)
 - Add Apps in Toss Game Center adapter contract. (Phase 22 done pending CI)
 - Add result-screen leaderboard open action. (Phase 23 done pending CI)
+- Document commander deployment runbook. (Phase 28 done pending CI)
 
 ## Engineering
 

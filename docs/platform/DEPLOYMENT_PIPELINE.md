@@ -90,3 +90,6 @@ Keep `AUTO_DEPLOY_ENABLED` unset or false until a real app target exists.
 
 No queue is considered complete until the command center says it is complete. Automatic deployment starts after the approved commit is pushed, not before.
 
+## Runbook
+
+Operational approval and failure triage are documented in `docs/platform/COMMANDER_DEPLOY_RUNBOOK.md`.
