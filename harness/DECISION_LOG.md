@@ -75,3 +75,4 @@
 - Phase 55 Playwright route helpers added: common clean and failed routes now live in a reusable browser-test helper.
 - Phase 56 screenshot artifact cleanup added: submission capture now clears stale screenshots before writing a fresh set.
 - Phase 57 Toss requirements checkpoint added: current official launch, Game Center, asset, and rating requirements are mapped to project gaps.
+- Phase 58 console asset capture added: QA can now generate Apps in Toss logo, thumbnail, and upload-size screenshot PNGs.

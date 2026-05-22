@@ -27,13 +27,13 @@ Official Apps in Toss docs rechecked on 2026-05-22.
 | Score format | Leaderboard score should be submitted as a numeric string. | Adapter converts local score to a string before submit. |
 | Score validation | Toss Game Center does not provide separate server score validation; the game must validate score calculation itself. | Deterministic engine tests and clean-run fairness gates are mandatory. Real anti-tamper remains limited until server validation is added. |
 | Leaderboard management | Leaderboard UI/data is managed by Toss Game Center; SDK does not directly edit/delete individual entries. | Avoid admin-like leaderboard assumptions in UI and docs. |
-| Console assets | Console logo requires a 600 x 600 PNG with a background. Thumbnail requires 1932 x 828 PNG. Screenshots are optional but vertical uploads require at least 3 images at 636 x 1048 PNG. | Blocker. Current app icon is SVG and QA screenshots are mobile captures, not console-ready upload assets. |
+| Console assets | Console logo requires a 600 x 600 PNG with a background. Thumbnail requires 1932 x 828 PNG. Screenshots are optional but vertical uploads require at least 3 images at 636 x 1048 PNG. | Harness ready. Run `npm run qa:console-assets` to generate upload-size PNGs from the current build. |
 | Leaderboard setup | Console requires score unit, sort policy, and leaderboard settings. | Blocker. Use score unit `점`, higher-is-better sort, and clean-score policy only. |
 
 ## Current Gaps To Convert Into Queues
 
-- Generate console-ready 600 x 600 PNG logo and 1932 x 828 PNG thumbnail.
-- Generate or resize at least 3 vertical 636 x 1048 PNG screenshots for upload.
+- Generate console-ready 600 x 600 PNG logo and 1932 x 828 PNG thumbnail with `npm run qa:console-assets`.
+- Generate at least 3 vertical 636 x 1048 PNG screenshots for upload with `npm run qa:console-assets`.
 - Prepare game rating evidence path and owner checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready.
 - Resolve official SDK package install/import.

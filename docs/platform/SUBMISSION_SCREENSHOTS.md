@@ -8,9 +8,19 @@ Submission screenshot capture is available through:
 npm run qa:screenshots
 ```
 
+Apps in Toss console upload assets are available through:
+
+```bash
+npm run qa:console-assets
+```
+
 Output:
 
 `qa/artifacts/submission-screenshots/`
+
+Console asset output:
+
+`qa/artifacts/console-assets/`
 
 The output folder is ignored by git.
 
@@ -32,6 +42,16 @@ The script captures a 390x844 mobile viewport:
 - It uses the same clean route covered by Playwright.
 - It includes the recipe book and QA Toss bridge paths.
 - These screenshots are QA candidates, not final store assets.
+
+## Console Assets
+
+`npm run qa:console-assets` generates:
+
+1. `logo-600x600.png`
+2. `thumbnail-1932x828.png`
+3. `screenshot-01-first-playable-636x1048.png`
+4. `screenshot-02-completion-result-636x1048.png`
+5. `screenshot-03-recipe-book-636x1048.png`
 
 ## Future Queue
 
