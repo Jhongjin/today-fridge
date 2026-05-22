@@ -17,3 +17,4 @@
 - Framework decision: Vite + React + TypeScript, DOM/CSS grid for MVP board, pure TypeScript engine for deterministic board and score tests.
 - Phase 2 playable scaffold started: Vite app shell, React DOM board, pure TypeScript game engine, mock Toss adapter, and CI app checks.
 - Phase 3 QA harness added: Playwright mobile viewports, first-screen smoke test, basic interaction tests, and CI browser verification.
+- Phase 3 CI hotfix: Vitest unit-test include narrowed so Playwright specs run only under Playwright.
