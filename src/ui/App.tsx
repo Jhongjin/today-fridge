@@ -1,4 +1,4 @@
-import { Pause, Trophy } from "lucide-react";
+import { Pause, Trophy, Volume2, VolumeX, Waves } from "lucide-react";
 import { useMemo, useState } from "react";
 import { firstDailyBoard } from "../game/data/boards";
 import { getIngredient } from "../game/data/ingredients";
@@ -7,8 +7,13 @@ import { createInitialState, selectIngredient } from "../game/engine/gameEngine"
 import { totalScore } from "../game/engine/scoring";
 import type { BoardCell, IngredientInstance } from "../game/types";
 import { trackEvent } from "../platform/analytics";
+import { cleanRankedFlags } from "../platform/fairness";
+import { createLeaderboardService } from "../platform/leaderboard";
+import { createTossMockClient } from "../platform/tossMockClient";
 
 const board = firstDailyBoard;
+
+const createPlayId = () => `${board.seed}-${Date.now()}`;
 
 const IngredientTile = ({
   instance,
@@ -81,9 +86,13 @@ const scoreRows = (breakdown: ReturnType<typeof createInitialState>["breakdown"]
 
 export const App = () => {
   const [gameState, setGameState] = useState(() => createInitialState(board));
+  const [playId, setPlayId] = useState(createPlayId);
+  const [muted, setMuted] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
-  const playId = useMemo(() => `${board.seed}-${Date.now()}`, []);
+  const leaderboardService = useMemo(() => createLeaderboardService(createTossMockClient()), []);
 
   const selectCell = (cell: BoardCell) => {
     setGameState((current) => {
@@ -109,19 +118,52 @@ export const App = () => {
       ranked_mode: true
     });
     setGameState(createInitialState(board));
+    setPlayId(createPlayId());
+    setSubmitStatus("idle");
+  };
+
+  const submitScore = async () => {
+    setSubmitStatus("submitting");
+    const result = await leaderboardService.submit({
+      playId,
+      score,
+      flags: cleanRankedFlags()
+    });
+
+    setSubmitStatus(result.ok ? "success" : result.skipped ? "skipped" : "error");
   };
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${reduceMotion ? "app-shell--reduce-motion" : ""}`}>
       <section className="phone-frame" aria-label="오늘의 냉장고 게임">
         <header className="top-bar">
           <div>
             <p className="eyebrow">오늘의 냉장고</p>
             <h1>{board.title}</h1>
           </div>
-          <button className="icon-button" type="button" aria-label="일시정지">
-            <Pause size={20} />
-          </button>
+          <div className="top-actions">
+            <button
+              className="icon-button"
+              type="button"
+              aria-label={muted ? "소리 켜기" : "소리 끄기"}
+              aria-pressed={muted}
+              onClick={() => setMuted((value) => !value)}
+            >
+              {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
+            <button
+              className="icon-button"
+              type="button"
+              aria-label="모션 줄이기"
+              aria-pressed={reduceMotion}
+              onClick={() => setReduceMotion((value) => !value)}
+            >
+              <Waves size={20} />
+            </button>
+            <button className="icon-button" type="button" aria-label="일시정지">
+              <Pause size={20} />
+            </button>
+          </div>
         </header>
 
         <section className="score-strip" aria-label="현재 점수">
@@ -155,6 +197,12 @@ export const App = () => {
         <p className="coach-message" data-testid="coach-message">
           {gameState.message}
         </p>
+
+        <section className="hint-row" aria-label="첫 플레이 힌트">
+          <span>같은 재료 3개</span>
+          <span>임박 먼저</span>
+          <span>밥+김치+계란</span>
+        </section>
 
         <section className="fridge-board" aria-label="냉장고 보드" data-testid="fridge-board">
           {gameState.board.map((cell) => (
@@ -201,6 +249,23 @@ export const App = () => {
             <button className="primary-action" type="button" onClick={restart}>
               다시 도전
             </button>
+            {gameState.status === "complete" ? (
+              <button
+                className="secondary-action"
+                type="button"
+                onClick={submitScore}
+                disabled={submitStatus === "submitting" || submitStatus === "success"}
+              >
+                {submitStatus === "success"
+                  ? "기록 제출 완료"
+                  : submitStatus === "submitting"
+                    ? "기록 제출 중"
+                    : "오늘의 기록 제출"}
+              </button>
+            ) : null}
+            {submitStatus === "skipped" || submitStatus === "error" ? (
+              <p className="submit-note">기록 제출은 clean ranked 판에서만 가능해요.</p>
+            ) : null}
           </section>
         ) : null}
       </section>

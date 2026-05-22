@@ -68,6 +68,11 @@ button {
   gap: 12px;
 }
 
+.top-actions {
+  display: flex;
+  gap: 6px;
+}
+
 .eyebrow {
   margin: 0 0 2px;
   color: #5c7666;
@@ -82,7 +87,7 @@ h1 {
 }
 
 .icon-button {
-  width: 48px;
+  width: 44px;
   height: 48px;
   border: 1px solid #d9e7de;
   border-radius: 8px;
@@ -90,6 +95,12 @@ h1 {
   color: #26392d;
   display: grid;
   place-items: center;
+}
+
+.icon-button[aria-pressed="true"] {
+  border-color: #287c49;
+  background: #e6f4ec;
+  color: #1f6f3c;
 }
 
 .score-strip {
@@ -148,6 +159,25 @@ h1 {
   color: #3e5848;
   font-size: 15px;
   font-weight: 700;
+}
+
+.hint-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.hint-row span {
+  min-height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d9e7de;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #476253;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: center;
 }
 
 .fridge-board {
@@ -288,6 +318,47 @@ h1 {
   font-weight: 900;
 }
 
+.secondary-action {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  border: 1px solid #287c49;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #287c49;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.secondary-action:disabled {
+  opacity: 0.68;
+}
+
+.submit-note {
+  margin: 8px 0 0;
+  color: #6d5940;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.app-shell--reduce-motion *,
+.app-shell--reduce-motion *::before,
+.app-shell--reduce-motion *::after {
+  transition-duration: 0.001ms !important;
+  animation-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .result-panel {
   position: fixed;
   inset: auto 16px 16px;
@@ -346,8 +417,15 @@ h1 {
     font-size: 11px;
   }
 
+  .top-actions {
+    gap: 4px;
+  }
+
+  .icon-button {
+    width: 40px;
+  }
+
   .tray {
     gap: 4px;
   }
 }
-

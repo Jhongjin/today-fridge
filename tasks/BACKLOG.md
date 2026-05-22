@@ -20,6 +20,7 @@
 - Define ingredient icon style.
 - Define BGM mood references.
 - Define SFX list and trigger map.
+- Add first-play accessibility toggles and result submit UX. (Phase 5 done pending CI)
 
 ## Platform
 
