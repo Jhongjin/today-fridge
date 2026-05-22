@@ -63,6 +63,33 @@ const readPngDataURL = async (fileName) => {
   return `data:image/png;base64,${bytes.toString("base64")}`;
 };
 
+const readPngDimensions = async (fileName) => {
+  const bytes = await readFile(join(outputDir, fileName));
+
+  return {
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20)
+  };
+};
+
+const verifyAssetDimensions = async () => {
+  const expectedAssets = [
+    ["logo-600x600.png", 600, 600],
+    ["thumbnail-1932x828.png", 1932, 828],
+    ["screenshot-01-first-playable-636x1048.png", 636, 1048],
+    ["screenshot-02-completion-result-636x1048.png", 636, 1048],
+    ["screenshot-03-recipe-book-636x1048.png", 636, 1048]
+  ];
+
+  for (const [fileName, expectedWidth, expectedHeight] of expectedAssets) {
+    const { width, height } = await readPngDimensions(fileName);
+
+    if (width !== expectedWidth || height !== expectedHeight) {
+      throw new Error(`${fileName} is ${width}x${height}, expected ${expectedWidth}x${expectedHeight}`);
+    }
+  }
+};
+
 const captureLogo = async (browser) => {
   const page = await browser.newPage({ viewport: { width: 600, height: 600 } });
   const svg = await readFile(join("public", "icon.svg"), "utf8");
@@ -246,6 +273,7 @@ try {
   await captureLogo(browser);
   await captureVerticalScreenshots(browser);
   await captureThumbnail(browser);
+  await verifyAssetDimensions();
   await browser.close();
 
   console.log(`Saved console assets to ${outputDir}`);

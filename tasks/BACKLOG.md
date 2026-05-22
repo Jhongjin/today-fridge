@@ -82,6 +82,7 @@
 - Clean stale screenshot artifacts before capture. (Phase 56 done pending CI)
 - Add manifest app icon asset. (Phase 39 done pending CI)
 - Generate console-ready PNG logo, thumbnail, and upload screenshots. (Phase 58 done pending CI)
+- Verify console asset PNG dimensions after capture. (Phase 70 done pending CI)
 - Add CI bundle budget guard. (Phase 43 done pending CI)
 - Add production source map guard. (Phase 47 done pending CI)
 - Add MVP status checkpoint. (Phase 50 done pending CI)

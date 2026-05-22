@@ -53,6 +53,8 @@ The script captures a 390x844 mobile viewport:
 4. `screenshot-02-completion-result-636x1048.png`
 5. `screenshot-03-recipe-book-636x1048.png`
 
+The console-asset script verifies these PNG dimensions after capture and fails if any generated file is off-spec.
+
 ## Future Queue
 
 Add QR-device screenshots after the real Apps in Toss runtime is configured.
