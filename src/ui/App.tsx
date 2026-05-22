@@ -8,6 +8,7 @@ import { getRecipe } from "../game/data/recipes";
 import { applyKstDailySeed, getMsUntilNextKstRefresh, getNextKstRefreshAt } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
 import { SCORE, totalScore } from "../game/engine/scoring";
+import { scoreTierFor } from "../game/engine/scoreTier";
 import type { BoardCell, IngredientInstance, ScoreBreakdown } from "../game/types";
 import { createHapticsController } from "../haptics/hapticsController";
 import { getAnalyticsContext, trackEvent } from "../platform/analytics";
@@ -216,38 +217,6 @@ const scoreRows = (breakdown: ReturnType<typeof createInitialState>["breakdown"]
   ["이동 보너스", breakdown.moveEfficiencyBonus],
   ["남은 임박 재료", -breakdown.wastePenalty]
 ];
-
-const scoreTierFor = ({
-  cleanRun,
-  score,
-  status
-}: {
-  cleanRun: boolean;
-  score: number;
-  status: ReturnType<typeof createInitialState>["status"];
-}) => {
-  if (status === "failed") {
-    return "아쉬움";
-  }
-
-  if (!cleanRun) {
-    return "연습";
-  }
-
-  if (score >= 1700) {
-    return "S";
-  }
-
-  if (score >= 1400) {
-    return "A";
-  }
-
-  if (score >= 1000) {
-    return "B";
-  }
-
-  return "C";
-};
 
 export const App = () => {
   const [gameState, setGameState] = useState(() => createInitialState(board));
