@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { installClientErrorTracking } from "./platform/errorMonitoring";
+import { installQaAppsInTossBridge } from "./platform/qaTossBridge";
 import { App } from "./ui/App";
 import "./ui/styles.css";
 
 installClientErrorTracking();
+installQaAppsInTossBridge();
 
 const rootElement = document.getElementById("root");
 

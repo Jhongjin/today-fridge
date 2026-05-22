@@ -134,6 +134,33 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await expect(page.getByTestId("leaderboard-open")).toHaveText("랭킹 열림");
 });
 
+test("qa Toss bridge path handles submit and leaderboard open", async ({ page }) => {
+  await page.goto("/?qa=toss-bridge");
+
+  await page.getByTestId("cell-tofu_1_fresh").click();
+  await page.getByTestId("cell-tofu_2_fresh").click();
+  await page.getByTestId("cell-tofu_4_expiring").click();
+  await page.getByTestId("cell-rice_5_expiring").click();
+  await page.getByTestId("cell-kimchi_5_expiring").click();
+  await page.getByTestId("cell-egg_5_expiring").click();
+
+  await page.getByRole("button", { name: "오늘의 기록 제출" }).click();
+  await expect(page.getByRole("button", { name: "기록 제출 완료" })).toBeVisible();
+  await page.getByTestId("leaderboard-open").click();
+  await expect(page.getByTestId("leaderboard-open")).toHaveText("랭킹 열림");
+
+  const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
+  expect(bridgeEvents).toEqual([
+    {
+      type: "submit",
+      score: "1700"
+    },
+    {
+      type: "open"
+    }
+  ]);
+});
+
 test("hint booster marks the run outside clean leaderboard", async ({ page }) => {
   await page.goto("/");
 

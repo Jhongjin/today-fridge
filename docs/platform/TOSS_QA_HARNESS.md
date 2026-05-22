@@ -123,6 +123,12 @@ Suggested structure:
 | `qa/assertions` | UI, score determinism, event logs |
 | `qa/artifacts` | Screenshots, traces, console logs |
 
+Current QA bridge:
+
+- Open `/?qa=toss-bridge`.
+- The app installs `globalThis.__TODAY_FRIDGE_TOSS_BRIDGE__` only when no real bridge exists.
+- Browser automation can read `globalThis.__TODAY_FRIDGE_TOSS_QA_EVENTS__` to assert score submit/open calls.
+
 Automated scenarios:
 
 1. Load first playable UI within 10 seconds.
@@ -131,10 +137,11 @@ Automated scenarios:
 4. Complete one fixed-seed round.
 5. Verify same seed and move sequence produce same score.
 6. Mock leaderboard success, failure, duplicate submit.
-7. Mock share reward event variants.
-8. Mock rewarded ad loaded, reward, dismissed, failed.
-9. Mock promotion success, budget exhausted, limit exceeded, unsupported version.
-10. Assert zero console errors and unhandled promise rejections.
+7. Verify QA Toss bridge submit/open path.
+8. Mock share reward event variants.
+9. Mock rewarded ad loaded, reward, dismissed, failed.
+10. Mock promotion success, budget exhausted, limit exceeded, unsupported version.
+11. Assert zero console errors and unhandled promise rejections.
 
 ## 9. Pre-Submission Checklist
 
@@ -148,4 +155,3 @@ Automated scenarios:
 - Ads, share, and points do not affect ranked fairness.
 - QR test passed.
 - Rollback path identified.
-
