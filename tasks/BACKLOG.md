@@ -23,6 +23,7 @@
 - Add personal best competition loop. (Phase 13 done pending CI)
 - Add personal best route memory. (Phase 38 done pending CI)
 - Add result attempt-count cue. (Phase 48 done pending CI)
+- Add result score tier cue. (Phase 67 done pending CI)
 - Add result mission summary. (Phase 49 done pending CI)
 - Add result sharing competition loop. (Phase 35 done pending CI)
 - Add fixed completion reward and recipe pieces. (Phase 16 done pending CI)

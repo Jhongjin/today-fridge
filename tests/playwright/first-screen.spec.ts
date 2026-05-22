@@ -131,6 +131,7 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   expect(resultPanelBox!.height).toBeLessThanOrEqual(page.viewportSize()!.height);
   await expect(page.getByTestId("tutorial-strip")).toHaveCount(0);
   await expect(page.getByTestId("score-value")).toHaveText("1,700");
+  await expect(page.getByTestId("score-tier")).toContainText("S");
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
   await expect(page.getByTestId("attempt-note")).toContainText("1번째");
   await expect(page.getByTestId("mission-summary-count")).toHaveText("3/3");
@@ -215,6 +216,7 @@ test("hint booster marks the run outside clean leaderboard", async ({ page }) =>
   await playCleanRoute(page);
 
   await expect(page.getByRole("heading", { name: "김치볶음밥 완성!" })).toBeVisible();
+  await expect(page.getByTestId("score-tier")).toContainText("연습");
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
   await expect(page.getByTestId("mission-summary-count")).toHaveText("2/3");
   await expect(page.getByTestId("mission-clean")).toHaveAttribute("aria-label", "클린 기록 미완료");
@@ -229,6 +231,7 @@ test("failed round can still claim a small participation coin reward", async ({ 
   await playFailedParticipationRoute(page);
 
   await expect(page.getByRole("heading", { name: "한 수만 더 깔끔했어요" })).toBeVisible();
+  await expect(page.getByTestId("score-tier")).toContainText("아쉬움");
   await expect(page.getByTestId("coin-balance")).toHaveText("0");
   await expect(page.getByTestId("recipe-piece-balance")).toHaveText("0");
 

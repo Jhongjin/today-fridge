@@ -84,3 +84,4 @@
 - Phase 64 game rating evidence checklist added: Toss review now has a concrete GRAC/store-rating evidence path.
 - Phase 65 Toss bridge failure QA added: failed leaderboard submits stay retryable and have a browser smoke path.
 - Phase 66 leaderboard submit failure copy split added: platform failures now show retry guidance distinct from clean-ranked skips.
+- Phase 67 score tier result cue added: result screens now show S/A/B/C, practice, or failed-run mastery labels.

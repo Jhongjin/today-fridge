@@ -10,12 +10,13 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 2. The screen shows the saved personal best for that board.
 3. During play, the screen shows the gap to the current personal best.
 4. On completion, a higher score updates the personal best immediately.
-5. The result panel shows today's attempt count.
-6. The result panel shows today's mission completion summary.
-7. The result panel shows the improvement delta.
-8. The result panel shows the saved best route as ingredient icons.
-9. The player can share the result without gaining reward or rank advantage.
-10. The player can restart and try a cleaner route.
+5. The result panel shows a lightweight score tier as a quick mastery target.
+6. The result panel shows today's attempt count.
+7. The result panel shows today's mission completion summary.
+8. The result panel shows the improvement delta.
+9. The result panel shows the saved best route as ingredient icons.
+10. The player can share the result without gaining reward or rank advantage.
+11. The player can restart and try a cleaner route.
 
 ## Why This Fits The Target
 
@@ -37,6 +38,7 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 - `personal_best_update`
 - `round_start`
 - `round_complete`
+- `round_complete.score_tier`
 - `result_share`
 - `leaderboard_submit`
 

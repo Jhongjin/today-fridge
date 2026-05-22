@@ -533,8 +533,28 @@ button:focus-visible {
 
 .result-score {
   display: block;
-  margin: 6px 0 10px;
+  margin: 6px 0 6px;
   font-size: 30px;
+}
+
+.score-tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border: 1px solid #d5e6dc;
+  border-radius: 8px;
+  background: #eef7f1;
+  color: #244d35;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.score-tier strong {
+  color: #287c49;
+  font-size: 16px;
 }
 
 .attempt-note {

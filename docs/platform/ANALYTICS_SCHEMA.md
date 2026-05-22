@@ -39,7 +39,7 @@ Every event should include:
 | `recipe_complete` | `play_id`, `recipe_id`, `points` |
 | `expiring_rescue` | `play_id`, `ingredient_id`, `points` |
 | `booster_use` | `play_id`, `booster_id`, `ranked_mode` |
-| `round_complete` | `play_id`, `score`, `duration_ms`, `moves_used`, `recipe_count`, `rescued_count` |
+| `round_complete` | `play_id`, `score`, `score_tier`, `duration_ms`, `moves_used`, `recipe_count`, `rescued_count` |
 | `round_fail` | `play_id`, `fail_reason`, `move_no`, `tray_state_hash` |
 | `mission_summary` | `play_id`, `completed_count`, `total_count`, `recipe_completed`, `rescue_completed`, `clean_record_completed` |
 | `audio_visibility_change` | `play_id`, `hidden` |

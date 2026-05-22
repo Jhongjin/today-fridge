@@ -217,6 +217,38 @@ const scoreRows = (breakdown: ReturnType<typeof createInitialState>["breakdown"]
   ["남은 임박 재료", -breakdown.wastePenalty]
 ];
 
+const scoreTierFor = ({
+  cleanRun,
+  score,
+  status
+}: {
+  cleanRun: boolean;
+  score: number;
+  status: ReturnType<typeof createInitialState>["status"];
+}) => {
+  if (status === "failed") {
+    return "아쉬움";
+  }
+
+  if (!cleanRun) {
+    return "연습";
+  }
+
+  if (score >= 1700) {
+    return "S";
+  }
+
+  if (score >= 1400) {
+    return "A";
+  }
+
+  if (score >= 1000) {
+    return "B";
+  }
+
+  return "C";
+};
+
 export const App = () => {
   const [gameState, setGameState] = useState(() => createInitialState(board));
   const [playId, setPlayId] = useState(createPlayId);
@@ -266,6 +298,11 @@ export const App = () => {
     }
   ];
   const completedMissionCount = missionRows.filter((row) => row.complete).length;
+  const scoreTier = scoreTierFor({
+    cleanRun,
+    score,
+    status: gameState.status
+  });
   const highlightedCells = useMemo(() => {
     const cellIds = new Set(tutorialStep === "done" ? [] : tutorialHighlightCells[tutorialStep]);
 
@@ -449,6 +486,11 @@ export const App = () => {
       trackEvent("round_complete", {
         play_id: playId,
         score: finalScore,
+        score_tier: scoreTierFor({
+          cleanRun,
+          score: finalScore,
+          status: next.status
+        }),
         duration_ms: Math.max(0, Date.now() - roundStartedAt),
         moves_used: next.movesUsed,
         recipe_count: next.completedRecipeIds.length,
@@ -800,6 +842,9 @@ export const App = () => {
           <section className="result-panel" aria-live="polite">
             <h2>{gameState.status === "complete" ? "김치볶음밥 완성!" : "한 수만 더 깔끔했어요"}</h2>
             <strong className="result-score">{score.toLocaleString()}점</strong>
+            <p className="score-tier" data-testid="score-tier">
+              냉파 등급 <strong>{scoreTier}</strong>
+            </p>
             <p className="attempt-note" data-testid="attempt-note">
               오늘 {attemptNo.toLocaleString()}번째 도전
             </p>
