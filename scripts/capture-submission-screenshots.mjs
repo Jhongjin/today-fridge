@@ -68,12 +68,16 @@ try {
   await page.goto(baseURL);
   await capture(page, "01-first-playable.png");
 
+  await page.getByTestId("recipe-book-open").click();
+  await capture(page, "02-recipe-book.png");
+  await page.locator(".recipe-book-panel .icon-button").click();
+
   await clickCleanRoute(page);
-  await page.getByRole("heading", { name: "김치볶음밥 완성!" }).waitFor();
-  await capture(page, "02-completion-result.png");
+  await page.getByTestId("best-route").waitFor();
+  await capture(page, "03-completion-result.png");
 
   await page.getByTestId("reward-claim").click();
-  await capture(page, "03-reward-claimed.png");
+  await capture(page, "04-reward-claimed.png");
 
   const hintPage = await browser.newPage({
     viewport: { width: 390, height: 844 },
@@ -82,9 +86,21 @@ try {
   });
 
   await hintPage.goto(baseURL);
-  await hintPage.getByRole("button", { name: "첫 판 힌트 닫기" }).click();
+  await hintPage.getByTestId("tutorial-strip").locator("button").click();
   await hintPage.getByTestId("hint-booster").click();
-  await capture(hintPage, "04-hint-fairness.png");
+  await capture(hintPage, "05-hint-fairness.png");
+
+  const bridgePage = await browser.newPage({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true
+  });
+
+  await bridgePage.goto(`${baseURL}/?qa=toss-bridge`);
+  await clickCleanRoute(bridgePage);
+  await bridgePage.getByRole("button", { name: "오늘의 기록 제출" }).click();
+  await bridgePage.getByTestId("leaderboard-open").click();
+  await capture(bridgePage, "06-qa-toss-bridge.png");
 
   await browser.close();
   console.log(`Saved submission screenshots to ${outputDir}`);

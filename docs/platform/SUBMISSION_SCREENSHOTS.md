@@ -19,15 +19,18 @@ The output folder is ignored by git.
 The script captures a 390x844 mobile viewport:
 
 1. `01-first-playable.png`
-2. `02-completion-result.png`
-3. `03-reward-claimed.png`
-4. `04-hint-fairness.png`
+2. `02-recipe-book.png`
+3. `03-completion-result.png`
+4. `04-reward-claimed.png`
+5. `05-hint-fairness.png`
+6. `06-qa-toss-bridge.png`
 
 ## Notes
 
 - The script starts a local Vite dev server on `127.0.0.1:5174`.
 - It closes the server after capture.
 - It uses the same clean route covered by Playwright.
+- It includes the recipe book and QA Toss bridge paths.
 - These screenshots are QA candidates, not final store assets.
 
 ## Future Queue

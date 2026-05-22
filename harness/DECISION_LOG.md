@@ -62,3 +62,4 @@
 - Phase 42 QA Toss bridge added: `?qa=toss-bridge` exercises submit/open through the injected bridge path in browser tests.
 - Phase 43 bundle budget guard added: CI now checks static `dist` output against a default 5 MB budget.
 - Phase 44 haptic feedback added: supported mobile browsers get short confirmation vibrations, disabled by reduced motion.
+- Phase 45 submission screenshot set expanded: captures now include recipe book and QA Toss bridge result states.
