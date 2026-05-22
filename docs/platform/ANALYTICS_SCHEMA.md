@@ -42,6 +42,7 @@ Every event should include:
 | `round_complete` | `play_id`, `score`, `duration_ms`, `moves_used`, `recipe_count`, `rescued_count` |
 | `round_fail` | `play_id`, `fail_reason`, `move_no`, `tray_state_hash` |
 | `mission_summary` | `play_id`, `completed_count`, `total_count`, `recipe_completed`, `rescue_completed`, `clean_record_completed` |
+| `audio_visibility_change` | `play_id`, `hidden` |
 
 ## 4. Competition Events
 
@@ -108,5 +109,6 @@ Use only in development or sampled production logs:
 - `client_error`
 - `unhandled_rejection`
 - `asset_load_error`
+- `audio_visibility_change`
 - `score_determinism_mismatch`
 - `sdk_mock_mode_used`

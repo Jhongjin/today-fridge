@@ -19,7 +19,7 @@ References:
 | Console upload assets | Pending | Console logo/thumbnail/screenshot dimensions are now tracked in `TOSS_REQUIREMENTS_CHECKPOINT.md`. |
 | Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget and blocks source maps. Must recheck after assets/audio. |
 | Sound controls | Placeholder | Mute toggle exists. Actual BGM/SFX engine not implemented yet. |
-| Background sound handling | Pending | Needs real audio lifecycle once audio exists. |
+| Background sound handling | Partial | SFX playback is suspended on page hide/show lifecycle events. Final BGM lifecycle still needs real-device testing once BGM is added. |
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
 | Leaderboard submit timing | Pass by design | Submit action appears after round completion. |
 | Game profile | Pending | Official docs say profile registration is required before gameplay. |

@@ -6,6 +6,8 @@ This document locks the sound-event contract before custom BGM/SFX assets are ad
 
 The current implementation records sound events through `src/audio/audioController.ts` and uses a lightweight Web Audio output adapter when the browser supports it. This keeps gameplay, settings, and tests stable while custom creative audio assets are still pending.
 
+The controller is lifecycle-aware: the app suspends SFX while the page is hidden or unloading, then allows playback again when the page is visible.
+
 ## 2. Sound Events
 
 | Event | Future Sound Direction |

@@ -302,6 +302,41 @@ export const App = () => {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const applyAudioVisibility = (trackVisibilityEvent: boolean) => {
+      const hidden = document.visibilityState === "hidden";
+      audioController.setSuspended(hidden);
+
+      if (trackVisibilityEvent) {
+        trackEvent("audio_visibility_change", {
+          play_id: playId,
+          hidden
+        });
+      }
+    };
+
+    const handleVisibilityChange = () => applyAudioVisibility(true);
+    const suspendAudio = () => {
+      audioController.setSuspended(true);
+      trackEvent("audio_visibility_change", {
+        play_id: playId,
+        hidden: true
+      });
+    };
+    const resumeAudio = () => applyAudioVisibility(true);
+
+    applyAudioVisibility(false);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pagehide", suspendAudio);
+    window.addEventListener("pageshow", resumeAudio);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pagehide", suspendAudio);
+      window.removeEventListener("pageshow", resumeAudio);
+    };
+  }, [audioController, playId]);
+
   const selectCell = (cell: BoardCell) => {
     const current = gameState;
     const next = selectIngredient(current, board, cell.id);

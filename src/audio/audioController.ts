@@ -13,6 +13,8 @@ export type SoundEvent =
 export type AudioController = {
   setMuted: (muted: boolean) => void;
   isMuted: () => boolean;
+  setSuspended: (suspended: boolean) => void;
+  isSuspended: () => boolean;
   play: (event: SoundEvent) => void;
   getHistory: () => SoundEvent[];
   clearHistory: () => void;
@@ -24,6 +26,7 @@ export type AudioOutput = {
 
 export const createAudioController = (output?: AudioOutput): AudioController => {
   let muted = false;
+  let suspended = false;
   const history: SoundEvent[] = [];
 
   return {
@@ -33,8 +36,14 @@ export const createAudioController = (output?: AudioOutput): AudioController => 
     isMuted() {
       return muted;
     },
+    setSuspended(nextSuspended) {
+      suspended = nextSuspended;
+    },
+    isSuspended() {
+      return suspended;
+    },
     play(event) {
-      if (muted) {
+      if (muted || suspended) {
         return;
       }
 

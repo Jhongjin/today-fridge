@@ -34,4 +34,33 @@ describe("audio controller", () => {
     expect(audio.getHistory()).toEqual([]);
     expect(output.play).not.toHaveBeenCalled();
   });
+
+  it("suppresses sound events while suspended", () => {
+    const output = {
+      play: vi.fn()
+    };
+    const audio = createAudioController(output);
+
+    audio.setSuspended(true);
+    audio.play("ingredient_select");
+
+    expect(audio.isSuspended()).toBe(true);
+    expect(audio.getHistory()).toEqual([]);
+    expect(output.play).not.toHaveBeenCalled();
+  });
+
+  it("resumes sound events after suspension is lifted", () => {
+    const output = {
+      play: vi.fn()
+    };
+    const audio = createAudioController(output);
+
+    audio.setSuspended(true);
+    audio.setSuspended(false);
+    audio.play("ingredient_select");
+
+    expect(audio.isSuspended()).toBe(false);
+    expect(audio.getHistory()).toEqual(["ingredient_select"]);
+    expect(output.play).toHaveBeenCalledWith("ingredient_select");
+  });
 });
