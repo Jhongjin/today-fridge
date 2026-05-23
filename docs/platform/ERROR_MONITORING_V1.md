@@ -44,7 +44,7 @@ Current transport:
 
 ## Submission Impact
 
-This provides a production transport boundary without binding the game to a vendor SDK. Set `VITE_ERROR_MONITORING_ENDPOINT` for preview or production builds that should send only error-monitoring events to an HTTP collector. Vendor selection, endpoint retention policy, and access ownership still need commander approval before final submission.
+This provides a production transport boundary without binding the game to a vendor SDK. Set `VITE_ERROR_MONITORING_ENDPOINT` for preview or production builds that should send only error-monitoring events to an HTTP collector. Vendor selection, endpoint retention policy, and access ownership must be approved or explicitly deferred in the commander review packet before final submission.
 
 ## Future Queues
 

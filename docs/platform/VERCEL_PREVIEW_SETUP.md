@@ -52,7 +52,7 @@ This command checks only environment presence and never prints secret values:
 npm run deploy:check-prereqs
 ```
 
-The preflight also reports optional `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT` rows. Missing optional endpoints do not make strict mode fail.
+The preflight also reports optional `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT` rows. Missing optional endpoints do not make strict mode fail, but the commander review packet must record whether production monitoring is approved or explicitly deferred.
 
 Strict mode exits non-zero when anything is missing:
 
@@ -75,5 +75,6 @@ A queue completion is fully preview-deployed when:
 - Console assets are regenerated and dimension-checked inside `Validate Harness`.
 - `Optional Preview Deploy` runs `Install Vercel CLI`, `Pull Vercel preview environment`, and `Deploy preview` instead of skipping those steps.
 - The workflow summary contains a preview URL.
+- The commander review packet records the production monitoring approval or deferral decision before production promotion.
 
 Production is still blocked until the commander manually runs `Commander Production Deploy` against an approved commit or preview URL.

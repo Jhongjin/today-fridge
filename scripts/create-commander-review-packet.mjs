@@ -131,6 +131,28 @@ Notes:
 
 `;
 
+const renderProductionMonitoringSection = () => `## Production Monitoring Approval
+
+${checkboxRows([
+  "Production monitoring endpoint owner is named, or the deferral owner is named.",
+  "Retention policy for analytics and error-monitoring events is approved or explicitly deferred.",
+  "Access controls for monitoring data are approved or explicitly deferred.",
+  "`npm run deploy:check-prereqs` output is linked or summarized for endpoint configuration state.",
+  "Production client-error review path is recorded or explicitly deferred."
+])}
+
+Production monitoring decision:
+
+- [ ] Approved for production launch
+- [ ] Explicitly deferred by commander
+- [ ] Blocked until monitoring ownership is resolved
+
+Notes:
+
+- TODO
+
+`;
+
 const renderPacket = ({
   commit,
   externalRewards,
@@ -154,6 +176,7 @@ const renderPacket = ({
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
 | Game rating evidence | required |
+| Production monitoring approval | required |
 
 ## Required Local Commands
 
@@ -192,7 +215,7 @@ ${checkboxRows([
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."
 ])}
 
-${renderGameRatingEvidenceSection()}## Platform Decision
+${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
 
 ${checkboxRows([
   "First playable screen appears within 10 seconds on supported QR devices.",
@@ -202,7 +225,7 @@ ${checkboxRows([
   "Bundle budget and source-map guard passed for the reviewed commit.",
   "Queue Preview GitHub Actions passed for the reviewed commit.",
   "Preview deploy skipped state is understood when Vercel secrets/vars are not configured.",
-  "Production monitoring endpoint owner, retention policy, and access controls are approved or explicitly deferred."
+  "Production monitoring approval section is complete."
 ])}
 
 ${renderExternalRewardSection(externalRewards)}## Commander Decision

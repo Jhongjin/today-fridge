@@ -104,5 +104,5 @@ This harness can already answer:
 ## Future Queues
 
 - Add batching and retry policy if the selected endpoint requires it.
-- Select and configure the production monitoring endpoint owner.
+- Select and configure the production monitoring endpoint owner, or record an explicit commander deferral in the review packet.
 - Add product dashboard queries for replay rate, completion rate, and leaderboard submit rate.

@@ -61,6 +61,7 @@ const requiredSections = [
   "Required Local Commands",
   "Evidence Checklist",
   "Game Rating Evidence Approval",
+  "Production Monitoring Approval",
   "Platform Decision",
   "Commander Decision"
 ];
@@ -117,6 +118,9 @@ const decisionLabels = new Set([
   "Approved for Toss review request",
   "Needs rating evidence follow-up",
   "Blocked until rating evidence is complete",
+  "Approved for production launch",
+  "Explicitly deferred by commander",
+  "Blocked until monitoring ownership is resolved",
   "Needs follow-up",
   "Rejected for now"
 ]);
@@ -182,6 +186,11 @@ export const checkCommanderReviewPacket = (text) => {
   const ratingEvidenceDecisionChecked = checkedDecisionOptions(sectionText(text, "Game Rating Evidence Approval"));
   if (ratingEvidenceDecisionChecked.length !== 1) {
     issues.push("Game rating evidence decision must have exactly one checked decision.");
+  }
+
+  const monitoringDecisionChecked = checkedDecisionOptions(sectionText(text, "Production Monitoring Approval"));
+  if (monitoringDecisionChecked.length !== 1) {
+    issues.push("Production monitoring decision must have exactly one checked decision.");
   }
 
   const externalRewardSection = sectionText(text, "External Reward Approval");

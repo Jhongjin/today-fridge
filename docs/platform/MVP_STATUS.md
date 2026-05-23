@@ -43,7 +43,7 @@
 - Game rating evidence has a checklist and commander packet gate, but the selected store self-rating or GRAC certificate evidence is still pending.
 - BGM/custom audio assets are not final, but synthetic SFX and pause/resume feedback are in place.
 - iOS/Android safe-area and background audio lifecycle need device checks.
-- Production monitoring vendor is not selected, but optional HTTP analytics and error-only transports can be enabled with `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT`.
+- Production monitoring vendor is not selected, but optional HTTP analytics and error-only transports can be enabled with `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT`; commander packets now require an explicit monitoring approval or deferral decision.
 
 ## Commander Position
 

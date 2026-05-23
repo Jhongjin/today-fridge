@@ -95,5 +95,5 @@ npm run --silent qa:korean-copy -- --json
 ## Review Notes
 
 - The current MVP uses a mock Toss client.
-- Real Toss SDK, game profile, game user key, leaderboard open/submit, and QR test remain pre-submission blockers. Production monitoring transport exists, but endpoint owner, retention, and access controls still need approval.
+- Real Toss SDK, game profile, game user key, leaderboard open/submit, and QR test remain pre-submission blockers. Production monitoring transport exists, but endpoint owner, retention, and access controls still need commander packet approval or explicit deferral.
 - Automatic preview deployment is available after repository secrets are configured; production deployment remains commander-approved only.

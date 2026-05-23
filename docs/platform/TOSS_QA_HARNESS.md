@@ -205,7 +205,7 @@ Automated scenarios:
 - Toss SDK integration smoke test completed.
 - Bundle size reviewed.
 - CORS and production origins reviewed.
-- Error monitoring prepared.
+- Error monitoring approval or explicit deferral recorded in the commander review packet.
 - Source map process decided.
 - Leaderboard score idempotency verified.
 - Ads, share, and points do not affect ranked fairness.

@@ -111,6 +111,7 @@
 - Add JSON output to Korean copy guard. (Phase 136 done pending CI)
 - Add JSON output to console asset generation. (Phase 137 done pending CI)
 - Gate commander review on game rating evidence. (Phase 138 done pending CI)
+- Gate commander review on production monitoring decision. (Phase 139 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)

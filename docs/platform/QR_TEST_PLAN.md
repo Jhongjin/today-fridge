@@ -132,5 +132,5 @@ Final submission approval requires:
 - A commander review packet is generated with `npm run qa:commander-review-packet`.
 - No console/page errors during QR flows.
 - Real leaderboard submit/open verified.
-- Production monitoring endpoint owner, retention policy, and access controls are approved or explicitly deferred.
+- Production monitoring endpoint owner, retention policy, and access controls are approved or explicitly deferred in the commander review packet.
 - Commander confirms screenshots and listing copy are still aligned.

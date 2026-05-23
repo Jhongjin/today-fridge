@@ -118,6 +118,13 @@ const gameRatingEvidenceDecisionOf = (text) =>
     "Blocked until rating evidence is complete"
   ]);
 
+const productionMonitoringDecisionOf = (text) =>
+  checkedDecision(sectionText(text, "Production Monitoring Approval"), [
+    "Approved for production launch",
+    "Explicitly deferred by commander",
+    "Blocked until monitoring ownership is resolved"
+  ]);
+
 const summarizePacket = async (file) => {
   const text = (await readFile(file, "utf8")).replace(/\r\n/g, "\n");
   const check = checkCommanderReviewPacket(text);
@@ -133,6 +140,7 @@ const summarizePacket = async (file) => {
     metadata: check.metadata,
     commanderDecision: commanderDecisionOf(text),
     gameRatingEvidenceDecision: gameRatingEvidenceDecisionOf(text),
+    productionMonitoringDecision: productionMonitoringDecisionOf(text),
     externalRewardDecision: externalRewardDecisionOf(text),
     issues: check.issues
   };
@@ -158,13 +166,13 @@ Generated at: ${generatedAt}
 
 ## Packets
 
-| File | Commit | Worktree | Required Commands | Preview URL | External Rewards | Rating Evidence Decision | Commander Decision | External Reward Decision | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| File | Commit | Worktree | Required Commands | Preview URL | External Rewards | Rating Evidence Decision | Monitoring Decision | Commander Decision | External Reward Decision | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows.length > 0 ? rows.map((row) => {
     const metadata = row.metadata;
 
-    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.gameRatingEvidenceDecision)} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
-  }).join("\n") : "| none |  |  |  |  |  |  |  |  | not_ready |"}
+    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.gameRatingEvidenceDecision)} | ${escapeCell(row.productionMonitoringDecision)} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
+  }).join("\n") : "| none |  |  |  |  |  |  |  |  |  | not_ready |"}
 
 ## Open Issues
 
