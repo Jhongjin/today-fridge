@@ -61,6 +61,23 @@ const readCurrentCommit = () => {
   }
 };
 
+const readWorktreeStatus = () => {
+  try {
+    const output = execFileSync("git", ["status", "--short"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"]
+    }).trim();
+
+    if (output.length === 0) {
+      return "clean";
+    }
+
+    return `dirty (${output.split(/\r?\n/).length} change(s))`;
+  } catch {
+    return "unknown";
+  }
+};
+
 const renderExternalRewardSection = (enabled) => {
   if (!enabled) {
     return "";
@@ -98,7 +115,8 @@ const renderPacket = ({
   previewUrl,
   reviewer,
   sessionIndex,
-  title
+  title,
+  worktreeStatus
 }) => `# ${title}
 
 ## Metadata
@@ -108,6 +126,7 @@ const renderPacket = ({
 | Generated at | ${generatedAt} |
 | Reviewer | ${reviewer} |
 | Commit | ${commit} |
+| Working tree | ${worktreeStatus} |
 | Preview URL | ${previewUrl} |
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
@@ -180,7 +199,8 @@ const main = async () => {
     previewUrl: valueOf(args, "preview-url", "pending"),
     reviewer: valueOf(args, "reviewer", "commander"),
     sessionIndex: valueOf(args, "session-index", "qa/qr-sessions/INDEX.md"),
-    title: valueOf(args, "title", "Commander QR Review Packet")
+    title: valueOf(args, "title", "Commander QR Review Packet"),
+    worktreeStatus: readWorktreeStatus()
   });
 
   if (args.print) {

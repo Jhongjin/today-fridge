@@ -137,3 +137,4 @@
 - Phase 117 SDK dependency triage command added: QR/review candidates can refresh SDK latest metadata, Node engine requirements, and npm audit counts with a single report command.
 - Phase 118 commander review packet now requires the SDK dependency triage strict report before QR approval.
 - Phase 119 commander review packet now defaults the reviewed commit to the current short Git SHA when `--commit` is omitted.
+- Phase 120 commander review packet now records local worktree clean/dirty status in metadata.
