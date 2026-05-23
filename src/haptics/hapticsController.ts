@@ -4,6 +4,8 @@ export type HapticEvent =
   | "recipe_complete"
   | "expiring_rescue"
   | "booster_use"
+  | "game_pause"
+  | "game_resume"
   | "round_complete"
   | "round_fail"
   | "leaderboard_submit"
@@ -24,6 +26,8 @@ const patterns: Record<HapticEvent, VibratePattern> = {
   recipe_complete: [16, 24, 18],
   expiring_rescue: 10,
   booster_use: 10,
+  game_pause: 8,
+  game_resume: 8,
   round_complete: [18, 28, 22],
   round_fail: 18,
   leaderboard_submit: 12,

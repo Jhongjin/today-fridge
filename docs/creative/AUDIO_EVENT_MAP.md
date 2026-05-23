@@ -18,6 +18,8 @@ The controller is lifecycle-aware: the app suspends SFX while the page is hidden
 | `recipe_complete` | Warm 2-3 second dish jingle |
 | `expiring_rescue` | Fresh sparkle, not an alarm |
 | `booster_use` | Soft helper tap, clearly less exciting than a clear |
+| `game_pause` | Very short low pause tick |
+| `game_resume` | Very short warm resume tick |
 | `round_complete` | Gentle completion flourish |
 | `round_fail` | Low soft notice |
 | `leaderboard_submit` | Short confirmation chime |
@@ -40,7 +42,7 @@ Current:
 - Sound event controller exists.
 - Mute suppresses sound events.
 - Web Audio output plays short synthetic SFX when supported.
-- Gameplay calls sound events on select, clear, rescue, completion, failure, result share, and leaderboard submit.
+- Gameplay calls sound events on select, clear, rescue, pause, resume, completion, failure, result share, and leaderboard submit.
 - Haptic controller maps the same core gameplay confirmations to short vibration patterns when supported.
 
 Pending:

@@ -5,6 +5,8 @@ export type SoundEvent =
   | "recipe_complete"
   | "expiring_rescue"
   | "booster_use"
+  | "game_pause"
+  | "game_resume"
   | "round_complete"
   | "round_fail"
   | "leaderboard_submit"

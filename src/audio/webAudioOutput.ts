@@ -14,6 +14,8 @@ const tones: Record<SoundEvent, Tone> = {
   recipe_complete: { frequency: 784, duration: 0.18, gain: 0.028, type: "triangle" },
   expiring_rescue: { frequency: 880, duration: 0.1, gain: 0.02, type: "sine" },
   booster_use: { frequency: 440, duration: 0.08, gain: 0.016, type: "triangle" },
+  game_pause: { frequency: 294, duration: 0.07, gain: 0.014, type: "sine" },
+  game_resume: { frequency: 392, duration: 0.08, gain: 0.016, type: "triangle" },
   round_complete: { frequency: 698, duration: 0.2, gain: 0.026, type: "sine" },
   round_fail: { frequency: 196, duration: 0.14, gain: 0.018, type: "sine" },
   leaderboard_submit: { frequency: 740, duration: 0.11, gain: 0.022, type: "triangle" },

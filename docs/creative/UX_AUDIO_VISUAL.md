@@ -135,6 +135,7 @@ Useful sound map:
 - Match clear: clean pop or chime.
 - Recipe complete: 2-3 second warm jingle.
 - Expiring rescue: fresh sparkle.
+- Pause/resume: two very short low-fatigue ticks.
 - Warning: low soft tone, never sharp alarm.
 
 Provide separate controls for BGM, SFX, and vibration.
@@ -168,4 +169,3 @@ Mitigations:
 - Keep result screen short.
 - Use around-my-rank and personal best.
 - Phrase warnings as rescue opportunities.
-

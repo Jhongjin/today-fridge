@@ -8,10 +8,12 @@ describe("haptics controller", () => {
 
     haptics.play("ingredient_select");
     haptics.play("match_clear");
+    haptics.play("game_resume");
 
-    expect(haptics.getHistory()).toEqual(["ingredient_select", "match_clear"]);
+    expect(haptics.getHistory()).toEqual(["ingredient_select", "match_clear", "game_resume"]);
     expect(vibrate).toHaveBeenCalledWith(8);
     expect(vibrate).toHaveBeenCalledWith([12, 20, 12]);
+    expect(vibrate).toHaveBeenCalledWith(8);
   });
 
   it("suppresses haptics while disabled", () => {

@@ -649,6 +649,8 @@ export const App = () => {
 
     setIsPaused(true);
     setPausedStartedAt(pausedAt);
+    audioController.play("game_pause");
+    hapticsController.play("game_pause");
     trackEvent("game_pause", {
       play_id: playId,
       moves_used: gameState.movesUsed,
@@ -674,6 +676,8 @@ export const App = () => {
     setIsPaused(false);
     setPausedStartedAt(null);
     setTotalPausedMs(nextTotalPausedMs);
+    audioController.play("game_resume");
+    hapticsController.play("game_resume");
     trackEvent("game_resume", {
       play_id: playId,
       moves_used: gameState.movesUsed,

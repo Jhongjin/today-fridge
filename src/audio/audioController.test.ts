@@ -7,8 +7,9 @@ describe("audio controller", () => {
 
     audio.play("ingredient_select");
     audio.play("match_clear");
+    audio.play("game_pause");
 
-    expect(audio.getHistory()).toEqual(["ingredient_select", "match_clear"]);
+    expect(audio.getHistory()).toEqual(["ingredient_select", "match_clear", "game_pause"]);
   });
 
   it("forwards sound events to an output while unmuted", () => {
@@ -17,9 +18,9 @@ describe("audio controller", () => {
     };
     const audio = createAudioController(output);
 
-    audio.play("ingredient_select");
+    audio.play("game_resume");
 
-    expect(output.play).toHaveBeenCalledWith("ingredient_select");
+    expect(output.play).toHaveBeenCalledWith("game_resume");
   });
 
   it("suppresses sound events while muted", () => {
