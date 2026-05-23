@@ -90,7 +90,9 @@ Required events:
 | `round_fail` | play_id, board_id, fail_reason |
 | `leaderboard_submit` | play_id, score, status, error_code, board_id, seed, route_cells, route_ingredients, score_breakdown_receipt |
 | `leaderboard_open` | source, status |
-| `share_reward_event` | event_type, reward_amount, reward_unit |
+| `friend_challenge_open` | source, board_id |
+| `friend_challenge_send` | board_id, status, reward_id |
+| `share_reward_event` | event_type, board_id, reward_id, reward_amount, reward_unit |
 | `ad_reward` | ad_group_id, status, event_type |
 | `promotion_reward` | promotion_code, action, reward_id, amount, status, error_code |
 | `client_error` | screen, code, message_hash |
@@ -110,6 +112,7 @@ Submission blockers:
 - Profile/user-key unavailable path still allows ranked play input.
 - Duplicate leaderboard submissions.
 - Ranked score can be improved through paid/ad/share advantage.
+- Friend challenge grants more than one fixed daily share reward.
 
 ## 7. Real Device Checks
 
@@ -118,6 +121,7 @@ Submission blockers:
 - Game user key issue path.
 - Leaderboard score submit and reopen.
 - Share reward close/completion/no-reward paths.
+- Friend challenge reward grants only after successful share action and stays separate from clean ranked score.
 - Rewarded ad load/show/close/reward/fail paths.
 - Promotion test code path.
 - Background/foreground sound pause.

@@ -38,6 +38,12 @@ import {
 } from "../platform/rewards";
 import { createRuntimeTossClient } from "../platform/runtimeTossClient";
 import { createMockShareClient, createResultShareService } from "../platform/share";
+import {
+  FRIEND_CHALLENGE_COIN_REWARD,
+  claimShareReward,
+  hasClaimedShareReward,
+  shareRewardId
+} from "../platform/shareReward";
 import { AnalyticsQaPanel } from "./AnalyticsQaPanel";
 import { RecipeBookPanel } from "./RecipeBookPanel";
 
@@ -270,6 +276,9 @@ export const App = () => {
   const [submitReason, setSubmitReason] = useState<string | null>(null);
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
   const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "success" | "error">("idle");
+  const [friendChallengeStatus, setFriendChallengeStatus] = useState<
+    "idle" | "sending" | "rewarded" | "shared" | "error"
+  >("idle");
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(dailyRunKey));
   const [bestRoute, setBestRoute] = useState(() => readPersonalBestRoute(dailyRunKey));
   const [currentRoute, setCurrentRoute] = useState<PersonalBestRouteStep[]>([]);
@@ -355,6 +364,19 @@ export const App = () => {
   const recipePieceProgressPercent = `${Math.round((recipePieceProgress / recipePieceTarget) * 100)}%`;
   const completionRewardClaimed = hasClaimedCompletionReward(dailyRunKey, rewardWallet);
   const participationRewardClaimed = hasClaimedParticipationReward(dailyRunKey, rewardWallet);
+  const friendChallengeRewardClaimed = hasClaimedShareReward(dailyRunKey, rewardWallet);
+  const friendChallengeLabel =
+    friendChallengeStatus === "rewarded"
+      ? `친구 도전 보냄 +${FRIEND_CHALLENGE_COIN_REWARD}`
+      : friendChallengeStatus === "shared"
+        ? "친구 도전 다시 보냄"
+        : friendChallengeStatus === "sending"
+          ? "친구 도전 보내는 중"
+          : friendChallengeStatus === "error"
+            ? "친구 도전 실패"
+            : friendChallengeRewardClaimed
+              ? "친구 도전 다시 보내기"
+              : `친구 도전 보내기 +${FRIEND_CHALLENGE_COIN_REWARD}`;
   const missionRows = [
     {
       id: "recipe",
@@ -716,6 +738,7 @@ export const App = () => {
     setSubmitStatus("idle");
     setLeaderboardOpenStatus("idle");
     setShareStatus("idle");
+    setFriendChallengeStatus("idle");
   };
 
   const useHintBooster = () => {
@@ -922,6 +945,59 @@ export const App = () => {
     }
 
     setShareStatus(result.ok ? "success" : "error");
+  };
+
+  const sendFriendChallenge = async () => {
+    setFriendChallengeStatus("sending");
+    trackEvent("friend_challenge_open", {
+      source: "result_panel",
+      board_id: board.id
+    });
+
+    const shareResult = await resultShareService.shareResult({
+      playId,
+      score,
+      boardTitle: board.title,
+      rankedMode: cleanRun,
+      url: getResultShareUrl()
+    });
+
+    if (!shareResult.ok) {
+      trackEvent("friend_challenge_send", {
+        board_id: board.id,
+        status: "error",
+        reward_id: shareRewardId(dailyRunKey)
+      });
+      setFriendChallengeStatus("error");
+      return;
+    }
+
+    audioController.play("result_share");
+    hapticsController.play("result_share");
+
+    const rewardResult = claimShareReward({
+      rewardId: shareRewardId(dailyRunKey),
+      playId,
+      boardId: board.id,
+      coinAmount: FRIEND_CHALLENGE_COIN_REWARD
+    });
+
+    if (rewardResult.result) {
+      setRewardWallet(rewardResult.result.wallet);
+    }
+
+    const status = rewardResult.ok
+      ? "rewarded"
+      : rewardResult.reason === "DUPLICATE_REWARD_ID"
+        ? "shared"
+        : "blocked";
+
+    trackEvent("friend_challenge_send", {
+      board_id: board.id,
+      status,
+      reward_id: shareRewardId(dailyRunKey)
+    });
+    setFriendChallengeStatus(status === "blocked" ? "error" : status);
   };
 
   return (
@@ -1246,6 +1322,16 @@ export const App = () => {
                           ? "공유 실패"
                           : "결과 공유"}
                   </span>
+                </button>
+                <button
+                  className="secondary-action secondary-action--with-icon"
+                  type="button"
+                  onClick={sendFriendChallenge}
+                  disabled={friendChallengeStatus === "sending"}
+                  data-testid="friend-challenge"
+                >
+                  <Share2 size={18} aria-hidden="true" />
+                  <span>{friendChallengeLabel}</span>
                 </button>
                 <button
                   className="secondary-action"

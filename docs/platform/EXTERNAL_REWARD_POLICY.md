@@ -66,6 +66,12 @@ Share reward mock service:
 
 This service models a future `contactsViral` `sendViral` reward as a fixed, user-initiated, non-ranked reward and emits `share_reward_event`.
 
+Current UI exposure:
+
+- The result screen has a friend challenge action that uses the mock share reward path.
+- A successful share action can grant `FRIEND_CHALLENGE_COIN_REWARD` once per daily board through `shareRewardId(boardRunKey)`.
+- Duplicate friend challenge sends may still share, but they do not grant another wallet reward.
+
 Rewarded ad mock service:
 
 `src/platform/rewardedAd.ts`
@@ -87,6 +93,7 @@ This runner exercises share, rewarded ad, and promotion reward paths together an
 ## Today Fridge Rules
 
 - Share rewards may grant fixed fridge coins or recipe pieces after a qualifying share event.
+- Friend challenge rewards are daily fixed wallet rewards only; they do not set `share_bonus_used` or alter clean ranked eligibility.
 - Rewarded ads may grant fixed non-ranked recovery or collection rewards only after the player opts in.
 - Promotion points may be tied only to fixed actions such as first launch, tutorial completion, attendance, or event participation.
 - None of these rewards may affect clean leaderboard score, personal best, best route, or ranked eligibility.

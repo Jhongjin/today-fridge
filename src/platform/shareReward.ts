@@ -1,7 +1,10 @@
 import { trackEvent } from "./analytics";
 import { grantExternalReward, type ExternalRewardGrantResult } from "./externalRewardGrant";
+import type { RewardWallet } from "./rewards";
 
 type RewardStorage = Pick<Storage, "getItem" | "setItem">;
+
+export const FRIEND_CHALLENGE_COIN_REWARD = 12;
 
 export type ShareRewardRequest = {
   rewardId: string;
@@ -19,6 +22,11 @@ const rewardUnitFor = (coinAmount: number, recipePieceAmount = 0): "fridge_coin"
 
   return recipePieceAmount > 0 ? "recipe_piece" : "fridge_coin";
 };
+
+export const shareRewardId = (boardRunKey: string) => `${boardRunKey}:share-reward`;
+
+export const hasClaimedShareReward = (boardRunKey: string, wallet: RewardWallet): boolean =>
+  wallet.claimedRewardIds.includes(shareRewardId(boardRunKey));
 
 export const claimShareReward = (
   { boardId, coinAmount, playId, recipeId, recipePieceAmount = 0, rewardId }: ShareRewardRequest,

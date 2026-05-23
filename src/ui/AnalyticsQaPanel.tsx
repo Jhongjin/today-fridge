@@ -18,7 +18,11 @@ const eventPropertySummary = (event: AnalyticsEvent) =>
             ? ["step_no", "matched_steps", "expected_cell_id", "selected_cell_id"]
             : event.eventName === "setting_toggle"
               ? ["setting_id", "enabled"]
-              : []
+              : event.eventName === "friend_challenge_send"
+                ? ["board_id", "status", "reward_id"]
+                : event.eventName === "share_reward_event"
+                  ? ["event_type", "status", "reward_amount", "reward_unit"]
+                  : []
   )
     .filter((key) => event.properties[key] !== undefined)
     .map((key) => [key, event.properties[key]] as const)

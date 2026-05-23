@@ -231,6 +231,29 @@ test("player can finish a clean board and submit the score", async ({ page }) =>
   await expect(page.getByTestId("leaderboard-open")).toHaveText("랭킹 열림");
 });
 
+test("friend challenge grants a fixed share reward once without changing ranked score", async ({ page }) => {
+  await page.goto("/?qa=analytics");
+
+  await playCleanRoute(page);
+
+  await expect(page.getByTestId("score-value")).toHaveText("1,700");
+  await expect(page.getByTestId("coin-balance")).toHaveText("0");
+
+  await page.getByTestId("friend-challenge").click();
+  await expect(page.getByTestId("coin-balance")).toHaveText("12");
+  await expect(page.getByTestId("score-value")).toHaveText("1,700");
+  await expect(page.getByTestId("qa-event-list")).toContainText("share_reward_event");
+  await expect(page.getByTestId("qa-event-list")).toContainText("friend_challenge_send");
+  await expect(page.getByTestId("qa-event-list")).toContainText("status:rewarded");
+
+  await page.getByTestId("friend-challenge").click();
+  await expect(page.getByTestId("coin-balance")).toHaveText("12");
+  await expect(page.getByTestId("qa-event-list")).toContainText("status:shared");
+
+  await page.getByTestId("leaderboard-submit").click();
+  await expect(page.getByTestId("leaderboard-submit")).toBeDisabled();
+});
+
 test("qa Toss bridge path handles submit and leaderboard open", async ({ page }) => {
   await page.goto("/?qa=toss-bridge");
 

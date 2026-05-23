@@ -58,9 +58,9 @@ Output:
 
 ## Queue 5: Share Reward
 
-- Add friend challenge/share entry.
-- Reward only fixed non-ranked in-game items.
-- No clean ranked advantage.
+- Add friend challenge/share entry. (Phase 104 result-screen mock UI done)
+- Reward only fixed non-ranked in-game items. (Phase 104 fixed daily share coin done)
+- No clean ranked advantage. (Phase 104 browser coverage done)
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
 - Use `rewardedAd` mock service until real ad SDK is wired. (Phase 91 service done)
@@ -68,8 +68,8 @@ Output:
 
 Output:
 
-- Share mock scenarios.
-- Policy review note.
+- Share mock scenarios. (Phase 104 UI + duplicate reward coverage done)
+- Policy review note. (Phase 104 docs updated; real `contactsViral` still QR/device pending)
 
 ## Queue 6: Ads And Promotion
 

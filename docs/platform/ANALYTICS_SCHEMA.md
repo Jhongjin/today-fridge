@@ -56,7 +56,7 @@ Every event should include:
 | `leaderboard_submit` | `play_id`, `score`, `ranked_mode`, `status`, `error_code`, `board_id`, `seed`, `route_cells`, `route_ingredients`, `score_breakdown_receipt` |
 | `leaderboard_open` | `source`, `status` |
 | `friend_challenge_open` | `source`, `board_id` |
-| `friend_challenge_send` | `board_id`, `status` |
+| `friend_challenge_send` | `board_id`, `status`, `reward_id` |
 | `personal_best_update` | `old_score`, `new_score`, `delta` |
 | `best_route_deviation` | `play_id`, `step_no`, `matched_steps`, `expected_cell_id`, `selected_cell_id` |
 
@@ -67,7 +67,7 @@ Every event should include:
 | `daily_reward_claim` | `reward_id`, `reward_type`, `amount`, `status` |
 | `recipe_piece_award` | `recipe_id`, `source`, `amount` |
 | `coin_award` | `source`, `amount` |
-| `share_reward_event` | `event_type`, `reward_amount`, `reward_unit`, `status`, `error_code` |
+| `share_reward_event` | `event_type`, `board_id`, `reward_id`, `reward_amount`, `reward_unit`, `status`, `error_code` |
 | `rewarded_ad_offer` | `placement`, `reward_type`, `amount` |
 | `rewarded_ad_complete` | `placement`, `reward_type`, `amount`, `status` |
 | `promotion_reward` | `promotion_code`, `action`, `reward_id`, `amount`, `status`, `error_code` |

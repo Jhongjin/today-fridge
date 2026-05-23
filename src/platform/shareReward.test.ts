@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { clearTrackedEvents, getTrackedEvents } from "./analytics";
 import { readExternalRewardWallet } from "./externalRewardGrant";
-import { claimShareReward } from "./shareReward";
+import { claimShareReward, hasClaimedShareReward, shareRewardId } from "./shareReward";
 
 const createMemoryStorage = () => {
   const values = new Map<string, string>();
@@ -21,8 +21,9 @@ describe("share reward service", () => {
 
   it("claims a fixed non-ranked share reward once", () => {
     const storage = createMemoryStorage();
+    const rewardId = shareRewardId("first-daily-board:2026-05-23");
     const request = {
-      rewardId: "share:daily-1:play-1",
+      rewardId,
       playId: "play-1",
       boardId: "first-daily-board",
       coinAmount: 12,
@@ -43,7 +44,7 @@ describe("share reward service", () => {
       recipePieces: {
         kimchi_fried_rice: 1
       },
-      claimedRewardIds: ["share:daily-1:play-1"]
+      claimedRewardIds: [rewardId]
     });
     expect(getTrackedEvents()).toContainEqual(
       expect.objectContaining({
@@ -52,7 +53,7 @@ describe("share reward service", () => {
           event_type: "sendViral",
           play_id: "play-1",
           board_id: "first-daily-board",
-          reward_id: "share:daily-1:play-1",
+          reward_id: rewardId,
           status: "success",
           error_code: null,
           reward_amount: 12,
@@ -69,5 +70,7 @@ describe("share reward service", () => {
         })
       })
     );
+    expect(shareRewardId("first-daily-board:2026-05-23")).toBe("first-daily-board:2026-05-23:share-reward");
+    expect(hasClaimedShareReward("first-daily-board:2026-05-23", readExternalRewardWallet(storage))).toBe(true);
   });
 });

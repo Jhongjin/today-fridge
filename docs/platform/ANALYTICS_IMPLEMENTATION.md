@@ -41,12 +41,17 @@ Competition:
 - `leaderboard_submit`
 - `leaderboard_open`
 - `result_share`
+- `friend_challenge_open`
+- `friend_challenge_send`
 
 Rewards:
 
 - `daily_reward_claim`
 - `coin_award`
 - `recipe_piece_award`
+- `share_reward_event`
+- `external_reward_policy_check`
+- `external_reward_claim`
 
 Debug:
 
@@ -77,6 +82,7 @@ This harness can already answer:
 - Which result missions were completed or missed?
 - Did the player submit a clean ranked score?
 - Did the player tap result sharing after completion?
+- Did the player send a friend challenge and receive only one fixed share reward?
 - Did replay attempts start after restart?
 - Did the player claim the fixed completion reward?
 - Did the client capture runtime errors during QA?
