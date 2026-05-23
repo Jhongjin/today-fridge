@@ -31,6 +31,7 @@ Every event should include:
 | `app_open` | `entry_source`, `toss_app_version` |
 | `first_playable_ready` | `load_ms` |
 | `game_user_key_result` | `result`, `error_code` |
+| `profile_gate_result` | `status`, `user_key_status` |
 | `tutorial_start` | `board_id` |
 | `tutorial_step_complete` | `step_id`, `duration_ms` |
 | `tutorial_complete` | `board_id`, `duration_ms` |

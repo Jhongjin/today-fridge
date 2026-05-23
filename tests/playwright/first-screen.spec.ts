@@ -45,6 +45,7 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
   await expect(page.getByTestId("best-chase-label")).toHaveText("첫 기록 도전");
   await expect(page.getByTestId("best-chase-value")).toHaveText("완주하면 저장");
+  await expect(page.getByTestId("profile-gate")).toContainText("토스 게임 프로필 확인 완료");
   await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeVisible();
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
@@ -58,6 +59,7 @@ test("qa analytics panel shows live event history", async ({ page }) => {
   await expect(page.getByTestId("qa-event-list")).toContainText("first_playable_ready");
   await expect(page.getByTestId("qa-event-list")).toContainText("round_start");
   await expect(page.getByTestId("qa-event-list")).toContainText("game_user_key_result");
+  await expect(page.getByTestId("qa-event-list")).toContainText("profile_gate_result");
   await expect(page.getByTestId("qa-event-list")).toContainText("result:mock");
 
   await page.getByTestId("cell-green_onion_1_fresh").click();
@@ -286,14 +288,14 @@ test("qa Toss bridge submit failure leaves the player recoverable", async ({ pag
   ]);
 });
 
-test("qa Toss bridge blocks ranked submit without a game user key", async ({ page }) => {
+test("qa Toss bridge profile gate blocks ranked play without a game user key", async ({ page }) => {
   await page.goto("/?qa=toss-bridge-no-user-key");
 
-  await playCleanRoute(page);
-  await page.getByTestId("leaderboard-submit").click();
-
-  await expect(page.getByTestId("submit-note")).toContainText("토스 게임 프로필 확인");
-  await expect(page.getByTestId("leaderboard-submit")).toBeEnabled();
+  await expect(page.getByTestId("profile-gate")).toContainText("프로필 확인 필요");
+  await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeDisabled();
+  await expect(page.getByTestId("hint-booster")).toBeDisabled();
+  await expect(page.getByTestId("pause-button")).toBeDisabled();
+  await expect(page.getByTestId("score-value")).toHaveText("0");
 
   const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
   expect(bridgeEvents).toContainEqual({

@@ -54,6 +54,7 @@ button {
 .competition-strip,
 .best-route-strip,
 .daily-refresh-strip,
+.profile-gate,
 .goal-strip,
 .tutorial-strip,
 .tray,
@@ -184,6 +185,48 @@ button:focus-visible {
 .competition-strip .competition-strip__item--ahead span,
 .competition-strip .competition-strip__item--ahead strong {
   color: #5d4826;
+}
+
+.profile-gate {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid #d7eadc;
+  background: #eef7f1;
+  color: #287c49;
+}
+
+.profile-gate strong,
+.profile-gate span {
+  min-width: 0;
+}
+
+.profile-gate strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.profile-gate span {
+  color: currentColor;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.profile-gate--checking {
+  border-color: #efd9aa;
+  background: #fff8e8;
+  color: #7a5b14;
+}
+
+.profile-gate--blocked,
+.profile-gate--error {
+  border-color: #efc7bd;
+  background: #fff0ed;
+  color: #963727;
 }
 
 .best-route-strip {
@@ -451,9 +494,13 @@ button:focus-visible {
 }
 
 .app-shell--paused .fridge-board,
+.app-shell--profile-locked .fridge-board,
 .app-shell--paused .tray,
+.app-shell--profile-locked .tray,
 .app-shell--paused .booster-row,
-.app-shell--paused .coach-message {
+.app-shell--profile-locked .booster-row,
+.app-shell--paused .coach-message,
+.app-shell--profile-locked .coach-message {
   opacity: 0.62;
 }
 

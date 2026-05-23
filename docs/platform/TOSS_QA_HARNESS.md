@@ -79,6 +79,7 @@ Required events:
 | --- | --- |
 | `app_open` | app_version, toss_app_version, platform, entry_source |
 | `game_user_key_result` | result, error_code |
+| `profile_gate_result` | status, user_key_status |
 | `tutorial_start` | board_id |
 | `tutorial_complete` | board_id, duration_ms |
 | `round_start` | board_id, seed, attempt_no |
@@ -106,6 +107,7 @@ Submission blockers:
 - Share reward grants rewards before qualifying event.
 - Toss points tied to score/rank/win/loss/random.
 - Network failure causes stuck state.
+- Profile/user-key unavailable path still allows ranked play input.
 - Duplicate leaderboard submissions.
 - Ranked score can be improved through paid/ad/share advantage.
 
@@ -151,6 +153,7 @@ Current QA bridge:
 - The QA bridge returns a fake `getUserKeyForGame()` hash and records a `user-key` QA event.
 - Open `/?qa=toss-bridge-error` to force a leaderboard submit failure and verify retry/recovery UI.
 - Open `/?qa=toss-bridge-no-user-key` to force game user key unavailability and verify leaderboard submit is skipped without a platform submit call.
+- The no-user-key QA path should show the profile gate and keep board, hint, and pause input disabled.
 - Submit failure copy should say the submit temporarily failed and invite retry, while fairness skips should keep the clean-ranked explanation.
 
 Real SDK QR candidate:
@@ -175,7 +178,7 @@ Automated scenarios:
 6. Mock leaderboard success, failure, duplicate submit.
 7. Confirm leaderboard submit analytics contains the board seed, selected route, and score receipt.
 7. Verify QA Toss bridge user-key/submit/open path.
-8. Verify QA Toss bridge no-user-key submit skip path.
+8. Verify QA Toss bridge no-user-key profile gate path.
 9. Mock share reward event variants through `src/platform/shareReward.ts`.
 10. Mock rewarded ad completed, not-completed, duplicate, and active-play blocked paths through `src/platform/rewardedAd.ts`.
 11. Run integrated external reward scenarios through `src/platform/externalRewardScenarios.ts`.

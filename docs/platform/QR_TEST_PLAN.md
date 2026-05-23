@@ -54,6 +54,7 @@ Keep the flag off for normal browser, CI, and non-QR previews until commander ap
 
 ## Game Flow Checks
 
+- Profile gate blocks board input until profile/user-key readiness is confirmed.
 - First clean route completes at `1,700` points.
 - Hint booster visibly marks the run as outside clean leaderboard eligibility.
 - Failed round can claim only the small participation reward.
@@ -64,6 +65,7 @@ Keep the flag off for normal browser, CI, and non-QR previews until commander ap
 ## Game Center Checks
 
 - `game_user_key_result` records `result:ready` on supported devices.
+- `profile_gate_result` records `status:ready` before the first `round_start`.
 - Unsupported user-key path keeps the first playable flow available and records `unavailable` or `error`.
 - Clean leaderboard submit is skipped with `GAME_USER_KEY_UNAVAILABLE` if the game user key is unavailable.
 - Clean completion submits score after user taps submit.

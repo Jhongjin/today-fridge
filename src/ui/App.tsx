@@ -121,10 +121,30 @@ const trackMissionSummary = ({
 };
 
 type TutorialStep = "match" | "recipe" | "done";
+type ProfileGateStatus = "checking" | "ready" | "blocked" | "error";
 
 const tutorialCopy: Record<Exclude<TutorialStep, "done">, string> = {
   match: "두부 3개 먼저 정리",
   recipe: "밥 + 김치 + 계란 완성"
+};
+
+const profileGateCopy: Record<ProfileGateStatus, { title: string; message: string }> = {
+  checking: {
+    title: "프로필 확인 중",
+    message: "토스 게임 프로필을 확인하고 있어요."
+  },
+  ready: {
+    title: "토스 게임 프로필 확인 완료",
+    message: "오늘 랭킹 도전이 준비됐어요."
+  },
+  blocked: {
+    title: "프로필 확인 필요",
+    message: "프로필을 만든 뒤 오늘 기록에 도전할 수 있어요."
+  },
+  error: {
+    title: "프로필 확인 실패",
+    message: "잠시 후 다시 열어 주세요."
+  }
 };
 
 const tutorialHighlightCells: Record<Exclude<TutorialStep, "done">, string[]> = {
@@ -263,6 +283,8 @@ export const App = () => {
   const [dailyRefreshInfo, setDailyRefreshInfo] = useState(getDailyRefreshInfo);
   const [dailyStreak] = useState(() => recordDailyStreak(dailyDateKey));
   const [recipeBookOpen, setRecipeBookOpen] = useState(false);
+  const [profileGateStatus, setProfileGateStatus] = useState<ProfileGateStatus>("checking");
+  const [roundStartTracked, setRoundStartTracked] = useState(false);
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
@@ -326,6 +348,8 @@ export const App = () => {
           ? `최고 루트 ${bestRouteProgress.score.toLocaleString()}점 · ${bestRouteProgress.total}수`
           : `최고 루트 진행 ${bestRouteProgress.matched}/${bestRouteProgress.total}`;
   const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
+  const profileGateLocked = profileGateStatus !== "ready";
+  const profileGate = profileGateCopy[profileGateStatus];
   const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
   const recipePieceProgress = Math.min(recipePieceCount, recipePieceTarget);
   const recipePieceProgressPercent = `${Math.round((recipePieceProgress / recipePieceTarget) * 100)}%`;
@@ -380,7 +404,6 @@ export const App = () => {
     trackEvent("first_playable_ready", {
       load_ms: getLoadMs()
     });
-    trackRoundStart(playId, attemptNo);
   }, []);
 
   useEffect(() => {
@@ -394,10 +417,17 @@ export const App = () => {
         }
 
         const result = userKeyStatusFor(userKey);
+        const status = result === "ready" || result === "mock" ? "ready" : "blocked";
+
         configureAnalyticsContext({ userKeyStatus: result });
+        setProfileGateStatus(status);
         trackEvent("game_user_key_result", {
           result,
           error_code: null
+        });
+        trackEvent("profile_gate_result", {
+          status,
+          user_key_status: result
         });
       })
       .catch(() => {
@@ -406,9 +436,14 @@ export const App = () => {
         }
 
         configureAnalyticsContext({ userKeyStatus: "error" });
+        setProfileGateStatus("error");
         trackEvent("game_user_key_result", {
           result: "error",
           error_code: "GET_USER_KEY_FAILED"
+        });
+        trackEvent("profile_gate_result", {
+          status: "error",
+          user_key_status: "error"
         });
       });
 
@@ -416,6 +451,16 @@ export const App = () => {
       cancelled = true;
     };
   }, [tossClient]);
+
+  useEffect(() => {
+    if (profileGateStatus !== "ready" || roundStartTracked) {
+      return;
+    }
+
+    setRoundStartedAt(Date.now());
+    setRoundStartTracked(true);
+    trackRoundStart(playId, attemptNo);
+  }, [attemptNo, playId, profileGateStatus, roundStartTracked]);
 
   useEffect(() => {
     audioController.setMuted(muted);
@@ -469,7 +514,7 @@ export const App = () => {
   }, [audioController, playId]);
 
   const selectCell = (cell: BoardCell) => {
-    if (isPaused) {
+    if (isPaused || profileGateLocked) {
       return;
     }
 
@@ -674,7 +719,7 @@ export const App = () => {
   };
 
   const useHintBooster = () => {
-    if (gameState.status !== "playing" || isPaused) {
+    if (gameState.status !== "playing" || isPaused || profileGateLocked) {
       return;
     }
 
@@ -699,7 +744,7 @@ export const App = () => {
   };
 
   const pauseGame = () => {
-    if (gameState.status !== "playing" || isPaused) {
+    if (gameState.status !== "playing" || isPaused || profileGateLocked) {
       return;
     }
 
@@ -880,7 +925,11 @@ export const App = () => {
   };
 
   return (
-    <main className={`app-shell ${reduceMotion ? "app-shell--reduce-motion" : ""} ${isPaused ? "app-shell--paused" : ""}`}>
+    <main
+      className={`app-shell ${reduceMotion ? "app-shell--reduce-motion" : ""} ${isPaused ? "app-shell--paused" : ""} ${
+        profileGateLocked ? "app-shell--profile-locked" : ""
+      }`}
+    >
       <section className="phone-frame" aria-label="오늘의 냉장고 게임">
         <header className="top-bar">
           <div>
@@ -914,7 +963,7 @@ export const App = () => {
               aria-label={isPaused ? "계속하기" : "일시정지"}
               aria-pressed={isPaused}
               onClick={isPaused ? resumeGame : pauseGame}
-              disabled={gameState.status !== "playing"}
+              disabled={gameState.status !== "playing" || profileGateLocked}
               data-testid="pause-button"
             >
               {isPaused ? <Play size={20} /> : <Pause size={20} />}
@@ -950,6 +999,11 @@ export const App = () => {
             <span data-testid="best-chase-label">{bestChase.label}</span>
             <strong data-testid="best-chase-value">{bestChase.value}</strong>
           </div>
+        </section>
+
+        <section className={`profile-gate profile-gate--${profileGateStatus}`} aria-live="polite" data-testid="profile-gate">
+          <strong>{profileGate.title}</strong>
+          <span>{profileGate.message}</span>
         </section>
 
         {bestRoute && gameState.status === "playing" ? (
@@ -1024,7 +1078,7 @@ export const App = () => {
               hiddenBack={Boolean(cell.back)}
               blocked={cell.blocked}
               highlighted={highlightedCells.has(cell.id)}
-              disabled={isPaused}
+              disabled={isPaused || profileGateLocked}
               onClick={() => selectCell(cell)}
             />
           ))}
@@ -1044,7 +1098,12 @@ export const App = () => {
           <button type="button" disabled>
             냉동칸
           </button>
-          <button type="button" onClick={useHintBooster} disabled={gameState.status !== "playing" || isPaused} data-testid="hint-booster">
+          <button
+            type="button"
+            onClick={useHintBooster}
+            disabled={gameState.status !== "playing" || isPaused || profileGateLocked}
+            data-testid="hint-booster"
+          >
             힌트
           </button>
         </section>
@@ -1192,7 +1251,7 @@ export const App = () => {
                   className="secondary-action"
                   type="button"
                   onClick={submitScore}
-                  disabled={submitStatus === "submitting" || submitStatus === "success"}
+                  disabled={profileGateLocked || submitStatus === "submitting" || submitStatus === "success"}
                   data-testid="leaderboard-submit"
                 >
                   {submitStatus === "success"

@@ -34,7 +34,7 @@ Install warnings to track:
 
 | Area | Official API | Min Toss app / SDK note | Current status | Today Fridge rule |
 | --- | --- | --- | --- | --- |
-| Game profile | Platform Game Center profile flow | Profile is required before gameplay. No direct user identifier is returned from profile/leaderboard responses. | Real profile WebView pending. | Do not start final ranked submission unless user identity path is available. |
+| Game profile | Platform Game Center profile flow | Profile is required before gameplay. No direct user identifier is returned from profile/leaderboard responses. | Pre-play UI gate implemented; real profile WebView evidence pending. | Do not start ranked play unless profile/user-key readiness is confirmed. |
 | Game user key | `getUserKeyForGame()` | Toss app `5.232.0`; returns `{ type: "HASH", hash }`, `INVALID_CATEGORY`, `ERROR`, or `undefined`. | Adapter, official SDK wrapper, QA bridge, analytics status, and leaderboard gate implemented. | Never expose raw hash in UI or QA notes. Use status only in analytics. |
 | Leaderboard submit | `submitGameCenterLeaderBoardScore({ score })` | Toss app `5.221.0`; score is a numeric string. | Adapter, official SDK wrapper, typed error codes, and result submit UI implemented. | Submit only after round completion, only clean runs, only with game user key. |
 | Leaderboard open | `openGameCenterLeaderboard()` | Toss app `5.221.0`; can overlap with profile WebView if called too early. | Adapter, official SDK wrapper, and result-screen user action implemented. | Never auto-open on entry or immediately after submit. |
