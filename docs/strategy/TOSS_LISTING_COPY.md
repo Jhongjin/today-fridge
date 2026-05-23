@@ -78,6 +78,14 @@ Avoid:
 4. Reward claim with fridge coins and recipe-piece progress.
 5. Hint booster fairness note showing clean leaderboard separation.
 
+## Copy Encoding Check
+
+Run before QR/review packets:
+
+```bash
+npm run qa:korean-copy
+```
+
 ## Review Notes
 
 - The current MVP uses a mock Toss client.
