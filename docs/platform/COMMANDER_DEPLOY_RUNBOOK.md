@@ -38,6 +38,8 @@ Local preflight:
 npm run deploy:check-prereqs
 ```
 
+The preflight reports required Vercel deploy secrets and optional analytics/error-monitoring endpoints. Missing optional endpoints do not block preview deploy by themselves.
+
 External reward QR candidate preflight:
 
 ```bash

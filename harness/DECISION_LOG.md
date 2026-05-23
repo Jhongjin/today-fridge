@@ -144,3 +144,4 @@
 - Phase 124 commander review packet now includes a production monitoring owner, retention, and access-control approval check.
 - Phase 125 monitoring docs refreshed: remaining blocker wording now points to endpoint owner, retention, and access-control approval rather than missing transport.
 - Phase 126 submission readiness monitoring blocker tightened to endpoint owner, retention policy, and access-control approval.
+- Phase 127 deploy prerequisite report now surfaces optional analytics and error-monitoring endpoint configuration without making them strict deploy blockers.

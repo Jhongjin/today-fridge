@@ -52,6 +52,8 @@ This command checks only environment presence and never prints secret values:
 npm run deploy:check-prereqs
 ```
 
+The preflight also reports optional `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT` rows. Missing optional endpoints do not make strict mode fail.
+
 Strict mode exits non-zero when anything is missing:
 
 ```bash

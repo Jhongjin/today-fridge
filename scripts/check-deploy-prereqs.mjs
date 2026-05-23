@@ -37,8 +37,21 @@ const required = [
   }
 ];
 
+const optional = [
+  {
+    key: "VITE_ANALYTICS_ENDPOINT",
+    source: "Vite build environment / Vercel env",
+    expected: "present when analytics delivery is approved"
+  },
+  {
+    key: "VITE_ERROR_MONITORING_ENDPOINT",
+    source: "Vite build environment / Vercel env",
+    expected: "present when error monitoring is approved"
+  }
+];
+
 const args = parseArgs(process.argv.slice(2));
-const rows = required.map((item) => {
+const requiredRows = required.map((item) => {
   const value = process.env[item.key] ?? "";
   const ready = item.ready(value);
 
@@ -49,13 +62,25 @@ const rows = required.map((item) => {
     status: ready ? "ready" : "missing"
   };
 });
-const ready = rows.every((row) => row.status === "ready");
+const optionalRows = optional.map((item) => {
+  const value = process.env[item.key] ?? "";
+
+  return {
+    key: item.key,
+    source: item.source,
+    expected: item.expected,
+    status: value ? "configured" : "not_configured"
+  };
+});
+const rows = [...requiredRows, ...optionalRows];
+const ready = requiredRows.every((row) => row.status === "ready");
 
 if (args.has("json")) {
   console.log(
     JSON.stringify(
       {
         ready,
+        requiredReady: ready,
         rows
       },
       null,
