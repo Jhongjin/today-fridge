@@ -88,6 +88,7 @@
 - Add commander QR review packet generator. (Phase 113 done pending CI)
 - Refresh submission readiness snapshot after QR tooling. (Phase 114 done pending CI)
 - Upgrade GitHub Actions Node 24-runtime action majors. (Phase 115 done pending CI)
+- Triage SDK dependency engine and audit warnings. (Phase 116 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)

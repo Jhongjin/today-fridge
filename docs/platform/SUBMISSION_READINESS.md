@@ -11,6 +11,7 @@ References:
 - [Toss SDK API map](./TOSS_SDK_API_MAP.md)
 - [External reward policy](./EXTERNAL_REWARD_POLICY.md)
 - [Promotion review requirements](./PROMOTION_REVIEW_REQUIREMENTS.md)
+- [SDK dependency triage](./SDK_DEPENDENCY_TRIAGE.md)
 
 ## 1. Current Readiness
 
@@ -38,7 +39,7 @@ References:
 These must be completed before requesting review:
 
 - Real Toss SDK runtime QR validation. The package is locked and wrappers are wired behind explicit runtime flags, but physical Toss QR evidence is still pending.
-- Triage SDK dependency warnings: Node 24 engine requirement, React Native peer overrides, and npm audit findings.
+- Revisit SDK dependency triage for the actual QR/review candidate commit.
 - Real Game Center profile flow before gameplay.
 - Game user key QR validation and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.

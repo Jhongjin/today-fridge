@@ -79,6 +79,8 @@ Validation includes:
 - Static `dist` bundle budget check and source map guard.
 - Playwright mobile browser tests.
 
+GitHub validation uses Node `24` because Apps in Toss SDK packaging dependencies include a Node `>=24` engine requirement.
+
 ## Commander Production Deploy
 
 Workflow:
