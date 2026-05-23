@@ -42,6 +42,7 @@
 - Define BGM mood references.
 - Define SFX list and trigger map.
 - Add first-play accessibility toggles and result submit UX. (Phase 5 done pending CI)
+- Persist quiet/reduced-motion settings. (Phase 78 done pending CI)
 - Add audio event map and mute-aware sound hooks. (Phase 9 done pending CI)
 - Add lightweight Web Audio SFX output. (Phase 30 done pending CI)
 - Add page visibility audio lifecycle suspension. (Phase 61 done pending CI)

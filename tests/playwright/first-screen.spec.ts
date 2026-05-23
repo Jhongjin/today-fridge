@@ -97,6 +97,21 @@ test("recipe book opens from the first screen", async ({ page }) => {
   await expect(page.getByTestId("recipe-book-panel")).toHaveCount(0);
 });
 
+test("quiet and reduced-motion controls persist after reload", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByTestId("mute-button").click();
+  await page.getByTestId("reduce-motion-button").click();
+
+  await expect(page.getByTestId("mute-button")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByTestId("reduce-motion-button")).toHaveAttribute("aria-pressed", "true");
+
+  await page.reload();
+
+  await expect(page.getByTestId("mute-button")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByTestId("reduce-motion-button")).toHaveAttribute("aria-pressed", "true");
+});
+
 test("player can clear three matching ingredients", async ({ page }) => {
   await page.goto("/");
 

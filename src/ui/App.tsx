@@ -17,6 +17,12 @@ import { recordDailyStreak } from "../platform/dailyStreak";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
 import {
+  readMutedPreference,
+  readReduceMotionPreference,
+  writeMutedPreference,
+  writeReduceMotionPreference
+} from "../platform/preferences";
+import {
   readPersonalBest,
   readPersonalBestRoute,
   recordPersonalBest,
@@ -227,8 +233,8 @@ export const App = () => {
   const [playId, setPlayId] = useState(createPlayId);
   const [attemptNo, setAttemptNo] = useState(1);
   const [roundStartedAt, setRoundStartedAt] = useState(() => Date.now());
-  const [muted, setMuted] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [muted, setMuted] = useState(readMutedPreference);
+  const [reduceMotion, setReduceMotion] = useState(readReduceMotionPreference);
   const [isPaused, setIsPaused] = useState(false);
   const [pausedStartedAt, setPausedStartedAt] = useState<number | null>(null);
   const [totalPausedMs, setTotalPausedMs] = useState(0);
@@ -366,6 +372,14 @@ export const App = () => {
     });
     trackRoundStart(playId, attemptNo);
   }, []);
+
+  useEffect(() => {
+    audioController.setMuted(muted);
+  }, [audioController, muted]);
+
+  useEffect(() => {
+    hapticsController.setEnabled(!reduceMotion);
+  }, [hapticsController, reduceMotion]);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -811,10 +825,11 @@ export const App = () => {
               type="button"
               aria-label={muted ? "소리 켜기" : "소리 끄기"}
               aria-pressed={muted}
+              data-testid="mute-button"
               onClick={() =>
                 setMuted((value) => {
                   const nextMuted = !value;
-                  audioController.setMuted(nextMuted);
+                  writeMutedPreference(nextMuted);
                   return nextMuted;
                 })
               }
@@ -826,10 +841,11 @@ export const App = () => {
               type="button"
               aria-label="모션 줄이기"
               aria-pressed={reduceMotion}
+              data-testid="reduce-motion-button"
               onClick={() =>
                 setReduceMotion((value) => {
                   const nextReduceMotion = !value;
-                  hapticsController.setEnabled(!nextReduceMotion);
+                  writeReduceMotionPreference(nextReduceMotion);
                   return nextReduceMotion;
                 })
               }

@@ -95,3 +95,4 @@
 - Phase 75 route-following state added: replay route preview now tells players when they are following the best route or trying a new route.
 - Phase 76 best-route deviation analytics added: the first replay divergence from a saved route is tracked and exposed in QA.
 - Phase 77 pause/resume feedback added: SFX and haptics now confirm pause state changes with short low-fatigue cues.
+- Phase 78 player preferences added: mute and reduced-motion choices now persist across reloads.
