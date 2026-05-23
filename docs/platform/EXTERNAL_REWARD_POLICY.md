@@ -60,6 +60,12 @@ The grant harness emits:
 | `external_reward_policy_check` | Policy pass/fail for the requested external reward. |
 | `external_reward_claim` | Wallet grant result after policy approval. |
 
+Share reward mock service:
+
+`src/platform/shareReward.ts`
+
+This service models a future `contactsViral` `sendViral` reward as a fixed, user-initiated, non-ranked reward and emits `share_reward_event`.
+
 ## Today Fridge Rules
 
 - Share rewards may grant fixed fridge coins or recipe pieces after a qualifying share event.

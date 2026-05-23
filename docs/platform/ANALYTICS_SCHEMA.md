@@ -66,6 +66,7 @@ Every event should include:
 | `daily_reward_claim` | `reward_id`, `reward_type`, `amount`, `status` |
 | `recipe_piece_award` | `recipe_id`, `source`, `amount` |
 | `coin_award` | `source`, `amount` |
+| `share_reward_event` | `event_type`, `reward_amount`, `reward_unit`, `status`, `error_code` |
 | `rewarded_ad_offer` | `placement`, `reward_type`, `amount` |
 | `rewarded_ad_complete` | `placement`, `reward_type`, `amount`, `status` |
 | `promotion_reward` | `promotion_code`, `status`, `error_code` |

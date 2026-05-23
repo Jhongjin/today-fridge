@@ -60,6 +60,7 @@ Output:
 - No clean ranked advantage.
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
+- Use `shareReward` mock service until real `contactsViral` is wired. (Phase 90 service done)
 
 Output:
 

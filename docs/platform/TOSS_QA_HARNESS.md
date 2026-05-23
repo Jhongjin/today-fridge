@@ -160,7 +160,7 @@ Automated scenarios:
 7. Confirm leaderboard submit analytics contains the board seed, selected route, and score receipt.
 7. Verify QA Toss bridge user-key/submit/open path.
 8. Verify QA Toss bridge no-user-key submit skip path.
-9. Mock share reward event variants.
+9. Mock share reward event variants through `src/platform/shareReward.ts`.
 10. Mock rewarded ad loaded, reward, dismissed, failed.
 11. Mock promotion success, budget exhausted, limit exceeded, unsupported version.
 12. Assert zero console errors and unhandled promise rejections.
