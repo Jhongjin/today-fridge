@@ -1,16 +1,19 @@
-export type SoundEvent =
-  | "fridge_open"
-  | "ingredient_select"
-  | "match_clear"
-  | "recipe_complete"
-  | "expiring_rescue"
-  | "booster_use"
-  | "game_pause"
-  | "game_resume"
-  | "round_complete"
-  | "round_fail"
-  | "leaderboard_submit"
-  | "result_share";
+export const SOUND_EVENTS = [
+  "fridge_open",
+  "ingredient_select",
+  "match_clear",
+  "recipe_complete",
+  "expiring_rescue",
+  "booster_use",
+  "game_pause",
+  "game_resume",
+  "round_complete",
+  "round_fail",
+  "leaderboard_submit",
+  "result_share"
+] as const;
+
+export type SoundEvent = (typeof SOUND_EVENTS)[number];
 
 export type AudioController = {
   setMuted: (muted: boolean) => void;

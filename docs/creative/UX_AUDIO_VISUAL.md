@@ -129,6 +129,8 @@ Avoid:
 
 ## 10. SFX
 
+See `docs/creative/SFX_TRIGGER_MAP.md` for the locked production trigger map.
+
 Useful sound map:
 
 - Fridge open: short soft door sound.

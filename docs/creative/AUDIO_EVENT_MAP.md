@@ -8,6 +8,8 @@ The current implementation records sound events through `src/audio/audioControll
 
 The controller is lifecycle-aware: the app suspends SFX while the page is hidden or unloading, then allows playback again when the page is visible.
 
+Detailed SFX trigger and mix rules live in `docs/creative/SFX_TRIGGER_MAP.md`.
+
 ## 2. Sound Events
 
 | Event | Future Sound Direction |
@@ -40,6 +42,7 @@ The controller is lifecycle-aware: the app suspends SFX while the page is hidden
 Current:
 
 - Sound event controller exists.
+- `SOUND_EVENTS` exports the locked implementation list.
 - Mute suppresses sound events.
 - Web Audio output plays short synthetic SFX when supported.
 - Gameplay calls sound events on select, clear, rescue, pause, resume, completion, failure, result share, and leaderboard submit.

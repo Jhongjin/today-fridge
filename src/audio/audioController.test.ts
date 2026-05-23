@@ -1,7 +1,24 @@
 import { describe, expect, it, vi } from "vitest";
-import { createAudioController } from "./audioController";
+import { createAudioController, SOUND_EVENTS } from "./audioController";
 
 describe("audio controller", () => {
+  it("exposes the locked SFX trigger list", () => {
+    expect(SOUND_EVENTS).toEqual([
+      "fridge_open",
+      "ingredient_select",
+      "match_clear",
+      "recipe_complete",
+      "expiring_rescue",
+      "booster_use",
+      "game_pause",
+      "game_resume",
+      "round_complete",
+      "round_fail",
+      "leaderboard_submit",
+      "result_share"
+    ]);
+  });
+
   it("records sound events while unmuted", () => {
     const audio = createAudioController();
 

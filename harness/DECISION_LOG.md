@@ -114,3 +114,4 @@
 - Phase 94 promotion review requirements locked: official Toss promotion docs now map budget, review, test-code, duplicate-prevention, error-handling, and game reward prohibition rules into a project checklist.
 - Phase 95 tutorial board designed: a 20-30 second non-ranked practice board now has data, route constants, documentation, and engine validation.
 - Phase 96 ingredient icon style locked: board-level icon collision rules, state cues, first daily icon directions, and prototype-to-final asset upgrade criteria are documented and tested.
+- Phase 97 SFX trigger map locked: the implementation sound-event list is exported, tested, and documented with trigger, tone direction, duration, mix, and avoid rules.
