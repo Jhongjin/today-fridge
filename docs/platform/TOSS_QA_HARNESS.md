@@ -87,7 +87,7 @@ Required events:
 | `leaderboard_open` | source, status |
 | `share_reward_event` | event_type, reward_amount, reward_unit |
 | `ad_reward` | ad_group_id, status, event_type |
-| `promotion_reward` | promotion_code, amount, status, error_code |
+| `promotion_reward` | promotion_code, action, reward_id, amount, status, error_code |
 | `client_error` | screen, code, message_hash |
 
 ## 6. QA Gates
@@ -162,7 +162,7 @@ Automated scenarios:
 8. Verify QA Toss bridge no-user-key submit skip path.
 9. Mock share reward event variants through `src/platform/shareReward.ts`.
 10. Mock rewarded ad completed, not-completed, duplicate, and active-play blocked paths through `src/platform/rewardedAd.ts`.
-11. Mock promotion success, budget exhausted, limit exceeded, unsupported version.
+11. Mock promotion fixed-action success and policy-blocked score/rank/win/random paths through `src/platform/promotionReward.ts`.
 12. Assert zero console errors and unhandled promise rejections.
 
 ## 9. Pre-Submission Checklist

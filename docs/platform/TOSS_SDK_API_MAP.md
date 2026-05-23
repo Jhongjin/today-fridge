@@ -35,7 +35,7 @@ The app keeps an injected bridge until package installation and bundle import ar
 | Share event | `RewardFromContactsViralEvent` | Event type `sendViral` includes reward amount/unit from console. | Not implemented. | Treat as post-action reward evidence, not score advantage. |
 | Rewarded/full-screen ads | `loadFullScreenAd`, `showFullScreenAd` | Toss app `5.247.0` for ads 2.0 ver2; `5.227.0` to `5.247.0` has older ads 2.0 support. | Mock grant service exists in `src/platform/rewardedAd.ts`; real SDK not implemented. | Preload before showing, pause audio, reward only on completed reward event, no ranked advantage. |
 | Banner ads | `TossAds` banner APIs | WebView banner support from Toss app `5.241.0`. | Out of MVP scope. | Avoid active-play interruption; use only if later layout can reserve space safely. |
-| Game promotion points | `grantPromotionRewardForGame({ params })` | Toss app `5.232.0`; game category only. | Not implemented. | Only fixed action/event rewards. Never score, rank, win/loss, random, or share-win based. |
+| Game promotion points | `grantPromotionRewardForGame({ params })` | Toss app `5.232.0`; game category only. | Mock grant service exists in `src/platform/promotionReward.ts`; real SDK not implemented. | Only fixed action/event rewards. Never score, rank, win/loss, random, or share-win based. |
 | App review | `requestReview()` | Toss app iOS/Android `5.253.0`. | Out of MVP scope. | Consider only after repeated successful completions and no active play interruption. |
 
 ## Explicit Non-Use For MVP

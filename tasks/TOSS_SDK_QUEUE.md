@@ -75,6 +75,7 @@ Output:
 - Confirm no score/rank/win/random dependency.
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
+- Use `promotionReward` mock service until real `grantPromotionRewardForGame` is wired. (Phase 92 service done)
 
 Output:
 

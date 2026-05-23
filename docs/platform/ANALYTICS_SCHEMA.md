@@ -69,7 +69,7 @@ Every event should include:
 | `share_reward_event` | `event_type`, `reward_amount`, `reward_unit`, `status`, `error_code` |
 | `rewarded_ad_offer` | `placement`, `reward_type`, `amount` |
 | `rewarded_ad_complete` | `placement`, `reward_type`, `amount`, `status` |
-| `promotion_reward` | `promotion_code`, `status`, `error_code` |
+| `promotion_reward` | `promotion_code`, `action`, `reward_id`, `amount`, `status`, `error_code` |
 | `external_reward_policy_check` | `reward_id`, `source`, `allowed`, `reason` |
 | `external_reward_claim` | `reward_id`, `source`, `status`, `amount`, `recipe_piece_amount` |
 

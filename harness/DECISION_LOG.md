@@ -109,3 +109,4 @@
 - Phase 89 external reward grant harness added: policy-approved future share/ad/promotion rewards can grant fixed wallet rewards once with analytics and duplicate protection.
 - Phase 90 share reward mock service added: future `contactsViral` `sendViral` rewards now have a fixed non-ranked wallet grant path and analytics contract.
 - Phase 91 rewarded ad mock service added: future rewarded-ad completion rewards require user initiation, completion evidence, no active-play interruption, and fixed non-ranked grants.
+- Phase 92 promotion reward mock service added: future game promotion rewards are limited to fixed user-initiated actions and blocked when tied to score, rank, win/loss, or random outcomes.

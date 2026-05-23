@@ -72,6 +72,12 @@ Rewarded ad mock service:
 
 This service models a future rewarded ad completion as a fixed, user-initiated, non-ranked reward. It blocks grants when the ad completion event is missing or the request would interrupt active play.
 
+Promotion reward mock service:
+
+`src/platform/promotionReward.ts`
+
+This service models future `grantPromotionRewardForGame` use as a fixed action or event reward. It blocks score, rank, win/loss, random, and non-user-initiated promotion grants before any wallet update.
+
 ## Today Fridge Rules
 
 - Share rewards may grant fixed fridge coins or recipe pieces after a qualifying share event.
