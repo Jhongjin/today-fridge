@@ -173,7 +173,8 @@ ${checkboxRows([
   "Sound mute and background/foreground behavior are acceptable.",
   "Bundle budget and source-map guard passed for the reviewed commit.",
   "Queue Preview GitHub Actions passed for the reviewed commit.",
-  "Preview deploy skipped state is understood when Vercel secrets/vars are not configured."
+  "Preview deploy skipped state is understood when Vercel secrets/vars are not configured.",
+  "Production monitoring endpoint owner, retention policy, and access controls are approved or explicitly deferred."
 ])}
 
 ${renderExternalRewardSection(externalRewards)}## Commander Decision

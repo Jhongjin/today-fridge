@@ -55,6 +55,7 @@ If `--commit` is omitted, the packet uses the current local `git rev-parse --sho
 The packet metadata includes the current local worktree status. Generate review packets from a clean tree after the intended commit is pushed.
 
 The generated packet requires `npm run sdk:dependency-triage -- --strict` before approval, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
+It also captures whether production monitoring endpoint ownership, retention, and access controls are approved or explicitly deferred.
 
 After the packet is filled, run:
 

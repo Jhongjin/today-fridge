@@ -141,3 +141,4 @@
 - Phase 121 commander review packet validator added: filled packets can be checked for complete metadata, checked evidence, no TODOs, and exactly one commander decision.
 - Phase 122 commander review packet index added: saved packets can be summarized with readiness, commit, preview URL, and decision status.
 - Phase 123 dedicated HTTP error monitoring transport added: error-only events can be sent with `VITE_ERROR_MONITORING_ENDPOINT` while production endpoint ownership remains a commander decision.
+- Phase 124 commander review packet now includes a production monitoring owner, retention, and access-control approval check.
