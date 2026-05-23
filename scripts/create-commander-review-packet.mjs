@@ -176,6 +176,29 @@ Notes:
 
 `;
 
+const renderTossConsoleSetupSection = () => `## Toss Console Setup Approval
+
+${checkboxRows([
+  "Apps in Toss console category is set to game, or the category setup owner is named.",
+  "Console logo, thumbnail, and upload screenshots are regenerated and uploaded or linked.",
+  "Leaderboard score unit, higher-is-better sort policy, and clean-score policy are configured or linked.",
+  "App bundle or `.ait` upload candidate path is recorded.",
+  "Preview URL or QR target used for console testing is recorded.",
+  "Toss console test/review state is recorded, including whether review is still blocked."
+])}
+
+Toss console setup decision:
+
+- [ ] Approved for Toss console setup
+- [ ] Needs console setup follow-up
+- [ ] Blocked until console setup is complete
+
+Notes:
+
+- TODO
+
+`;
+
 const renderPacket = ({
   commit,
   externalRewards,
@@ -198,6 +221,7 @@ const renderPacket = ({
 | Preview URL | ${previewUrl} |
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
+| Toss console setup approval | required |
 | SDK dependency approval | required |
 | Game rating evidence | required |
 | Production monitoring approval | required |
@@ -239,7 +263,7 @@ ${checkboxRows([
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."
 ])}
 
-${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
+${renderTossConsoleSetupSection()}${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
 
 ${checkboxRows([
   "First playable screen appears within 10 seconds on supported QR devices.",
@@ -249,6 +273,7 @@ ${checkboxRows([
   "Bundle budget and source-map guard passed for the reviewed commit.",
   "Queue Preview GitHub Actions passed for the reviewed commit.",
   "Preview deploy skipped state is understood when Vercel secrets/vars are not configured.",
+  "Toss console setup approval section is complete.",
   "Production monitoring approval section is complete."
 ])}
 

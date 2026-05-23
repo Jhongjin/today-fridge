@@ -79,6 +79,7 @@ Default output:
 `qa/review-packets/<timestamp>-<commit>-commander-review.md`
 
 The generated packet includes the Korean copy guard in its required local commands. Run `npm run qa:korean-copy` before commander approval so listing, metadata, console asset, screenshot, and rating evidence copy are checked for required phrases and known mojibake markers.
+It also includes a Toss Console Setup Approval section. Final Toss review approval requires console category, upload assets, leaderboard setup, bundle or `.ait` candidate path, QR target, and exactly one console setup decision.
 It also includes an SDK Dependency Approval section. Final Toss review approval requires refreshed SDK triage output, Node 24 coverage notes, audit counts, and exactly one SDK dependency decision.
 It also includes a Game Rating Evidence Approval section. Final Toss review approval requires one selected rating evidence path, linked classification evidence, required gameplay screenshots, and exactly one rating evidence decision.
 It also includes a Production Monitoring Approval section. Preview or production approval requires endpoint owner, retention, access-control, and deploy-preflight endpoint state notes, plus exactly one monitoring decision.

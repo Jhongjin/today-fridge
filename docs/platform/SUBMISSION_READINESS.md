@@ -20,7 +20,7 @@ References:
 | First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
 | Manifest/app icon | Pass | Web manifest references the SVG app icon. |
-| Console upload assets | Partial pass | Console logo/thumbnail/screenshot PNGs can be generated locally and dimensions are guarded; final console upload pending. |
+| Console upload assets | Partial pass | Console logo/thumbnail/screenshot PNGs can be generated locally and dimensions are guarded; final console upload and console setup decision are pending. |
 | Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget and blocks source maps. Must recheck after assets/audio. |
 | Sound controls | Partial pass | Mute persists locally, synthetic SFX exist for core gameplay, and pause/resume feedback is wired. Final BGM/custom assets pending. |
 | Background sound handling | Partial | SFX playback is suspended on page hide/show lifecycle events. Final BGM lifecycle still needs real-device testing once BGM is added. |
@@ -32,7 +32,7 @@ References:
 | Rewarded ads | Mock UI only | Policy-safe completion mock and integrated QA scenario exist; real rewarded-ad adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
 | Promotion points | Mock UI only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` adapter is available behind the external reward gate, with UI wiring pending QR evidence and promotion review. |
 | Error monitoring | Partial | Local hooks and optional `VITE_ERROR_MONITORING_ENDPOINT` transport exist; production endpoint owner, retention policy, and access controls must be approved or explicitly deferred in the commander review packet. |
-| QR test | Pending | Requires Apps in Toss console setup. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
+| QR test | Pending | Requires Apps in Toss console setup and a QR target. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
 ## 2. Submission Blockers
 
@@ -50,14 +50,15 @@ These must be completed before requesting review:
 - QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - QR session evidence can be summarized locally with `npm run qa:qr-session:index`.
 - Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
+- Commander QR review packets now require completed Toss console setup approval or follow-up decision.
 - Commander QR review packets now require completed SDK dependency approval or follow-up decision.
 - Commander QR review packets now require completed game rating evidence approval before final Toss review.
 - Commander QR review packets now require completed production monitoring approval or explicit deferral.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Production monitoring endpoint owner, retention policy, and access-control approval or explicit deferral recorded in the commander review packet.
-- App bundle packaging path and `.ait` upload check.
-- Console-ready PNG logo, thumbnail, and screenshot assets.
+- App bundle packaging path and `.ait` upload check recorded in the commander review packet.
+- Console-ready PNG logo, thumbnail, screenshot assets, leaderboard setup, and console review state recorded in the commander review packet.
 - Game rating classification evidence recorded in the commander review packet.
 - Rating evidence checklist is documented in `docs/platform/GAME_RATING_EVIDENCE.md`.
 

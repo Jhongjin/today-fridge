@@ -58,6 +58,7 @@ The packet metadata includes the current local worktree status. Generate review 
 
 The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, manifest, console asset, screenshot, and rating evidence Korean copy are checked for required phrases and known mojibake markers.
 It requires `npm run qa:console-assets`, so console logo, thumbnail, and upload screenshot dimensions are regenerated and verified against Toss console requirements.
+It also requires a completed Toss Console Setup Approval section, so game category, upload assets, leaderboard settings, bundle upload candidate, preview/QR target, and console test/review state are captured as a decision.
 It also requires `npm run sdk:dependency-triage -- --strict`, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
 It also requires a completed SDK Dependency Approval section, so Node 24 coverage, audit counts, the no-force-fix policy, and remaining SDK risk are captured as a decision.
 It also requires a completed Game Rating Evidence Approval section, so the selected store self-rating or GRAC certificate path, classification fields, owner-name consistency, gameplay screenshots, and content guardrails are reviewed before final Toss submission.
@@ -75,7 +76,7 @@ To summarize saved packets:
 npm run qa:commander-review-packet:index -- --strict
 ```
 
-The packet index includes `Required Commands`, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
+The packet index includes `Required Commands`, console setup, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
 
 Setup details:
 
@@ -135,6 +136,7 @@ If production deploy fails:
 - Real Toss SDK QR/device validation is pending.
 - Korean listing and metadata copy must pass `npm run qa:korean-copy` before final review approval.
 - Console upload assets must be regenerated with `npm run qa:console-assets` before final review approval.
+- Toss console category, assets, leaderboard settings, bundle/QR target, and review state must be approved or blocked in the commander review packet.
 - Game rating evidence must be completed in the commander review packet before final Toss review approval.
 - SDK dependency tree must be refreshed with `npm run sdk:dependency-triage -- --strict`, and remaining SDK/audit risk must be approved or blocked in the commander review packet.
 - Production monitoring endpoint owner, retention policy, and access controls must be approved or explicitly deferred in the commander review packet.

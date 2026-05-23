@@ -60,6 +60,7 @@ const requiredSections = [
   "Metadata",
   "Required Local Commands",
   "Evidence Checklist",
+  "Toss Console Setup Approval",
   "SDK Dependency Approval",
   "Game Rating Evidence Approval",
   "Production Monitoring Approval",
@@ -125,6 +126,9 @@ const decisionLabels = new Set([
   "Approved with documented SDK risk",
   "Needs SDK dependency follow-up",
   "Blocked until SDK dependency risk is resolved",
+  "Approved for Toss console setup",
+  "Needs console setup follow-up",
+  "Blocked until console setup is complete",
   "Needs follow-up",
   "Rejected for now"
 ]);
@@ -185,6 +189,11 @@ export const checkCommanderReviewPacket = (text) => {
   const commanderDecisionChecked = checkedDecisionOptions(sectionText(text, "Commander Decision"));
   if (commanderDecisionChecked.length !== 1) {
     issues.push("Commander Decision must have exactly one checked decision.");
+  }
+
+  const consoleSetupDecisionChecked = checkedDecisionOptions(sectionText(text, "Toss Console Setup Approval"));
+  if (consoleSetupDecisionChecked.length !== 1) {
+    issues.push("Toss console setup decision must have exactly one checked decision.");
   }
 
   const ratingEvidenceDecisionChecked = checkedDecisionOptions(sectionText(text, "Game Rating Evidence Approval"));

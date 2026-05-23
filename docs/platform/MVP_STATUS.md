@@ -39,7 +39,7 @@
 - Real Game Center profile and user-key QR validation are still pending.
 - Real leaderboard submit/open needs QR-device verification.
 - Real contacts/ad/promotion UI wiring remains gated until QR evidence and commander review are complete.
-- Console-ready PNG logo, thumbnail, and screenshot dimensions are locally generated and guarded; final console upload is still pending.
+- Console-ready PNG logo, thumbnail, and screenshot dimensions are locally generated and guarded; final console upload and console setup approval are still pending.
 - Game rating evidence has a checklist and commander packet gate, but the selected store self-rating or GRAC certificate evidence is still pending.
 - BGM/custom audio assets are not final, but synthetic SFX and pause/resume feedback are in place.
 - iOS/Android safe-area and background audio lifecycle need device checks.
