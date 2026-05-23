@@ -66,6 +66,19 @@ describe("QA Toss bridge", () => {
     ]);
   });
 
+  it("can install a bridge that returns no game user key", async () => {
+    vi.stubGlobal("location", {
+      search: "?qa=toss-bridge-no-user-key"
+    });
+
+    expect(installQaAppsInTossBridge()).toBe(true);
+
+    const bridge = getRuntimeAppsInTossBridge();
+    await expect(bridge?.getUserKeyForGame?.()).resolves.toBeUndefined();
+
+    expect((globalThis as Record<string, unknown>)[eventGlobalKey]).toEqual([{ type: "user-key", result: "UNAVAILABLE" }]);
+  });
+
   it("stays off for normal URLs", () => {
     vi.stubGlobal("location", {
       search: ""

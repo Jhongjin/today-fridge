@@ -57,6 +57,7 @@ Required artifacts:
 
 - `game_user_key_result` records `result:ready` on supported devices.
 - Unsupported user-key path keeps the first playable flow available and records `unavailable` or `error`.
+- Clean leaderboard submit is skipped with `GAME_USER_KEY_UNAVAILABLE` if the game user key is unavailable.
 - Clean completion submits score after user taps submit.
 - Duplicate submit for one play ID is blocked or gracefully skipped.
 - Booster-assisted completion does not submit a clean score.

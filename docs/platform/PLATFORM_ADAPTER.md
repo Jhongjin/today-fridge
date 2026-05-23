@@ -25,6 +25,7 @@ rankedMode == true
 boosterUsed == false
 adRecoveryUsed == false
 shareBonusUsed == false
+gameUserKey is available
 ```
 
 Any assisted run can still:
@@ -35,6 +36,14 @@ Any assisted run can still:
 - Show a result screen.
 
 But it must not overwrite clean ranked score.
+
+If the platform cannot provide a game user key, leaderboard submission returns:
+
+```text
+ok: false
+skipped: true
+reason: GAME_USER_KEY_UNAVAILABLE
+```
 
 ## 4. Idempotency Rule
 
@@ -72,4 +81,3 @@ Each SDK call should:
 - Unit tests for duplicate submit.
 - Browser test for result screen submit flow once the UI button is connected.
 - Real device test for Toss SDK behavior before submission.
-

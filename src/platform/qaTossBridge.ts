@@ -12,8 +12,8 @@ export type QaTossBridgeEvent =
     }
   | {
       type: "user-key";
-      result: "HASH";
-      hash: string;
+      result: "HASH" | "UNAVAILABLE";
+      hash?: string;
     }
   | {
       type: "open";
@@ -24,7 +24,7 @@ type GlobalWithQaBridge = typeof globalThis & {
   [eventGlobalKey]?: QaTossBridgeEvent[];
 };
 
-const getQaTossBridgeMode = (): "success" | "submit-error" | null => {
+const getQaTossBridgeMode = (): "success" | "submit-error" | "no-user-key" | null => {
   const search = globalThis.location?.search;
 
   if (!search) {
@@ -36,6 +36,10 @@ const getQaTossBridgeMode = (): "success" | "submit-error" | null => {
 
   if (qaMode === "toss-bridge-error") {
     return "submit-error";
+  }
+
+  if (qaMode === "toss-bridge-no-user-key") {
+    return "no-user-key";
   }
 
   if (qaMode === "toss-bridge" || params.has("toss_bridge")) {
@@ -60,6 +64,15 @@ export const installQaAppsInTossBridge = (): boolean => {
   (globalThis as GlobalWithQaBridge)[bridgeGlobalKey] = {
     isMinVersionSupported: () => true,
     async getUserKeyForGame() {
+      if (mode === "no-user-key") {
+        pushQaEvent({
+          type: "user-key",
+          result: "UNAVAILABLE"
+        });
+
+        return undefined;
+      }
+
       const hash = "qa-game-user-key";
 
       pushQaEvent({

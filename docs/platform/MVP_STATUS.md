@@ -11,6 +11,7 @@
 - Play controls now include real pause/resume behavior with pause-adjusted round duration.
 - Fairness guard exists: hint booster runs cannot update clean personal best or submit clean leaderboard score.
 - Toss Game Center boundary now includes leaderboard submit/open plus game user key status mapping through the injected bridge.
+- Clean leaderboard submission is now blocked when the game user key is unavailable.
 - QA harness exists for analytics, Toss bridge smoke path, screenshots, console/page errors, bundle size, and source maps.
 - Quiet/reduced-motion settings persist locally and emit QA-visible settings analytics.
 

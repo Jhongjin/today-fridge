@@ -15,7 +15,7 @@ import { createHapticsController } from "../haptics/hapticsController";
 import { configureAnalyticsContext, getAnalyticsContext, trackEvent, type UserKeyStatus } from "../platform/analytics";
 import { recordDailyStreak } from "../platform/dailyStreak";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
-import { createLeaderboardService } from "../platform/leaderboard";
+import { createLeaderboardService, GAME_USER_KEY_UNAVAILABLE } from "../platform/leaderboard";
 import {
   readMutedPreference,
   readReduceMotionPreference,
@@ -247,6 +247,7 @@ export const App = () => {
   const [pausedStartedAt, setPausedStartedAt] = useState<number | null>(null);
   const [totalPausedMs, setTotalPausedMs] = useState(0);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
+  const [submitReason, setSubmitReason] = useState<string | null>(null);
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
   const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "success" | "error">("idle");
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(dailyRunKey));
@@ -826,6 +827,7 @@ export const App = () => {
 
   const submitScore = async () => {
     setSubmitStatus("submitting");
+    setSubmitReason(null);
     const result = await leaderboardService.submit({
       playId,
       score,
@@ -848,6 +850,7 @@ export const App = () => {
       hapticsController.play("leaderboard_submit");
     }
 
+    setSubmitReason(result.reason ?? result.errorCode ?? null);
     setSubmitStatus(result.ok ? "success" : result.skipped ? "skipped" : "error");
   };
 
@@ -1227,7 +1230,9 @@ export const App = () => {
             {submitStatus === "skipped" || submitStatus === "error" ? (
               <p className="submit-note" data-testid="submit-note">
                 {submitStatus === "skipped"
-                  ? "기록 제출은 clean ranked 판에서만 가능해요."
+                  ? submitReason === GAME_USER_KEY_UNAVAILABLE
+                    ? "토스 게임 프로필 확인이 필요해요. 잠시 후 다시 시도해 주세요."
+                    : "기록 제출은 clean ranked 판에서만 가능해요."
                   : "기록 제출이 잠시 실패했어요. 다시 시도해 주세요."}
               </p>
             ) : null}

@@ -35,7 +35,7 @@ Output:
 ## Queue 3: Profile Gate
 
 - Add game profile required pre-play gate.
-- Ensure users without profile cannot start ranked play.
+- Ensure users without profile cannot start ranked play. (Phase 86 blocks clean leaderboard submit when game user key is unavailable; full pre-play profile UI still pending)
 - Keep local mock path for CI.
 
 Output:

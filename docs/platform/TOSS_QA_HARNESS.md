@@ -138,6 +138,7 @@ Current QA bridge:
 - Browser automation can read `globalThis.__TODAY_FRIDGE_TOSS_QA_EVENTS__` to assert score submit/open calls.
 - The QA bridge returns a fake `getUserKeyForGame()` hash and records a `user-key` QA event.
 - Open `/?qa=toss-bridge-error` to force a leaderboard submit failure and verify retry/recovery UI.
+- Open `/?qa=toss-bridge-no-user-key` to force game user key unavailability and verify leaderboard submit is skipped without a platform submit call.
 - Submit failure copy should say the submit temporarily failed and invite retry, while fairness skips should keep the clean-ranked explanation.
 
 Automated scenarios:
@@ -150,10 +151,11 @@ Automated scenarios:
 6. Mock leaderboard success, failure, duplicate submit.
 7. Confirm leaderboard submit analytics contains the board seed, selected route, and score receipt.
 7. Verify QA Toss bridge user-key/submit/open path.
-8. Mock share reward event variants.
-9. Mock rewarded ad loaded, reward, dismissed, failed.
-10. Mock promotion success, budget exhausted, limit exceeded, unsupported version.
-11. Assert zero console errors and unhandled promise rejections.
+8. Verify QA Toss bridge no-user-key submit skip path.
+9. Mock share reward event variants.
+10. Mock rewarded ad loaded, reward, dismissed, failed.
+11. Mock promotion success, budget exhausted, limit exceeded, unsupported version.
+12. Assert zero console errors and unhandled promise rejections.
 
 ## 9. Pre-Submission Checklist
 

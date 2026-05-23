@@ -103,3 +103,4 @@
 - Phase 83 Game Center user-key bridge added: `getUserKeyForGame()` hash responses now map into the platform client, QA bridge, and analytics status while real SDK import/QR validation remain separate.
 - Phase 84 QR session harness added: physical device runs now have a generated evidence checklist covering entry, user key, Game Center, observability, and commander decision.
 - Phase 85 Vercel preview prerequisite preflight added: missing deploy secrets are now explicit through a local check and setup guide while production remains commander-approved.
+- Phase 86 leaderboard profile guard added: clean ranked submits now require an available game user key and no-user-key QA bridge coverage.

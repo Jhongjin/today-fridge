@@ -286,6 +286,23 @@ test("qa Toss bridge submit failure leaves the player recoverable", async ({ pag
   ]);
 });
 
+test("qa Toss bridge blocks ranked submit without a game user key", async ({ page }) => {
+  await page.goto("/?qa=toss-bridge-no-user-key");
+
+  await playCleanRoute(page);
+  await page.getByTestId("leaderboard-submit").click();
+
+  await expect(page.getByTestId("submit-note")).toContainText("토스 게임 프로필 확인");
+  await expect(page.getByTestId("leaderboard-submit")).toBeEnabled();
+
+  const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
+  expect(bridgeEvents).toContainEqual({
+    type: "user-key",
+    result: "UNAVAILABLE"
+  });
+  expect(bridgeEvents?.filter((event) => event.type === "submit")).toEqual([]);
+});
+
 test("hint booster marks the run outside clean leaderboard", async ({ page }) => {
   await page.goto("/");
 

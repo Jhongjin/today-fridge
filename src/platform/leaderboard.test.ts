@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { clearTrackedEvents, getTrackedEvents } from "./analytics";
 import { cleanRankedFlags } from "./fairness";
-import { createLeaderboardService } from "./leaderboard";
+import { createLeaderboardService, GAME_USER_KEY_UNAVAILABLE } from "./leaderboard";
 import { createTossMockClient } from "./tossMockClient";
 
 describe("leaderboard service", () => {
@@ -90,6 +90,37 @@ describe("leaderboard service", () => {
       properties: {
         status: "skipped",
         error_code: "BOOSTER_USED"
+      }
+    });
+  });
+
+  it("skips clean leaderboard submit when the game user key is unavailable", async () => {
+    clearTrackedEvents();
+    const submitLeaderboardScore = vi.fn();
+    const service = createLeaderboardService({
+      getUserKey: vi.fn().mockResolvedValue(undefined),
+      submitLeaderboardScore,
+      openLeaderboard: vi.fn()
+    });
+
+    await expect(
+      service.submit({
+        playId: "play-no-user-key",
+        score: 1700,
+        flags: cleanRankedFlags()
+      })
+    ).resolves.toEqual({
+      ok: false,
+      skipped: true,
+      reason: GAME_USER_KEY_UNAVAILABLE
+    });
+
+    expect(submitLeaderboardScore).not.toHaveBeenCalled();
+    expect(getTrackedEvents()[0]).toMatchObject({
+      eventName: "leaderboard_submit",
+      properties: {
+        status: "skipped",
+        error_code: GAME_USER_KEY_UNAVAILABLE
       }
     });
   });

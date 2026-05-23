@@ -55,6 +55,8 @@ Leaderboard submit:
 
 - Local score number is floored.
 - Score is sent as a string.
+- The local leaderboard service first checks `TossClient.getUserKey()`.
+- Missing game user key maps to `GAME_USER_KEY_UNAVAILABLE` and does not call `submitGameCenterLeaderBoardScore`.
 - `SUCCESS` maps to `{ ok: true }`.
 - `undefined` maps to `TOSS_VERSION_UNSUPPORTED`.
 - Other status codes pass through as `errorCode`.

@@ -33,6 +33,8 @@ export type LeaderboardOpenResult = {
   errorCode?: string;
 };
 
+export const GAME_USER_KEY_UNAVAILABLE = "GAME_USER_KEY_UNAVAILABLE";
+
 export const createLeaderboardService = (client: TossClient) => {
   const submittedPlayIds = new Set<string>();
 
@@ -85,6 +87,31 @@ export const createLeaderboardService = (client: TossClient) => {
         ok: false,
         skipped: true,
         reason: "DUPLICATE_PLAY_ID"
+      };
+    }
+
+    let userKey: string | undefined;
+
+    try {
+      userKey = await client.getUserKey();
+    } catch {
+      userKey = undefined;
+    }
+
+    if (!userKey) {
+      trackEvent("leaderboard_submit", {
+        play_id: playId,
+        score,
+        status: "skipped",
+        error_code: GAME_USER_KEY_UNAVAILABLE,
+        ranked_mode: flags.rankedMode,
+        ...auditProperties(audit)
+      });
+
+      return {
+        ok: false,
+        skipped: true,
+        reason: GAME_USER_KEY_UNAVAILABLE
       };
     }
 

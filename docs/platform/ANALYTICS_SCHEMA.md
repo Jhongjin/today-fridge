@@ -90,7 +90,10 @@ ranked_mode == true
 AND booster_used == false
 AND ad_recovery_used == false
 AND share_bonus_used == false
+AND user_key_status in ("ready", "mock")
 ```
+
+If a clean run cannot resolve a game user key, `leaderboard_submit` should use `status: "skipped"` and `error_code: "GAME_USER_KEY_UNAVAILABLE"`.
 
 ## 7. KPI Mapping
 

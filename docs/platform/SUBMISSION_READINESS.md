@@ -22,7 +22,7 @@ References:
 | Background sound handling | Partial | SFX playback is suspended on page hide/show lifecycle events. Final BGM lifecycle still needs real-device testing once BGM is added. |
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
 | Leaderboard submit timing | Pass by design | Submit action appears after round completion. |
-| Game profile | Pending | Official docs say profile registration is required before gameplay. |
+| Game profile | Partial | Real profile WebView is still pending, but clean leaderboard submit is now gated on an available game user key. |
 | Game user key | Partial | Adapter now maps `getUserKeyForGame()` and records status analytics; real SDK package import and QR validation pending. |
 | Share reward | Pending | Not implemented. |
 | Rewarded ads | Pending | Not implemented. |
@@ -35,7 +35,7 @@ References:
 These must be completed before requesting review:
 
 - Real Toss SDK package import and runtime wiring. Adapter contract exists in `src/platform/appsInTossClient.ts`, but local exact install still times out.
-- Game profile flow before gameplay.
+- Real Game Center profile flow before gameplay.
 - Game user key QR validation and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.
 - QR test on real Toss app.
