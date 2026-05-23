@@ -111,6 +111,8 @@ Avoid:
 
 ## 9. BGM
 
+See `docs/creative/BGM_DIRECTION.md` for the locked production direction.
+
 Direction:
 
 - Warm kitchen casual.

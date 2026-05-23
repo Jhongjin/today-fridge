@@ -49,4 +49,4 @@ Pending:
 
 - Custom audio asset loading.
 - Separate BGM/SFX volume.
-- Background pause/resume.
+- BGM asset implementation following `docs/creative/BGM_DIRECTION.md`.

@@ -98,3 +98,4 @@
 - Phase 78 player preferences added: mute and reduced-motion choices now persist across reloads.
 - Phase 79 settings analytics added: preference toggles now write storage and analytics outside state updaters and appear in QA.
 - Phase 80 MVP checkpoint updated: submission readiness now reflects pause, replay, console asset guard, and settings progress.
+- Phase 81 BGM direction locked: production music should be low-fatigue warm-kitchen casual with strict anti-casino and anti-timer constraints.
