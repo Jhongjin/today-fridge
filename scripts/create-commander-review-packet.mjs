@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
@@ -48,6 +49,17 @@ const slugify = (value) =>
     .slice(0, 48);
 
 const checkboxRows = (items) => items.map((item) => `- [ ] ${item}`).join("\n");
+
+const readCurrentCommit = () => {
+  try {
+    return execFileSync("git", ["rev-parse", "--short", "HEAD"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"]
+    }).trim();
+  } catch {
+    return "main";
+  }
+};
 
 const renderExternalRewardSection = (enabled) => {
   if (!enabled) {
@@ -159,7 +171,7 @@ Decision notes:
 const main = async () => {
   const args = parseArgs(process.argv.slice(2));
   const generatedAt = new Date().toISOString();
-  const commit = valueOf(args, "commit", "main");
+  const commit = valueOf(args, "commit", readCurrentCommit());
   const externalRewards = booleanOf(args, "external-rewards");
   const packet = renderPacket({
     commit,

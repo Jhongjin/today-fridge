@@ -50,6 +50,8 @@ QR review packet:
 npm run qa:commander-review-packet -- --commit <sha> --preview-url <preview-or-qr-url>
 ```
 
+If `--commit` is omitted, the packet uses the current local `git rev-parse --short HEAD` value.
+
 The generated packet requires `npm run sdk:dependency-triage -- --strict` before approval, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
 
 Setup details:
