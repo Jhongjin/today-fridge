@@ -152,3 +152,4 @@
 - Phase 132 commander review packet now requires console asset generation and dimension verification before approval.
 - Phase 133 Queue Preview Validate Harness now captures console assets and verifies upload dimensions before browser tests.
 - Phase 134 console asset capture now prints a verified dimensions and file-size table for CI/review logs.
+- Phase 135 commander review packet index now summarizes required local command readiness per packet.

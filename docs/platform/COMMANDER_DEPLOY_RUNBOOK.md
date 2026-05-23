@@ -73,6 +73,8 @@ To summarize saved packets:
 npm run qa:commander-review-packet:index -- --strict
 ```
 
+The packet index includes a `Required Commands` column so missing local approval commands are visible before commander review.
+
 Setup details:
 
 `docs/platform/VERCEL_PREVIEW_SETUP.md`

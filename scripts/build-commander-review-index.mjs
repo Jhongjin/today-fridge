@@ -114,10 +114,15 @@ const externalRewardDecisionOf = (text) => {
 const summarizePacket = async (file) => {
   const text = (await readFile(file, "utf8")).replace(/\r\n/g, "\n");
   const check = checkCommanderReviewPacket(text);
+  const missingRequiredCommands = check.issues
+    .filter((issue) => issue.startsWith("Missing required command: "))
+    .map((issue) => issue.replace("Missing required command: ", ""));
 
   return {
     file,
     status: check.ready ? "ready" : "not_ready",
+    requiredCommands: missingRequiredCommands.length === 0 ? "ready" : `missing ${missingRequiredCommands.length}`,
+    missingRequiredCommands,
     metadata: check.metadata,
     commanderDecision: commanderDecisionOf(text),
     externalRewardDecision: externalRewardDecisionOf(text),
@@ -145,13 +150,13 @@ Generated at: ${generatedAt}
 
 ## Packets
 
-| File | Commit | Worktree | Preview URL | External Rewards | Commander Decision | External Reward Decision | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| File | Commit | Worktree | Required Commands | Preview URL | External Rewards | Commander Decision | External Reward Decision | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows.length > 0 ? rows.map((row) => {
     const metadata = row.metadata;
 
-    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
-  }).join("\n") : "| none |  |  |  |  |  |  | not_ready |"}
+    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
+  }).join("\n") : "| none |  |  |  |  |  |  |  | not_ready |"}
 
 ## Open Issues
 

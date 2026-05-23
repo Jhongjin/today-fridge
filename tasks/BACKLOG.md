@@ -107,6 +107,7 @@
 - Require console asset generation in commander review packet. (Phase 132 done pending CI)
 - Run console asset generation in Queue Preview validation. (Phase 133 done pending CI)
 - Print console asset verification table. (Phase 134 done pending CI)
+- Surface required command readiness in commander packet index. (Phase 135 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)
