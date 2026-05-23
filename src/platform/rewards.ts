@@ -14,6 +14,13 @@ export type RewardClaimResult = {
   wallet: RewardWallet;
 };
 
+export type FixedRewardClaimRequest = {
+  rewardId: string;
+  coinAmount: number;
+  recipePieceAmount?: number;
+  recipeId?: string;
+};
+
 const walletKey = "today-fridge:reward-wallet";
 
 const getDefaultStorage = (): RewardStorage | undefined => {
@@ -56,18 +63,19 @@ const writeRewardWallet = (wallet: RewardWallet, storage = getDefaultStorage()) 
   storage?.setItem(walletKey, JSON.stringify(wallet));
 };
 
+const normalizeRewardAmount = (amount: number | undefined): number =>
+  Number.isFinite(amount) && Number(amount) > 0 ? Math.floor(Number(amount)) : 0;
+
 export const hasClaimedCompletionReward = (boardId: string, wallet: RewardWallet): boolean =>
   wallet.claimedRewardIds.includes(completionRewardId(boardId));
 
 export const hasClaimedParticipationReward = (boardId: string, wallet: RewardWallet): boolean =>
   wallet.claimedRewardIds.includes(participationRewardId(boardId));
 
-export const claimCompletionReward = (
-  boardId: string,
-  recipeId: string,
+export const claimFixedReward = (
+  { coinAmount, recipeId, recipePieceAmount, rewardId }: FixedRewardClaimRequest,
   storage = getDefaultStorage()
 ): RewardClaimResult => {
-  const rewardId = completionRewardId(boardId);
   const wallet = readRewardWallet(storage);
 
   if (wallet.claimedRewardIds.includes(rewardId)) {
@@ -80,56 +88,47 @@ export const claimCompletionReward = (
     };
   }
 
-  const coinAmount = 30;
-  const recipePieceAmount = 1;
+  const normalizedCoinAmount = normalizeRewardAmount(coinAmount);
+  const normalizedRecipePieceAmount = normalizeRewardAmount(recipePieceAmount);
   const nextWallet: RewardWallet = {
-    fridgeCoins: wallet.fridgeCoins + coinAmount,
-    recipePieces: {
-      ...wallet.recipePieces,
-      [recipeId]: (wallet.recipePieces[recipeId] ?? 0) + recipePieceAmount
+    fridgeCoins: wallet.fridgeCoins + normalizedCoinAmount,
+    recipePieces:
+      recipeId && normalizedRecipePieceAmount > 0
+        ? {
+            ...wallet.recipePieces,
+            [recipeId]: (wallet.recipePieces[recipeId] ?? 0) + normalizedRecipePieceAmount
+          }
+        : wallet.recipePieces,
+    claimedRewardIds: [...wallet.claimedRewardIds, rewardId]
+  };
+
+  writeRewardWallet(nextWallet, storage);
+
+  return {
+    rewardId,
+    claimed: true,
+    coinAmount: normalizedCoinAmount,
+    recipePieceAmount: normalizedRecipePieceAmount,
+    wallet: nextWallet
+  };
+};
+
+export const claimCompletionReward = (boardId: string, recipeId: string, storage = getDefaultStorage()): RewardClaimResult =>
+  claimFixedReward(
+    {
+      rewardId: completionRewardId(boardId),
+      coinAmount: 30,
+      recipePieceAmount: 1,
+      recipeId
     },
-    claimedRewardIds: [...wallet.claimedRewardIds, rewardId]
-  };
+    storage
+  );
 
-  writeRewardWallet(nextWallet, storage);
-
-  return {
-    rewardId,
-    claimed: true,
-    coinAmount,
-    recipePieceAmount,
-    wallet: nextWallet
-  };
-};
-
-export const claimParticipationReward = (boardId: string, storage = getDefaultStorage()): RewardClaimResult => {
-  const rewardId = participationRewardId(boardId);
-  const wallet = readRewardWallet(storage);
-
-  if (wallet.claimedRewardIds.includes(rewardId)) {
-    return {
-      rewardId,
-      claimed: false,
-      coinAmount: 0,
-      recipePieceAmount: 0,
-      wallet
-    };
-  }
-
-  const coinAmount = 10;
-  const nextWallet: RewardWallet = {
-    ...wallet,
-    fridgeCoins: wallet.fridgeCoins + coinAmount,
-    claimedRewardIds: [...wallet.claimedRewardIds, rewardId]
-  };
-
-  writeRewardWallet(nextWallet, storage);
-
-  return {
-    rewardId,
-    claimed: true,
-    coinAmount,
-    recipePieceAmount: 0,
-    wallet: nextWallet
-  };
-};
+export const claimParticipationReward = (boardId: string, storage = getDefaultStorage()): RewardClaimResult =>
+  claimFixedReward(
+    {
+      rewardId: participationRewardId(boardId),
+      coinAmount: 10
+    },
+    storage
+  );

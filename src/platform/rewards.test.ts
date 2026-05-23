@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  claimFixedReward,
   claimCompletionReward,
   claimParticipationReward,
   hasClaimedCompletionReward,
@@ -87,6 +88,52 @@ describe("reward wallet", () => {
     expect(secondDay.claimed).toBe(true);
     expect(secondDay.wallet.fridgeCoins).toBe(60);
     expect(secondDay.wallet.recipePieces.kimchi_fried_rice).toBe(2);
+  });
+
+  it("claims a generic fixed reward once with normalized positive amounts", () => {
+    const storage = createMemoryStorage();
+
+    const first = claimFixedReward(
+      {
+        rewardId: "share-reward:daily-1",
+        coinAmount: 12.9,
+        recipePieceAmount: 1.8,
+        recipeId: "kimchi_fried_rice"
+      },
+      storage
+    );
+    const second = claimFixedReward(
+      {
+        rewardId: "share-reward:daily-1",
+        coinAmount: 99,
+        recipePieceAmount: 99,
+        recipeId: "kimchi_fried_rice"
+      },
+      storage
+    );
+
+    expect(first).toMatchObject({
+      claimed: true,
+      coinAmount: 12,
+      recipePieceAmount: 1,
+      wallet: {
+        fridgeCoins: 12,
+        recipePieces: {
+          kimchi_fried_rice: 1
+        }
+      }
+    });
+    expect(second).toMatchObject({
+      claimed: false,
+      coinAmount: 0,
+      recipePieceAmount: 0,
+      wallet: {
+        fridgeCoins: 12,
+        recipePieces: {
+          kimchi_fried_rice: 1
+        }
+      }
+    });
   });
 
   it("falls back to an empty wallet when stored data is invalid", () => {

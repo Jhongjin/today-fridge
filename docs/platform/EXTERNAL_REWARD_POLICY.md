@@ -43,11 +43,22 @@ Code guard:
 
 `src/platform/externalRewardPolicy.ts`
 
+Grant harness:
+
+`src/platform/externalRewardGrant.ts`
+
 Current future integrations must call the policy check before granting:
 
 - `contactsViral` share reward.
 - Rewarded ad completion reward.
 - `grantPromotionRewardForGame`.
+
+The grant harness emits:
+
+| Event | Meaning |
+| --- | --- |
+| `external_reward_policy_check` | Policy pass/fail for the requested external reward. |
+| `external_reward_claim` | Wallet grant result after policy approval. |
 
 ## Today Fridge Rules
 

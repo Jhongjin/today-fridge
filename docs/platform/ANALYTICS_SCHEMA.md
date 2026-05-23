@@ -69,6 +69,8 @@ Every event should include:
 | `rewarded_ad_offer` | `placement`, `reward_type`, `amount` |
 | `rewarded_ad_complete` | `placement`, `reward_type`, `amount`, `status` |
 | `promotion_reward` | `promotion_code`, `status`, `error_code` |
+| `external_reward_policy_check` | `reward_id`, `source`, `allowed`, `reason` |
+| `external_reward_claim` | `reward_id`, `source`, `status`, `amount`, `recipe_piece_amount` |
 
 ## 6. Fairness And Policy Flags
 

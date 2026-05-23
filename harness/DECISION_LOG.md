@@ -106,3 +106,4 @@
 - Phase 86 leaderboard profile guard added: clean ranked submits now require an available game user key and no-user-key QA bridge coverage.
 - Phase 87 Toss SDK API map added: official game profile, user key, leaderboard, share reward, ads, and promotion APIs are mapped to MVP implementation order and policy rules.
 - Phase 88 external reward policy guard added: future share rewards, rewarded ads, and promotion points must be fixed, user-initiated, non-random, and unable to affect clean ranked score.
+- Phase 89 external reward grant harness added: policy-approved future share/ad/promotion rewards can grant fixed wallet rewards once with analytics and duplicate protection.

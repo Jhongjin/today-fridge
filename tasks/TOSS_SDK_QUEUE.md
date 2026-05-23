@@ -59,6 +59,7 @@ Output:
 - Reward only fixed non-ranked in-game items.
 - No clean ranked advantage.
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
+- Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
 
 Output:
 
@@ -71,6 +72,7 @@ Output:
 - Add promotion fixed-action hooks only.
 - Confirm no score/rank/win/random dependency.
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
+- Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
 
 Output:
 

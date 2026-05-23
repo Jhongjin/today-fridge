@@ -40,7 +40,7 @@ The app keeps an injected bridge until package installation and bundle import ar
 
 ## Explicit Non-Use For MVP
 
-Future share reward, rewarded ad, and game promotion work must pass `src/platform/externalRewardPolicy.ts`.
+Future share reward, rewarded ad, and game promotion work must pass `src/platform/externalRewardPolicy.ts` and grant through `src/platform/externalRewardGrant.ts`.
 
 | API family | Reason |
 | --- | --- |
