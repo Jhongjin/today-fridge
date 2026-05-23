@@ -60,6 +60,7 @@ const requiredSections = [
   "Metadata",
   "Required Local Commands",
   "Evidence Checklist",
+  "Game Rating Evidence Approval",
   "Platform Decision",
   "Commander Decision"
 ];
@@ -113,6 +114,9 @@ const decisionLabels = new Set([
   "Approved for next queue",
   "Approved with follow-up",
   "Blocked",
+  "Approved for Toss review request",
+  "Needs rating evidence follow-up",
+  "Blocked until rating evidence is complete",
   "Needs follow-up",
   "Rejected for now"
 ]);
@@ -173,6 +177,11 @@ export const checkCommanderReviewPacket = (text) => {
   const commanderDecisionChecked = checkedDecisionOptions(sectionText(text, "Commander Decision"));
   if (commanderDecisionChecked.length !== 1) {
     issues.push("Commander Decision must have exactly one checked decision.");
+  }
+
+  const ratingEvidenceDecisionChecked = checkedDecisionOptions(sectionText(text, "Game Rating Evidence Approval"));
+  if (ratingEvidenceDecisionChecked.length !== 1) {
+    issues.push("Game rating evidence decision must have exactly one checked decision.");
   }
 
   const externalRewardSection = sectionText(text, "External Reward Approval");

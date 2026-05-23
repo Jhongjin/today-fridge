@@ -78,7 +78,8 @@ Default output:
 
 `qa/review-packets/<timestamp>-<commit>-commander-review.md`
 
-The generated packet includes the Korean copy guard in its required local commands. Run `npm run qa:korean-copy` before commander approval so listing and metadata copy are checked for required phrases and known mojibake markers.
+The generated packet includes the Korean copy guard in its required local commands. Run `npm run qa:korean-copy` before commander approval so listing, metadata, console asset, screenshot, and rating evidence copy are checked for required phrases and known mojibake markers.
+It also includes a Game Rating Evidence Approval section. Final Toss review approval requires one selected rating evidence path, linked classification evidence, required gameplay screenshots, and exactly one rating evidence decision.
 
 ## Required Session Set
 

@@ -108,6 +108,29 @@ Notes:
 `;
 };
 
+const renderGameRatingEvidenceSection = () => `## Game Rating Evidence Approval
+
+${checkboxRows([
+  "Rating evidence path is selected: Store self-rating or GRAC certificate.",
+  "Store URL or certificate PDF location is recorded or linked.",
+  "Rating classification date, number, age rating, and content descriptors are recorded.",
+  "Registrant/operator name matches the project owner, or supporting explanation is linked.",
+  "Required gameplay screenshots for the selected evidence path are linked.",
+  "Today Fridge content guardrails still match the reviewed build."
+])}
+
+Rating evidence decision:
+
+- [ ] Approved for Toss review request
+- [ ] Needs rating evidence follow-up
+- [ ] Blocked until rating evidence is complete
+
+Notes:
+
+- TODO
+
+`;
+
 const renderPacket = ({
   commit,
   externalRewards,
@@ -130,6 +153,7 @@ const renderPacket = ({
 | Preview URL | ${previewUrl} |
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
+| Game rating evidence | required |
 
 ## Required Local Commands
 
@@ -168,7 +192,7 @@ ${checkboxRows([
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."
 ])}
 
-## Platform Decision
+${renderGameRatingEvidenceSection()}## Platform Decision
 
 ${checkboxRows([
   "First playable screen appears within 10 seconds on supported QR devices.",

@@ -50,12 +50,13 @@ These must be completed before requesting review:
 - QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - QR session evidence can be summarized locally with `npm run qa:qr-session:index`.
 - Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
+- Commander QR review packets now require completed game rating evidence approval before final Toss review.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Production monitoring endpoint owner, retention policy, and access-control approval.
 - App bundle packaging path and `.ait` upload check.
 - Console-ready PNG logo, thumbnail, and screenshot assets.
-- Game rating classification evidence.
+- Game rating classification evidence recorded in the commander review packet.
 - Rating evidence checklist is documented in `docs/platform/GAME_RATING_EVIDENCE.md`.
 
 ## 3. Policy-Sensitive Items

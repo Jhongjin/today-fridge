@@ -26,6 +26,10 @@ const checks = [
   {
     file: "scripts/capture-submission-screenshots.mjs",
     required: ["오늘의 기록 제출"]
+  },
+  {
+    file: "docs/platform/GAME_RATING_EVIDENCE.md",
+    required: ["오늘의 냉장고", "등급분류", "게임물관리위원회"]
   }
 ];
 

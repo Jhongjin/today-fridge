@@ -155,3 +155,4 @@
 - Phase 135 commander review packet index now summarizes required local command readiness per packet.
 - Phase 136 Korean copy guard now supports JSON output for automation evidence.
 - Phase 137 console asset capture now supports JSON output for automation evidence.
+- Phase 138 commander review packets now require game rating evidence approval before final Toss review.

@@ -15,7 +15,7 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 | Area | Official Requirement | Today Fridge Position |
 | --- | --- | --- |
 | Game eligibility | Apps in Toss allows games, but restricts categories such as gambling-like, financial product brokerage/sales, digital asset trading, and other policy-sensitive services. | Keep the game a low-stakes casual puzzle. No random cash reward, betting, or score-linked Toss point reward. |
-| Game rating | Game mini apps require rating classification evidence through GRAC or an eligible app store/open market. | Blocker. Rating evidence must be prepared before final submission. |
+| Game rating | Game mini apps require rating classification evidence through GRAC or an eligible app store/open market. | Blocker. Rating evidence must be prepared and approved in the commander review packet before final submission. |
 | Review request | Review is requested through the Apps in Toss console after testing. Review can take up to 3 business days, and only one version can be under review at a time. | Commander final approval remains required before review request. |
 | Test gate | The review button is enabled only after at least one test is completed. | Blocker. QR/device test must be completed in Toss before review. |
 | Bundle size | Uploaded app bundle must be 100 MB or less after extraction. | Current `dist` is about 199 KB and CI budget is 5 MB, so prototype is well under the platform cap. |
@@ -35,7 +35,7 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 
 - Generate console-ready 600 x 600 PNG logo and 1932 x 828 PNG thumbnail with `npm run qa:console-assets`.
 - Generate at least 3 vertical 636 x 1048 PNG screenshots for upload with `npm run qa:console-assets`.
-- Prepare game rating evidence path and owner checklist.
+- Prepare game rating evidence path and owner checklist, then record it in the commander review packet.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session`.
 - Validate official SDK runtime paths on physical QR devices; revisit Node 24 engine and npm audit triage before final submission.

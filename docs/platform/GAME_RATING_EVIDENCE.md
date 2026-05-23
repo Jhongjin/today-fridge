@@ -8,6 +8,8 @@ Official Apps in Toss docs rechecked on 2026-05-22.
 - [GRAC self-rated game lookup](https://www.grac.or.kr/Statistics/SelfRateGameStatistics.aspx)
 - [Toss game rating classification article](https://toss.im/apps-in-toss/blog/game_rating_classification)
 
+Korean terms to preserve in review notes: `오늘의 냉장고`, `등급분류`, `게임물관리위원회`.
+
 ## Commander Position
 
 `오늘의 냉장고` is designed as a casual fridge-cleaning puzzle, not a web-board, betting, gambling-like, or cash-reward game. The current content target is a broad casual audience.
@@ -71,3 +73,14 @@ Keep these true unless the commander explicitly changes the game direction:
 ## Submission Blocker
 
 Final Toss review cannot be requested until one evidence path above is complete and recorded in the review packet.
+
+## Commander Packet Requirements
+
+The commander review packet must include a completed Game Rating Evidence Approval section before final Toss review:
+
+- Selected path: Store self-rating or GRAC certificate.
+- Store URL or certificate PDF location.
+- Rating classification date, number, age rating, and content descriptors.
+- Registrant/operator name match, or supporting explanation.
+- Required gameplay screenshots for the selected path.
+- Confirmation that the Today Fridge content guardrails still match the reviewed build.
