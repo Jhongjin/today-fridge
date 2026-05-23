@@ -66,6 +66,12 @@ Share reward mock service:
 
 This service models a future `contactsViral` `sendViral` reward as a fixed, user-initiated, non-ranked reward and emits `share_reward_event`.
 
+Rewarded ad mock service:
+
+`src/platform/rewardedAd.ts`
+
+This service models a future rewarded ad completion as a fixed, user-initiated, non-ranked reward. It blocks grants when the ad completion event is missing or the request would interrupt active play.
+
 ## Today Fridge Rules
 
 - Share rewards may grant fixed fridge coins or recipe pieces after a qualifying share event.
