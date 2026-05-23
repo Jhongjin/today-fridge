@@ -11,6 +11,7 @@
     "test:e2e": "playwright test",
     "qa:screenshots": "node scripts/capture-submission-screenshots.mjs",
     "qa:console-assets": "node scripts/capture-console-assets.mjs",
+    "qa:qr-session": "node scripts/create-qr-session.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

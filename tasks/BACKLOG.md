@@ -98,6 +98,7 @@
 - Add MVP status checkpoint. (Phase 50 done pending CI)
 - Add post-replay-loop MVP status checkpoint. (Phase 80 done pending CI)
 - Add QR device test plan. (Phase 51 done pending CI)
+- Add QR session evidence harness. (Phase 84 done pending CI)
 
 ## Engineering
 

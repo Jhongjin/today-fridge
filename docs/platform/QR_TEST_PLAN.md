@@ -8,9 +8,33 @@ Define the real Apps in Toss QR-device checks required before commander producti
 
 Minimum matrix:
 
-- Android Toss app at or above `5.221.0`.
-- iOS Toss app at or above `5.221.0`.
+- Android Toss app at or above `5.232.0`.
+- iOS Toss app at or above `5.232.0`.
 - One unsupported or older-version path if available.
+
+Version meaning:
+
+- `5.221.0` is the Game Center leaderboard submit/open minimum.
+- `5.232.0` is the game user key minimum.
+
+## Session Evidence
+
+Create one session file per physical device run:
+
+```bash
+npm run qa:qr-session -- --platform android --device "Pixel 8" --toss-version 5.232.0 --mode supported --preview-url <preview-or-qr-url> --commit <sha>
+```
+
+See `docs/platform/QR_SESSION_HARNESS.md`.
+
+Required artifacts:
+
+- Filled session Markdown file under `qa/qr-sessions/`.
+- Entry screenshot.
+- Result screenshot.
+- Leaderboard screenshot when Game Center is available.
+- Error screenshot or notes for unsupported/error paths.
+- Screen recording if a defect is timing or navigation related.
 
 ## Entry Checks
 
@@ -31,6 +55,8 @@ Minimum matrix:
 
 ## Game Center Checks
 
+- `game_user_key_result` records `result:ready` on supported devices.
+- Unsupported user-key path keeps the first playable flow available and records `unavailable` or `error`.
 - Clean completion submits score after user taps submit.
 - Duplicate submit for one play ID is blocked or gracefully skipped.
 - Booster-assisted completion does not submit a clean score.
@@ -49,6 +75,7 @@ Minimum matrix:
 Final submission approval requires:
 
 - Android and iOS QR checks pass.
+- Session evidence files are complete and linked from the commander review notes.
 - No console/page errors during QR flows.
 - Real leaderboard submit/open verified.
 - Production monitoring transport decision recorded.

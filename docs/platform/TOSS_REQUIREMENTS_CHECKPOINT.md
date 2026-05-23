@@ -37,6 +37,6 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 - Generate at least 3 vertical 636 x 1048 PNG screenshots for upload with `npm run qa:console-assets`.
 - Prepare game rating evidence path and owner checklist.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
-- Complete Toss QR test once console access and `.ait` bundle path are ready.
+- Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session`.
 - Resolve official SDK package install/import. Phase 82 exact install still timed out after 10 minutes.
 - Decide whether deterministic client validation plus leaderboard audit receipts are sufficient for MVP, or add a server verification layer before wider promotion.

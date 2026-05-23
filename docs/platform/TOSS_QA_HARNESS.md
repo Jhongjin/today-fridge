@@ -109,6 +109,14 @@ Submission blockers:
 - Background/foreground sound pause.
 - iOS and Android safe area.
 
+For each physical device run, create a session file:
+
+```bash
+npm run qa:qr-session -- --platform ios --device "iPhone 15" --toss-version 5.232.0 --mode supported --preview-url <preview-or-qr-url> --commit <sha>
+```
+
+Use `docs/platform/QR_SESSION_HARNESS.md` as the evidence protocol.
+
 ## 8. Browser Verification Harness
 
 Use a Toss SDK wrapper with mock adapters.

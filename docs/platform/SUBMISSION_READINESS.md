@@ -28,7 +28,7 @@ References:
 | Rewarded ads | Pending | Not implemented. |
 | Promotion points | Pending | Policy documented only. |
 | Error monitoring | Partial | Local `client_error` and `unhandled_rejection` analytics hooks exist; production transport still pending. |
-| QR test | Pending | Requires Apps in Toss console setup. |
+| QR test | Pending | Requires Apps in Toss console setup. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
 ## 2. Submission Blockers
 
@@ -40,6 +40,7 @@ These must be completed before requesting review:
 - Leaderboard submit/open real QR test using Toss APIs.
 - QR test on real Toss app.
 - QR test plan is documented in `docs/platform/QR_TEST_PLAN.md`.
+- QR session evidence protocol is documented in `docs/platform/QR_SESSION_HARNESS.md`.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Error monitoring.
