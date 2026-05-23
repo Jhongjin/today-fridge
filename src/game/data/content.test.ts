@@ -35,4 +35,24 @@ describe("content data", () => {
       expect(recipes[board.mainRecipeId]).toBeDefined();
     }
   });
+
+  it("keeps ingredient icons distinguishable within playable boards", () => {
+    for (const board of [firstDailyBoard, tutorialBoard]) {
+      const iconOwners = new Map<string, string>();
+
+      for (const cell of board.cells) {
+        for (const instance of [cell.front, cell.back]) {
+          if (!instance) {
+            continue;
+          }
+
+          const { icon } = ingredients[instance.ingredientId];
+          const owner = iconOwners.get(icon);
+
+          expect(owner === undefined || owner === instance.ingredientId, `${board.id} reuses ${icon}`).toBe(true);
+          iconOwners.set(icon, instance.ingredientId);
+        }
+      }
+    }
+  });
 });

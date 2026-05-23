@@ -4,6 +4,10 @@
 
 The first playable version uses familiar Korean household ingredients with clear silhouettes and short names.
 
+Icon style details:
+
+`docs/design/INGREDIENT_ICON_STYLE.md`
+
 Selection rules:
 
 - Recognizable at small mobile size.
@@ -55,7 +59,7 @@ MVP tutorial uses only `fresh`. First daily board uses `fresh` and `expiring`.
 
 ## 4. Tutorial Ingredient Set
 
-Use only four ingredients:
+The original hint rail uses a small recipe-focused set. The standalone tutorial board now uses a broader subset from the daily board so match, rescue, and recipe completion can all be taught in one short route.
 
 - 밥
 - 김치
@@ -65,6 +69,17 @@ Use only four ingredients:
 Tutorial goal:
 
 > 같은 재료 3개를 정리하고, 밥+김치+계란으로 김치볶음밥을 완성한다.
+
+Standalone tutorial board ingredient IDs:
+
+- `rice`
+- `kimchi`
+- `egg`
+- `tofu`
+- `green_onion`
+- `zucchini`
+- `mushroom`
+- `soy_sauce`
 
 ## 5. First Daily Ingredient Set
 
@@ -93,4 +108,3 @@ Rationale:
 - Expiring state must add a clock icon and not only red color.
 - Frozen state must add frost and not only blue color.
 - Text label should be visible on first encounter and optional after familiarity.
-
