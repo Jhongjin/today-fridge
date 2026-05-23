@@ -138,3 +138,4 @@
 - Phase 118 commander review packet now requires the SDK dependency triage strict report before QR approval.
 - Phase 119 commander review packet now defaults the reviewed commit to the current short Git SHA when `--commit` is omitted.
 - Phase 120 commander review packet now records local worktree clean/dirty status in metadata.
+- Phase 121 commander review packet validator added: filled packets can be checked for complete metadata, checked evidence, no TODOs, and exactly one commander decision.

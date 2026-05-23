@@ -56,6 +56,12 @@ The packet metadata includes the current local worktree status. Generate review 
 
 The generated packet requires `npm run sdk:dependency-triage -- --strict` before approval, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
 
+After the packet is filled, run:
+
+```bash
+npm run qa:commander-review-packet:check -- <packet.md>
+```
+
 Setup details:
 
 `docs/platform/VERCEL_PREVIEW_SETUP.md`
