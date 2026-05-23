@@ -23,6 +23,7 @@
 - Add personal best competition loop. (Phase 13 done pending CI)
 - Add personal best route memory. (Phase 38 done pending CI)
 - Add live personal-best chase copy. (Phase 73 done pending CI)
+- Show saved best route during replay. (Phase 74 done pending CI)
 - Add result attempt-count cue. (Phase 48 done pending CI)
 - Add result score tier cue. (Phase 67 done pending CI)
 - Extract score tier thresholds into engine helper. (Phase 68 done pending CI)

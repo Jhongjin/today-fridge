@@ -156,6 +156,7 @@ test("personal best chase updates after replay starts", async ({ page }) => {
   await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
   await expect(page.getByTestId("best-chase-label")).toHaveText("최고까지");
   await expect(page.getByTestId("best-chase-value")).toHaveText("1,700점");
+  await expect(page.getByTestId("best-route-strip")).toContainText("1,700점 · 6수");
 
   await page.getByTestId("cell-green_onion_1_fresh").click();
   await page.getByTestId("cell-green_onion_2_fresh").click();

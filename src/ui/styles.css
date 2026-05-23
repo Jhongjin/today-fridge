@@ -52,6 +52,7 @@ button {
 .top-bar,
 .score-strip,
 .competition-strip,
+.best-route-strip,
 .daily-refresh-strip,
 .goal-strip,
 .tutorial-strip,
@@ -183,6 +184,40 @@ button:focus-visible {
 .competition-strip .competition-strip__item--ahead span,
 .competition-strip .competition-strip__item--ahead strong {
   color: #5d4826;
+}
+
+.best-route-strip {
+  display: grid;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid #d5e4e9;
+  background: #f2f7f9;
+}
+
+.best-route-strip span {
+  color: #3d5660;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.best-route-strip div {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 1px;
+}
+
+.best-route-strip i {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d9e7de;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 16px;
+  font-style: normal;
 }
 
 .daily-refresh-strip {

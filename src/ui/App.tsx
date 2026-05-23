@@ -822,6 +822,21 @@ export const App = () => {
           </div>
         </section>
 
+        {bestRoute && gameState.status === "playing" ? (
+          <section className="best-route-strip" aria-label="최고 루트 미리보기" data-testid="best-route-strip">
+            <span>
+              최고 루트 {bestRoute.score.toLocaleString()}점 · {bestRoute.steps.length}수
+            </span>
+            <div>
+              {bestRoute.steps.map((step, index) => (
+                <i key={`${step.cellId}-preview-${index}`} aria-label={getIngredient(step.ingredientId).name}>
+                  {getIngredient(step.ingredientId).icon}
+                </i>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="daily-refresh-strip" aria-label="다음 냉장고" data-testid="daily-refresh-strip">
           <span>다음 냉장고</span>
           <strong data-testid="daily-refresh-countdown">{dailyRefreshInfo.remainingLabel}</strong>
