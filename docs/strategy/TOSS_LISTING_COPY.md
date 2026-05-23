@@ -89,7 +89,7 @@ npm run qa:korean-copy
 For automation evidence:
 
 ```bash
-npm run qa:korean-copy -- --json
+npm run --silent qa:korean-copy -- --json
 ```
 
 ## Review Notes

@@ -57,6 +57,12 @@ The console-asset script prints a file table, verifies these PNG dimensions afte
 
 Commander review packets require `npm run qa:console-assets` before approval so upload asset dimensions are rechecked for the reviewed commit.
 
+For automation evidence:
+
+```bash
+npm run --silent qa:console-assets -- --json
+```
+
 ## Future Queue
 
 Add QR-device screenshots after the real Apps in Toss runtime is configured.

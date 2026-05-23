@@ -3,6 +3,8 @@ import { spawn, spawnSync } from "node:child_process";
 import { mkdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 
+const args = new Set(process.argv.slice(2));
+const jsonOutput = args.has("--json");
 const host = "127.0.0.1";
 const port = "5175";
 const baseURL = `http://${host}:${port}`;
@@ -75,6 +77,18 @@ const readPngMetadata = async (fileName) => {
 };
 
 const formatKilobytes = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
+
+const assetSummary = (assets) => ({
+  ready: true,
+  outputDir,
+  assets: assets.map((asset) => ({
+    file: asset.fileName,
+    width: asset.width,
+    height: asset.height,
+    bytes: asset.bytes,
+    kilobytes: Number((asset.bytes / 1024).toFixed(1))
+  }))
+});
 
 const printVerifiedAssets = (assets) => {
   console.log("");
@@ -280,7 +294,7 @@ const captureThumbnail = async (browser) => {
 };
 
 const server = spawn(npmCommand, ["run", "dev", "--", "--host", host, "--port", port], {
-  stdio: "inherit",
+  stdio: jsonOutput ? "ignore" : "inherit",
   shell: process.platform === "win32"
 });
 
@@ -294,10 +308,16 @@ try {
   await captureVerticalScreenshots(browser);
   await captureThumbnail(browser);
   const verifiedAssets = await verifyAssetDimensions();
-  printVerifiedAssets(verifiedAssets);
+  if (jsonOutput) {
+    console.log(JSON.stringify(assetSummary(verifiedAssets), null, 2));
+  } else {
+    printVerifiedAssets(verifiedAssets);
+  }
   await browser.close();
 
-  console.log(`Saved console assets to ${outputDir}`);
+  if (!jsonOutput) {
+    console.log(`Saved console assets to ${outputDir}`);
+  }
 } finally {
   if (process.platform === "win32") {
     spawnSync("taskkill", ["/pid", String(server.pid), "/T", "/F"], {
