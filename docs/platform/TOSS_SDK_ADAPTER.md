@@ -39,6 +39,8 @@ Game user key minimum Toss app version:
 
 `src/platform/appsInTossClient.ts` exposes `createAppsInTossClient(bridge)`.
 
+`src/platform/tossRealClient.ts` imports official SDK functions from `@apps-in-toss/web-framework` and adapts them through the same `createAppsInTossClient` boundary.
+
 The bridge is intentionally injected so the game can:
 
 - Unit test Toss behavior without the real Toss app.
@@ -75,6 +77,11 @@ Game user key:
 - App startup records `game_user_key_result` with `ready`, `mock`, `unavailable`, or `error` and updates the shared analytics `user_key_status`.
 
 Real QR validation is still required because the current app uses the injected bridge or local mock until official SDK imports are wired.
+
+Phase 99 note:
+
+- The official SDK import wrapper now compiles and has unit coverage.
+- Runtime selection still prefers the injected QA bridge or local mock until QR/device testing approves switching to the real client.
 
 ## Dependency Note
 
@@ -115,7 +122,7 @@ The adapter contract is ready, and the package is now locked. The SDK import/bun
 
 ## Future Queues
 
-- Replace the temporary global bridge hook with the official SDK import.
+- Replace the temporary global bridge hook with the official SDK client in runtime selection.
 - Confirm Node 24 compatibility for Apps in Toss packaging paths.
 - Triage npm audit output introduced by the SDK dependency tree.
 - Add real leaderboard-open result button.

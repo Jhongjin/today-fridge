@@ -116,3 +116,4 @@
 - Phase 96 ingredient icon style locked: board-level icon collision rules, state cues, first daily icon directions, and prototype-to-final asset upgrade criteria are documented and tested.
 - Phase 97 SFX trigger map locked: the implementation sound-event list is exported, tested, and documented with trigger, tone direction, duration, mix, and avoid rules.
 - Phase 98 Apps in Toss SDK dependency locked: `@apps-in-toss/web-framework@2.6.0` now installs locally and is recorded in package files; Node 24 engine, peer override, and audit warnings remain before real SDK import/final submission.
+- Phase 99 Toss real client wrapper added: official SDK Game Center functions are imported from `@apps-in-toss/web-framework` and adapted through the existing platform client boundary while runtime selection remains mock/QA-bridge pending QR approval.

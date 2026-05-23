@@ -11,9 +11,11 @@ type GetUserKeyForGameSuccessResponse = {
 
 type GetUserKeyForGameResponse = GetUserKeyForGameSuccessResponse | "INVALID_CATEGORY" | "ERROR" | undefined;
 
+type TossVersionValue = `${number}.${number}.${number}` | "always" | "never";
+
 type TossMinVersion = {
-  android: string;
-  ios: string;
+  android: TossVersionValue;
+  ios: TossVersionValue;
 };
 
 export type AppsInTossGameBridge = {

@@ -35,9 +35,9 @@ Install warnings to track:
 | Area | Official API | Min Toss app / SDK note | Current status | Today Fridge rule |
 | --- | --- | --- | --- | --- |
 | Game profile | Platform Game Center profile flow | Profile is required before gameplay. No direct user identifier is returned from profile/leaderboard responses. | Real profile WebView pending. | Do not start final ranked submission unless user identity path is available. |
-| Game user key | `getUserKeyForGame()` | Toss app `5.232.0`; returns `{ type: "HASH", hash }`, `INVALID_CATEGORY`, `ERROR`, or `undefined`. | Adapter, QA bridge, analytics status, and leaderboard gate implemented. | Never expose raw hash in UI or QA notes. Use status only in analytics. |
-| Leaderboard submit | `submitGameCenterLeaderBoardScore({ score })` | Toss app `5.221.0`; score is a numeric string. | Adapter and result submit UI implemented. | Submit only after round completion, only clean runs, only with game user key. |
-| Leaderboard open | `openGameCenterLeaderboard()` | Toss app `5.221.0`; can overlap with profile WebView if called too early. | Result-screen user action implemented. | Never auto-open on entry or immediately after submit. |
+| Game user key | `getUserKeyForGame()` | Toss app `5.232.0`; returns `{ type: "HASH", hash }`, `INVALID_CATEGORY`, `ERROR`, or `undefined`. | Adapter, official SDK wrapper, QA bridge, analytics status, and leaderboard gate implemented. | Never expose raw hash in UI or QA notes. Use status only in analytics. |
+| Leaderboard submit | `submitGameCenterLeaderBoardScore({ score })` | Toss app `5.221.0`; score is a numeric string. | Adapter, official SDK wrapper, and result submit UI implemented. | Submit only after round completion, only clean runs, only with game user key. |
+| Leaderboard open | `openGameCenterLeaderboard()` | Toss app `5.221.0`; can overlap with profile WebView if called too early. | Adapter, official SDK wrapper, and result-screen user action implemented. | Never auto-open on entry or immediately after submit. |
 | Share reward | `contactsViral({ options, onEvent, onError })` | Toss app `5.223.0`; returns `undefined` below support. | Mock grant service exists in `src/platform/shareReward.ts`; real SDK not implemented. | Reward must be fixed, non-rank, and never improve clean leaderboard score. |
 | Share event | `RewardFromContactsViralEvent` | Event type `sendViral` includes reward amount/unit from console. | Not implemented. | Treat as post-action reward evidence, not score advantage. |
 | Rewarded/full-screen ads | `loadFullScreenAd`, `showFullScreenAd` | Toss app `5.247.0` for ads 2.0 ver2; `5.227.0` to `5.247.0` has older ads 2.0 support. | Mock grant service exists in `src/platform/rewardedAd.ts`; real SDK not implemented. | Preload before showing, pause audio, reward only on completed reward event, no ranked advantage. |
@@ -59,7 +59,7 @@ Future share reward, rewarded ad, and game promotion work must pass `src/platfor
 ## Implementation Order
 
 1. Keep the injected bridge stable while official SDK imports are introduced behind tests.
-2. Finish real SDK import and confirm bundle output.
+2. Wire runtime selection to the real SDK client after QR/device smoke tests approve it.
 3. QR-test game profile creation and returning-user flow.
 4. QR-test `getUserKeyForGame()` success/error/unsupported paths.
 5. QR-test leaderboard submit/open in sandbox and real QR runtime.

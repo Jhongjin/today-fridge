@@ -22,7 +22,7 @@ Output:
 
 - Package dependency locked: `@apps-in-toss/web-framework@2.6.0` is now in `package.json` and `package-lock.json`. (Phase 98 done)
 - Track install warnings: Node 24 engine warning, React Native peer overrides, and npm audit findings.
-- Implement `TossClient` using official SDK.
+- Implement `TossClient` using official SDK. (Phase 99 wrapper done)
 - Keep `tossMockClient` for browser/CI.
 - Add runtime adapter selection.
 - Add game user key status analytics through `TossClient.getUserKey()`. (Phase 83 bridge path done)
@@ -30,8 +30,8 @@ Output:
 
 Output:
 
-- `src/platform/tossRealClient.ts`
-- Unit tests with mocked SDK boundary.
+- `src/platform/tossRealClient.ts` (Phase 99 done)
+- Unit tests with mocked SDK boundary. (Phase 99 done)
 
 ## Queue 3: Profile Gate
 
