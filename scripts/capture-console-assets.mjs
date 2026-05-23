@@ -63,13 +63,27 @@ const readPngDataURL = async (fileName) => {
   return `data:image/png;base64,${bytes.toString("base64")}`;
 };
 
-const readPngDimensions = async (fileName) => {
+const readPngMetadata = async (fileName) => {
   const bytes = await readFile(join(outputDir, fileName));
 
   return {
+    fileName,
     width: bytes.readUInt32BE(16),
-    height: bytes.readUInt32BE(20)
+    height: bytes.readUInt32BE(20),
+    bytes: bytes.length
   };
+};
+
+const formatKilobytes = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
+
+const printVerifiedAssets = (assets) => {
+  console.log("");
+  console.log("| Console asset | Dimensions | Size |");
+  console.log("| --- | ---: | ---: |");
+
+  for (const asset of assets) {
+    console.log(`| ${asset.fileName} | ${asset.width}x${asset.height} | ${formatKilobytes(asset.bytes)} |`);
+  }
 };
 
 const verifyAssetDimensions = async () => {
@@ -80,14 +94,20 @@ const verifyAssetDimensions = async () => {
     ["screenshot-02-completion-result-636x1048.png", 636, 1048],
     ["screenshot-03-recipe-book-636x1048.png", 636, 1048]
   ];
+  const verifiedAssets = [];
 
   for (const [fileName, expectedWidth, expectedHeight] of expectedAssets) {
-    const { width, height } = await readPngDimensions(fileName);
+    const metadata = await readPngMetadata(fileName);
+    const { width, height } = metadata;
 
     if (width !== expectedWidth || height !== expectedHeight) {
       throw new Error(`${fileName} is ${width}x${height}, expected ${expectedWidth}x${expectedHeight}`);
     }
+
+    verifiedAssets.push(metadata);
   }
+
+  return verifiedAssets;
 };
 
 const captureLogo = async (browser) => {
@@ -273,7 +293,8 @@ try {
   await captureLogo(browser);
   await captureVerticalScreenshots(browser);
   await captureThumbnail(browser);
-  await verifyAssetDimensions();
+  const verifiedAssets = await verifyAssetDimensions();
+  printVerifiedAssets(verifiedAssets);
   await browser.close();
 
   console.log(`Saved console assets to ${outputDir}`);

@@ -53,7 +53,7 @@ The script captures a 390x844 mobile viewport:
 4. `screenshot-02-completion-result-636x1048.png`
 5. `screenshot-03-recipe-book-636x1048.png`
 
-The console-asset script verifies these PNG dimensions after capture and fails if any generated file is off-spec.
+The console-asset script prints a file table, verifies these PNG dimensions after capture, and fails if any generated file is off-spec.
 
 Commander review packets require `npm run qa:console-assets` before approval so upload asset dimensions are rechecked for the reviewed commit.
 
