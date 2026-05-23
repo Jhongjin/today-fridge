@@ -63,6 +63,7 @@ Required:
 - Mock share reward event.
 - Mock rewarded ad event.
 - Mock promotion response.
+- Integrated external reward scenario runner.
 
 Pass criteria:
 
@@ -86,4 +87,3 @@ Pass criteria:
 - Toss app game flow works on supported iOS and Android versions.
 - The game reaches first playable UI within target load time.
 - QA blockers in `docs/platform/TOSS_QA_HARNESS.md` are closed.
-

@@ -79,5 +79,5 @@ Output:
 
 Output:
 
-- Ad/promotion mock tests.
+- Ad/promotion mock tests. (Phase 93 integrated external reward scenario done)
 - Review checklist update.

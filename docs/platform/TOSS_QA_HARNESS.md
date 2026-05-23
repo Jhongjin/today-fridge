@@ -149,6 +149,12 @@ Current QA bridge:
 - Open `/?qa=toss-bridge-no-user-key` to force game user key unavailability and verify leaderboard submit is skipped without a platform submit call.
 - Submit failure copy should say the submit temporarily failed and invite retry, while fairness skips should keep the clean-ranked explanation.
 
+External reward QA runner:
+
+- `src/platform/externalRewardScenarios.ts` runs share, rewarded-ad, and promotion mock paths together.
+- The runner must allow only fixed non-ranked rewards into the wallet.
+- Blocked scenario reasons must include active-play ad interruption, score, rank, win/loss, random, and non-user-initiated promotion paths.
+
 Automated scenarios:
 
 1. Load first playable UI within 10 seconds.
@@ -162,7 +168,7 @@ Automated scenarios:
 8. Verify QA Toss bridge no-user-key submit skip path.
 9. Mock share reward event variants through `src/platform/shareReward.ts`.
 10. Mock rewarded ad completed, not-completed, duplicate, and active-play blocked paths through `src/platform/rewardedAd.ts`.
-11. Mock promotion fixed-action success and policy-blocked score/rank/win/random paths through `src/platform/promotionReward.ts`.
+11. Run integrated external reward scenarios through `src/platform/externalRewardScenarios.ts`.
 12. Assert zero console errors and unhandled promise rejections.
 
 ## 9. Pre-Submission Checklist

@@ -26,9 +26,9 @@ References:
 | Leaderboard submit timing | Pass by design | Submit action appears after round completion. |
 | Game profile | Partial | Real profile WebView is still pending, but clean leaderboard submit is now gated on an available game user key. |
 | Game user key | Partial | Adapter now maps `getUserKeyForGame()` and records status analytics; real SDK package import and QR validation pending. |
-| Share reward | Pending | Not implemented. |
-| Rewarded ads | Pending | Not implemented. |
-| Promotion points | Pending | Policy documented only. |
+| Share reward | Mock only | Policy-safe mock grant service and integrated QA scenario exist; real `contactsViral` pending. |
+| Rewarded ads | Mock only | Policy-safe completion mock and integrated QA scenario exist; real ad SDK pending. |
+| Promotion points | Mock only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` pending. |
 | Error monitoring | Partial | Local `client_error` and `unhandled_rejection` analytics hooks exist; production transport still pending. |
 | QR test | Pending | Requires Apps in Toss console setup. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
