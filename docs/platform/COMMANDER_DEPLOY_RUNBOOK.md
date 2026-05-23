@@ -62,6 +62,12 @@ After the packet is filled, run:
 npm run qa:commander-review-packet:check -- <packet.md>
 ```
 
+To summarize saved packets:
+
+```bash
+npm run qa:commander-review-packet:index -- --strict
+```
+
 Setup details:
 
 `docs/platform/VERCEL_PREVIEW_SETUP.md`

@@ -16,6 +16,7 @@
     "qa:qr-session:index": "node scripts/build-qr-session-index.mjs",
     "qa:commander-review-packet": "node scripts/create-commander-review-packet.mjs",
     "qa:commander-review-packet:check": "node scripts/check-commander-review-packet.mjs",
+    "qa:commander-review-packet:index": "node scripts/build-commander-review-index.mjs",
     "sdk:dependency-triage": "node scripts/check-sdk-dependency-triage.mjs",
     "external-rewards:check-prereqs": "node scripts/check-external-reward-prereqs.mjs",
     "qr:external-rewards:preflight": "node scripts/check-external-reward-prereqs.mjs --require-real",

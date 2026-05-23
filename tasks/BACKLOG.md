@@ -94,6 +94,7 @@
 - Default commander QR packet commit to current Git SHA. (Phase 119 done pending CI)
 - Record worktree status in commander QR packet. (Phase 120 done pending CI)
 - Add commander QR packet completeness validator. (Phase 121 done pending CI)
+- Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)
