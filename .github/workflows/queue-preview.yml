@@ -70,6 +70,10 @@ jobs:
         if: hashFiles('package.json') != ''
         run: npx playwright install --with-deps chromium
 
+      - name: Capture console assets
+        if: hashFiles('package.json') != ''
+        run: npm run qa:console-assets --if-present
+
       - name: Run browser tests
         if: hashFiles('package.json') != ''
         run: npm run test:e2e --if-present

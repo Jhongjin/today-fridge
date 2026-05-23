@@ -72,6 +72,7 @@ A queue completion is fully preview-deployed when:
 
 - `Validate Harness` passes.
 - The Korean copy guard passes inside `Validate Harness`.
+- Console assets are regenerated and dimension-checked inside `Validate Harness`.
 - `Optional Preview Deploy` runs `Install Vercel CLI`, `Pull Vercel preview environment`, and `Deploy preview` instead of skipping those steps.
 - The workflow summary contains a preview URL.
 

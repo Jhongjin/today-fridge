@@ -150,3 +150,4 @@
 - Phase 130 Queue Preview Validate Harness now runs the Korean copy guard before build and browser checks.
 - Phase 131 Korean copy guard now covers console asset and submission screenshot Korean strings.
 - Phase 132 commander review packet now requires console asset generation and dimension verification before approval.
+- Phase 133 Queue Preview Validate Harness now captures console assets and verifies upload dimensions before browser tests.
