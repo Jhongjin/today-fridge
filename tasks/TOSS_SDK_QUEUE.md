@@ -48,13 +48,13 @@ Output:
 
 ## Queue 4: Leaderboard Open Flow
 
-- Connect result-screen leaderboard open.
-- Keep submit after round end only.
-- Prevent duplicate submit per play ID.
+- Connect result-screen leaderboard open. (Phase 23 done, Phase 103 browser lock done)
+- Keep submit after round end only. (Phase 103 browser lock done)
+- Prevent duplicate submit per play ID. (Phase 4 service guard, Phase 103 browser lock done)
 
 Output:
 
-- UI and platform tests.
+- UI and platform tests. (Phase 103 done)
 
 ## Queue 5: Share Reward
 

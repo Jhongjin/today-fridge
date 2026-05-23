@@ -258,6 +258,40 @@ test("qa Toss bridge path handles submit and leaderboard open", async ({ page })
   ]);
 });
 
+test("qa Toss bridge keeps leaderboard open separate from one clean submit", async ({ page }) => {
+  await page.goto("/?qa=toss-bridge");
+
+  await playCleanRoute(page);
+
+  const beforeSubmitEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
+  expect(beforeSubmitEvents?.filter((event) => event.type === "submit" || event.type === "open")).toEqual([]);
+
+  await page.getByTestId("leaderboard-submit").click();
+  await expect(page.getByTestId("leaderboard-submit")).toBeDisabled();
+
+  const afterSubmitEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
+  expect(afterSubmitEvents?.filter((event) => event.type === "submit" || event.type === "open")).toEqual([
+    {
+      type: "submit",
+      score: "1700"
+    }
+  ]);
+
+  await page.getByTestId("leaderboard-open").click();
+  await expect(page.getByTestId("leaderboard-open")).toHaveText("랭킹 열림");
+
+  const afterOpenEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
+  expect(afterOpenEvents?.filter((event) => event.type === "submit" || event.type === "open")).toEqual([
+    {
+      type: "submit",
+      score: "1700"
+    },
+    {
+      type: "open"
+    }
+  ]);
+});
+
 test("qa Toss bridge submit failure leaves the player recoverable", async ({ page }) => {
   await page.goto("/?qa=toss-bridge-error");
 

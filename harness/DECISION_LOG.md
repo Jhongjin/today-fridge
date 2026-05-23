@@ -120,3 +120,4 @@
 - Phase 100 Toss submit error codes typed: leaderboard submit failures now use a fixed `TossClient` error-code list, and unknown SDK status codes collapse to `TOSS_LEADERBOARD_SUBMIT_FAILED` before reaching UI, analytics, or QR notes.
 - Phase 101 real SDK runtime opt-in added: `VITE_TOSS_REAL_CLIENT=true` lazily loads the official Toss client for QR-candidate builds, while injected QA bridges still take priority and normal browser/CI previews stay on the local mock.
 - Phase 102 profile gate added: first play now waits for profile/user-key readiness, records `profile_gate_result`, and blocks board, hint, and pause input when the no-user-key QA path is active.
+- Phase 103 leaderboard action flow locked: QA bridge browser coverage now proves clean submit and leaderboard open are separate user actions, with one submit event and no automatic open.
