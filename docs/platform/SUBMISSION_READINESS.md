@@ -26,10 +26,10 @@ References:
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
 | Leaderboard submit timing | Pass by design | Submit action appears after round completion. |
 | Game profile | Partial | Real profile WebView is still pending, but clean leaderboard submit is now gated on an available game user key. |
-| Game user key | Partial | Adapter now maps `getUserKeyForGame()` and records status analytics; real SDK package import and QR validation pending. |
-| Share reward | Mock only | Policy-safe mock grant service and integrated QA scenario exist; real `contactsViral` pending. |
-| Rewarded ads | Mock only | Policy-safe completion mock and integrated QA scenario exist; real ad SDK pending. |
-| Promotion points | Mock only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` pending. |
+| Game user key | Partial | Adapter maps `getUserKeyForGame()` and records status analytics; real SDK runtime is opt-in and QR validation is pending. |
+| Share reward | Mock UI only | Policy-safe mock grant service and integrated QA scenario exist; real `contactsViral` adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
+| Rewarded ads | Mock UI only | Policy-safe completion mock and integrated QA scenario exist; real rewarded-ad adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
+| Promotion points | Mock UI only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` adapter is available behind the external reward gate, with UI wiring pending QR evidence and promotion review. |
 | Error monitoring | Partial | Local `client_error` and `unhandled_rejection` analytics hooks exist; production transport still pending. |
 | QR test | Pending | Requires Apps in Toss console setup. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
@@ -37,11 +37,12 @@ References:
 
 These must be completed before requesting review:
 
-- Real Toss SDK package import and runtime wiring. Adapter contract exists in `src/platform/appsInTossClient.ts`, and the package is now locked, but imports and QR validation are still pending.
+- Real Toss SDK runtime QR validation. The package is locked and wrappers are wired behind explicit runtime flags, but physical Toss QR evidence is still pending.
 - Triage SDK dependency warnings: Node 24 engine requirement, React Native peer overrides, and npm audit findings.
 - Real Game Center profile flow before gameplay.
 - Game user key QR validation and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.
+- Real contacts/ad/promotion UI activation is blocked until external reward QR evidence and commander review are complete.
 - QR test on real Toss app.
 - QR test plan is documented in `docs/platform/QR_TEST_PLAN.md`.
 - QR session evidence protocol is documented in `docs/platform/QR_SESSION_HARNESS.md`.

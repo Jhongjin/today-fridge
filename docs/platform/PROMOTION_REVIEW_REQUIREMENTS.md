@@ -93,7 +93,7 @@ Checked: 2026-05-23
 
 Promotion points remain hidden from user-facing UI until:
 
-1. Real SDK import is unblocked.
-2. QR/device test validates `grantPromotionRewardForGame`.
+1. QR/device test validates `grantPromotionRewardForGame`.
+2. External reward QR evidence and commander review packet are complete.
 3. Commander approves budget, copy, and campaign exposure.
 4. The promotion has passed console review and at least one test-code call.

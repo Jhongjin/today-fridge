@@ -105,7 +105,7 @@ If production deploy fails:
 
 ## Current Known Blockers
 
-- Official Apps in Toss SDK package import is pending because local install timed out.
-- Real Toss QR test is pending.
+- Real Toss SDK QR/device validation is pending.
+- SDK dependency tree still needs Node 24 engine and npm audit triage before final submission.
 - Production monitoring transport is pending.
 - Vercel preview deployment is currently skipped until `AUTO_DEPLOY_ENABLED`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` are configured in GitHub.

@@ -89,7 +89,7 @@ Game user key:
 - `INVALID_CATEGORY`, `ERROR`, `undefined`, empty hashes, and thrown exceptions map to `undefined` so gameplay can continue.
 - App startup records `game_user_key_result` with `ready`, `mock`, `unavailable`, or `error` and updates the shared analytics `user_key_status`.
 
-Real QR validation is still required because the current app uses the injected bridge or local mock until official SDK imports are wired.
+Real QR validation is still required because normal browser, CI, and non-QR previews use the injected bridge or local mock unless `VITE_TOSS_REAL_CLIENT=true` is explicitly enabled.
 
 Phase 99 note:
 
@@ -143,7 +143,7 @@ Package metadata notes:
 - Unpacked size: about 27.7 MB
 - The package pulls several Apps in Toss and Granite dependencies, so a Linux CI, clean package-manager cache, or direct tarball verification path may be a better place to complete installation.
 
-The adapter contract is ready, and the package is now locked. The SDK import/bundle step remains a separate queue.
+The adapter contract is ready, the package is locked, and official SDK runtime wrappers are wired behind explicit QR-candidate flags. QR/device evidence remains the next approval gate before production use.
 
 ## Future Queues
 

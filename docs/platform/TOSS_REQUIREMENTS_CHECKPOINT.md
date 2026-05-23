@@ -27,7 +27,7 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 | Score format | Leaderboard score should be submitted as a numeric string. | Adapter converts local score to a string before submit. |
 | Score validation | Toss Game Center does not provide separate server score validation; the game must validate score calculation itself. | Deterministic engine tests and clean-run fairness gates are mandatory. Real anti-tamper remains limited until server validation is added. |
 | Leaderboard management | Leaderboard UI/data is managed by Toss Game Center; SDK does not directly edit/delete individual entries. | Avoid admin-like leaderboard assumptions in UI and docs. |
-| SDK package | Current npm metadata reports `@apps-in-toss/web-framework@2.6.0` with Apps in Toss and Granite dependency set. | Dependency is locked locally; adapter remains injected until official SDK imports and QR validation are completed. |
+| SDK package | Current npm metadata reports `@apps-in-toss/web-framework@2.6.0` with Apps in Toss and Granite dependency set. | Dependency is locked locally; official SDK wrappers lazy-load behind explicit QR-candidate flags while injected/mock paths remain the default for browser and CI. |
 | Console assets | Console logo requires a 600 x 600 PNG with a background. Thumbnail requires 1932 x 828 PNG. Screenshots are optional but vertical uploads require at least 3 images at 636 x 1048 PNG. | Harness ready. Run `npm run qa:console-assets` to generate upload-size PNGs from the current build. |
 | Leaderboard setup | Console requires score unit, sort policy, and leaderboard settings. | Blocker. Use score unit `점`, higher-is-better sort, and clean-score policy only. |
 
@@ -38,5 +38,5 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 - Prepare game rating evidence path and owner checklist.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session`.
-- Wire official SDK imports now that the package is locked; confirm Node 24 engine warning and npm audit triage before final submission.
+- Validate official SDK runtime paths on physical QR devices; confirm Node 24 engine warning and npm audit triage before final submission.
 - Decide whether deterministic client validation plus leaderboard audit receipts are sufficient for MVP, or add a server verification layer before wider promotion.
