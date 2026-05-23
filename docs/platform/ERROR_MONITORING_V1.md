@@ -13,6 +13,7 @@ Captured events:
 Current transport:
 
 - Local in-memory analytics queue.
+- Optional dedicated HTTP error endpoint via `VITE_ERROR_MONITORING_ENDPOINT`.
 
 ## Event Properties
 
@@ -43,10 +44,9 @@ Current transport:
 
 ## Submission Impact
 
-This does not replace production monitoring. It prepares the event contract and makes QR/device testing easier before a vendor such as Sentry is configured.
+This provides a production transport boundary without binding the game to a vendor SDK. Set `VITE_ERROR_MONITORING_ENDPOINT` for preview or production builds that should send only error-monitoring events to an HTTP collector. Vendor selection, endpoint retention policy, and access ownership still need commander approval before final submission.
 
 ## Future Queues
 
-- Add production error transport.
 - Add build/version metadata from CI.
 - Add a QA-only event inspector.

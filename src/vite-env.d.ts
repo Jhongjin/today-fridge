@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_ANALYTICS_ENDPOINT?: string;
+  readonly VITE_ERROR_MONITORING_ENDPOINT?: string;
   readonly VITE_TOSS_REAL_CLIENT?: string;
   readonly VITE_TOSS_REAL_EXTERNAL_REWARDS?: string;
   readonly VITE_TOSS_CONTACTS_VIRAL_MODULE_ID?: string;

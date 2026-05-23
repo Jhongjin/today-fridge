@@ -1,6 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearTrackedEvents, getTrackedEvents } from "./analytics";
-import { installClientErrorTracking, reportClientError, resetClientErrorTrackingForTest } from "./errorMonitoring";
+import {
+  installClientErrorTracking,
+  reportClientError,
+  resetClientErrorTrackingForTest,
+  setErrorMonitoringTransport
+} from "./errorMonitoring";
 
 describe("error monitoring", () => {
   beforeEach(() => {
@@ -26,6 +31,32 @@ describe("error monitoring", () => {
         filename: "app.tsx"
       }
     });
+  });
+
+  it("sends explicit client errors to the optional error monitoring transport", () => {
+    const send = vi.fn();
+    setErrorMonitoringTransport({ send });
+
+    const event = reportClientError("client_error", {
+      message: "boom",
+      filename: "app.tsx"
+    });
+
+    expect(send).toHaveBeenCalledWith(event);
+  });
+
+  it("swallows error monitoring transport failures", () => {
+    setErrorMonitoringTransport({
+      send: () => {
+        throw new Error("transport failed");
+      }
+    });
+
+    expect(() =>
+      reportClientError("client_error", {
+        message: "boom"
+      })
+    ).not.toThrow();
   });
 
   it("captures browser error events once installed", () => {

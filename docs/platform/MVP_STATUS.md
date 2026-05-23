@@ -41,7 +41,7 @@
 - Console-ready PNG logo, thumbnail, and screenshot dimensions are locally generated and guarded; final console upload is still pending.
 - BGM/custom audio assets are not final, but synthetic SFX and pause/resume feedback are in place.
 - iOS/Android safe-area and background audio lifecycle need device checks.
-- Production monitoring vendor is not selected, but an optional HTTP analytics transport can be enabled with `VITE_ANALYTICS_ENDPOINT`.
+- Production monitoring vendor is not selected, but optional HTTP analytics and error-only transports can be enabled with `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT`.
 
 ## Commander Position
 

@@ -1,8 +1,12 @@
-import { trackEvent, type AnalyticsProperties } from "./analytics";
+import { trackEvent, type AnalyticsEvent, type AnalyticsProperties } from "./analytics";
 
 type ErrorEventName = "client_error" | "unhandled_rejection" | "asset_load_error";
+export type ErrorMonitoringTransport = {
+  send: (event: AnalyticsEvent) => void | Promise<void>;
+};
 
 let uninstallHandlers: (() => void) | undefined;
+let errorMonitoringTransport: ErrorMonitoringTransport | undefined;
 
 const reasonToMessage = (reason: unknown): string => {
   if (reason instanceof Error) {
@@ -36,11 +40,34 @@ const getAssetUrl = (target: EventTarget | null): string | null => {
   return null;
 };
 
-export const reportClientError = (eventName: ErrorEventName, properties: AnalyticsProperties) => {
-  trackEvent(eventName, {
+export const setErrorMonitoringTransport = (transport?: ErrorMonitoringTransport): void => {
+  errorMonitoringTransport = transport;
+};
+
+const sendToErrorMonitoringTransport = (event: AnalyticsEvent) => {
+  if (!errorMonitoringTransport) {
+    return;
+  }
+
+  try {
+    const result = errorMonitoringTransport.send(event);
+
+    if (result && typeof result.catch === "function") {
+      void result.catch(() => undefined);
+    }
+  } catch {
+    // Error monitoring outages must never block play or analytics capture.
+  }
+};
+
+export const reportClientError = (eventName: ErrorEventName, properties: AnalyticsProperties): AnalyticsEvent => {
+  const event = trackEvent(eventName, {
     source: "client",
     ...properties
   });
+
+  sendToErrorMonitoringTransport(event);
+  return event;
 };
 
 export const installClientErrorTracking = (): (() => void) => {
@@ -101,4 +128,5 @@ export const installClientErrorTracking = (): (() => void) => {
 export const resetClientErrorTrackingForTest = (): void => {
   uninstallHandlers?.();
   uninstallHandlers = undefined;
+  errorMonitoringTransport = undefined;
 };

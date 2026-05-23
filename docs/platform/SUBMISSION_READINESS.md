@@ -31,7 +31,7 @@ References:
 | Share reward | Mock UI only | Policy-safe mock grant service and integrated QA scenario exist; real `contactsViral` adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
 | Rewarded ads | Mock UI only | Policy-safe completion mock and integrated QA scenario exist; real rewarded-ad adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
 | Promotion points | Mock UI only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` adapter is available behind the external reward gate, with UI wiring pending QR evidence and promotion review. |
-| Error monitoring | Partial | Local `client_error` and `unhandled_rejection` analytics hooks exist; production transport still pending. |
+| Error monitoring | Partial | Local hooks and optional `VITE_ERROR_MONITORING_ENDPOINT` transport exist; production endpoint owner and retention policy still need approval. |
 | QR test | Pending | Requires Apps in Toss console setup. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
 ## 2. Submission Blockers

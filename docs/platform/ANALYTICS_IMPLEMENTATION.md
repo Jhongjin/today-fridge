@@ -74,6 +74,8 @@ The panel is only a client-side QA aid. It reads the same in-memory event buffer
 
 `src/platform/httpAnalyticsTransport.ts` provides the first concrete transport. Set `VITE_ANALYTICS_ENDPOINT` at build time to send events with `navigator.sendBeacon` and fall back to `fetch` with `keepalive`.
 
+`src/platform/httpErrorMonitoringTransport.ts` provides an optional error-only transport. Set `VITE_ERROR_MONITORING_ENDPOINT` to send `client_error`, `unhandled_rejection`, and `asset_load_error` events to a dedicated monitoring collector without sending every gameplay analytics event.
+
 ## Retention Questions Covered
 
 This harness can already answer:
@@ -97,10 +99,10 @@ This harness can already answer:
 - Startup updates `user_key_status` after the async platform `getUserKey()` check, so events before the result may still show the initial mock/browser status.
 - Ranked fairness flags stay with leaderboard submission events.
 - The event store remains local and in-memory by default.
-- A production transport can be injected through `setAnalyticsTransport`.
+- A production analytics transport can be injected through `setAnalyticsTransport`; a dedicated error-monitoring transport can be injected through `setErrorMonitoringTransport`.
 
 ## Future Queues
 
 - Add batching and retry policy if the selected endpoint requires it.
-- Add sampled `client_error` and `asset_load_error` capture.
+- Select and configure the production monitoring endpoint owner.
 - Add product dashboard queries for replay rate, completion rate, and leaderboard submit rate.

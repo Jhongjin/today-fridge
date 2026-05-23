@@ -125,5 +125,5 @@ If production deploy fails:
 
 - Real Toss SDK QR/device validation is pending.
 - SDK dependency tree must be refreshed with `npm run sdk:dependency-triage -- --strict` before final submission.
-- Production monitoring transport is pending.
+- Production monitoring endpoint owner and retention policy are pending.
 - Vercel preview deployment is currently skipped until `AUTO_DEPLOY_ENABLED`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` are configured in GitHub.
