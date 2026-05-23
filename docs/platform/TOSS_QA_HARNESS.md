@@ -137,6 +137,8 @@ For external reward QR candidates, add `--external-rewards` so the session file 
 
 Use `docs/platform/QR_SESSION_HARNESS.md` as the evidence protocol.
 
+Before commander approval, run `npm run qa:qr-session:check` to catch incomplete evidence files.
+
 ## 8. Browser Verification Harness
 
 Use a Toss SDK wrapper with mock adapters.

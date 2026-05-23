@@ -30,6 +30,20 @@ Default output:
 
 `qa/qr-sessions/<timestamp>-<platform>-<mode>.md`
 
+## Evidence Validation
+
+Before commander approval, run:
+
+```bash
+npm run qa:qr-session:check
+```
+
+The checker fails when a session has unresolved `TODO` markers, blank artifact locations, missing required sections, or no checked commander decision. You can also validate a single file:
+
+```bash
+npm run qa:qr-session:check -- qa/qr-sessions/android.md
+```
+
 ## Required Session Set
 
 Before Toss review request:

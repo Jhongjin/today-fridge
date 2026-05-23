@@ -45,6 +45,7 @@ These must be completed before requesting review:
 - QR test on real Toss app.
 - QR test plan is documented in `docs/platform/QR_TEST_PLAN.md`.
 - QR session evidence protocol is documented in `docs/platform/QR_SESSION_HARNESS.md`.
+- QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Error monitoring.
