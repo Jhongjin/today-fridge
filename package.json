@@ -14,6 +14,7 @@
     "qa:qr-session": "node scripts/create-qr-session.mjs",
     "qa:qr-session:check": "node scripts/check-qr-session-evidence.mjs",
     "qa:qr-session:index": "node scripts/build-qr-session-index.mjs",
+    "qa:commander-review-packet": "node scripts/create-commander-review-packet.mjs",
     "external-rewards:check-prereqs": "node scripts/check-external-reward-prereqs.mjs",
     "qr:external-rewards:preflight": "node scripts/check-external-reward-prereqs.mjs --require-real",
     "qr:external-rewards:build": "node scripts/check-external-reward-prereqs.mjs --require-real && npm run build",

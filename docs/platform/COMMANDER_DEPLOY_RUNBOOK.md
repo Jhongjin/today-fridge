@@ -44,6 +44,12 @@ External reward QR candidate preflight:
 npm run qr:external-rewards:preflight
 ```
 
+QR review packet:
+
+```bash
+npm run qa:commander-review-packet -- --commit <sha> --preview-url <preview-or-qr-url>
+```
+
 Setup details:
 
 `docs/platform/VERCEL_PREVIEW_SETUP.md`

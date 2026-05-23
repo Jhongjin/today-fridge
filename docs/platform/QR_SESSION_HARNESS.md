@@ -60,6 +60,24 @@ npm run qa:qr-session:index -- --output qa/qr-sessions/INDEX.md
 
 Use `--strict` when the index generation should fail unless at least one session exists and every session is complete.
 
+## Commander Review Packet
+
+After validating and indexing QR sessions, create a commander review packet:
+
+```bash
+npm run qa:commander-review-packet -- --commit <sha> --preview-url <preview-or-qr-url>
+```
+
+For external reward review:
+
+```bash
+npm run qa:commander-review-packet -- --commit <sha> --preview-url <preview-or-qr-url> --external-rewards
+```
+
+Default output:
+
+`qa/review-packets/<timestamp>-<commit>-commander-review.md`
+
 ## Required Session Set
 
 Before Toss review request:

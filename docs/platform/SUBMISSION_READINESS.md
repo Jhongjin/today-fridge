@@ -47,6 +47,7 @@ These must be completed before requesting review:
 - QR session evidence protocol is documented in `docs/platform/QR_SESSION_HARNESS.md`.
 - QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - QR session evidence can be summarized locally with `npm run qa:qr-session:index`.
+- Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Error monitoring.
