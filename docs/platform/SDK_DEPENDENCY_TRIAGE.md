@@ -17,6 +17,12 @@ Track Apps in Toss SDK dependency warnings separately from gameplay work, so fin
 
 ## Audit Snapshot
 
+Refresh command:
+
+```bash
+npm run sdk:dependency-triage
+```
+
 Commands:
 
 ```bash
