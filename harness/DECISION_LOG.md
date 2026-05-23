@@ -90,3 +90,4 @@
 - Phase 70 console asset dimension guard added: generated Toss upload PNGs now fail fast when dimensions drift.
 - Phase 71 pause/resume flow added: the top pause control now freezes board and booster input, exposes a resume panel, and records pause/resume analytics.
 - Phase 72 active round clock added: pause spans are tracked separately so completion duration reflects play time instead of idle pause time.
+- Phase 73 personal-best chase copy added: the competition strip now distinguishes first-record, behind, tied, and ahead states during replay.

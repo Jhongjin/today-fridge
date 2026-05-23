@@ -250,6 +250,30 @@ export const App = () => {
   const recipe = getRecipe(board.mainRecipeId);
   const score = totalScore(gameState.breakdown);
   const bestGap = Math.max(0, personalBest - score);
+  const bestChase =
+    personalBest === 0
+      ? {
+          state: "first",
+          label: "첫 기록 도전",
+          value: "완주하면 저장"
+        }
+      : score > personalBest
+        ? {
+            state: "ahead",
+            label: "기록 추월",
+            value: `+${(score - personalBest).toLocaleString()}점`
+          }
+        : score === personalBest
+          ? {
+              state: "tie",
+              label: "최고와 동점",
+              value: "한 번 더 정리"
+            }
+          : {
+              state: "behind",
+              label: "최고까지",
+              value: `${bestGap.toLocaleString()}점`
+            };
   const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
   const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
   const recipePieceProgress = Math.min(recipePieceCount, recipePieceTarget);
@@ -792,9 +816,9 @@ export const App = () => {
             <span>내 최고</span>
             <strong data-testid="personal-best-value">{personalBest.toLocaleString()}</strong>
           </div>
-          <div>
-            <span>최고까지</span>
-            <strong>{bestGap > 0 ? `${bestGap.toLocaleString()}점` : "도전 중"}</strong>
+          <div className={bestChase.state === "ahead" ? "competition-strip__item--ahead" : ""} data-testid="best-chase">
+            <span data-testid="best-chase-label">{bestChase.label}</span>
+            <strong data-testid="best-chase-value">{bestChase.value}</strong>
           </div>
         </section>
 
@@ -985,7 +1009,7 @@ export const App = () => {
                 <span style={{ width: recipePieceProgressPercent }} />
               </div>
             </div>
-            <button className="primary-action" type="button" onClick={restart}>
+            <button className="primary-action" type="button" onClick={restart} data-testid="restart-button">
               다시 도전
             </button>
             {gameState.status === "complete" ? (

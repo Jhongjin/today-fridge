@@ -43,6 +43,8 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByTestId("daily-streak")).toContainText(/연속 \d+일/);
   await expect(page.getByTestId("tutorial-strip")).toContainText("두부 3개");
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
+  await expect(page.getByTestId("best-chase-label")).toHaveText("첫 기록 도전");
+  await expect(page.getByTestId("best-chase-value")).toHaveText("완주하면 저장");
   await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeVisible();
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
@@ -143,6 +145,24 @@ test("player can complete the main recipe", async ({ page }) => {
 
   await expect(page.getByTestId("coach-message")).toContainText("김치볶음밥 완성");
   await expect(page.getByTestId("score-value")).toHaveText("500");
+});
+
+test("personal best chase updates after replay starts", async ({ page }) => {
+  await page.goto("/");
+
+  await playCleanRoute(page);
+  await page.getByTestId("restart-button").click();
+
+  await expect(page.getByTestId("personal-best-value")).toHaveText("1,700");
+  await expect(page.getByTestId("best-chase-label")).toHaveText("최고까지");
+  await expect(page.getByTestId("best-chase-value")).toHaveText("1,700점");
+
+  await page.getByTestId("cell-green_onion_1_fresh").click();
+  await page.getByTestId("cell-green_onion_2_fresh").click();
+  await page.getByTestId("cell-green_onion_3_fresh").click();
+
+  await expect(page.getByTestId("score-value")).toHaveText("100");
+  await expect(page.getByTestId("best-chase-value")).toHaveText("1,600점");
 });
 
 test("player can finish a clean board and submit the score", async ({ page }) => {

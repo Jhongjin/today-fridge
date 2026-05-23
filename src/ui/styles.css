@@ -175,6 +175,16 @@ button:focus-visible {
   letter-spacing: 0;
 }
 
+.competition-strip .competition-strip__item--ahead {
+  border-color: #f0b84f;
+  background: #fff7e8;
+}
+
+.competition-strip .competition-strip__item--ahead span,
+.competition-strip .competition-strip__item--ahead strong {
+  color: #5d4826;
+}
+
 .daily-refresh-strip {
   min-height: 38px;
   display: grid;

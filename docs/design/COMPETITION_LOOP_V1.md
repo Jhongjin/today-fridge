@@ -9,14 +9,15 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 1. Player starts today's same-seed fridge.
 2. The screen shows the saved personal best for that board.
 3. During play, the screen shows the gap to the current personal best.
-4. On completion, a higher score updates the personal best immediately.
-5. The result panel shows a lightweight score tier as a quick mastery target.
-6. The result panel shows today's attempt count.
-7. The result panel shows today's mission completion summary.
-8. The result panel shows the improvement delta.
-9. The result panel shows the saved best route as ingredient icons.
-10. The player can share the result without gaining reward or rank advantage.
-11. The player can restart and try a cleaner route.
+4. The gap label changes between first-record, behind, tied, and ahead states.
+5. On completion, a higher score updates the personal best immediately.
+6. The result panel shows a lightweight score tier as a quick mastery target.
+7. The result panel shows today's attempt count.
+8. The result panel shows today's mission completion summary.
+9. The result panel shows the improvement delta.
+10. The result panel shows the saved best route as ingredient icons.
+11. The player can share the result without gaining reward or rank advantage.
+12. The player can restart and try a cleaner route.
 
 ## Why This Fits The Target
 
