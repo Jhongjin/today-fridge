@@ -21,6 +21,8 @@ Useful flags:
 | `--preview-url` | `https://...` | Approved preview or QR target. |
 | `--commit` | `4026818` | Git commit under test. |
 | `--tester` | `commander` | Person running the device. |
+| `--external-rewards` | | Add contacts/ad/promotion QR evidence sections. |
+| `--external-reward-mode` | `real`, `blocked`, `mock` | External reward runtime being evidenced. Defaults to `real` when `--external-rewards` is set. |
 | `--output` | `qa/qr-sessions/android.md` | Optional custom file path. |
 | `--print` | | Print to stdout without writing a file. |
 
@@ -37,14 +39,20 @@ Before Toss review request:
 3. Unsupported path if available:
    - Toss app below `5.232.0` for user-key fallback.
    - Toss app below `5.221.0` for leaderboard fallback.
+4. External reward QR candidate path, only after commander approves the real reward env:
+   - Add `--external-rewards`.
+   - Run `npm run qr:external-rewards:preflight` before creating the QR build.
+   - Use a QR build created with `npm run qr:external-rewards:build`.
 
 ## Evidence Rules
 
 - Do not paste raw game user key hashes into session notes.
 - Record screenshots or screen recording locations in the session file.
 - Capture any observed `client_error`, `asset_load_error`, or console error in notes.
+- For external reward sessions, capture contacts viral reward/close/error, rewarded-ad completion/failure, and promotion success/error or duplicate-protection evidence.
+- Confirm external rewards do not change clean ranked score, personal best, best route, move count, timer, or score receipt.
 - Mark `Pass`, `Pass with follow-up`, or `Fail` before commander production approval.
 
 ## Current Limitation
 
-This harness prepares the evidence shape. It does not replace the real Apps in Toss console QR test, because the official SDK import and QR runtime are still pending.
+This harness prepares the evidence shape. It does not replace the real Apps in Toss console QR test, because real reward UI wiring remains commander-gated until QR/device evidence is collected.

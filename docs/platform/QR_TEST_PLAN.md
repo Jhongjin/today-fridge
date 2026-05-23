@@ -36,6 +36,12 @@ Required artifacts:
 - Error screenshot or notes for unsupported/error paths.
 - Screen recording if a defect is timing or navigation related.
 
+External reward QR evidence sessions should be created with:
+
+```bash
+npm run qa:qr-session -- --platform android --device "Pixel 8" --toss-version 5.232.0 --mode supported --preview-url <preview-or-qr-url> --commit <sha> --external-rewards
+```
+
 Real SDK candidate builds must be created with:
 
 ```bash
@@ -114,6 +120,7 @@ Normal browser, CI, and non-QR builds keep passing when `VITE_TOSS_REAL_EXTERNAL
 - Contacts viral module ID opens only in QR candidate builds and reports reward, close, no-reward, and error states.
 - Full-screen ad IDs load before show, and reward only after `userEarnedReward`.
 - Promotion code grants only fixed action rewards and records Toss error codes without affecting ranked score.
+- External reward session files capture contacts viral reward/close/error, rewarded-ad completion/failure, and promotion success/error or duplicate-protection evidence.
 
 ## Pass Criteria
 

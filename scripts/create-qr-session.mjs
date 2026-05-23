@@ -46,6 +46,8 @@ const valueOf = (args, key, fallback) => {
   return typeof value === "string" && value.length > 0 ? value : fallback;
 };
 
+const booleanOf = (args, key) => args[key] === true || args[key] === "true" || args[key] === "1";
+
 const slugify = (value) =>
   value
     .toLowerCase()
@@ -55,7 +57,66 @@ const slugify = (value) =>
 
 const checkboxRows = (items) => items.map((item) => `- [ ] ${item}`).join("\n");
 
-const renderSession = ({ commit, device, mode, platform, previewUrl, tester, tossVersion, timestamp }) => `# QR Session - ${platform} - ${mode}
+const renderExternalRewardSection = ({ externalRewardMode, externalRewards }) => {
+  if (!externalRewards) {
+    return "";
+  }
+
+  return `## External Reward Runtime
+
+| Field | Value |
+| --- | --- |
+| External reward mode | ${externalRewardMode} |
+| Preflight command | \`npm run qr:external-rewards:preflight\` |
+| Build command | \`npm run qr:external-rewards:build\` |
+
+${checkboxRows([
+  "Preflight passed before the QR candidate was created.",
+  "Build used VITE_TOSS_REAL_CLIENT=true.",
+  "Build used VITE_TOSS_REAL_EXTERNAL_REWARDS=true.",
+  "Contacts viral module ID, all rewarded-ad group IDs, and promotion code came from the approved Toss console setup.",
+  "Normal browser/CI mock paths were not used as evidence for this real-reward session."
+])}
+
+## External Reward Checks
+
+${checkboxRows([
+  "Contacts viral opens only after the user taps the friend challenge action.",
+  "Contacts viral reward, close/no-reward, and error paths are recorded.",
+  "Rewarded ad loads before show and grants only after the completed reward event.",
+  "Rewarded ad close/no-reward and failure paths do not grant local wallet rewards.",
+  "Promotion test code or approved promotion code returns the expected success/error shape.",
+  "Promotion duplicate taps or refreshes do not create more than one valid grant.",
+  "External rewards do not alter clean ranked score, personal best, best route, move count, timer, or score receipt.",
+  "External reward analytics include share_reward_event, ad_reward, or promotion_reward as applicable."
+])}
+
+## External Reward Evidence
+
+| Artifact | Location |
+| --- | --- |
+| Contacts viral reward screenshot/log |  |
+| Contacts viral close/no-reward screenshot/log |  |
+| Rewarded ad load/show/completion screenshot/log |  |
+| Rewarded ad close/failure screenshot/log |  |
+| Promotion success screenshot/log |  |
+| Promotion error or duplicate-protection screenshot/log |  |
+
+`;
+};
+
+const renderSession = ({
+  commit,
+  device,
+  externalRewardMode,
+  externalRewards,
+  mode,
+  platform,
+  previewUrl,
+  tester,
+  tossVersion,
+  timestamp
+}) => `# QR Session - ${platform} - ${mode}
 
 ## Metadata
 
@@ -69,6 +130,8 @@ const renderSession = ({ commit, device, mode, platform, previewUrl, tester, tos
 | Mode | ${mode} |
 | Preview URL | ${previewUrl} |
 | Commit | ${commit} |
+| External reward candidate | ${externalRewards ? "yes" : "no"} |
+| External reward mode | ${externalRewardMode} |
 
 ## Version Gates
 
@@ -120,7 +183,7 @@ ${checkboxRows([
   "Submit/open failures show recoverable copy instead of a stuck state."
 ])}
 
-## Observability
+${renderExternalRewardSection({ externalRewardMode, externalRewards })}## Observability
 
 ${checkboxRows([
   "QA analytics or production transport shows app_open, first_playable_ready, round_start.",
@@ -161,9 +224,12 @@ const main = async () => {
   const timestamp = new Date().toISOString();
   const platform = valueOf(args, "platform", "android");
   const mode = valueOf(args, "mode", "supported");
+  const externalRewards = booleanOf(args, "external-rewards");
   const session = renderSession({
     commit: valueOf(args, "commit", "main"),
     device: valueOf(args, "device", "unknown-device"),
+    externalRewardMode: valueOf(args, "external-reward-mode", externalRewards ? "real" : "not-in-scope"),
+    externalRewards,
     mode,
     platform,
     previewUrl: valueOf(args, "preview-url", "pending"),
@@ -177,7 +243,7 @@ const main = async () => {
     return;
   }
 
-  const fileName = `${timestamp.replace(/[:.]/g, "-")}-${slugify(platform)}-${slugify(mode)}.md`;
+  const fileName = `${timestamp.replace(/[:.]/g, "-")}-${slugify(platform)}-${slugify(mode)}${externalRewards ? "-external-rewards" : ""}.md`;
   const outputPath = valueOf(args, "output", join("qa", "qr-sessions", fileName));
 
   await mkdir(dirname(outputPath), { recursive: true });

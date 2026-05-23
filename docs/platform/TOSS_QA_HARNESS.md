@@ -133,6 +133,8 @@ For each physical device run, create a session file:
 npm run qa:qr-session -- --platform ios --device "iPhone 15" --toss-version 5.232.0 --mode supported --preview-url <preview-or-qr-url> --commit <sha>
 ```
 
+For external reward QR candidates, add `--external-rewards` so the session file includes contacts viral, rewarded-ad, promotion, duplicate-protection, and ranked-fairness evidence rows.
+
 Use `docs/platform/QR_SESSION_HARNESS.md` as the evidence protocol.
 
 ## 8. Browser Verification Harness
@@ -174,6 +176,7 @@ External reward QA runner:
 - `src/platform/rewardedAd.ts` requires a mock client load/show path before rewarded-ad grants.
 - `src/platform/promotionReward.ts` exposes fixed-action promotion helpers for attendance/event-style rewards only.
 - `src/platform/tossContactsViralClient.ts`, `src/platform/tossRewardedAdClient.ts`, and `src/platform/tossPromotionRewardClient.ts` normalize real SDK event/error shapes before future UI wiring.
+- `npm run qa:qr-session -- --external-rewards` creates the evidence checklist for real contacts/ad/promotion QR runs.
 
 Automated scenarios:
 

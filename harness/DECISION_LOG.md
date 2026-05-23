@@ -127,3 +127,4 @@
 - Phase 107 external reward runtime gate added: real contacts/ad/promotion rewards now require a second env opt-in plus all Toss console IDs, and remain blocked unless the real Toss client flag is also enabled.
 - Phase 108 runtime external reward clients added: future UI wiring now has a factory that returns mock clients unless the external reward gate is real, and lazy-loads real SDK adapters only after all env checks pass.
 - Phase 109 external reward QR preflight added: real external reward candidate builds now fail before Vite starts when the real Toss client flag or required Toss console IDs are missing.
+- Phase 110 external reward QR evidence added: QR session files can now include contacts viral, rewarded-ad, promotion, duplicate-protection, and ranked-fairness evidence sections without enabling real UI wiring.

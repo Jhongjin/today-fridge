@@ -68,6 +68,7 @@ Output:
 - Keep real external reward runtime behind a separate environment gate. (Phase 107 done)
 - Route future runtime clients through the external reward gate. (Phase 108 done, UI wiring pending)
 - Fail QR candidate builds early when real external rewards are requested without required env. (Phase 109 done, UI wiring pending)
+- Capture real external reward QR evidence in session files before UI wiring approval. (Phase 110 done, UI wiring pending)
 
 Output:
 
@@ -85,6 +86,7 @@ Output:
 - Keep real ad/promotion runtime behind a separate environment gate. (Phase 107 done)
 - Route future runtime clients through the external reward gate. (Phase 108 done, UI wiring pending)
 - Fail QR candidate builds early when real external rewards are requested without required env. (Phase 109 done, UI wiring pending)
+- Capture real external reward QR evidence in session files before UI wiring approval. (Phase 110 done, UI wiring pending)
 
 Output:
 
