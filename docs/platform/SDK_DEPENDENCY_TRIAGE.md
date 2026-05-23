@@ -57,3 +57,12 @@ Primary clusters:
 ## Submission Blocker
 
 Final Toss review should not be requested until this triage is revisited with the actual QR/review candidate commit and the latest SDK package metadata.
+
+The commander review packet must include a completed SDK Dependency Approval section before final Toss review:
+
+- `npm run sdk:dependency-triage -- --strict` output for the reviewed commit.
+- Locked Apps in Toss SDK version and latest npm status.
+- Node 24 engine coverage through CI and the QR/review candidate runtime plan.
+- Production and full-tree npm audit counts.
+- Confirmation that `npm audit fix --force` or SDK downgrade was not used unless separately approved.
+- Commander decision to proceed with documented SDK risk, request follow-up, or block.

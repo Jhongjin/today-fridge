@@ -157,3 +157,4 @@
 - Phase 137 console asset capture now supports JSON output for automation evidence.
 - Phase 138 commander review packets now require game rating evidence approval before final Toss review.
 - Phase 139 commander review packets now require an explicit production monitoring approval, deferral, or blocker decision.
+- Phase 140 commander review packets now require an explicit SDK dependency risk approval, follow-up, or blocker decision.

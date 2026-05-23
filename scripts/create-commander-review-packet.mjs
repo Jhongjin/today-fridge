@@ -153,6 +153,29 @@ Notes:
 
 `;
 
+const renderSdkDependencySection = () => `## SDK Dependency Approval
+
+${checkboxRows([
+  "`npm run sdk:dependency-triage -- --strict` output is linked or summarized for the reviewed commit.",
+  "Locked Apps in Toss SDK version and latest npm status are recorded.",
+  "Node 24 engine requirement is covered by CI and the QR/review candidate runtime plan.",
+  "Production and full-tree npm audit counts are recorded.",
+  "`npm audit fix --force` or SDK downgrade was not used unless separately approved.",
+  "Remaining SDK/audit risk has an approved follow-up, isolation note, or commander acceptance."
+])}
+
+SDK dependency decision:
+
+- [ ] Approved with documented SDK risk
+- [ ] Needs SDK dependency follow-up
+- [ ] Blocked until SDK dependency risk is resolved
+
+Notes:
+
+- TODO
+
+`;
+
 const renderPacket = ({
   commit,
   externalRewards,
@@ -175,6 +198,7 @@ const renderPacket = ({
 | Preview URL | ${previewUrl} |
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
+| SDK dependency approval | required |
 | Game rating evidence | required |
 | Production monitoring approval | required |
 
@@ -215,7 +239,7 @@ ${checkboxRows([
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."
 ])}
 
-${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
+${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
 
 ${checkboxRows([
   "First playable screen appears within 10 seconds on supported QR devices.",

@@ -21,7 +21,7 @@ Output:
 ## Queue 2: Real Toss Client
 
 - Package dependency locked: `@apps-in-toss/web-framework@2.6.0` is now in `package.json` and `package-lock.json`. (Phase 98 done)
-- Track install warnings: Node 24 engine warning, React Native peer overrides, and npm audit findings.
+- Track install warnings: Node 24 engine warning, React Native peer overrides, and npm audit findings; final QR/review packets must include the SDK dependency decision.
 - Implement `TossClient` using official SDK. (Phase 99 wrapper done)
 - Keep `tossMockClient` for browser/CI.
 - Add runtime adapter selection. (Phase 101 real-client opt-in done)

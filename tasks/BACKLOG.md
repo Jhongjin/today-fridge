@@ -91,6 +91,7 @@
 - Triage SDK dependency engine and audit warnings. (Phase 116 done pending CI)
 - Add SDK dependency triage refresh command. (Phase 117 done pending CI)
 - Require SDK dependency triage in commander QR packet. (Phase 118 done pending CI)
+- Gate commander review on SDK dependency decision. (Phase 140 done pending CI)
 - Default commander QR packet commit to current Git SHA. (Phase 119 done pending CI)
 - Record worktree status in commander QR packet. (Phase 120 done pending CI)
 - Add commander QR packet completeness validator. (Phase 121 done pending CI)

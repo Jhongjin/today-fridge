@@ -28,7 +28,7 @@ Install warnings to track:
 
 - `@apps-in-toss/ait-format@1.0.0` declares Node `>=24`; local validation currently uses Node `22.22.0`.
 - npm reports peer override warnings through React Native compatibility packages.
-- npm audit reported 31 vulnerabilities after the SDK tree was added; audit triage is required before final submission.
+- npm audit reported 31 vulnerabilities after the SDK tree was added; audit triage and a commander packet dependency decision are required before final submission.
 
 ## API Map
 

@@ -34,7 +34,7 @@
 ## Current Submission Blockers
 
 - Official `@apps-in-toss/web-framework@2.6.0` is locked and SDK wrappers are wired behind explicit QR-candidate flags, but real Toss QR validation is still pending.
-- SDK dependency tree raises Node 24 engine and npm audit warnings; current triage is documented in `docs/platform/SDK_DEPENDENCY_TRIAGE.md`.
+- SDK dependency tree raises Node 24 engine and npm audit warnings; current triage is documented in `docs/platform/SDK_DEPENDENCY_TRIAGE.md`, and commander packets now require an explicit SDK dependency decision.
 - Real Apps in Toss QR test is still pending; see `docs/platform/QR_TEST_PLAN.md`.
 - Real Game Center profile and user-key QR validation are still pending.
 - Real leaderboard submit/open needs QR-device verification.

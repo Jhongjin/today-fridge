@@ -60,6 +60,7 @@ const requiredSections = [
   "Metadata",
   "Required Local Commands",
   "Evidence Checklist",
+  "SDK Dependency Approval",
   "Game Rating Evidence Approval",
   "Production Monitoring Approval",
   "Platform Decision",
@@ -121,6 +122,9 @@ const decisionLabels = new Set([
   "Approved for production launch",
   "Explicitly deferred by commander",
   "Blocked until monitoring ownership is resolved",
+  "Approved with documented SDK risk",
+  "Needs SDK dependency follow-up",
+  "Blocked until SDK dependency risk is resolved",
   "Needs follow-up",
   "Rejected for now"
 ]);
@@ -186,6 +190,11 @@ export const checkCommanderReviewPacket = (text) => {
   const ratingEvidenceDecisionChecked = checkedDecisionOptions(sectionText(text, "Game Rating Evidence Approval"));
   if (ratingEvidenceDecisionChecked.length !== 1) {
     issues.push("Game rating evidence decision must have exactly one checked decision.");
+  }
+
+  const sdkDependencyDecisionChecked = checkedDecisionOptions(sectionText(text, "SDK Dependency Approval"));
+  if (sdkDependencyDecisionChecked.length !== 1) {
+    issues.push("SDK dependency decision must have exactly one checked decision.");
   }
 
   const monitoringDecisionChecked = checkedDecisionOptions(sectionText(text, "Production Monitoring Approval"));

@@ -149,6 +149,6 @@ The adapter contract is ready, the package is locked, and official SDK runtime w
 
 - Replace the temporary global bridge hook with the official SDK client in runtime selection.
 - Confirm Node 24 compatibility for Apps in Toss packaging paths.
-- Triage npm audit output introduced by the SDK dependency tree.
+- Triage npm audit output introduced by the SDK dependency tree, then record the SDK dependency approval or blocker decision in the commander review packet.
 - Add real leaderboard-open result button.
 - Add Toss QR test for supported and unsupported app versions, including `getUserKeyForGame()` success/error paths.

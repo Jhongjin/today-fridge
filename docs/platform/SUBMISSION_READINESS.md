@@ -39,7 +39,7 @@ References:
 These must be completed before requesting review:
 
 - Real Toss SDK runtime QR validation. The package is locked and wrappers are wired behind explicit runtime flags, but physical Toss QR evidence is still pending.
-- Revisit SDK dependency triage for the actual QR/review candidate commit with `npm run sdk:dependency-triage`.
+- Revisit SDK dependency triage for the actual QR/review candidate commit with `npm run sdk:dependency-triage`, then record the SDK dependency decision in the commander review packet.
 - Real Game Center profile flow before gameplay.
 - Game user key QR validation and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.
@@ -50,6 +50,7 @@ These must be completed before requesting review:
 - QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - QR session evidence can be summarized locally with `npm run qa:qr-session:index`.
 - Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
+- Commander QR review packets now require completed SDK dependency approval or follow-up decision.
 - Commander QR review packets now require completed game rating evidence approval before final Toss review.
 - Commander QR review packets now require completed production monitoring approval or explicit deferral.
 - Sound lifecycle once BGM/custom SFX assets are added.
