@@ -50,8 +50,9 @@ The bridge is intentionally injected so the game can:
 `src/platform/runtimeTossClient.ts` now selects the platform client:
 
 - If `globalThis.__TODAY_FRIDGE_TOSS_BRIDGE__` exists, the app uses `createAppsInTossClient`.
-- Otherwise, the app uses the local mock client for browser, CI, and preview stability.
-- This keeps the UI wired to the same service boundary while official SDK imports are added behind tests.
+- If `VITE_TOSS_REAL_CLIENT=true`, the app lazily loads `createTossRealClient()` and uses the official SDK wrapper.
+- Otherwise, the app uses the local mock client for browser, CI, and normal preview stability.
+- This keeps the UI wired to the same service boundary while real SDK runtime activation remains an explicit QR-candidate build choice.
 
 ## Mapping
 
@@ -100,6 +101,12 @@ Phase 100 note:
 - `src/platform/tossClient.ts` now owns the typed submit failure-code list.
 - The Apps in Toss adapter normalizes unexpected SDK status codes to `TOSS_LEADERBOARD_SUBMIT_FAILED`.
 - Leaderboard service error results now use the typed Toss client error surface instead of arbitrary strings.
+
+Phase 101 note:
+
+- Runtime selection now has a real SDK opt-in through `VITE_TOSS_REAL_CLIENT=true`.
+- The injected QA bridge still wins over the real SDK flag, so browser automation remains deterministic.
+- The real SDK client is lazy-loaded and fails closed: missing user key resolves unavailable, submit returns `TOSS_SDK_UNAVAILABLE`, leaderboard open is caught by the service, and failed lazy loads can retry on the next action.
 
 ## Dependency Note
 

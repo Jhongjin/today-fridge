@@ -153,6 +153,12 @@ Current QA bridge:
 - Open `/?qa=toss-bridge-no-user-key` to force game user key unavailability and verify leaderboard submit is skipped without a platform submit call.
 - Submit failure copy should say the submit temporarily failed and invite retry, while fairness skips should keep the clean-ranked explanation.
 
+Real SDK QR candidate:
+
+- Build with `VITE_TOSS_REAL_CLIENT=true` only for commander-approved QR previews.
+- The QA bridge still wins when present, so `?qa=toss-bridge*` scenarios remain deterministic even in a real-SDK candidate build.
+- Default browser, CI, and normal preview builds keep the local mock client.
+
 External reward QA runner:
 
 - `src/platform/externalRewardScenarios.ts` runs share, rewarded-ad, and promotion mock paths together.

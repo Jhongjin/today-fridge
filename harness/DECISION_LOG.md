@@ -118,3 +118,4 @@
 - Phase 98 Apps in Toss SDK dependency locked: `@apps-in-toss/web-framework@2.6.0` now installs locally and is recorded in package files; Node 24 engine, peer override, and audit warnings remain before real SDK import/final submission.
 - Phase 99 Toss real client wrapper added: official SDK Game Center functions are imported from `@apps-in-toss/web-framework` and adapted through the existing platform client boundary while runtime selection remains mock/QA-bridge pending QR approval.
 - Phase 100 Toss submit error codes typed: leaderboard submit failures now use a fixed `TossClient` error-code list, and unknown SDK status codes collapse to `TOSS_LEADERBOARD_SUBMIT_FAILED` before reaching UI, analytics, or QR notes.
+- Phase 101 real SDK runtime opt-in added: `VITE_TOSS_REAL_CLIENT=true` lazily loads the official Toss client for QR-candidate builds, while injected QA bridges still take priority and normal browser/CI previews stay on the local mock.

@@ -22,7 +22,7 @@ Current npm metadata reports:
 | --- | --- | --- |
 | `@apps-in-toss/web-framework` | `2.6.0` | Dependency is locked in `package.json` and `package-lock.json`; local install succeeds with warnings. |
 
-The app keeps an injected bridge until official SDK imports are wired and QR-validated.
+The app keeps an injected bridge and local mock by default. `VITE_TOSS_REAL_CLIENT=true` enables a lazy official SDK runtime path for QR-candidate builds only.
 
 Install warnings to track:
 
@@ -76,10 +76,11 @@ Future share reward, rewarded ad, and game promotion work must pass `src/platfor
 ## Implementation Order
 
 1. Keep the injected bridge stable while official SDK imports are introduced behind tests.
-2. Wire runtime selection to the real SDK client after QR/device smoke tests approve it.
+2. Use `VITE_TOSS_REAL_CLIENT=true` only for commander-approved QR-candidate preview builds.
 3. QR-test game profile creation and returning-user flow.
 4. QR-test `getUserKeyForGame()` success/error/unsupported paths.
 5. QR-test leaderboard submit/open in sandbox and real QR runtime.
-6. Add share reward only if the reward is fixed and non-ranked.
-7. Add rewarded ad only after policy, audio lifecycle, and fairness checks are locked.
-8. Add game promotion only after commander approves fixed-action reward copy, budget controls, duplicate defense, test-code call, and review requirements.
+6. Promote the real SDK runtime to the default only after QR/device smoke tests approve it.
+7. Add share reward only if the reward is fixed and non-ranked.
+8. Add rewarded ad only after policy, audio lifecycle, and fairness checks are locked.
+9. Add game promotion only after commander approves fixed-action reward copy, budget controls, duplicate defense, test-code call, and review requirements.

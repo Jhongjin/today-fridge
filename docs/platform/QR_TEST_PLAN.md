@@ -36,6 +36,14 @@ Required artifacts:
 - Error screenshot or notes for unsupported/error paths.
 - Screen recording if a defect is timing or navigation related.
 
+Real SDK candidate builds must be created with:
+
+```bash
+VITE_TOSS_REAL_CLIENT=true npm run build
+```
+
+Keep the flag off for normal browser, CI, and non-QR previews until commander approves real runtime activation.
+
 ## Entry Checks
 
 - QR launches the app without blank screen.

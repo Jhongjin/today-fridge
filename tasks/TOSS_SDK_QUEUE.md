@@ -24,13 +24,14 @@ Output:
 - Track install warnings: Node 24 engine warning, React Native peer overrides, and npm audit findings.
 - Implement `TossClient` using official SDK. (Phase 99 wrapper done)
 - Keep `tossMockClient` for browser/CI.
-- Add runtime adapter selection.
+- Add runtime adapter selection. (Phase 101 real-client opt-in done)
 - Add game user key status analytics through `TossClient.getUserKey()`. (Phase 83 bridge path done)
 - Add typed error codes. (Phase 100 done)
 
 Output:
 
 - `src/platform/tossRealClient.ts` (Phase 99 done)
+- `src/platform/runtimeTossClient.ts` lazy real-client opt-in through `VITE_TOSS_REAL_CLIENT=true`. (Phase 101 done)
 - `src/platform/tossClient.ts` typed leaderboard submit failure codes. (Phase 100 done)
 - Unit tests with mocked SDK boundary. (Phase 99 done)
 

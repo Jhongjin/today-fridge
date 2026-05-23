@@ -52,6 +52,7 @@ Optional variable:
 - `VERCEL_CLI_VERSION`, for example `latest` or a pinned version.
 - `BUNDLE_BUDGET_BYTES`, when the default 5 MB static `dist` budget needs to be raised for approved assets.
 - `VITE_ANALYTICS_ENDPOINT`, when preview/production builds should deliver analytics events to an HTTP endpoint.
+- `VITE_TOSS_REAL_CLIENT=true`, only for commander-approved QR-candidate previews that should load the official Apps in Toss SDK runtime client.
 
 Preflight:
 
