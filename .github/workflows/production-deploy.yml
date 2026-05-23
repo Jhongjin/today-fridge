@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout approved ref
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref }}
 
@@ -80,4 +80,3 @@ jobs:
               echo "- Ref: ${{ inputs.ref }}"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
-

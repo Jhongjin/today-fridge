@@ -132,3 +132,4 @@
 - Phase 112 QR session index generator added: local review packets can summarize QR session files, readiness, decisions, external reward coverage, and open issues.
 - Phase 113 commander QR review packet generator added: QR approval can now be captured in a single packet with session, platform, deployment, and optional external reward decision checks.
 - Phase 114 readiness snapshot updated: current submission docs now reflect that SDK wrappers are opt-in and QR validation, dependency triage, external reward evidence, and commander review remain the active blockers.
+- Phase 115 GitHub Actions runtime warning cleanup added: workflows now use Node 24-runtime action majors for checkout and setup-node to remove Node 20 deprecation warnings.
