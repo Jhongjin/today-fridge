@@ -75,6 +75,8 @@ Each SDK call should:
 - Avoid throwing into UI flow unless unrecoverable.
 - Have mock parity for CI.
 
+Current leaderboard submit failures are constrained to the typed `TossClient` error-code list in `src/platform/tossClient.ts`; unknown SDK status codes are collapsed to `TOSS_LEADERBOARD_SUBMIT_FAILED`.
+
 ## 6. QA Requirements
 
 - Unit tests for eligibility rules.

@@ -59,6 +59,17 @@ describe("Apps in Toss client", () => {
     expect(submitGameCenterLeaderBoardScore).not.toHaveBeenCalled();
   });
 
+  it("normalizes unknown leaderboard submit status codes", async () => {
+    const client = createAppsInTossClient({
+      submitGameCenterLeaderBoardScore: vi.fn().mockResolvedValue({ statusCode: "UNKNOWN_STATUS" })
+    });
+
+    await expect(client.submitLeaderboardScore(1700, "play-1")).resolves.toEqual({
+      ok: false,
+      errorCode: "TOSS_LEADERBOARD_SUBMIT_FAILED"
+    });
+  });
+
   it("opens leaderboard only when the bridge exists and is supported", async () => {
     const openGameCenterLeaderboard = vi.fn().mockResolvedValue(undefined);
     const client = createAppsInTossClient({

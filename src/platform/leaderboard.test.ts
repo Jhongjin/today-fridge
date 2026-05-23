@@ -129,7 +129,7 @@ describe("leaderboard service", () => {
     clearTrackedEvents();
     const submitLeaderboardScore = vi
       .fn()
-      .mockResolvedValueOnce({ ok: false, errorCode: "NETWORK_ERROR" })
+      .mockResolvedValueOnce({ ok: false, errorCode: "TOSS_LEADERBOARD_SUBMIT_EXCEPTION" })
       .mockResolvedValueOnce({ ok: true });
     const service = createLeaderboardService({
       getUserKey: async () => "user",
@@ -143,7 +143,7 @@ describe("leaderboard service", () => {
         score: 1700,
         flags: cleanRankedFlags()
       })
-    ).resolves.toEqual({ ok: false, errorCode: "NETWORK_ERROR" });
+    ).resolves.toEqual({ ok: false, errorCode: "TOSS_LEADERBOARD_SUBMIT_EXCEPTION" });
     await expect(
       service.submit({
         playId: "play-retry",

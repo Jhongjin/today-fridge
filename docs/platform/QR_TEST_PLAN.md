@@ -60,6 +60,7 @@ Required artifacts:
 - Clean leaderboard submit is skipped with `GAME_USER_KEY_UNAVAILABLE` if the game user key is unavailable.
 - Clean completion submits score after user taps submit.
 - Duplicate submit for one play ID is blocked or gracefully skipped.
+- Failed SDK submit paths resolve to a known typed error code, with unknown status codes recorded as `TOSS_LEADERBOARD_SUBMIT_FAILED`.
 - Booster-assisted completion does not submit a clean score.
 - Leaderboard opens only after user taps the leaderboard action.
 - Unsupported Toss version shows an error/skip path, not a stuck state.

@@ -36,7 +36,7 @@ Install warnings to track:
 | --- | --- | --- | --- | --- |
 | Game profile | Platform Game Center profile flow | Profile is required before gameplay. No direct user identifier is returned from profile/leaderboard responses. | Real profile WebView pending. | Do not start final ranked submission unless user identity path is available. |
 | Game user key | `getUserKeyForGame()` | Toss app `5.232.0`; returns `{ type: "HASH", hash }`, `INVALID_CATEGORY`, `ERROR`, or `undefined`. | Adapter, official SDK wrapper, QA bridge, analytics status, and leaderboard gate implemented. | Never expose raw hash in UI or QA notes. Use status only in analytics. |
-| Leaderboard submit | `submitGameCenterLeaderBoardScore({ score })` | Toss app `5.221.0`; score is a numeric string. | Adapter, official SDK wrapper, and result submit UI implemented. | Submit only after round completion, only clean runs, only with game user key. |
+| Leaderboard submit | `submitGameCenterLeaderBoardScore({ score })` | Toss app `5.221.0`; score is a numeric string. | Adapter, official SDK wrapper, typed error codes, and result submit UI implemented. | Submit only after round completion, only clean runs, only with game user key. |
 | Leaderboard open | `openGameCenterLeaderboard()` | Toss app `5.221.0`; can overlap with profile WebView if called too early. | Adapter, official SDK wrapper, and result-screen user action implemented. | Never auto-open on entry or immediately after submit. |
 | Share reward | `contactsViral({ options, onEvent, onError })` | Toss app `5.223.0`; returns `undefined` below support. | Mock grant service exists in `src/platform/shareReward.ts`; real SDK not implemented. | Reward must be fixed, non-rank, and never improve clean leaderboard score. |
 | Share event | `RewardFromContactsViralEvent` | Event type `sendViral` includes reward amount/unit from console. | Not implemented. | Treat as post-action reward evidence, not score advantage. |
@@ -44,6 +44,23 @@ Install warnings to track:
 | Banner ads | `TossAds` banner APIs | WebView banner support from Toss app `5.241.0`. | Out of MVP scope. | Avoid active-play interruption; use only if later layout can reserve space safely. |
 | Game promotion points | `grantPromotionRewardForGame({ params })` | Toss app `5.232.0`; game category only. | Mock grant service exists in `src/platform/promotionReward.ts`; real SDK not implemented. | Only fixed action/event rewards. Never score, rank, win/loss, random, or share-win based. |
 | App review | `requestReview()` | Toss app iOS/Android `5.253.0`. | Out of MVP scope. | Consider only after repeated successful completions and no active play interruption. |
+
+## Leaderboard Submit Error Surface
+
+The local `TossClient` submit contract uses a fixed error-code union so UI copy, analytics, and QR notes do not drift into arbitrary platform strings.
+
+Allowed submit failure codes:
+
+- `DUPLICATE_PLAY_ID`
+- `LEADERBOARD_NOT_FOUND`
+- `PROFILE_NOT_FOUND`
+- `TOSS_LEADERBOARD_SUBMIT_EXCEPTION`
+- `TOSS_LEADERBOARD_SUBMIT_FAILED`
+- `TOSS_SDK_UNAVAILABLE`
+- `TOSS_VERSION_UNSUPPORTED`
+- `UNPARSABLE_SCORE`
+
+Any unknown SDK `statusCode` is normalized to `TOSS_LEADERBOARD_SUBMIT_FAILED` before it leaves `src/platform/appsInTossClient.ts`.
 
 ## Explicit Non-Use For MVP
 

@@ -26,11 +26,12 @@ Output:
 - Keep `tossMockClient` for browser/CI.
 - Add runtime adapter selection.
 - Add game user key status analytics through `TossClient.getUserKey()`. (Phase 83 bridge path done)
-- Add typed error codes.
+- Add typed error codes. (Phase 100 done)
 
 Output:
 
 - `src/platform/tossRealClient.ts` (Phase 99 done)
+- `src/platform/tossClient.ts` typed leaderboard submit failure codes. (Phase 100 done)
 - Unit tests with mocked SDK boundary. (Phase 99 done)
 
 ## Queue 3: Profile Gate

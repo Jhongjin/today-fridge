@@ -63,7 +63,19 @@ Leaderboard submit:
 - Missing game user key maps to `GAME_USER_KEY_UNAVAILABLE` and does not call `submitGameCenterLeaderBoardScore`.
 - `SUCCESS` maps to `{ ok: true }`.
 - `undefined` maps to `TOSS_VERSION_UNSUPPORTED`.
-- Other status codes pass through as `errorCode`.
+- Known failure status codes pass through as typed `errorCode`.
+- Unknown status codes map to `TOSS_LEADERBOARD_SUBMIT_FAILED`.
+
+Typed `TossClient` submit failure codes:
+
+- `DUPLICATE_PLAY_ID`
+- `LEADERBOARD_NOT_FOUND`
+- `PROFILE_NOT_FOUND`
+- `TOSS_LEADERBOARD_SUBMIT_EXCEPTION`
+- `TOSS_LEADERBOARD_SUBMIT_FAILED`
+- `TOSS_SDK_UNAVAILABLE`
+- `TOSS_VERSION_UNSUPPORTED`
+- `UNPARSABLE_SCORE`
 
 Leaderboard open:
 
@@ -82,6 +94,12 @@ Phase 99 note:
 
 - The official SDK import wrapper now compiles and has unit coverage.
 - Runtime selection still prefers the injected QA bridge or local mock until QR/device testing approves switching to the real client.
+
+Phase 100 note:
+
+- `src/platform/tossClient.ts` now owns the typed submit failure-code list.
+- The Apps in Toss adapter normalizes unexpected SDK status codes to `TOSS_LEADERBOARD_SUBMIT_FAILED`.
+- Leaderboard service error results now use the typed Toss client error surface instead of arbitrary strings.
 
 ## Dependency Note
 

@@ -1,4 +1,4 @@
-import type { TossClient } from "./tossClient";
+import type { TossClient, TossClientErrorCode } from "./tossClient";
 import { trackEvent, type AnalyticsProperties } from "./analytics";
 import { getScoreSubmissionEligibility, type RunFairnessFlags } from "./fairness";
 
@@ -25,15 +25,16 @@ export type LeaderboardSubmissionResult = {
   ok: boolean;
   skipped?: boolean;
   reason?: string;
-  errorCode?: string;
+  errorCode?: TossClientErrorCode;
 };
 
 export type LeaderboardOpenResult = {
   ok: boolean;
-  errorCode?: string;
+  errorCode?: typeof LEADERBOARD_OPEN_FAILED;
 };
 
 export const GAME_USER_KEY_UNAVAILABLE = "GAME_USER_KEY_UNAVAILABLE";
+export const LEADERBOARD_OPEN_FAILED = "LEADERBOARD_OPEN_FAILED";
 
 export const createLeaderboardService = (client: TossClient) => {
   const submittedPlayIds = new Set<string>();
@@ -146,10 +147,10 @@ export const createLeaderboardService = (client: TossClient) => {
       trackEvent("leaderboard_open", {
         source,
         status: "error",
-        error_code: "LEADERBOARD_OPEN_FAILED"
+        error_code: LEADERBOARD_OPEN_FAILED
       });
 
-      return { ok: false, errorCode: "LEADERBOARD_OPEN_FAILED" };
+      return { ok: false, errorCode: LEADERBOARD_OPEN_FAILED };
     }
   };
 

@@ -1,4 +1,4 @@
-import type { LeaderboardSubmitResult, TossClient } from "./tossClient";
+import { toTossClientErrorCode, type LeaderboardSubmitResult, type TossClient } from "./tossClient";
 
 type SubmitGameCenterLeaderBoardScoreResponse = {
   statusCode?: string;
@@ -79,7 +79,7 @@ export const createAppsInTossClient = (bridge?: AppsInTossGameBridge): TossClien
 
       return result.statusCode === "SUCCESS"
         ? { ok: true }
-        : { ok: false, errorCode: result.statusCode ?? "TOSS_LEADERBOARD_SUBMIT_FAILED" };
+        : { ok: false, errorCode: toTossClientErrorCode(result.statusCode) };
     } catch {
       return { ok: false, errorCode: "TOSS_LEADERBOARD_SUBMIT_EXCEPTION" };
     }
