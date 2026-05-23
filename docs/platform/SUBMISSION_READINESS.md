@@ -16,9 +16,9 @@ References:
 | First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
 | Manifest/app icon | Pass | Web manifest references the SVG app icon. |
-| Console upload assets | Pending | Console logo/thumbnail/screenshot dimensions are now tracked in `TOSS_REQUIREMENTS_CHECKPOINT.md`. |
+| Console upload assets | Partial pass | Console logo/thumbnail/screenshot PNGs can be generated locally and dimensions are guarded; final console upload pending. |
 | Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget and blocks source maps. Must recheck after assets/audio. |
-| Sound controls | Placeholder | Mute toggle exists. Actual BGM/SFX engine not implemented yet. |
+| Sound controls | Partial pass | Mute persists locally, synthetic SFX exist for core gameplay, and pause/resume feedback is wired. Final BGM/custom assets pending. |
 | Background sound handling | Partial | SFX playback is suspended on page hide/show lifecycle events. Final BGM lifecycle still needs real-device testing once BGM is added. |
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
 | Leaderboard submit timing | Pass by design | Submit action appears after round completion. |
@@ -40,7 +40,7 @@ These must be completed before requesting review:
 - Leaderboard submit/open real QR test using Toss APIs.
 - QR test on real Toss app.
 - QR test plan is documented in `docs/platform/QR_TEST_PLAN.md`.
-- Sound lifecycle once BGM/SFX are added.
+- Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Error monitoring.
 - App bundle packaging path and `.ait` upload check.
