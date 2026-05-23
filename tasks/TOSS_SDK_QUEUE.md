@@ -64,23 +64,23 @@ Output:
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
 - Use `rewardedAd` mock service until real ad SDK is wired. (Phase 91 service done)
-- Use `shareReward` mock service until real `contactsViral` is wired. (Phase 90 service done)
+- Use `shareReward` mock service until real `contactsViral` is wired. (Phase 90 service done; Phase 106 SDK adapter done, UI wiring pending)
 
 Output:
 
 - Share mock scenarios. (Phase 104 UI + duplicate reward coverage done)
-- Policy review note. (Phase 104 docs updated; real `contactsViral` still QR/device pending)
+- Policy review note. (Phase 106 docs updated; real `contactsViral` still QR/device pending)
 
 ## Queue 6: Ads And Promotion
 
-- Add rewarded ad stubs and real adapters. (Phase 105 client stub done; real SDK adapter pending)
+- Add rewarded ad stubs and real adapters. (Phase 105 client stub done; Phase 106 SDK adapter done)
 - Add promotion fixed-action hooks only. (Phase 105 safe helper done)
 - Confirm no score/rank/win/random dependency. (Phase 105 helper coverage done)
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
-- Use `promotionReward` mock service until real `grantPromotionRewardForGame` is wired. (Phase 92 service done)
+- Use `promotionReward` mock service until real `grantPromotionRewardForGame` is wired. (Phase 92 service done; Phase 106 SDK adapter done, UI wiring pending)
 
 Output:
 
-- Ad/promotion mock tests. (Phase 93 integrated external reward scenario done; Phase 105 client/hook tests done)
-- Review checklist update. (Phase 105 docs updated; real SDK adapters still QR/device pending)
+- Ad/promotion mock tests. (Phase 93 integrated external reward scenario done; Phase 105 client/hook tests done; Phase 106 SDK adapter tests done)
+- Review checklist update. (Phase 106 docs updated; real SDK adapters still QR/device pending)

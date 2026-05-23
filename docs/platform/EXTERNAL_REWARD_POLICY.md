@@ -71,6 +71,7 @@ Current UI exposure:
 - The result screen has a friend challenge action that uses the mock share reward path.
 - A successful share action can grant `FRIEND_CHALLENGE_COIN_REWARD` once per daily board through `shareRewardId(boardRunKey)`.
 - Duplicate friend challenge sends may still share, but they do not grant another wallet reward.
+- `src/platform/tossContactsViralClient.ts` adapts real `contactsViral` `sendViral`, `close`, and error events into a normalized client result.
 
 Rewarded ad mock service:
 
@@ -78,11 +79,23 @@ Rewarded ad mock service:
 
 This service models a future rewarded ad completion as a fixed, user-initiated, non-ranked reward. `claimRewardedAdOffer()` now requires a client `load` and `show` sequence before grant, and `claimRewardedAdReward()` blocks grants when the ad completion event is missing or the request would interrupt active play.
 
+Real SDK adapter:
+
+`src/platform/tossRewardedAdClient.ts`
+
+This adapter maps real `loadFullScreenAd` and `showFullScreenAd` bridge events into the same `RewardedAdClient` contract used by the mock path.
+
 Promotion reward mock service:
 
 `src/platform/promotionReward.ts`
 
 This service models future `grantPromotionRewardForGame` use as a fixed action or event reward. `claimFixedPromotionActionReward()` creates only score/rank/win-loss/random-safe requests, while the lower-level service blocks unsafe promotion grants before any wallet update.
+
+Real SDK adapter:
+
+`src/platform/tossPromotionRewardClient.ts`
+
+This adapter normalizes real `grantPromotionRewardForGame` success, unsupported, `"ERROR"`, and error-code responses before any UI wiring.
 
 Integrated QA scenario runner:
 
