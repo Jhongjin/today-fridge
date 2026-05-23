@@ -40,6 +40,8 @@ The app keeps an injected bridge until package installation and bundle import ar
 
 ## Explicit Non-Use For MVP
 
+Future share reward, rewarded ad, and game promotion work must pass `src/platform/externalRewardPolicy.ts`.
+
 | API family | Reason |
 | --- | --- |
 | Non-game `getAnonymousKey` | The project is a game mini app and uses `getUserKeyForGame()`. |

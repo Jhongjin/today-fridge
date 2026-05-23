@@ -9,6 +9,7 @@ References:
 - [Game profile and leaderboard intro](https://developers-apps-in-toss.toss.im/game-center/intro.html)
 - [Toss requirements checkpoint](./TOSS_REQUIREMENTS_CHECKPOINT.md)
 - [Toss SDK API map](./TOSS_SDK_API_MAP.md)
+- [External reward policy](./EXTERNAL_REWARD_POLICY.md)
 
 ## 1. Current Readiness
 

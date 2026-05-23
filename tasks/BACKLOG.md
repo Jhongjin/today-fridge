@@ -75,6 +75,7 @@
 - Add best-route deviation analytics. (Phase 76 done pending CI)
 - Show leaderboard score audit receipts in QA analytics panel. (Phase 60 done pending CI)
 - Show score tier in QA analytics panel. (Phase 69 done pending CI)
+- Add external reward policy guard for share/ad/promotion. (Phase 88 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)

@@ -58,6 +58,7 @@ Output:
 - Add friend challenge/share entry.
 - Reward only fixed non-ranked in-game items.
 - No clean ranked advantage.
+- Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 
 Output:
 
@@ -69,6 +70,7 @@ Output:
 - Add rewarded ad stubs and real adapters.
 - Add promotion fixed-action hooks only.
 - Confirm no score/rank/win/random dependency.
+- Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 
 Output:
 

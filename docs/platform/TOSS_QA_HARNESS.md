@@ -59,6 +59,14 @@ Forbidden:
 - Number of share invite wins.
 - Ad result tied to ranking.
 
+Implementation guard:
+
+`src/platform/externalRewardPolicy.ts`
+
+Policy details:
+
+`docs/platform/EXTERNAL_REWARD_POLICY.md`
+
 ## 5. Event Logging
 
 Required events:
