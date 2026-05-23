@@ -83,6 +83,7 @@ const findBlankArtifactRows = (text) =>
   Array.from(text.matchAll(/^\| ([^|\n]+) \| {0,1} \|$/gm)).map((match) => match[1].trim());
 
 const validateSession = (file, text) => {
+  const normalizedText = text.replace(/\r\n/g, "\n");
   const issues = [];
   const requiredSections = [
     "Metadata",
@@ -97,34 +98,34 @@ const validateSession = (file, text) => {
   ];
 
   for (const section of requiredSections) {
-    if (!hasSection(text, section)) {
+    if (!hasSection(normalizedText, section)) {
       issues.push(`Missing section: ${section}`);
     }
   }
 
-  const externalRewardCandidate = hasExternalRewardCandidate(text);
+  const externalRewardCandidate = hasExternalRewardCandidate(normalizedText);
 
   if (externalRewardCandidate) {
     for (const section of ["External Reward Runtime", "External Reward Checks", "External Reward Evidence"]) {
-      if (!hasSection(text, section)) {
+      if (!hasSection(normalizedText, section)) {
         issues.push(`Missing external reward section: ${section}`);
       }
     }
   }
 
-  const todoCount = countMatches(text, /\bTODO\b/g);
+  const todoCount = countMatches(normalizedText, /\bTODO\b/g);
 
   if (todoCount > 0) {
     issues.push(`Unresolved TODO markers: ${todoCount}`);
   }
 
-  const blankArtifactRows = findBlankArtifactRows(text);
+  const blankArtifactRows = findBlankArtifactRows(normalizedText);
 
   if (blankArtifactRows.length > 0) {
     issues.push(`Blank artifact locations: ${blankArtifactRows.join(", ")}`);
   }
 
-  if (!hasCheckedDecision(text)) {
+  if (!hasCheckedDecision(normalizedText)) {
     issues.push("Commander decision is not checked");
   }
 

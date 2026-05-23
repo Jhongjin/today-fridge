@@ -44,6 +44,22 @@ The checker fails when a session has unresolved `TODO` markers, blank artifact l
 npm run qa:qr-session:check -- qa/qr-sessions/android.md
 ```
 
+## Commander Index
+
+To generate a review index for all session files:
+
+```bash
+npm run qa:qr-session:index
+```
+
+To write the index into the QR session folder:
+
+```bash
+npm run qa:qr-session:index -- --output qa/qr-sessions/INDEX.md
+```
+
+Use `--strict` when the index generation should fail unless at least one session exists and every session is complete.
+
 ## Required Session Set
 
 Before Toss review request:

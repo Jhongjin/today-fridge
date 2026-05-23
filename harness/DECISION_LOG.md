@@ -129,3 +129,4 @@
 - Phase 109 external reward QR preflight added: real external reward candidate builds now fail before Vite starts when the real Toss client flag or required Toss console IDs are missing.
 - Phase 110 external reward QR evidence added: QR session files can now include contacts viral, rewarded-ad, promotion, duplicate-protection, and ranked-fairness evidence sections without enabling real UI wiring.
 - Phase 111 QR session evidence validator added: local checks now flag unresolved TODOs, blank artifact rows, missing required sections, and missing commander decisions before approval.
+- Phase 112 QR session index generator added: local review packets can summarize QR session files, readiness, decisions, external reward coverage, and open issues.

@@ -84,6 +84,7 @@
 - Add QR external reward build preflight. (Phase 109 done pending CI)
 - Add QR external reward evidence session checklist. (Phase 110 done pending CI)
 - Add QR session evidence completeness validator. (Phase 111 done pending CI)
+- Add QR session commander review index generator. (Phase 112 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)

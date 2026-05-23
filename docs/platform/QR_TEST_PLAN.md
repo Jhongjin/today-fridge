@@ -128,6 +128,7 @@ Final submission approval requires:
 
 - Android and iOS QR checks pass.
 - Session evidence files are complete and linked from the commander review notes.
+- A QR session index is generated with `npm run qa:qr-session:index` for commander review.
 - No console/page errors during QR flows.
 - Real leaderboard submit/open verified.
 - Production monitoring transport decision recorded.

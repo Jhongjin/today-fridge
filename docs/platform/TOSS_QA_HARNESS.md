@@ -138,6 +138,7 @@ For external reward QR candidates, add `--external-rewards` so the session file 
 Use `docs/platform/QR_SESSION_HARNESS.md` as the evidence protocol.
 
 Before commander approval, run `npm run qa:qr-session:check` to catch incomplete evidence files.
+Use `npm run qa:qr-session:index` to summarize completed session files for the commander review packet.
 
 ## 8. Browser Verification Harness
 
