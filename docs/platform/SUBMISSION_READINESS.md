@@ -61,7 +61,7 @@ Do not change without command-center review:
 
 ## 4. GitHub/Vercel Setup
 
-Preview auto-deploy is ready but disabled until secrets are configured.
+Preview auto-deploy is wired but currently skipped until secrets are configured. Use `npm run deploy:check-prereqs` and `docs/platform/VERCEL_PREVIEW_SETUP.md`.
 
 Required GitHub repository variable:
 

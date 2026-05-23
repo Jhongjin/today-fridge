@@ -53,6 +53,14 @@ Optional variable:
 - `BUNDLE_BUDGET_BYTES`, when the default 5 MB static `dist` budget needs to be raised for approved assets.
 - `VITE_ANALYTICS_ENDPOINT`, when preview/production builds should deliver analytics events to an HTTP endpoint.
 
+Preflight:
+
+```bash
+npm run deploy:check-prereqs
+```
+
+See `docs/platform/VERCEL_PREVIEW_SETUP.md` for setup steps and current skip diagnostics.
+
 Validation includes:
 
 - Unit tests.

@@ -32,6 +32,16 @@ Optional variable:
 
 If any value is missing, validation still runs and preview deployment is skipped with a workflow summary note.
 
+Local preflight:
+
+```bash
+npm run deploy:check-prereqs
+```
+
+Setup details:
+
+`docs/platform/VERCEL_PREVIEW_SETUP.md`
+
 ## Production Approval
 
 Production workflow:
@@ -86,4 +96,4 @@ If production deploy fails:
 - Official Apps in Toss SDK package import is pending because local install timed out.
 - Real Toss QR test is pending.
 - Production monitoring transport is pending.
-- Vercel secrets may not yet be configured in GitHub.
+- Vercel preview deployment is currently skipped until `AUTO_DEPLOY_ENABLED`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` are configured in GitHub.

@@ -102,3 +102,4 @@
 - Phase 82 Toss SDK recheck completed: official Game Center constraints still match the adapter, npm latest is `@apps-in-toss/web-framework@2.6.0`, and local exact install still times out after 10 minutes.
 - Phase 83 Game Center user-key bridge added: `getUserKeyForGame()` hash responses now map into the platform client, QA bridge, and analytics status while real SDK import/QR validation remain separate.
 - Phase 84 QR session harness added: physical device runs now have a generated evidence checklist covering entry, user key, Game Center, observability, and commander decision.
+- Phase 85 Vercel preview prerequisite preflight added: missing deploy secrets are now explicit through a local check and setup guide while production remains commander-approved.
