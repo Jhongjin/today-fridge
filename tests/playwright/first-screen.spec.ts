@@ -98,13 +98,16 @@ test("recipe book opens from the first screen", async ({ page }) => {
 });
 
 test("quiet and reduced-motion controls persist after reload", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/?qa=analytics");
 
   await page.getByTestId("mute-button").click();
   await page.getByTestId("reduce-motion-button").click();
 
   await expect(page.getByTestId("mute-button")).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByTestId("reduce-motion-button")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByTestId("qa-event-list")).toContainText("setting_toggle");
+  await expect(page.getByTestId("qa-event-list")).toContainText("setting_id:mute");
+  await expect(page.getByTestId("qa-event-list")).toContainText("setting_id:reduce_motion");
 
   await page.reload();
 

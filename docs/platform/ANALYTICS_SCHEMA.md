@@ -45,6 +45,7 @@ Every event should include:
 | `round_fail` | `play_id`, `fail_reason`, `move_no`, `tray_state_hash` |
 | `mission_summary` | `play_id`, `completed_count`, `total_count`, `recipe_completed`, `rescue_completed`, `clean_record_completed` |
 | `audio_visibility_change` | `play_id`, `hidden` |
+| `setting_toggle` | `setting_id`, `enabled` |
 
 ## 4. Competition Events
 

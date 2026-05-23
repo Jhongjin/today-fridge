@@ -706,6 +706,28 @@ export const App = () => {
     });
   };
 
+  const toggleMuted = () => {
+    const nextMuted = !muted;
+
+    writeMutedPreference(nextMuted);
+    setMuted(nextMuted);
+    trackEvent("setting_toggle", {
+      setting_id: "mute",
+      enabled: nextMuted
+    });
+  };
+
+  const toggleReduceMotion = () => {
+    const nextReduceMotion = !reduceMotion;
+
+    writeReduceMotionPreference(nextReduceMotion);
+    setReduceMotion(nextReduceMotion);
+    trackEvent("setting_toggle", {
+      setting_id: "reduce_motion",
+      enabled: nextReduceMotion
+    });
+  };
+
   const claimReward = () => {
     if (gameState.status !== "complete") {
       return;
@@ -826,13 +848,7 @@ export const App = () => {
               aria-label={muted ? "소리 켜기" : "소리 끄기"}
               aria-pressed={muted}
               data-testid="mute-button"
-              onClick={() =>
-                setMuted((value) => {
-                  const nextMuted = !value;
-                  writeMutedPreference(nextMuted);
-                  return nextMuted;
-                })
-              }
+              onClick={toggleMuted}
             >
               {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
@@ -842,13 +858,7 @@ export const App = () => {
               aria-label="모션 줄이기"
               aria-pressed={reduceMotion}
               data-testid="reduce-motion-button"
-              onClick={() =>
-                setReduceMotion((value) => {
-                  const nextReduceMotion = !value;
-                  writeReduceMotionPreference(nextReduceMotion);
-                  return nextReduceMotion;
-                })
-              }
+              onClick={toggleReduceMotion}
             >
               <Waves size={20} />
             </button>
