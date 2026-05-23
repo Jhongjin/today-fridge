@@ -76,6 +76,7 @@ See `docs/platform/VERCEL_PREVIEW_SETUP.md` for setup steps and current skip dia
 Validation includes:
 
 - Unit tests.
+- Korean listing and metadata copy guard.
 - Production build.
 - Static `dist` bundle budget check and source map guard.
 - Playwright mobile browser tests.

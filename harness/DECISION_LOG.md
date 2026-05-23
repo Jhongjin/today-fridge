@@ -147,3 +147,4 @@
 - Phase 127 deploy prerequisite report now surfaces optional analytics and error-monitoring endpoint configuration without making them strict deploy blockers.
 - Phase 128 Korean copy guard added: listing, strategy, HTML, and manifest Korean title/score copy can be checked for required phrases and mojibake markers.
 - Phase 129 commander review packet now requires the Korean copy guard before approval.
+- Phase 130 Queue Preview Validate Harness now runs the Korean copy guard before build and browser checks.
