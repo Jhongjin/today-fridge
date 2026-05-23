@@ -10,6 +10,8 @@ Official docs checked on 2026-05-23:
 - [Game user key](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EA%B2%8C%EC%9E%84/getUserKeyForGame.html)
 - [Game Center development guide](https://developers-apps-in-toss.toss.im/game-center/develop.html)
 
+The wider SDK queue is mapped in `docs/platform/TOSS_SDK_API_MAP.md`.
+
 ## Official API Shape
 
 Web package:

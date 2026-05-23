@@ -6,17 +6,17 @@ Purpose:
 
 ## Queue 1: SDK Research Lock
 
-- Confirm exact package/import path for Apps in Toss SDK.
-- Confirm game profile APIs.
-- Confirm leaderboard submit/open APIs.
+- Confirm exact package/import path for Apps in Toss SDK. (Phase 87 API map)
+- Confirm game profile APIs. (Phase 87 API map)
+- Confirm leaderboard submit/open APIs. (Phase 87 API map)
 - Confirm game user key API. (Phase 83 mapped `getUserKeyForGame()`, QR validation pending)
-- Confirm share reward API.
-- Confirm ad API.
-- Confirm promotion API.
+- Confirm share reward API. (Phase 87 API map)
+- Confirm ad API. (Phase 87 API map)
+- Confirm promotion API. (Phase 87 API map)
 
 Output:
 
-- `docs/platform/TOSS_SDK_API_MAP.md`
+- `docs/platform/TOSS_SDK_API_MAP.md` (Phase 87 done pending CI)
 
 ## Queue 2: Real Toss Client
 

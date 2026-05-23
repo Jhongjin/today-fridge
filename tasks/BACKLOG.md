@@ -58,6 +58,7 @@
 ## Platform
 
 - Verify latest Apps in Toss SDK requirements. (Phase 82 done pending CI)
+- Create Toss SDK API map. (Phase 87 done pending CI)
 - Retry Apps in Toss package install and document blocker. (Phase 40/82 done pending CI)
 - Confirm leaderboard API constraints. (Phase 82 done pending CI)
 - Confirm promotion review requirements.

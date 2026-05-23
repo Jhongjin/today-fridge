@@ -104,3 +104,4 @@
 - Phase 84 QR session harness added: physical device runs now have a generated evidence checklist covering entry, user key, Game Center, observability, and commander decision.
 - Phase 85 Vercel preview prerequisite preflight added: missing deploy secrets are now explicit through a local check and setup guide while production remains commander-approved.
 - Phase 86 leaderboard profile guard added: clean ranked submits now require an available game user key and no-user-key QA bridge coverage.
+- Phase 87 Toss SDK API map added: official game profile, user key, leaderboard, share reward, ads, and promotion APIs are mapped to MVP implementation order and policy rules.
