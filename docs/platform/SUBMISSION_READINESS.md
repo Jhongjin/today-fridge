@@ -31,7 +31,7 @@ References:
 | Share reward | Mock UI only | Policy-safe mock grant service and integrated QA scenario exist; real `contactsViral` adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
 | Rewarded ads | Mock UI only | Policy-safe completion mock and integrated QA scenario exist; real rewarded-ad adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
 | Promotion points | Mock UI only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` adapter is available behind the external reward gate, with UI wiring pending QR evidence and promotion review. |
-| Error monitoring | Partial | Local hooks and optional `VITE_ERROR_MONITORING_ENDPOINT` transport exist; production endpoint owner and retention policy still need approval. |
+| Error monitoring | Partial | Local hooks and optional `VITE_ERROR_MONITORING_ENDPOINT` transport exist; production endpoint owner, retention policy, and access controls still need approval. |
 | QR test | Pending | Requires Apps in Toss console setup. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
 ## 2. Submission Blockers
@@ -52,7 +52,7 @@ These must be completed before requesting review:
 - Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
-- Error monitoring.
+- Production monitoring endpoint owner, retention policy, and access-control approval.
 - App bundle packaging path and `.ait` upload check.
 - Console-ready PNG logo, thumbnail, and screenshot assets.
 - Game rating classification evidence.
