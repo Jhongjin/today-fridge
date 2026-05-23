@@ -20,9 +20,15 @@ Current npm metadata reports:
 
 | Package | Latest observed | Local status |
 | --- | --- | --- |
-| `@apps-in-toss/web-framework` | `2.6.0` | Exact install still times out in the local Windows workspace. |
+| `@apps-in-toss/web-framework` | `2.6.0` | Dependency is locked in `package.json` and `package-lock.json`; local install succeeds with warnings. |
 
-The app keeps an injected bridge until package installation and bundle import are unblocked.
+The app keeps an injected bridge until official SDK imports are wired and QR-validated.
+
+Install warnings to track:
+
+- `@apps-in-toss/ait-format@1.0.0` declares Node `>=24`; local validation currently uses Node `22.22.0`.
+- npm reports peer override warnings through React Native compatibility packages.
+- npm audit reported 31 vulnerabilities after the SDK tree was added; audit triage is required before final submission.
 
 ## API Map
 
@@ -52,8 +58,8 @@ Future share reward, rewarded ad, and game promotion work must pass `src/platfor
 
 ## Implementation Order
 
-1. Keep the injected bridge stable while package install is blocked.
-2. Finish real SDK import in a clean environment or CI path.
+1. Keep the injected bridge stable while official SDK imports are introduced behind tests.
+2. Finish real SDK import and confirm bundle output.
 3. QR-test game profile creation and returning-user flow.
 4. QR-test `getUserKeyForGame()` success/error/unsupported paths.
 5. QR-test leaderboard submit/open in sandbox and real QR runtime.

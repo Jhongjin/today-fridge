@@ -43,13 +43,13 @@ The bridge is intentionally injected so the game can:
 
 - Unit test Toss behavior without the real Toss app.
 - Keep local browser and CI builds stable.
-- Add the official SDK import in a later queue once dependency installation is unblocked.
+- Add the official SDK import in a later queue while preserving the same adapter contract.
 
 `src/platform/runtimeTossClient.ts` now selects the platform client:
 
 - If `globalThis.__TODAY_FRIDGE_TOSS_BRIDGE__` exists, the app uses `createAppsInTossClient`.
 - Otherwise, the app uses the local mock client for browser, CI, and preview stability.
-- This keeps the UI wired to the same service boundary while the official package install remains blocked.
+- This keeps the UI wired to the same service boundary while official SDK imports are added behind tests.
 
 ## Mapping
 
@@ -74,7 +74,7 @@ Game user key:
 - `INVALID_CATEGORY`, `ERROR`, `undefined`, empty hashes, and thrown exceptions map to `undefined` so gameplay can continue.
 - App startup records `game_user_key_result` with `ready`, `mock`, `unavailable`, or `error` and updates the shared analytics `user_key_status`.
 
-Real QR validation is still required because the current app uses the injected bridge or local mock until the official package install is unblocked.
+Real QR validation is still required because the current app uses the injected bridge or local mock until official SDK imports are wired.
 
 ## Dependency Note
 
@@ -86,7 +86,7 @@ Current npm metadata on 2026-05-23:
 - Unpacked size: `27,657,338` bytes
 - Dependency family: `@apps-in-toss/*` `2.6.0`, `@granite-js/*` `1.0.20`, `brick-module@0.5.2`
 
-Install attempts in the local Windows workspace still time out:
+Historical install attempts in the local Windows workspace timed out:
 
 - Earlier `npm install @apps-in-toss/web-framework@^2.6.0` attempts timed out, including a 5-minute attempt.
 - A fresh exact install for `@apps-in-toss/web-framework@2.6.0` also timed out at 5 minutes.
@@ -96,17 +96,27 @@ Install attempts in the local Windows workspace still time out:
 - No npm process remained after the timeout. `package.json` and `package-lock.json` stayed unchanged.
 - The ignored `node_modules/@apps-in-toss/web-framework` folder still appears partially populated, without a package manifest.
 
+Phase 98 update:
+
+- `npm install @apps-in-toss/web-framework@2.6.0 --save-exact --package-lock-only --ignore-scripts` completed in about 54 seconds.
+- `npm install --ignore-scripts --no-audit --no-fund` completed in about 4 minutes.
+- `package.json` and `package-lock.json` now lock `@apps-in-toss/web-framework@2.6.0`.
+- npm warns that `@apps-in-toss/ait-format@1.0.0` requires Node `>=24` while local validation uses Node `22.22.0`.
+- npm reports peer override warnings through React Native compatibility packages.
+- npm audit reported 31 vulnerabilities after adding the SDK tree; triage remains required before final submission.
+
 Package metadata notes:
 
 - Tarball: `https://registry.npmjs.org/@apps-in-toss/web-framework/-/web-framework-2.6.0.tgz`
 - Unpacked size: about 27.7 MB
 - The package pulls several Apps in Toss and Granite dependencies, so a Linux CI, clean package-manager cache, or direct tarball verification path may be a better place to complete installation.
 
-The adapter contract is ready, but the package import/bundle step remains a separate queue.
+The adapter contract is ready, and the package is now locked. The SDK import/bundle step remains a separate queue.
 
 ## Future Queues
 
-- Resolve package installation in a clean environment and bundle the official SDK.
 - Replace the temporary global bridge hook with the official SDK import.
+- Confirm Node 24 compatibility for Apps in Toss packaging paths.
+- Triage npm audit output introduced by the SDK dependency tree.
 - Add real leaderboard-open result button.
 - Add Toss QR test for supported and unsupported app versions, including `getUserKeyForGame()` success/error paths.

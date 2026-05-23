@@ -37,7 +37,8 @@ References:
 
 These must be completed before requesting review:
 
-- Real Toss SDK package import and runtime wiring. Adapter contract exists in `src/platform/appsInTossClient.ts`, but local exact install still times out.
+- Real Toss SDK package import and runtime wiring. Adapter contract exists in `src/platform/appsInTossClient.ts`, and the package is now locked, but imports and QR validation are still pending.
+- Triage SDK dependency warnings: Node 24 engine requirement, React Native peer overrides, and npm audit findings.
 - Real Game Center profile flow before gameplay.
 - Game user key QR validation and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.

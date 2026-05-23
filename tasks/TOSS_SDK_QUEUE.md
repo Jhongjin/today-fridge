@@ -20,7 +20,8 @@ Output:
 
 ## Queue 2: Real Toss Client
 
-- Blocked locally: exact package install for `@apps-in-toss/web-framework@2.6.0` timed out at 5 and 10 minutes in the Windows workspace without updating package files.
+- Package dependency locked: `@apps-in-toss/web-framework@2.6.0` is now in `package.json` and `package-lock.json`. (Phase 98 done)
+- Track install warnings: Node 24 engine warning, React Native peer overrides, and npm audit findings.
 - Implement `TossClient` using official SDK.
 - Keep `tossMockClient` for browser/CI.
 - Add runtime adapter selection.

@@ -115,3 +115,4 @@
 - Phase 95 tutorial board designed: a 20-30 second non-ranked practice board now has data, route constants, documentation, and engine validation.
 - Phase 96 ingredient icon style locked: board-level icon collision rules, state cues, first daily icon directions, and prototype-to-final asset upgrade criteria are documented and tested.
 - Phase 97 SFX trigger map locked: the implementation sound-event list is exported, tested, and documented with trigger, tone direction, duration, mix, and avoid rules.
+- Phase 98 Apps in Toss SDK dependency locked: `@apps-in-toss/web-framework@2.6.0` now installs locally and is recorded in package files; Node 24 engine, peer override, and audit warnings remain before real SDK import/final submission.

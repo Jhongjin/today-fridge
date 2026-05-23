@@ -16,15 +16,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apps-in-toss/web-framework": "2.6.0",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "^5.4.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

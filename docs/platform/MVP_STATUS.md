@@ -28,7 +28,8 @@
 
 ## Current Submission Blockers
 
-- Official `@apps-in-toss/web-framework@2.6.0` package install still times out in the local Windows workspace.
+- Official `@apps-in-toss/web-framework@2.6.0` is now locked in package files, but real SDK imports are not wired yet.
+- SDK dependency tree raises Node 24 engine and npm audit warnings that need triage before final submission.
 - Real Apps in Toss QR test is still pending; see `docs/platform/QR_TEST_PLAN.md`.
 - Real Game Center profile and user-key QR validation are still pending.
 - Real leaderboard submit/open needs QR-device verification.
