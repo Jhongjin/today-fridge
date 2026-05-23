@@ -68,6 +68,7 @@ const requiredCommands = [
   "npm run qa:qr-session:check",
   "npm run qa:qr-session:index -- --strict",
   "npm run qa:korean-copy",
+  "npm run qa:console-assets",
   "npm run sdk:dependency-triage -- --strict",
   "npm run deploy:check-prereqs"
 ];

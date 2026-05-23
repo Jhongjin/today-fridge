@@ -55,6 +55,8 @@ The script captures a 390x844 mobile viewport:
 
 The console-asset script verifies these PNG dimensions after capture and fails if any generated file is off-spec.
 
+Commander review packets require `npm run qa:console-assets` before approval so upload asset dimensions are rechecked for the reviewed commit.
+
 ## Future Queue
 
 Add QR-device screenshots after the real Apps in Toss runtime is configured.

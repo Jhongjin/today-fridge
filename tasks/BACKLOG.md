@@ -104,6 +104,7 @@
 - Require Korean copy guard in commander review packet. (Phase 129 done pending CI)
 - Run Korean copy guard in Queue Preview validation. (Phase 130 done pending CI)
 - Extend Korean copy guard to console asset scripts. (Phase 131 done pending CI)
+- Require console asset generation in commander review packet. (Phase 132 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)

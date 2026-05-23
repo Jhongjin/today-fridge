@@ -139,6 +139,7 @@ Run these before commander approval:
 npm run qa:qr-session:check
 npm run qa:qr-session:index -- --strict
 npm run qa:korean-copy
+npm run qa:console-assets
 npm run sdk:dependency-triage -- --strict
 npm run deploy:check-prereqs
 \`\`\`
@@ -160,6 +161,7 @@ ${checkboxRows([
   "Entry, result, leaderboard, error, recording, and device-log artifact locations are filled or marked n/a.",
   "No console/page errors are observed, or every observed error has a linked note.",
   "Korean listing and metadata copy guard passed for this commit.",
+  "Console logo, thumbnail, and upload screenshots were regenerated and dimensions verified.",
   "SDK dependency triage was refreshed for this commit and has no strict failures.",
   "Clean leaderboard submit and leaderboard open remain separate user actions.",
   "Profile/user-key unavailable path does not allow ranked play input.",
