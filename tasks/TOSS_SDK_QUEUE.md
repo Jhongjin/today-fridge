@@ -67,6 +67,7 @@ Output:
 - Use `shareReward` mock service until real `contactsViral` is wired. (Phase 90 service done; Phase 106 SDK adapter done, UI wiring pending)
 - Keep real external reward runtime behind a separate environment gate. (Phase 107 done)
 - Route future runtime clients through the external reward gate. (Phase 108 done, UI wiring pending)
+- Fail QR candidate builds early when real external rewards are requested without required env. (Phase 109 done, UI wiring pending)
 
 Output:
 
@@ -83,6 +84,7 @@ Output:
 - Use `promotionReward` mock service until real `grantPromotionRewardForGame` is wired. (Phase 92 service done; Phase 106 SDK adapter done, UI wiring pending)
 - Keep real ad/promotion runtime behind a separate environment gate. (Phase 107 done)
 - Route future runtime clients through the external reward gate. (Phase 108 done, UI wiring pending)
+- Fail QR candidate builds early when real external rewards are requested without required env. (Phase 109 done, UI wiring pending)
 
 Output:
 

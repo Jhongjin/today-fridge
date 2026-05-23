@@ -47,7 +47,7 @@ Keep the flag off for normal browser, CI, and non-QR previews until commander ap
 External reward QR candidates require a second explicit gate:
 
 ```bash
-VITE_TOSS_REAL_CLIENT=true VITE_TOSS_REAL_EXTERNAL_REWARDS=true npm run build
+VITE_TOSS_REAL_CLIENT=true VITE_TOSS_REAL_EXTERNAL_REWARDS=true npm run qr:external-rewards:build
 ```
 
 The external reward gate also requires:
@@ -60,6 +60,14 @@ The external reward gate also requires:
 
 If any value is missing, `src/platform/externalRewardRuntimeGate.ts` must keep external rewards blocked and report the missing keys.
 `src/platform/runtimeExternalRewardClients.ts` must keep mock clients when the gate is `mock` or `blocked`, and only load real SDK adapters when the gate is `real`.
+
+Run the explicit preflight before creating a QR candidate:
+
+```bash
+npm run qr:external-rewards:preflight
+```
+
+Normal browser, CI, and non-QR builds keep passing when `VITE_TOSS_REAL_EXTERNAL_REWARDS` is not enabled. Any build that sets `VITE_TOSS_REAL_EXTERNAL_REWARDS=true` now fails before Vite starts if the real Toss client flag or any required Toss console ID is missing.
 
 ## Entry Checks
 

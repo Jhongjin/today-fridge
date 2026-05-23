@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "node scripts/check-external-reward-prereqs.mjs && tsc --noEmit && vite build",
     "check:bundle": "node scripts/check-bundle-budget.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "qa:screenshots": "node scripts/capture-submission-screenshots.mjs",
     "qa:console-assets": "node scripts/capture-console-assets.mjs",
     "qa:qr-session": "node scripts/create-qr-session.mjs",
+    "external-rewards:check-prereqs": "node scripts/check-external-reward-prereqs.mjs",
+    "qr:external-rewards:preflight": "node scripts/check-external-reward-prereqs.mjs --require-real",
+    "qr:external-rewards:build": "node scripts/check-external-reward-prereqs.mjs --require-real && npm run build",
     "deploy:check-prereqs": "node scripts/check-deploy-prereqs.mjs",
     "preview": "vite preview"
   },

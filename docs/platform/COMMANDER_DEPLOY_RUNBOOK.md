@@ -38,6 +38,12 @@ Local preflight:
 npm run deploy:check-prereqs
 ```
 
+External reward QR candidate preflight:
+
+```bash
+npm run qr:external-rewards:preflight
+```
+
 Setup details:
 
 `docs/platform/VERCEL_PREVIEW_SETUP.md`

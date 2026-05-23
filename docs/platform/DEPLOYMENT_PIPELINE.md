@@ -62,6 +62,14 @@ Preflight:
 npm run deploy:check-prereqs
 ```
 
+External reward QR candidate preflight:
+
+```bash
+npm run qr:external-rewards:preflight
+```
+
+The normal `npm run build` command also runs the external reward preflight. It is a no-op for mock/non-QR builds, but fails fast when `VITE_TOSS_REAL_EXTERNAL_REWARDS=true` is set without `VITE_TOSS_REAL_CLIENT=true` and all required Toss console IDs.
+
 See `docs/platform/VERCEL_PREVIEW_SETUP.md` for setup steps and current skip diagnostics.
 
 Validation includes:
