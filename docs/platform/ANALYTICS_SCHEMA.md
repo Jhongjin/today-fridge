@@ -34,14 +34,14 @@ Every event should include:
 | `tutorial_step_complete` | `step_id`, `duration_ms` |
 | `tutorial_complete` | `board_id`, `duration_ms` |
 | `round_start` | `play_id`, `board_id`, `seed`, `attempt_no`, `ranked_mode` |
-| `game_pause` | `play_id`, `moves_used`, `score` |
-| `game_resume` | `play_id`, `moves_used`, `score` |
+| `game_pause` | `play_id`, `moves_used`, `score`, `active_duration_ms`, `total_paused_ms` |
+| `game_resume` | `play_id`, `moves_used`, `score`, `paused_ms`, `total_paused_ms`, `active_duration_ms` |
 | `move_commit` | `play_id`, `move_no`, `ingredient_id`, `tray_state_hash` |
 | `match_clear` | `play_id`, `ingredient_id`, `count`, `combo_index`, `points` |
 | `recipe_complete` | `play_id`, `recipe_id`, `points` |
 | `expiring_rescue` | `play_id`, `ingredient_id`, `points` |
 | `booster_use` | `play_id`, `booster_id`, `ranked_mode` |
-| `round_complete` | `play_id`, `score`, `score_tier`, `duration_ms`, `moves_used`, `recipe_count`, `rescued_count` |
+| `round_complete` | `play_id`, `score`, `score_tier`, `duration_ms`, `paused_ms`, `moves_used`, `recipe_count`, `rescued_count` |
 | `round_fail` | `play_id`, `fail_reason`, `move_no`, `tray_state_hash` |
 | `mission_summary` | `play_id`, `completed_count`, `total_count`, `recipe_completed`, `rescue_completed`, `clean_record_completed` |
 | `audio_visibility_change` | `play_id`, `hidden` |

@@ -117,6 +117,7 @@ test("pause button holds board interaction until resumed", async ({ page }) => {
   await expect(page.getByTestId("hint-booster")).toBeDisabled();
   await expect(page.getByTestId("score-value")).toHaveText("0");
   await expect(page.getByTestId("qa-event-list")).toContainText("game_pause");
+  await expect(page.getByTestId("qa-event-list")).toContainText("active_duration_ms:");
 
   await page.getByTestId("resume-button").click();
 
@@ -124,6 +125,7 @@ test("pause button holds board interaction until resumed", async ({ page }) => {
   await expect(page.getByTestId("pause-button")).toHaveAttribute("aria-pressed", "false");
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeEnabled();
   await expect(page.getByTestId("qa-event-list")).toContainText("game_resume");
+  await expect(page.getByTestId("qa-event-list")).toContainText("paused_ms:");
 
   await page.getByTestId("cell-green_onion_1_fresh").click();
   await page.getByTestId("cell-green_onion_2_fresh").click();

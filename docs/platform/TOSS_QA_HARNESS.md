@@ -73,7 +73,7 @@ Required events:
 | `move_commit` | play_id, move_no, ingredient_id, tray_state_hash |
 | `match_clear` | play_id, ingredient_id, combo_index |
 | `recipe_complete` | play_id, recipe_id |
-| `round_complete` | play_id, board_id, score, duration_ms, clear_count, recipe_count |
+| `round_complete` | play_id, board_id, score, duration_ms, paused_ms, clear_count, recipe_count |
 | `round_fail` | play_id, board_id, fail_reason |
 | `leaderboard_submit` | play_id, score, status, error_code, board_id, seed, route_cells, route_ingredients, score_breakdown_receipt |
 | `leaderboard_open` | source, status |

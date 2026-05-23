@@ -17,4 +17,4 @@ Make the visible pause control behave like a real gameplay pause without changin
 
 ## Follow-Up
 
-- If future modes introduce a timer, subtract paused duration from round timing and any score decay.
+- Pause-adjusted round duration moved into Phase 72.

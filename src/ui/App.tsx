@@ -7,6 +7,7 @@ import { getIngredient } from "../game/data/ingredients";
 import { getRecipe } from "../game/data/recipes";
 import { applyKstDailySeed, getMsUntilNextKstRefresh, getNextKstRefreshAt } from "../game/engine/dailySeed";
 import { createInitialState, selectIngredient } from "../game/engine/gameEngine";
+import { activeRoundDurationMs, pausedDurationMs } from "../game/engine/roundClock";
 import { SCORE, totalScore } from "../game/engine/scoring";
 import { scoreTierFor } from "../game/engine/scoreTier";
 import type { BoardCell, IngredientInstance, ScoreBreakdown } from "../game/types";
@@ -229,6 +230,8 @@ export const App = () => {
   const [muted, setMuted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [pausedStartedAt, setPausedStartedAt] = useState<number | null>(null);
+  const [totalPausedMs, setTotalPausedMs] = useState(0);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
   const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "success" | "error">("idle");
@@ -431,6 +434,7 @@ export const App = () => {
 
     if (next.status === "complete" && current.status === "playing") {
       const finalScore = totalScore(next.breakdown);
+      const completedAt = Date.now();
 
       if (cleanRun) {
         const bestImproved = finalScore > personalBest;
@@ -468,7 +472,12 @@ export const App = () => {
           score: finalScore,
           status: next.status
         }),
-        duration_ms: Math.max(0, Date.now() - roundStartedAt),
+        duration_ms: activeRoundDurationMs({
+          nowMs: completedAt,
+          startedAtMs: roundStartedAt,
+          totalPausedMs
+        }),
+        paused_ms: totalPausedMs,
         moves_used: next.movesUsed,
         recipe_count: next.completedRecipeIds.length,
         rescued_count: next.rescuedCount
@@ -511,6 +520,8 @@ export const App = () => {
 
     trackRoundStart(nextPlayId, nextAttemptNo);
     setIsPaused(false);
+    setPausedStartedAt(null);
+    setTotalPausedMs(0);
     setGameState(createInitialState(board));
     setPlayId(nextPlayId);
     setAttemptNo(nextAttemptNo);
@@ -556,11 +567,20 @@ export const App = () => {
       return;
     }
 
+    const pausedAt = Date.now();
+
     setIsPaused(true);
+    setPausedStartedAt(pausedAt);
     trackEvent("game_pause", {
       play_id: playId,
       moves_used: gameState.movesUsed,
-      score
+      score,
+      active_duration_ms: activeRoundDurationMs({
+        nowMs: pausedAt,
+        startedAtMs: roundStartedAt,
+        totalPausedMs
+      }),
+      total_paused_ms: totalPausedMs
     });
   };
 
@@ -569,11 +589,24 @@ export const App = () => {
       return;
     }
 
+    const resumedAt = Date.now();
+    const pausedMs = pausedDurationMs(pausedStartedAt, resumedAt);
+    const nextTotalPausedMs = totalPausedMs + pausedMs;
+
     setIsPaused(false);
+    setPausedStartedAt(null);
+    setTotalPausedMs(nextTotalPausedMs);
     trackEvent("game_resume", {
       play_id: playId,
       moves_used: gameState.movesUsed,
-      score
+      score,
+      paused_ms: pausedMs,
+      total_paused_ms: nextTotalPausedMs,
+      active_duration_ms: activeRoundDurationMs({
+        nowMs: resumedAt,
+        startedAtMs: roundStartedAt,
+        totalPausedMs: nextTotalPausedMs
+      })
     });
   };
 

@@ -9,8 +9,12 @@ const eventPropertySummary = (event: AnalyticsEvent) =>
   (event.eventName === "leaderboard_submit"
     ? ["status", "score", "board_id", "seed", "route_cells", "score_breakdown_receipt"]
     : event.eventName === "round_complete"
-      ? ["score", "score_tier", "moves_used", "rescued_count"]
-      : []
+      ? ["score", "score_tier", "duration_ms", "paused_ms"]
+      : event.eventName === "game_pause"
+        ? ["moves_used", "score", "active_duration_ms", "total_paused_ms"]
+        : event.eventName === "game_resume"
+          ? ["moves_used", "score", "paused_ms", "total_paused_ms", "active_duration_ms"]
+          : []
   )
     .filter((key) => event.properties[key] !== undefined)
     .map((key) => [key, event.properties[key]] as const)
