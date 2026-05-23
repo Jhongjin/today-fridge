@@ -44,6 +44,22 @@ VITE_TOSS_REAL_CLIENT=true npm run build
 
 Keep the flag off for normal browser, CI, and non-QR previews until commander approves real runtime activation.
 
+External reward QR candidates require a second explicit gate:
+
+```bash
+VITE_TOSS_REAL_CLIENT=true VITE_TOSS_REAL_EXTERNAL_REWARDS=true npm run build
+```
+
+The external reward gate also requires:
+
+- `VITE_TOSS_CONTACTS_VIRAL_MODULE_ID`
+- `VITE_TOSS_REWARDED_AD_RESULT_FAILURE_ID`
+- `VITE_TOSS_REWARDED_AD_RESULT_COMPLETION_ID`
+- `VITE_TOSS_REWARDED_AD_RECIPE_BOOK_ID`
+- `VITE_TOSS_PROMOTION_CODE`
+
+If any value is missing, `src/platform/externalRewardRuntimeGate.ts` must keep external rewards blocked and report the missing keys.
+
 ## Entry Checks
 
 - QR launches the app without blank screen.
@@ -81,6 +97,13 @@ Keep the flag off for normal browser, CI, and non-QR previews until commander ap
 - `round_complete`, `leaderboard_submit`, and `leaderboard_open` are recorded.
 - Client errors and asset-load failures are captured.
 - QA analytics panel can be used only with `?qa=analytics`.
+
+## External Reward Checks
+
+- Real external rewards remain off unless both real runtime flags are enabled.
+- Contacts viral module ID opens only in QR candidate builds and reports reward, close, no-reward, and error states.
+- Full-screen ad IDs load before show, and reward only after `userEarnedReward`.
+- Promotion code grants only fixed action rewards and records Toss error codes without affecting ranked score.
 
 ## Pass Criteria
 

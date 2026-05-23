@@ -53,6 +53,8 @@ Optional variable:
 - `BUNDLE_BUDGET_BYTES`, when the default 5 MB static `dist` budget needs to be raised for approved assets.
 - `VITE_ANALYTICS_ENDPOINT`, when preview/production builds should deliver analytics events to an HTTP endpoint.
 - `VITE_TOSS_REAL_CLIENT=true`, only for commander-approved QR-candidate previews that should load the official Apps in Toss SDK runtime client.
+- `VITE_TOSS_REAL_EXTERNAL_REWARDS=true`, only with `VITE_TOSS_REAL_CLIENT=true` and commander-approved QR reward IDs.
+- `VITE_TOSS_CONTACTS_VIRAL_MODULE_ID`, `VITE_TOSS_REWARDED_AD_RESULT_FAILURE_ID`, `VITE_TOSS_REWARDED_AD_RESULT_COMPLETION_ID`, `VITE_TOSS_REWARDED_AD_RECIPE_BOOK_ID`, and `VITE_TOSS_PROMOTION_CODE`, only for real external reward QR candidates.
 
 Preflight:
 

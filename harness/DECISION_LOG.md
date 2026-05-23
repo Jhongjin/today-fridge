@@ -124,3 +124,4 @@
 - Phase 104 friend challenge share reward added: result-screen friend challenge now grants one fixed daily non-ranked coin reward after a successful share action, with duplicate protection and clean leaderboard eligibility preserved.
 - Phase 105 ad/promotion safe hooks added: rewarded ads now have a mock load/show client path before fixed non-ranked grants, and promotion rewards have fixed-action helpers that avoid score, rank, win/loss, and random dependencies.
 - Phase 106 external reward SDK adapters added: real contacts viral, full-screen ad, and game promotion SDK event/error shapes now normalize behind platform clients while UI wiring remains pending QR/device verification.
+- Phase 107 external reward runtime gate added: real contacts/ad/promotion rewards now require a second env opt-in plus all Toss console IDs, and remain blocked unless the real Toss client flag is also enabled.
