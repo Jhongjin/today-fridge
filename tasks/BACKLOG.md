@@ -17,7 +17,7 @@
 - Add next 05:00 KST refresh cue. (Phase 34 done pending CI)
 - Add local daily streak habit cue. (Phase 36 done pending CI)
 - Scope best score and rewards to daily seed. (Phase 27 done pending CI)
-- Design tutorial board.
+- Design tutorial board. (Phase 95 done pending CI)
 - Add non-blocking first-play tutorial hints. (Phase 14 done pending CI)
 - Prototype scoring formula. (Phase 1 MVP done in `docs/design/SCORE_AND_RECOVERY.md`)
 - Add personal best competition loop. (Phase 13 done pending CI)

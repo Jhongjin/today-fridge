@@ -44,5 +44,5 @@ These are aligned with the first clean completion route documented in `FIRST_DAI
 ## Future Queues
 
 - Persist tutorial completion across sessions.
-- Add a tutorial-only board if first-run completion rate is below target.
+- Wire `tutorial_001_kimchi_fried_rice` only if first-run completion rate is below target or commander wants a separate practice entry.
 - Track `tutorial_step_complete` once the analytics transport is connected.

@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { firstDailyBoard } from "../data/boards";
+import { firstDailyBoard, tutorialBoard, tutorialBoardRoute } from "../data/boards";
+import type { BoardDefinition } from "../types";
 import { createInitialState, selectIngredient } from "./gameEngine";
 import { totalScore } from "./scoring";
 
-const play = (moves: string[]) =>
-  moves.reduce((state, cellId) => selectIngredient(state, firstDailyBoard, cellId), createInitialState(firstDailyBoard));
+const playBoard = (board: BoardDefinition, moves: readonly string[]) =>
+  moves.reduce((state, cellId) => selectIngredient(state, board, cellId), createInitialState(board));
+
+const play = (moves: string[]) => playBoard(firstDailyBoard, moves);
 
 describe("game engine", () => {
   it("starts the first daily board in playing state", () => {
@@ -55,5 +58,18 @@ describe("game engine", () => {
       wastePenalty: 0
     });
     expect(totalScore(state.breakdown)).toBe(1700);
+  });
+
+  it("has a short tutorial board route for match, recipe, and rescue teaching", () => {
+    const matchState = playBoard(tutorialBoard, tutorialBoardRoute.match);
+    const completedState = playBoard(tutorialBoard, tutorialBoardRoute.cleanCompletion);
+
+    expect(matchState.breakdown.clearPoints).toBe(100);
+    expect(matchState.rescuedCount).toBe(1);
+    expect(completedState.status).toBe("complete");
+    expect(completedState.rescuedCount).toBe(1);
+    expect(completedState.completedRecipeIds).toContain("kimchi_fried_rice");
+    expect(completedState.movesUsed).toBe(6);
+    expect(totalScore(completedState.breakdown)).toBe(1400);
   });
 });

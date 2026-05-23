@@ -60,3 +60,32 @@ export const firstDailyBoard: BoardDefinition = {
   ]
 };
 
+export const tutorialBoard: BoardDefinition = {
+  id: "tutorial_001_kimchi_fried_rice",
+  seed: "tutorial-fixed-kimchi-v1",
+  title: "Tutorial Fridge Practice",
+  traySlots: 6,
+  moveLimit: 10,
+  mainRecipeId: "kimchi_fried_rice",
+  rescueTarget: 1,
+  cells: [
+    cell("A1", item("tofu", 101)),
+    cell("B1", item("tofu", 102)),
+    cell("C1", item("tofu", 103, "expiring")),
+    cell("D1", item("green_onion", 101)),
+    cell("E1", item("mushroom", 101)),
+    cell("A2", item("rice", 101)),
+    cell("B2", item("kimchi", 101)),
+    cell("C2", item("egg", 101)),
+    cell("D2", item("zucchini", 101)),
+    cell("E2", item("soy_sauce", 101)),
+    cell("A3", undefined, undefined, true),
+    cell("B3", undefined, undefined, true)
+  ]
+};
+
+export const tutorialBoardRoute = {
+  match: ["A1", "B1", "C1"],
+  recipe: ["A2", "B2", "C2"],
+  cleanCompletion: ["A1", "B1", "C1", "A2", "B2", "C2"]
+} as const;

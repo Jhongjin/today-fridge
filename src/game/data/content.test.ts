@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { firstDailyBoard } from "./boards";
+import { firstDailyBoard, tutorialBoard } from "./boards";
 import { ingredients } from "./ingredients";
 import { recipes } from "./recipes";
 
@@ -20,18 +20,19 @@ describe("content data", () => {
     }
   });
 
-  it("keeps first daily board ingredient references valid", () => {
-    for (const cell of firstDailyBoard.cells) {
-      if (cell.front) {
-        expect(ingredients[cell.front.ingredientId], `${cell.id} front`).toBeDefined();
+  it("keeps board ingredient references valid", () => {
+    for (const board of [firstDailyBoard, tutorialBoard]) {
+      for (const cell of board.cells) {
+        if (cell.front) {
+          expect(ingredients[cell.front.ingredientId], `${board.id} ${cell.id} front`).toBeDefined();
+        }
+
+        if (cell.back) {
+          expect(ingredients[cell.back.ingredientId], `${board.id} ${cell.id} back`).toBeDefined();
+        }
       }
 
-      if (cell.back) {
-        expect(ingredients[cell.back.ingredientId], `${cell.id} back`).toBeDefined();
-      }
+      expect(recipes[board.mainRecipeId]).toBeDefined();
     }
-
-    expect(recipes[firstDailyBoard.mainRecipeId]).toBeDefined();
   });
 });
-
