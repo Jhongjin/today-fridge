@@ -238,6 +238,7 @@ export const App = () => {
   const [personalBest, setPersonalBest] = useState(() => readPersonalBest(dailyRunKey));
   const [bestRoute, setBestRoute] = useState(() => readPersonalBestRoute(dailyRunKey));
   const [currentRoute, setCurrentRoute] = useState<PersonalBestRouteStep[]>([]);
+  const [bestRouteDeviationTracked, setBestRouteDeviationTracked] = useState(false);
   const [lastBestDelta, setLastBestDelta] = useState<number | null>(null);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>("match");
   const [runFlags, setRunFlags] = useState(cleanRankedFlags);
@@ -432,9 +433,26 @@ export const App = () => {
               ingredientId: selectedIngredientId
             }
           ];
+    const expectedBestRouteStep = bestRoute?.steps[currentRoute.length] ?? null;
+    const deviatedFromBestRoute =
+      Boolean(bestRoute) &&
+      selectedIngredientId !== null &&
+      !bestRouteDeviationTracked &&
+      (expectedBestRouteStep?.cellId !== cell.id || expectedBestRouteStep?.ingredientId !== selectedIngredientId);
 
     if (boosterHintCellId === cell.id) {
       setBoosterHintCellId(null);
+    }
+
+    if (deviatedFromBestRoute) {
+      setBestRouteDeviationTracked(true);
+      trackEvent("best_route_deviation", {
+        play_id: playId,
+        step_no: currentRoute.length + 1,
+        matched_steps: currentRoute.length,
+        expected_cell_id: expectedBestRouteStep?.cellId ?? null,
+        selected_cell_id: cell.id
+      });
     }
 
     trackEvent("move_commit", {
@@ -587,6 +605,7 @@ export const App = () => {
     setRoundStartedAt(Date.now());
     setLastBestDelta(null);
     setCurrentRoute([]);
+    setBestRouteDeviationTracked(false);
     setTutorialStep((step) => (step === "done" ? "done" : "match"));
     setRunFlags(cleanRankedFlags());
     setBoosterHintCellId(null);

@@ -148,7 +148,7 @@ test("player can complete the main recipe", async ({ page }) => {
 });
 
 test("personal best chase updates after replay starts", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/?qa=analytics");
 
   await playCleanRoute(page);
   await page.getByTestId("restart-button").click();
@@ -165,6 +165,8 @@ test("personal best chase updates after replay starts", async ({ page }) => {
   await expect(page.getByTestId("score-value")).toHaveText("100");
   await expect(page.getByTestId("best-chase-value")).toHaveText("1,600점");
   await expect(page.getByTestId("best-route-strip-label")).toContainText("새 루트 실험 중");
+  await expect(page.getByTestId("qa-event-list")).toContainText("best_route_deviation");
+  await expect(page.getByTestId("qa-event-list")).toContainText("matched_steps:0");
 });
 
 test("player can finish a clean board and submit the score", async ({ page }) => {

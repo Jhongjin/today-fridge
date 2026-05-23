@@ -55,6 +55,7 @@ Every event should include:
 | `friend_challenge_open` | `source`, `board_id` |
 | `friend_challenge_send` | `board_id`, `status` |
 | `personal_best_update` | `old_score`, `new_score`, `delta` |
+| `best_route_deviation` | `play_id`, `step_no`, `matched_steps`, `expected_cell_id`, `selected_cell_id` |
 
 ## 5. Economy And Reward Events
 

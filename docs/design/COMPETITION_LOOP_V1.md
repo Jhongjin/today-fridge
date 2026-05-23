@@ -44,6 +44,7 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 - `round_complete.score_tier`
 - `result_share`
 - `leaderboard_submit`
+- `best_route_deviation`
 
 ## Future Queues
 
@@ -51,3 +52,4 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 - Add around-my-rank list on result screen.
 - Add "best route replay" QA tooling for deterministic route analysis.
 - Split clean personal best from comfort-run personal best when boosters become active.
+- Use `best_route_deviation` to learn whether route preview helps or overwhelms replay.

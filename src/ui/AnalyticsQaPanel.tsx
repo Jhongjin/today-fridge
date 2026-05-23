@@ -14,7 +14,9 @@ const eventPropertySummary = (event: AnalyticsEvent) =>
         ? ["moves_used", "score", "active_duration_ms", "total_paused_ms"]
         : event.eventName === "game_resume"
           ? ["moves_used", "score", "paused_ms", "total_paused_ms", "active_duration_ms"]
-          : []
+          : event.eventName === "best_route_deviation"
+            ? ["step_no", "matched_steps", "expected_cell_id", "selected_cell_id"]
+            : []
   )
     .filter((key) => event.properties[key] !== undefined)
     .map((key) => [key, event.properties[key]] as const)

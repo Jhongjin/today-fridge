@@ -68,6 +68,7 @@
 - Add QA-only analytics event inspector. (Phase 33 done pending CI)
 - Add mission summary analytics event. (Phase 52 done pending CI)
 - Add QA analytics mission-summary browser coverage. (Phase 53 done pending CI)
+- Add best-route deviation analytics. (Phase 76 done pending CI)
 - Show leaderboard score audit receipts in QA analytics panel. (Phase 60 done pending CI)
 - Show score tier in QA analytics panel. (Phase 69 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)

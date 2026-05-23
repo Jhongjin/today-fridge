@@ -93,3 +93,4 @@
 - Phase 73 personal-best chase copy added: the competition strip now distinguishes first-record, behind, tied, and ahead states during replay.
 - Phase 74 replay route preview added: saved best routes now appear on the playable screen during replay.
 - Phase 75 route-following state added: replay route preview now tells players when they are following the best route or trying a new route.
+- Phase 76 best-route deviation analytics added: the first replay divergence from a saved route is tracked and exposed in QA.
