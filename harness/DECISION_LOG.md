@@ -99,3 +99,4 @@
 - Phase 79 settings analytics added: preference toggles now write storage and analytics outside state updaters and appear in QA.
 - Phase 80 MVP checkpoint updated: submission readiness now reflects pause, replay, console asset guard, and settings progress.
 - Phase 81 BGM direction locked: production music should be low-fatigue warm-kitchen casual with strict anti-casino and anti-timer constraints.
+- Phase 82 Toss SDK recheck completed: official Game Center constraints still match the adapter, npm latest is `@apps-in-toss/web-framework@2.6.0`, and local exact install still times out after 10 minutes.

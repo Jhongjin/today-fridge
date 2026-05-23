@@ -4,7 +4,7 @@
 
 This queue creates the game-center adapter contract for Apps in Toss without bundling the SDK package yet.
 
-Official docs checked on 2026-05-22:
+Official docs checked on 2026-05-23:
 
 - [Game leaderboard: submit score and open leaderboard](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EA%B2%8C%EC%9E%84/submitGameCenterLeaderBoardScore.html)
 - [Game Center development guide](https://developers-apps-in-toss.toss.im/game-center/develop.html)
@@ -65,18 +65,27 @@ Game user key:
 
 `npm view @apps-in-toss/web-framework version` confirms `2.6.0` is available from npm.
 
+Current npm metadata on 2026-05-23:
+
+- Version: `2.6.0`
+- Unpacked size: `27,657,338` bytes
+- Dependency family: `@apps-in-toss/*` `2.6.0`, `@granite-js/*` `1.0.20`, `brick-module@0.5.2`
+
 Install attempts in the local Windows workspace still time out:
 
 - Earlier `npm install @apps-in-toss/web-framework@^2.6.0` attempts timed out, including a 5-minute attempt.
 - A fresh exact install for `@apps-in-toss/web-framework@2.6.0` also timed out at 5 minutes.
 - A repeated exact install timed out at 10 minutes and left an npm process running, which was stopped manually.
 - The package body partially appeared in ignored `node_modules`, but `package.json` and `package-lock.json` were not updated.
+- Phase 82 repeated `npm install @apps-in-toss/web-framework@2.6.0 --save-exact --no-audit --no-fund` and it timed out again after 10 minutes.
+- No npm process remained after the timeout. `package.json` and `package-lock.json` stayed unchanged.
+- The ignored `node_modules/@apps-in-toss/web-framework` folder still appears partially populated, without a package manifest.
 
 Package metadata notes:
 
 - Tarball: `https://registry.npmjs.org/@apps-in-toss/web-framework/-/web-framework-2.6.0.tgz`
 - Unpacked size: about 27.7 MB
-- The package pulls several Apps in Toss and Granite dependencies, so a Linux CI or clean package-manager cache may be a better place to complete installation.
+- The package pulls several Apps in Toss and Granite dependencies, so a Linux CI, clean package-manager cache, or direct tarball verification path may be a better place to complete installation.
 
 The adapter contract is ready, but the package import/bundle step remains a separate queue.
 
