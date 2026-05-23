@@ -80,7 +80,7 @@ Avoid:
 
 ## Copy Encoding Check
 
-Run before QR/review packets:
+Run before QR/review packets. The guard covers listing/metadata copy and Korean strings used in generated console assets:
 
 ```bash
 npm run qa:korean-copy

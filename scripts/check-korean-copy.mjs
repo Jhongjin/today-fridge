@@ -16,6 +16,14 @@ const checks = [
   {
     file: "public/manifest.webmanifest",
     required: ["\"name\": \"오늘의 냉장고\"", "\"short_name\": \"오늘의 냉장고\"", "냉장고 속 재료를 정리해"]
+  },
+  {
+    file: "scripts/capture-console-assets.mjs",
+    required: ["오늘의 냉장고", "10초 냉파 퍼즐", "정리하고, 완성하고, 오늘 기록 경쟁"]
+  },
+  {
+    file: "scripts/capture-submission-screenshots.mjs",
+    required: ["오늘의 기록 제출"]
   }
 ];
 

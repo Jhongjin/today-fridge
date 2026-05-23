@@ -148,3 +148,4 @@
 - Phase 128 Korean copy guard added: listing, strategy, HTML, and manifest Korean title/score copy can be checked for required phrases and mojibake markers.
 - Phase 129 commander review packet now requires the Korean copy guard before approval.
 - Phase 130 Queue Preview Validate Harness now runs the Korean copy guard before build and browser checks.
+- Phase 131 Korean copy guard now covers console asset and submission screenshot Korean strings.
