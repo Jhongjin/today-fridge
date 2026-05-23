@@ -10,6 +10,7 @@ References:
 - [Toss requirements checkpoint](./TOSS_REQUIREMENTS_CHECKPOINT.md)
 - [Toss SDK API map](./TOSS_SDK_API_MAP.md)
 - [External reward policy](./EXTERNAL_REWARD_POLICY.md)
+- [Promotion review requirements](./PROMOTION_REVIEW_REQUIREMENTS.md)
 
 ## 1. Current Readiness
 
@@ -60,6 +61,7 @@ Do not change without command-center review:
 - Ads must not appear during active play.
 - Share rewards must not improve clean ranked score.
 - Leaderboard score submit must happen after round end.
+- Promotion points must pass console review, test-code call, budget review, duplicate prevention, and QR/device verification before UI exposure.
 
 ## 4. GitHub/Vercel Setup
 

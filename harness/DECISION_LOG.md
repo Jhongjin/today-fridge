@@ -111,3 +111,4 @@
 - Phase 91 rewarded ad mock service added: future rewarded-ad completion rewards require user initiation, completion evidence, no active-play interruption, and fixed non-ranked grants.
 - Phase 92 promotion reward mock service added: future game promotion rewards are limited to fixed user-initiated actions and blocked when tied to score, rank, win/loss, or random outcomes.
 - Phase 93 integrated external reward QA scenarios added: share, rewarded-ad, and promotion mock paths now run together to prove only policy-approved rewards reach the wallet and clean ranked score remains unchanged.
+- Phase 94 promotion review requirements locked: official Toss promotion docs now map budget, review, test-code, duplicate-prevention, error-handling, and game reward prohibition rules into a project checklist.

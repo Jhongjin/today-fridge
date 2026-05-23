@@ -67,6 +67,10 @@ Policy details:
 
 `docs/platform/EXTERNAL_REWARD_POLICY.md`
 
+Promotion review requirements:
+
+`docs/platform/PROMOTION_REVIEW_REQUIREMENTS.md`
+
 ## 5. Event Logging
 
 Required events:

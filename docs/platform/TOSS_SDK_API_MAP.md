@@ -11,6 +11,7 @@ Checked on 2026-05-23 against official Apps in Toss docs.
 - [Contacts viral](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EC%B9%9C%EA%B5%AC%EC%B4%88%EB%8C%80/contactsViral.html)
 - [Integrated full-screen ads](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EA%B4%91%EA%B3%A0/IntegratedAd.html)
 - [Game promotion reward](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EA%B2%8C%EC%9E%84/grantPromotionRewardForGame.html)
+- [Promotion review requirements](./PROMOTION_REVIEW_REQUIREMENTS.md)
 - [SDK overview](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/overview.html)
 
 ## Package
@@ -58,4 +59,4 @@ Future share reward, rewarded ad, and game promotion work must pass `src/platfor
 5. QR-test leaderboard submit/open in sandbox and real QR runtime.
 6. Add share reward only if the reward is fixed and non-ranked.
 7. Add rewarded ad only after policy, audio lifecycle, and fairness checks are locked.
-8. Add game promotion only after commander approves fixed-action reward copy and budget controls.
+8. Add game promotion only after commander approves fixed-action reward copy, budget controls, duplicate defense, test-code call, and review requirements.

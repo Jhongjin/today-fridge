@@ -61,7 +61,7 @@
 - Create Toss SDK API map. (Phase 87 done pending CI)
 - Retry Apps in Toss package install and document blocker. (Phase 40/82 done pending CI)
 - Confirm leaderboard API constraints. (Phase 82 done pending CI)
-- Confirm promotion review requirements.
+- Confirm promotion review requirements. (Phase 94 done pending CI)
 - Add official Toss requirements checkpoint. (Phase 57 done pending CI)
 - Add game rating evidence checklist. (Phase 64 done pending CI)
 - Define analytics event schema. (Phase 1 MVP done in `docs/platform/ANALYTICS_SCHEMA.md`)
