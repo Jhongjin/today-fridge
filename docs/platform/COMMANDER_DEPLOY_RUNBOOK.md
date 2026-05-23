@@ -50,6 +50,8 @@ QR review packet:
 npm run qa:commander-review-packet -- --commit <sha> --preview-url <preview-or-qr-url>
 ```
 
+The generated packet requires `npm run sdk:dependency-triage -- --strict` before approval, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
+
 Setup details:
 
 `docs/platform/VERCEL_PREVIEW_SETUP.md`
@@ -106,6 +108,6 @@ If production deploy fails:
 ## Current Known Blockers
 
 - Real Toss SDK QR/device validation is pending.
-- SDK dependency tree still needs Node 24 engine and npm audit triage before final submission.
+- SDK dependency tree must be refreshed with `npm run sdk:dependency-triage -- --strict` before final submission.
 - Production monitoring transport is pending.
 - Vercel preview deployment is currently skipped until `AUTO_DEPLOY_ENABLED`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` are configured in GitHub.

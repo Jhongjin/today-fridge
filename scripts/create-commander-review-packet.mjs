@@ -107,6 +107,7 @@ Run these before commander approval:
 \`\`\`bash
 npm run qa:qr-session:check
 npm run qa:qr-session:index -- --strict
+npm run sdk:dependency-triage -- --strict
 npm run deploy:check-prereqs
 \`\`\`
 
@@ -126,6 +127,7 @@ ${checkboxRows([
   "No QR session includes raw game user key hashes.",
   "Entry, result, leaderboard, error, recording, and device-log artifact locations are filled or marked n/a.",
   "No console/page errors are observed, or every observed error has a linked note.",
+  "SDK dependency triage was refreshed for this commit and has no strict failures.",
   "Clean leaderboard submit and leaderboard open remain separate user actions.",
   "Profile/user-key unavailable path does not allow ranked play input.",
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."

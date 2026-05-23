@@ -90,6 +90,7 @@
 - Upgrade GitHub Actions Node 24-runtime action majors. (Phase 115 done pending CI)
 - Triage SDK dependency engine and audit warnings. (Phase 116 done pending CI)
 - Add SDK dependency triage refresh command. (Phase 117 done pending CI)
+- Require SDK dependency triage in commander QR packet. (Phase 118 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)
