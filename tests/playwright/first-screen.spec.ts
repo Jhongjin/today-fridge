@@ -106,6 +106,32 @@ test("player can clear three matching ingredients", async ({ page }) => {
   await expect(page.getByTestId("score-value")).toHaveText("100");
 });
 
+test("pause button holds board interaction until resumed", async ({ page }) => {
+  await page.goto("/?qa=analytics");
+
+  await page.getByTestId("pause-button").click();
+
+  await expect(page.getByTestId("pause-button")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByTestId("pause-panel")).toBeVisible();
+  await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeDisabled();
+  await expect(page.getByTestId("hint-booster")).toBeDisabled();
+  await expect(page.getByTestId("score-value")).toHaveText("0");
+  await expect(page.getByTestId("qa-event-list")).toContainText("game_pause");
+
+  await page.getByTestId("resume-button").click();
+
+  await expect(page.getByTestId("pause-panel")).toHaveCount(0);
+  await expect(page.getByTestId("pause-button")).toHaveAttribute("aria-pressed", "false");
+  await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeEnabled();
+  await expect(page.getByTestId("qa-event-list")).toContainText("game_resume");
+
+  await page.getByTestId("cell-green_onion_1_fresh").click();
+  await page.getByTestId("cell-green_onion_2_fresh").click();
+  await page.getByTestId("cell-green_onion_3_fresh").click();
+
+  await expect(page.getByTestId("score-value")).toHaveText("100");
+});
+
 test("player can complete the main recipe", async ({ page }) => {
   await page.goto("/");
 

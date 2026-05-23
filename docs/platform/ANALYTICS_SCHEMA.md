@@ -34,6 +34,8 @@ Every event should include:
 | `tutorial_step_complete` | `step_id`, `duration_ms` |
 | `tutorial_complete` | `board_id`, `duration_ms` |
 | `round_start` | `play_id`, `board_id`, `seed`, `attempt_no`, `ranked_mode` |
+| `game_pause` | `play_id`, `moves_used`, `score` |
+| `game_resume` | `play_id`, `moves_used`, `score` |
 | `move_commit` | `play_id`, `move_no`, `ingredient_id`, `tray_state_hash` |
 | `match_clear` | `play_id`, `ingredient_id`, `count`, `combo_index`, `points` |
 | `recipe_complete` | `play_id`, `recipe_id`, `points` |

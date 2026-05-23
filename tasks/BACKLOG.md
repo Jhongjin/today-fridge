@@ -42,6 +42,7 @@
 - Add audio event map and mute-aware sound hooks. (Phase 9 done pending CI)
 - Add lightweight Web Audio SFX output. (Phase 30 done pending CI)
 - Add page visibility audio lifecycle suspension. (Phase 61 done pending CI)
+- Wire playable pause/resume flow. (Phase 71 done pending CI)
 - Add reduced-motion-aware haptic feedback. (Phase 44 done pending CI)
 - Run mobile UI polish/accessibility pass. (Phase 10 done pending CI)
 - Add mission summary accessibility labels. (Phase 54 done pending CI)

@@ -88,3 +88,4 @@
 - Phase 68 score tier engine helper added: mastery thresholds now have focused unit coverage outside UI.
 - Phase 69 QA analytics score tier visibility added: round-complete events now surface score tier in the inspector.
 - Phase 70 console asset dimension guard added: generated Toss upload PNGs now fail fast when dimensions drift.
+- Phase 71 pause/resume flow added: the top pause control now freezes board and booster input, exposes a resume panel, and records pause/resume analytics.

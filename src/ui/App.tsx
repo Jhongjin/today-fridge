@@ -1,4 +1,4 @@
-import { BookOpen, Pause, Share2, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
+import { BookOpen, Pause, Play, Share2, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
 import { createWebAudioOutput } from "../audio/webAudioOutput";
@@ -152,12 +152,14 @@ const IngredientTile = ({
   hiddenBack,
   blocked,
   highlighted,
+  disabled,
   onClick
 }: {
   instance?: IngredientInstance;
   hiddenBack?: boolean;
   blocked?: boolean;
   highlighted?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }) => {
   if (blocked) {
@@ -179,6 +181,7 @@ const IngredientTile = ({
       className={`tile tile--${instance.state}${highlighted ? " tile--highlighted" : ""}`}
       type="button"
       onClick={onClick}
+      disabled={disabled}
       data-testid={`cell-${instance.instanceId}`}
       aria-label={`${ingredient.name}${instance.state === "expiring" ? " 임박" : ""}`}
     >
@@ -225,6 +228,7 @@ export const App = () => {
   const [roundStartedAt, setRoundStartedAt] = useState(() => Date.now());
   const [muted, setMuted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "skipped" | "error">("idle");
   const [leaderboardOpenStatus, setLeaderboardOpenStatus] = useState<"idle" | "opening" | "opened" | "error">("idle");
   const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "success" | "error">("idle");
@@ -344,6 +348,10 @@ export const App = () => {
   }, [audioController, playId]);
 
   const selectCell = (cell: BoardCell) => {
+    if (isPaused) {
+      return;
+    }
+
     const current = gameState;
     const next = selectIngredient(current, board, cell.id);
 
@@ -502,6 +510,7 @@ export const App = () => {
     const nextPlayId = createPlayId();
 
     trackRoundStart(nextPlayId, nextAttemptNo);
+    setIsPaused(false);
     setGameState(createInitialState(board));
     setPlayId(nextPlayId);
     setAttemptNo(nextAttemptNo);
@@ -518,7 +527,7 @@ export const App = () => {
   };
 
   const useHintBooster = () => {
-    if (gameState.status !== "playing") {
+    if (gameState.status !== "playing" || isPaused) {
       return;
     }
 
@@ -540,6 +549,32 @@ export const App = () => {
     });
     audioController.play("booster_use");
     hapticsController.play("booster_use");
+  };
+
+  const pauseGame = () => {
+    if (gameState.status !== "playing" || isPaused) {
+      return;
+    }
+
+    setIsPaused(true);
+    trackEvent("game_pause", {
+      play_id: playId,
+      moves_used: gameState.movesUsed,
+      score
+    });
+  };
+
+  const resumeGame = () => {
+    if (!isPaused) {
+      return;
+    }
+
+    setIsPaused(false);
+    trackEvent("game_resume", {
+      play_id: playId,
+      moves_used: gameState.movesUsed,
+      score
+    });
   };
 
   const claimReward = () => {
@@ -648,7 +683,7 @@ export const App = () => {
   };
 
   return (
-    <main className={`app-shell ${reduceMotion ? "app-shell--reduce-motion" : ""}`}>
+    <main className={`app-shell ${reduceMotion ? "app-shell--reduce-motion" : ""} ${isPaused ? "app-shell--paused" : ""}`}>
       <section className="phone-frame" aria-label="오늘의 냉장고 게임">
         <header className="top-bar">
           <div>
@@ -686,8 +721,16 @@ export const App = () => {
             >
               <Waves size={20} />
             </button>
-            <button className="icon-button" type="button" aria-label="일시정지">
-              <Pause size={20} />
+            <button
+              className="icon-button"
+              type="button"
+              aria-label={isPaused ? "계속하기" : "일시정지"}
+              aria-pressed={isPaused}
+              onClick={isPaused ? resumeGame : pauseGame}
+              disabled={gameState.status !== "playing"}
+              data-testid="pause-button"
+            >
+              {isPaused ? <Play size={20} /> : <Pause size={20} />}
             </button>
           </div>
         </header>
@@ -777,6 +820,7 @@ export const App = () => {
               hiddenBack={Boolean(cell.back)}
               blocked={cell.blocked}
               highlighted={highlightedCells.has(cell.id)}
+              disabled={isPaused}
               onClick={() => selectCell(cell)}
             />
           ))}
@@ -796,10 +840,20 @@ export const App = () => {
           <button type="button" disabled>
             냉동칸
           </button>
-          <button type="button" onClick={useHintBooster} disabled={gameState.status !== "playing"} data-testid="hint-booster">
+          <button type="button" onClick={useHintBooster} disabled={gameState.status !== "playing" || isPaused} data-testid="hint-booster">
             힌트
           </button>
         </section>
+
+        {isPaused ? (
+          <section className="pause-panel" aria-live="polite" data-testid="pause-panel">
+            <h2>잠시 쉬는 중</h2>
+            <p>냉장고는 그대로 멈춰 있어요.</p>
+            <button className="primary-action" type="button" onClick={resumeGame} data-testid="resume-button">
+              계속하기
+            </button>
+          </section>
+        ) : null}
 
         {!cleanRun ? (
           <p className="fairness-note" data-testid="fairness-note">
