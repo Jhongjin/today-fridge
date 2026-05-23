@@ -125,3 +125,4 @@
 - Phase 105 ad/promotion safe hooks added: rewarded ads now have a mock load/show client path before fixed non-ranked grants, and promotion rewards have fixed-action helpers that avoid score, rank, win/loss, and random dependencies.
 - Phase 106 external reward SDK adapters added: real contacts viral, full-screen ad, and game promotion SDK event/error shapes now normalize behind platform clients while UI wiring remains pending QR/device verification.
 - Phase 107 external reward runtime gate added: real contacts/ad/promotion rewards now require a second env opt-in plus all Toss console IDs, and remain blocked unless the real Toss client flag is also enabled.
+- Phase 108 runtime external reward clients added: future UI wiring now has a factory that returns mock clients unless the external reward gate is real, and lazy-loads real SDK adapters only after all env checks pass.

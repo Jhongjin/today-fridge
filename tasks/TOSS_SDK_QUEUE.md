@@ -66,6 +66,7 @@ Output:
 - Use `rewardedAd` mock service until real ad SDK is wired. (Phase 91 service done)
 - Use `shareReward` mock service until real `contactsViral` is wired. (Phase 90 service done; Phase 106 SDK adapter done, UI wiring pending)
 - Keep real external reward runtime behind a separate environment gate. (Phase 107 done)
+- Route future runtime clients through the external reward gate. (Phase 108 done, UI wiring pending)
 
 Output:
 
@@ -81,6 +82,7 @@ Output:
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
 - Use `promotionReward` mock service until real `grantPromotionRewardForGame` is wired. (Phase 92 service done; Phase 106 SDK adapter done, UI wiring pending)
 - Keep real ad/promotion runtime behind a separate environment gate. (Phase 107 done)
+- Route future runtime clients through the external reward gate. (Phase 108 done, UI wiring pending)
 
 Output:
 

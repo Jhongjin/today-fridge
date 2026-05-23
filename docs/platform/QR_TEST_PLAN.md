@@ -59,6 +59,7 @@ The external reward gate also requires:
 - `VITE_TOSS_PROMOTION_CODE`
 
 If any value is missing, `src/platform/externalRewardRuntimeGate.ts` must keep external rewards blocked and report the missing keys.
+`src/platform/runtimeExternalRewardClients.ts` must keep mock clients when the gate is `mock` or `blocked`, and only load real SDK adapters when the gate is `real`.
 
 ## Entry Checks
 
@@ -101,6 +102,7 @@ If any value is missing, `src/platform/externalRewardRuntimeGate.ts` must keep e
 ## External Reward Checks
 
 - Real external rewards remain off unless both real runtime flags are enabled.
+- Runtime external reward clients stay mock when the external reward gate is blocked.
 - Contacts viral module ID opens only in QR candidate builds and reports reward, close, no-reward, and error states.
 - Full-screen ad IDs load before show, and reward only after `userEarnedReward`.
 - Promotion code grants only fixed action rewards and records Toss error codes without affecting ranked score.

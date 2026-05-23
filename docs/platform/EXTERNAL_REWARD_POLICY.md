@@ -97,6 +97,12 @@ Real SDK adapter:
 
 This adapter normalizes real `grantPromotionRewardForGame` success, unsupported, `"ERROR"`, and error-code responses before any UI wiring.
 
+Runtime selection:
+
+`src/platform/runtimeExternalRewardClients.ts`
+
+This factory returns mock clients unless `src/platform/externalRewardRuntimeGate.ts` reports `mode: "real"`. The real SDK adapters are loaded only after the separate external reward env gate passes.
+
 Integrated QA scenario runner:
 
 `src/platform/externalRewardScenarios.ts`
