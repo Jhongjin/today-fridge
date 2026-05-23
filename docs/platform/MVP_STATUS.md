@@ -27,6 +27,7 @@
 - `npm run test:e2e --if-present`
 - `npm run qa:screenshots`
 - `npm run qa:console-assets`
+- `npm run qa:korean-copy`
 - `npm run external-rewards:check-prereqs`
 - `npm run qa:commander-review-packet -- --print --commit <sha> --preview-url <url>`
 

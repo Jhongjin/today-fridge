@@ -101,6 +101,7 @@
 - Tighten submission readiness monitoring blocker wording. (Phase 126 done pending CI)
 - Surface optional monitoring endpoints in deploy preflight. (Phase 127 done pending CI)
 - Add Korean listing copy encoding guard. (Phase 128 done pending CI)
+- Require Korean copy guard in commander review packet. (Phase 129 done pending CI)
 - Add platform adapter and leaderboard idempotency. (Phase 4 done pending CI)
 - Add leaderboard score audit receipts. (Phase 59 done pending CI)
 - Gate clean leaderboard submit on game user key availability. (Phase 86 done pending CI)

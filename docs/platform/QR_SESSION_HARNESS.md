@@ -78,6 +78,8 @@ Default output:
 
 `qa/review-packets/<timestamp>-<commit>-commander-review.md`
 
+The generated packet includes the Korean copy guard in its required local commands. Run `npm run qa:korean-copy` before commander approval so listing and metadata copy are checked for required phrases and known mojibake markers.
+
 ## Required Session Set
 
 Before Toss review request:

@@ -56,7 +56,8 @@ If `--commit` is omitted, the packet uses the current local `git rev-parse --sho
 
 The packet metadata includes the current local worktree status. Generate review packets from a clean tree after the intended commit is pushed.
 
-The generated packet requires `npm run sdk:dependency-triage -- --strict` before approval, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
+The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, and manifest Korean copy are checked for required phrases and known mojibake markers.
+It also requires `npm run sdk:dependency-triage -- --strict`, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
 It also captures whether production monitoring endpoint ownership, retention, and access controls are approved or explicitly deferred.
 
 After the packet is filled, run:
@@ -127,6 +128,7 @@ If production deploy fails:
 ## Current Known Blockers
 
 - Real Toss SDK QR/device validation is pending.
+- Korean listing and metadata copy must pass `npm run qa:korean-copy` before final review approval.
 - SDK dependency tree must be refreshed with `npm run sdk:dependency-triage -- --strict` before final submission.
 - Production monitoring endpoint owner, retention policy, and access controls are pending.
 - Vercel preview deployment is currently skipped until `AUTO_DEPLOY_ENABLED`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` are configured in GitHub.
