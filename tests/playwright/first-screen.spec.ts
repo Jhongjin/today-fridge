@@ -57,6 +57,8 @@ test("qa analytics panel shows live event history", async ({ page }) => {
   await expect(page.getByTestId("qa-event-list")).toContainText("app_open");
   await expect(page.getByTestId("qa-event-list")).toContainText("first_playable_ready");
   await expect(page.getByTestId("qa-event-list")).toContainText("round_start");
+  await expect(page.getByTestId("qa-event-list")).toContainText("game_user_key_result");
+  await expect(page.getByTestId("qa-event-list")).toContainText("result:mock");
 
   await page.getByTestId("cell-green_onion_1_fresh").click();
 
@@ -238,7 +240,12 @@ test("qa Toss bridge path handles submit and leaderboard open", async ({ page })
   await expect(page.getByTestId("leaderboard-open")).toHaveText("랭킹 열림");
 
   const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
-  expect(bridgeEvents).toEqual([
+  expect(bridgeEvents).toContainEqual({
+    type: "user-key",
+    result: "HASH",
+    hash: "qa-game-user-key"
+  });
+  expect(bridgeEvents?.filter((event) => event.type === "submit" || event.type === "open")).toEqual([
     {
       type: "submit",
       score: "1700"
@@ -260,7 +267,12 @@ test("qa Toss bridge submit failure leaves the player recoverable", async ({ pag
   await page.getByTestId("leaderboard-submit").click();
 
   const bridgeEvents = await page.evaluate(() => window.__TODAY_FRIDGE_TOSS_QA_EVENTS__);
-  expect(bridgeEvents).toEqual([
+  expect(bridgeEvents).toContainEqual({
+    type: "user-key",
+    result: "HASH",
+    hash: "qa-game-user-key"
+  });
+  expect(bridgeEvents?.filter((event) => event.type === "submit")).toEqual([
     {
       type: "submit",
       score: "1700",

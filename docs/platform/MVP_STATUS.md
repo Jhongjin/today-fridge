@@ -10,6 +10,7 @@
 - Replay competition has been strengthened with live personal-best chase copy and best-route preview/state.
 - Play controls now include real pause/resume behavior with pause-adjusted round duration.
 - Fairness guard exists: hint booster runs cannot update clean personal best or submit clean leaderboard score.
+- Toss Game Center boundary now includes leaderboard submit/open plus game user key status mapping through the injected bridge.
 - QA harness exists for analytics, Toss bridge smoke path, screenshots, console/page errors, bundle size, and source maps.
 - Quiet/reduced-motion settings persist locally and emit QA-visible settings analytics.
 
@@ -26,7 +27,7 @@
 
 - Official `@apps-in-toss/web-framework@2.6.0` package install still times out in the local Windows workspace.
 - Real Apps in Toss QR test is still pending; see `docs/platform/QR_TEST_PLAN.md`.
-- Real Game Center profile/user-key flow is still pending.
+- Real Game Center profile and user-key QR validation are still pending.
 - Real leaderboard submit/open needs QR-device verification.
 - Console-ready PNG logo, thumbnail, and screenshot dimensions are locally generated and guarded; final console upload is still pending.
 - BGM/custom audio assets are not final, but synthetic SFX and pause/resume feedback are in place.

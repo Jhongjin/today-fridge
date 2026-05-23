@@ -1,6 +1,6 @@
 # TOSS_QA_HARNESS
 
-Checked: 2026-05-22
+Checked: 2026-05-23
 
 Target: `오늘의 냉장고`, Toss Apps in Toss H5 casual game.
 
@@ -128,6 +128,7 @@ Current QA bridge:
 - Open `/?qa=toss-bridge`.
 - The app installs `globalThis.__TODAY_FRIDGE_TOSS_BRIDGE__` only when no real bridge exists.
 - Browser automation can read `globalThis.__TODAY_FRIDGE_TOSS_QA_EVENTS__` to assert score submit/open calls.
+- The QA bridge returns a fake `getUserKeyForGame()` hash and records a `user-key` QA event.
 - Open `/?qa=toss-bridge-error` to force a leaderboard submit failure and verify retry/recovery UI.
 - Submit failure copy should say the submit temporarily failed and invite retry, while fairness skips should keep the clean-ranked explanation.
 
@@ -140,7 +141,7 @@ Automated scenarios:
 5. Verify same seed and move sequence produce same score.
 6. Mock leaderboard success, failure, duplicate submit.
 7. Confirm leaderboard submit analytics contains the board seed, selected route, and score receipt.
-7. Verify QA Toss bridge submit/open path.
+7. Verify QA Toss bridge user-key/submit/open path.
 8. Mock share reward event variants.
 9. Mock rewarded ad loaded, reward, dismissed, failed.
 10. Mock promotion success, budget exhausted, limit exceeded, unsupported version.

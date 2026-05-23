@@ -9,15 +9,19 @@ describe("runtime Toss client", () => {
   });
 
   it("uses the injected Apps in Toss bridge when available", async () => {
+    const getUserKeyForGame = vi.fn().mockResolvedValue({ type: "HASH", hash: "hash-user" });
     const submitGameCenterLeaderBoardScore = vi.fn().mockResolvedValue({ statusCode: "SUCCESS" });
     (globalThis as Record<string, unknown>)[bridgeGlobalKey] = {
+      getUserKeyForGame,
       submitGameCenterLeaderBoardScore
     };
 
     const client = createRuntimeTossClient();
 
+    await expect(client.getUserKey()).resolves.toBe("hash-user");
     await expect(client.submitLeaderboardScore(1700, "play-1")).resolves.toEqual({ ok: true });
     expect(getRuntimeAppsInTossBridge()).toBeDefined();
+    expect(getUserKeyForGame).toHaveBeenCalledTimes(1);
     expect(submitGameCenterLeaderBoardScore).toHaveBeenCalledWith({ score: "1700" });
   });
 

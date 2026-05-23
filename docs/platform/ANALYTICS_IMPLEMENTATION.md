@@ -24,6 +24,7 @@ First screen:
 - `app_open`
 - `first_playable_ready`
 - `round_start`
+- `game_user_key_result`
 
 Gameplay:
 
@@ -83,7 +84,8 @@ This harness can already answer:
 ## Guardrails
 
 - No personal data is collected in the client harness.
-- The Toss user key is represented only by `user_key_status`.
+- The Toss game user key hash is not stored or sent by the local client harness; only `user_key_status` and the `game_user_key_result` status are tracked.
+- Startup updates `user_key_status` after the async platform `getUserKey()` check, so events before the result may still show the initial mock/browser status.
 - Ranked fairness flags stay with leaderboard submission events.
 - The event store remains local and in-memory by default.
 - A production transport can be injected through `setAnalyticsTransport`.

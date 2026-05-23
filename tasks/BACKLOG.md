@@ -81,6 +81,7 @@
 - Add asset load error analytics. (Phase 31 done pending CI)
 - Add Apps in Toss Game Center adapter contract. (Phase 22 done pending CI)
 - Add runtime Toss client selection seam. (Phase 41 done pending CI)
+- Add Game Center user-key bridge and analytics status. (Phase 83 done pending CI)
 - Add QA Toss bridge browser smoke path. (Phase 42 done pending CI)
 - Add QA Toss bridge submit-failure smoke path. (Phase 65 done pending CI)
 - Split leaderboard submit failure and skip copy. (Phase 66 done pending CI)

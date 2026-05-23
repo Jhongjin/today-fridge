@@ -20,12 +20,17 @@ describe("QA Toss bridge", () => {
     expect(installQaAppsInTossBridge()).toBe(true);
 
     const bridge = getRuntimeAppsInTossBridge();
+    await expect(bridge?.getUserKeyForGame?.()).resolves.toEqual({
+      type: "HASH",
+      hash: "qa-game-user-key"
+    });
     await expect(bridge?.submitGameCenterLeaderBoardScore?.({ score: "1700" })).resolves.toEqual({
       statusCode: "SUCCESS"
     });
     await bridge?.openGameCenterLeaderboard?.();
 
     expect((globalThis as Record<string, unknown>)[eventGlobalKey]).toEqual([
+      { type: "user-key", result: "HASH", hash: "qa-game-user-key" },
       { type: "submit", score: "1700" },
       { type: "open" }
     ]);

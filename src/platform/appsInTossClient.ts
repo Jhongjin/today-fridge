@@ -4,8 +4,21 @@ type SubmitGameCenterLeaderBoardScoreResponse = {
   statusCode?: string;
 };
 
+type GetUserKeyForGameSuccessResponse = {
+  type: "HASH";
+  hash: string;
+};
+
+type GetUserKeyForGameResponse = GetUserKeyForGameSuccessResponse | "INVALID_CATEGORY" | "ERROR" | undefined;
+
+type TossMinVersion = {
+  android: string;
+  ios: string;
+};
+
 export type AppsInTossGameBridge = {
-  isMinVersionSupported?: (params: { android: string; ios: string }) => boolean;
+  isMinVersionSupported?: (params: TossMinVersion) => boolean;
+  getUserKeyForGame?: () => Promise<GetUserKeyForGameResponse>;
   submitGameCenterLeaderBoardScore?: (params: { score: string }) => Promise<SubmitGameCenterLeaderBoardScoreResponse | undefined>;
   openGameCenterLeaderboard?: () => Promise<void | undefined> | void;
 };
@@ -15,13 +28,32 @@ export const TOSS_GAME_CENTER_MIN_VERSION = {
   ios: "5.221.0"
 } as const;
 
-const isSupported = (bridge: AppsInTossGameBridge): boolean =>
-  bridge.isMinVersionSupported ? bridge.isMinVersionSupported(TOSS_GAME_CENTER_MIN_VERSION) : true;
+export const TOSS_GAME_USER_KEY_MIN_VERSION = {
+  android: "5.232.0",
+  ios: "5.232.0"
+} as const;
+
+const isSupported = (bridge: AppsInTossGameBridge, minVersion: TossMinVersion = TOSS_GAME_CENTER_MIN_VERSION): boolean =>
+  bridge.isMinVersionSupported ? bridge.isMinVersionSupported(minVersion) : true;
 
 const normalizeScore = (score: number): string => String(Math.max(0, Math.floor(score)));
 
 export const createAppsInTossClient = (bridge?: AppsInTossGameBridge): TossClient => ({
   async getUserKey() {
+    if (!bridge?.getUserKeyForGame || !isSupported(bridge, TOSS_GAME_USER_KEY_MIN_VERSION)) {
+      return undefined;
+    }
+
+    try {
+      const result = await bridge.getUserKeyForGame();
+
+      if (result && typeof result === "object" && result.type === "HASH" && result.hash.length > 0) {
+        return result.hash;
+      }
+    } catch {
+      return undefined;
+    }
+
     return undefined;
   },
 

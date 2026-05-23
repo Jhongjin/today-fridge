@@ -23,7 +23,7 @@ References:
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
 | Leaderboard submit timing | Pass by design | Submit action appears after round completion. |
 | Game profile | Pending | Official docs say profile registration is required before gameplay. |
-| Game user key | Pending | Mock only. Real Toss SDK adapter needed. |
+| Game user key | Partial | Adapter now maps `getUserKeyForGame()` and records status analytics; real SDK package import and QR validation pending. |
 | Share reward | Pending | Not implemented. |
 | Rewarded ads | Pending | Not implemented. |
 | Promotion points | Pending | Policy documented only. |
@@ -36,7 +36,7 @@ These must be completed before requesting review:
 
 - Real Toss SDK package import and runtime wiring. Adapter contract exists in `src/platform/appsInTossClient.ts`, but local exact install still times out.
 - Game profile flow before gameplay.
-- Game user key flow and persistence strategy.
+- Game user key QR validation and persistence strategy.
 - Leaderboard submit/open real QR test using Toss APIs.
 - QR test on real Toss app.
 - QR test plan is documented in `docs/platform/QR_TEST_PLAN.md`.

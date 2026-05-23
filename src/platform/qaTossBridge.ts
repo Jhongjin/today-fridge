@@ -11,6 +11,11 @@ export type QaTossBridgeEvent =
       statusCode?: string;
     }
   | {
+      type: "user-key";
+      result: "HASH";
+      hash: string;
+    }
+  | {
       type: "open";
     };
 
@@ -54,6 +59,17 @@ export const installQaAppsInTossBridge = (): boolean => {
 
   (globalThis as GlobalWithQaBridge)[bridgeGlobalKey] = {
     isMinVersionSupported: () => true,
+    async getUserKeyForGame() {
+      const hash = "qa-game-user-key";
+
+      pushQaEvent({
+        type: "user-key",
+        result: "HASH",
+        hash
+      });
+
+      return { type: "HASH", hash };
+    },
     async submitGameCenterLeaderBoardScore({ score }) {
       const statusCode = mode === "submit-error" ? "QA_SUBMIT_FAILED" : undefined;
 

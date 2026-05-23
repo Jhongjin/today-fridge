@@ -9,7 +9,7 @@ Purpose:
 - Confirm exact package/import path for Apps in Toss SDK.
 - Confirm game profile APIs.
 - Confirm leaderboard submit/open APIs.
-- Confirm game user key API.
+- Confirm game user key API. (Phase 83 mapped `getUserKeyForGame()`, QR validation pending)
 - Confirm share reward API.
 - Confirm ad API.
 - Confirm promotion API.
@@ -24,6 +24,7 @@ Output:
 - Implement `TossClient` using official SDK.
 - Keep `tossMockClient` for browser/CI.
 - Add runtime adapter selection.
+- Add game user key status analytics through `TossClient.getUserKey()`. (Phase 83 bridge path done)
 - Add typed error codes.
 
 Output:

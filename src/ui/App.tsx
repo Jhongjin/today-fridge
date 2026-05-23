@@ -12,7 +12,7 @@ import { SCORE, totalScore } from "../game/engine/scoring";
 import { scoreTierFor } from "../game/engine/scoreTier";
 import type { BoardCell, IngredientInstance, ScoreBreakdown } from "../game/types";
 import { createHapticsController } from "../haptics/hapticsController";
-import { getAnalyticsContext, trackEvent } from "../platform/analytics";
+import { configureAnalyticsContext, getAnalyticsContext, trackEvent, type UserKeyStatus } from "../platform/analytics";
 import { recordDailyStreak } from "../platform/dailyStreak";
 import { cleanRankedFlags, getScoreSubmissionEligibility } from "../platform/fairness";
 import { createLeaderboardService } from "../platform/leaderboard";
@@ -142,6 +142,14 @@ const isAnalyticsQaEnabled = () => {
 
   const params = new URLSearchParams(location.search);
   return params.get("qa") === "analytics" || params.has("analytics_debug");
+};
+
+const userKeyStatusFor = (userKey: string | undefined): UserKeyStatus => {
+  if (!userKey) {
+    return "unavailable";
+  }
+
+  return userKey === "mock-user-key" ? "mock" : "ready";
 };
 
 const findNextHintCellId = (cells: BoardCell[]): string | null => {
@@ -354,7 +362,8 @@ export const App = () => {
 
     return cellIds;
   }, [boosterHintCellId, tutorialStep]);
-  const leaderboardService = useMemo(() => createLeaderboardService(createRuntimeTossClient()), []);
+  const tossClient = useMemo(() => createRuntimeTossClient(), []);
+  const leaderboardService = useMemo(() => createLeaderboardService(tossClient), [tossClient]);
   const resultShareService = useMemo(() => createResultShareService(createMockShareClient()), []);
   const audioController = useMemo(() => createAudioController(createWebAudioOutput()), []);
   const hapticsController = useMemo(() => createHapticsController(), []);
@@ -372,6 +381,40 @@ export const App = () => {
     });
     trackRoundStart(playId, attemptNo);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void tossClient
+      .getUserKey()
+      .then((userKey) => {
+        if (cancelled) {
+          return;
+        }
+
+        const result = userKeyStatusFor(userKey);
+        configureAnalyticsContext({ userKeyStatus: result });
+        trackEvent("game_user_key_result", {
+          result,
+          error_code: null
+        });
+      })
+      .catch(() => {
+        if (cancelled) {
+          return;
+        }
+
+        configureAnalyticsContext({ userKeyStatus: "error" });
+        trackEvent("game_user_key_result", {
+          result: "error",
+          error_code: "GET_USER_KEY_FAILED"
+        });
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [tossClient]);
 
   useEffect(() => {
     audioController.setMuted(muted);

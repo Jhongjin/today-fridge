@@ -1,7 +1,38 @@
 import { describe, expect, it, vi } from "vitest";
-import { createAppsInTossClient, TOSS_GAME_CENTER_MIN_VERSION } from "./appsInTossClient";
+import { createAppsInTossClient, TOSS_GAME_CENTER_MIN_VERSION, TOSS_GAME_USER_KEY_MIN_VERSION } from "./appsInTossClient";
 
 describe("Apps in Toss client", () => {
+  it("reads the game user hash through the game bridge", async () => {
+    const getUserKeyForGame = vi.fn().mockResolvedValue({ type: "HASH", hash: "hash-user" });
+    const client = createAppsInTossClient({
+      getUserKeyForGame
+    });
+
+    await expect(client.getUserKey()).resolves.toBe("hash-user");
+    expect(getUserKeyForGame).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses the documented game user key minimum version when available", async () => {
+    const getUserKeyForGame = vi.fn().mockResolvedValue({ type: "HASH", hash: "hash-user" });
+    const isMinVersionSupported = vi.fn().mockReturnValue(false);
+    const client = createAppsInTossClient({
+      isMinVersionSupported,
+      getUserKeyForGame
+    });
+
+    await expect(client.getUserKey()).resolves.toBeUndefined();
+    expect(isMinVersionSupported).toHaveBeenCalledWith(TOSS_GAME_USER_KEY_MIN_VERSION);
+    expect(getUserKeyForGame).not.toHaveBeenCalled();
+  });
+
+  it("treats non-hash game user key responses as unavailable", async () => {
+    const client = createAppsInTossClient({
+      getUserKeyForGame: vi.fn().mockResolvedValue("INVALID_CATEGORY")
+    });
+
+    await expect(client.getUserKey()).resolves.toBeUndefined();
+  });
+
   it("submits integer scores as strings through the game center bridge", async () => {
     const submitGameCenterLeaderBoardScore = vi.fn().mockResolvedValue({ statusCode: "SUCCESS" });
     const client = createAppsInTossClient({

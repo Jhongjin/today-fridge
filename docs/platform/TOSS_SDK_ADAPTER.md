@@ -7,6 +7,7 @@ This queue creates the game-center adapter contract for Apps in Toss without bun
 Official docs checked on 2026-05-23:
 
 - [Game leaderboard: submit score and open leaderboard](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EA%B2%8C%EC%9E%84/submitGameCenterLeaderBoardScore.html)
+- [Game user key](https://developers-apps-in-toss.toss.im/bedrock/reference/framework/%EA%B2%8C%EC%9E%84/getUserKeyForGame.html)
 - [Game Center development guide](https://developers-apps-in-toss.toss.im/game-center/develop.html)
 
 ## Official API Shape
@@ -19,12 +20,18 @@ Functions:
 
 - `submitGameCenterLeaderBoardScore({ score: string })`
 - `openGameCenterLeaderboard()`
+- `getUserKeyForGame()`
 - `isMinVersionSupported({ android: "5.221.0", ios: "5.221.0" })`
 
 Minimum Toss app version:
 
 - Android `5.221.0`
 - iOS `5.221.0`
+
+Game user key minimum Toss app version:
+
+- Android `5.232.0`
+- iOS `5.232.0`
 
 ## Current Implementation
 
@@ -58,8 +65,12 @@ Leaderboard open:
 
 Game user key:
 
-- The official Game Center guide says user identification is handled by the SDK and not returned in the score response.
-- The current `TossClient.getUserKey()` stays `undefined` until a separate profile/user-key flow is confirmed.
+- Calls `getUserKeyForGame()` only when the bridge exists and the game user key min version check passes.
+- `{ type: "HASH", hash }` maps to the platform `TossClient.getUserKey()` string.
+- `INVALID_CATEGORY`, `ERROR`, `undefined`, empty hashes, and thrown exceptions map to `undefined` so gameplay can continue.
+- App startup records `game_user_key_result` with `ready`, `mock`, `unavailable`, or `error` and updates the shared analytics `user_key_status`.
+
+Real QR validation is still required because the current app uses the injected bridge or local mock until the official package install is unblocked.
 
 ## Dependency Note
 
@@ -94,4 +105,4 @@ The adapter contract is ready, but the package import/bundle step remains a sepa
 - Resolve package installation in a clean environment and bundle the official SDK.
 - Replace the temporary global bridge hook with the official SDK import.
 - Add real leaderboard-open result button.
-- Add Toss QR test for supported and unsupported app versions.
+- Add Toss QR test for supported and unsupported app versions, including `getUserKeyForGame()` success/error paths.
