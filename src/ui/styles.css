@@ -200,6 +200,15 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.best-route-strip--off {
+  border-color: #f0ddba;
+  background: #fffaf0;
+}
+
+.best-route-strip--off span {
+  color: #6b5530;
+}
+
 .best-route-strip div {
   display: flex;
   gap: 5px;

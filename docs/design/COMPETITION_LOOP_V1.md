@@ -11,14 +11,15 @@ The first competitive loop is personal-best driven. It gives the player a clear 
 3. During play, the screen shows the gap to the current personal best.
 4. The gap label changes between first-record, behind, tied, and ahead states.
 5. During replay, the saved best route appears as ingredient icons.
-6. On completion, a higher score updates the personal best immediately.
-7. The result panel shows a lightweight score tier as a quick mastery target.
-8. The result panel shows today's attempt count.
-9. The result panel shows today's mission completion summary.
-10. The result panel shows the improvement delta.
-11. The result panel shows the saved best route as ingredient icons.
-12. The player can share the result without gaining reward or rank advantage.
-13. The player can restart and try a cleaner route.
+6. The route strip changes between ready, following, and new-route states.
+7. On completion, a higher score updates the personal best immediately.
+8. The result panel shows a lightweight score tier as a quick mastery target.
+9. The result panel shows today's attempt count.
+10. The result panel shows today's mission completion summary.
+11. The result panel shows the improvement delta.
+12. The result panel shows the saved best route as ingredient icons.
+13. The player can share the result without gaining reward or rank advantage.
+14. The player can restart and try a cleaner route.
 
 ## Why This Fits The Target
 

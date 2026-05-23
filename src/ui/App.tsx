@@ -273,7 +273,42 @@ export const App = () => {
               state: "behind",
               label: "최고까지",
               value: `${bestGap.toLocaleString()}점`
+          };
+  const bestRouteProgress = bestRoute
+    ? (() => {
+        let matched = 0;
+
+        for (const [index, step] of currentRoute.entries()) {
+          const routeStep = bestRoute.steps[index];
+
+          if (!routeStep || routeStep.cellId !== step.cellId || routeStep.ingredientId !== step.ingredientId) {
+            return {
+              state: "off",
+              matched,
+              total: bestRoute.steps.length,
+              score: bestRoute.score
             };
+          }
+
+          matched += 1;
+        }
+
+        return {
+          state: matched === 0 ? "ready" : "on",
+          matched,
+          total: bestRoute.steps.length,
+          score: bestRoute.score
+        };
+      })()
+    : null;
+  const bestRouteStatusLabel =
+    bestRouteProgress === null
+      ? ""
+      : bestRouteProgress.state === "off"
+        ? `새 루트 실험 중 · 최고 ${bestRouteProgress.total}수`
+        : bestRouteProgress.matched === 0
+          ? `최고 루트 ${bestRouteProgress.score.toLocaleString()}점 · ${bestRouteProgress.total}수`
+          : `최고 루트 진행 ${bestRouteProgress.matched}/${bestRouteProgress.total}`;
   const cleanRun = getScoreSubmissionEligibility(runFlags).submittable;
   const recipePieceCount = rewardWallet.recipePieces[recipe.id] ?? 0;
   const recipePieceProgress = Math.min(recipePieceCount, recipePieceTarget);
@@ -823,10 +858,12 @@ export const App = () => {
         </section>
 
         {bestRoute && gameState.status === "playing" ? (
-          <section className="best-route-strip" aria-label="최고 루트 미리보기" data-testid="best-route-strip">
-            <span>
-              최고 루트 {bestRoute.score.toLocaleString()}점 · {bestRoute.steps.length}수
-            </span>
+          <section
+            className={bestRouteProgress?.state === "off" ? "best-route-strip best-route-strip--off" : "best-route-strip"}
+            aria-label="최고 루트 미리보기"
+            data-testid="best-route-strip"
+          >
+            <span data-testid="best-route-strip-label">{bestRouteStatusLabel}</span>
             <div>
               {bestRoute.steps.map((step, index) => (
                 <i key={`${step.cellId}-preview-${index}`} aria-label={getIngredient(step.ingredientId).name}>
