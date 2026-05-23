@@ -171,6 +171,8 @@ External reward QA runner:
 - `src/platform/externalRewardScenarios.ts` runs share, rewarded-ad, and promotion mock paths together.
 - The runner must allow only fixed non-ranked rewards into the wallet.
 - Blocked scenario reasons must include active-play ad interruption, score, rank, win/loss, random, and non-user-initiated promotion paths.
+- `src/platform/rewardedAd.ts` requires a mock client load/show path before rewarded-ad grants.
+- `src/platform/promotionReward.ts` exposes fixed-action promotion helpers for attendance/event-style rewards only.
 
 Automated scenarios:
 
@@ -184,9 +186,10 @@ Automated scenarios:
 7. Verify QA Toss bridge user-key/submit/open path.
 8. Verify QA Toss bridge no-user-key profile gate path.
 9. Mock share reward event variants through `src/platform/shareReward.ts`.
-10. Mock rewarded ad completed, not-completed, duplicate, and active-play blocked paths through `src/platform/rewardedAd.ts`.
-11. Run integrated external reward scenarios through `src/platform/externalRewardScenarios.ts`.
-12. Assert zero console errors and unhandled promise rejections.
+10. Mock rewarded ad load/show/completed, not-completed, duplicate, and active-play blocked paths through `src/platform/rewardedAd.ts`.
+11. Mock promotion fixed-action helper and unsafe score/rank/win/random blocked paths through `src/platform/promotionReward.ts`.
+12. Run integrated external reward scenarios through `src/platform/externalRewardScenarios.ts`.
+13. Assert zero console errors and unhandled promise rejections.
 
 ## 9. Pre-Submission Checklist
 

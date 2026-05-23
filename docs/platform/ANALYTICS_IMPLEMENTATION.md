@@ -50,6 +50,9 @@ Rewards:
 - `coin_award`
 - `recipe_piece_award`
 - `share_reward_event`
+- `rewarded_ad_offer`
+- `rewarded_ad_complete`
+- `promotion_reward`
 - `external_reward_policy_check`
 - `external_reward_claim`
 

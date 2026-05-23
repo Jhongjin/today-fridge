@@ -73,14 +73,14 @@ Output:
 
 ## Queue 6: Ads And Promotion
 
-- Add rewarded ad stubs and real adapters.
-- Add promotion fixed-action hooks only.
-- Confirm no score/rank/win/random dependency.
+- Add rewarded ad stubs and real adapters. (Phase 105 client stub done; real SDK adapter pending)
+- Add promotion fixed-action hooks only. (Phase 105 safe helper done)
+- Confirm no score/rank/win/random dependency. (Phase 105 helper coverage done)
 - Pass `externalRewardPolicy` before granting. (Phase 88 guard done)
 - Grant through `externalRewardGrant` after policy approval. (Phase 89 harness done)
 - Use `promotionReward` mock service until real `grantPromotionRewardForGame` is wired. (Phase 92 service done)
 
 Output:
 
-- Ad/promotion mock tests. (Phase 93 integrated external reward scenario done)
-- Review checklist update.
+- Ad/promotion mock tests. (Phase 93 integrated external reward scenario done; Phase 105 client/hook tests done)
+- Review checklist update. (Phase 105 docs updated; real SDK adapters still QR/device pending)

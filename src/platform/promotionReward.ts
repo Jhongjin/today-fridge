@@ -1,9 +1,11 @@
 import { trackEvent } from "./analytics";
 import { grantExternalReward, type ExternalRewardGrantResult } from "./externalRewardGrant";
+import type { RewardWallet } from "./rewards";
 
 type RewardStorage = Pick<Storage, "getItem" | "setItem">;
 
 export type PromotionAction = "first_launch" | "tutorial_complete" | "attendance" | "event_participation";
+export const PROMOTION_ATTENDANCE_COIN_REWARD = 20;
 
 export type PromotionRewardRequest = {
   rewardId: string;
@@ -19,7 +21,25 @@ export type PromotionRewardRequest = {
   randomOutcome?: boolean;
 };
 
+export type FixedPromotionActionRewardRequest = {
+  promotionCode: string;
+  action: PromotionAction;
+  userInitiated?: boolean;
+  coinAmount?: number;
+  recipePieceAmount?: number;
+  recipeId?: string;
+};
+
 const normalizedAmount = (amount: number | undefined) => (Number.isFinite(amount) && Number(amount) > 0 ? Math.floor(Number(amount)) : 0);
+
+export const promotionRewardId = (promotionCode: string, action: PromotionAction) =>
+  `promotion:${promotionCode}:${action}`;
+
+export const hasClaimedPromotionReward = (
+  promotionCode: string,
+  action: PromotionAction,
+  wallet: RewardWallet
+): boolean => wallet.claimedRewardIds.includes(promotionRewardId(promotionCode, action));
 
 export const claimPromotionReward = (
   {
@@ -69,3 +89,31 @@ export const claimPromotionReward = (
 
   return result;
 };
+
+export const claimFixedPromotionActionReward = (
+  {
+    action,
+    coinAmount = PROMOTION_ATTENDANCE_COIN_REWARD,
+    promotionCode,
+    recipeId,
+    recipePieceAmount = 0,
+    userInitiated = true
+  }: FixedPromotionActionRewardRequest,
+  storage?: RewardStorage
+): ExternalRewardGrantResult =>
+  claimPromotionReward(
+    {
+      rewardId: promotionRewardId(promotionCode, action),
+      promotionCode,
+      action,
+      userInitiated,
+      coinAmount,
+      recipePieceAmount,
+      recipeId,
+      tiedToScore: false,
+      tiedToRank: false,
+      tiedToWinLoss: false,
+      randomOutcome: false
+    },
+    storage
+  );

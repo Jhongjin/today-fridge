@@ -76,13 +76,13 @@ Rewarded ad mock service:
 
 `src/platform/rewardedAd.ts`
 
-This service models a future rewarded ad completion as a fixed, user-initiated, non-ranked reward. It blocks grants when the ad completion event is missing or the request would interrupt active play.
+This service models a future rewarded ad completion as a fixed, user-initiated, non-ranked reward. `claimRewardedAdOffer()` now requires a client `load` and `show` sequence before grant, and `claimRewardedAdReward()` blocks grants when the ad completion event is missing or the request would interrupt active play.
 
 Promotion reward mock service:
 
 `src/platform/promotionReward.ts`
 
-This service models future `grantPromotionRewardForGame` use as a fixed action or event reward. It blocks score, rank, win/loss, random, and non-user-initiated promotion grants before any wallet update.
+This service models future `grantPromotionRewardForGame` use as a fixed action or event reward. `claimFixedPromotionActionReward()` creates only score/rank/win-loss/random-safe requests, while the lower-level service blocks unsafe promotion grants before any wallet update.
 
 Integrated QA scenario runner:
 

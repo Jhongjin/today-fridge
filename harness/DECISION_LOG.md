@@ -122,3 +122,4 @@
 - Phase 102 profile gate added: first play now waits for profile/user-key readiness, records `profile_gate_result`, and blocks board, hint, and pause input when the no-user-key QA path is active.
 - Phase 103 leaderboard action flow locked: QA bridge browser coverage now proves clean submit and leaderboard open are separate user actions, with one submit event and no automatic open.
 - Phase 104 friend challenge share reward added: result-screen friend challenge now grants one fixed daily non-ranked coin reward after a successful share action, with duplicate protection and clean leaderboard eligibility preserved.
+- Phase 105 ad/promotion safe hooks added: rewarded ads now have a mock load/show client path before fixed non-ranked grants, and promotion rewards have fixed-action helpers that avoid score, rank, win/loss, and random dependencies.

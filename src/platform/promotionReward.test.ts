@@ -1,7 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { clearTrackedEvents, getTrackedEvents } from "./analytics";
 import { readExternalRewardWallet } from "./externalRewardGrant";
-import { claimPromotionReward, type PromotionRewardRequest } from "./promotionReward";
+import {
+  PROMOTION_ATTENDANCE_COIN_REWARD,
+  claimFixedPromotionActionReward,
+  claimPromotionReward,
+  hasClaimedPromotionReward,
+  promotionRewardId,
+  type PromotionRewardRequest
+} from "./promotionReward";
 
 const createMemoryStorage = () => {
   const values = new Map<string, string>();
@@ -80,6 +87,37 @@ describe("promotion reward service", () => {
           promotion_code: "SCORE_PRIZE",
           status: "blocked",
           error_code: "TIED_TO_SCORE"
+        })
+      })
+    );
+  });
+
+  it("claims a fixed action promotion through the safe helper", () => {
+    const storage = createMemoryStorage();
+    const rewardId = promotionRewardId("ATTENDANCE_WEEK_1", "attendance");
+
+    const result = claimFixedPromotionActionReward(
+      {
+        promotionCode: "ATTENDANCE_WEEK_1",
+        action: "attendance"
+      },
+      storage
+    );
+
+    expect(result.ok).toBe(true);
+    expect(readExternalRewardWallet(storage)).toMatchObject({
+      fridgeCoins: PROMOTION_ATTENDANCE_COIN_REWARD,
+      claimedRewardIds: [rewardId]
+    });
+    expect(hasClaimedPromotionReward("ATTENDANCE_WEEK_1", "attendance", readExternalRewardWallet(storage))).toBe(true);
+    expect(getTrackedEvents()).toContainEqual(
+      expect.objectContaining({
+        eventName: "promotion_reward",
+        properties: expect.objectContaining({
+          promotion_code: "ATTENDANCE_WEEK_1",
+          action: "attendance",
+          reward_id: rewardId,
+          status: "success"
         })
       })
     );
