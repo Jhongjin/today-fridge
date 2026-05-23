@@ -86,6 +86,12 @@ Run before QR/review packets. The guard covers listing/metadata copy and Korean 
 npm run qa:korean-copy
 ```
 
+For automation evidence:
+
+```bash
+npm run qa:korean-copy -- --json
+```
+
 ## Review Notes
 
 - The current MVP uses a mock Toss client.

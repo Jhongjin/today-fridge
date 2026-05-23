@@ -153,3 +153,4 @@
 - Phase 133 Queue Preview Validate Harness now captures console assets and verifies upload dimensions before browser tests.
 - Phase 134 console asset capture now prints a verified dimensions and file-size table for CI/review logs.
 - Phase 135 commander review packet index now summarizes required local command readiness per packet.
+- Phase 136 Korean copy guard now supports JSON output for automation evidence.

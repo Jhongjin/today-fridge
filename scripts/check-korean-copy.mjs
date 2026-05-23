@@ -1,5 +1,7 @@
 import { readFileSync } from "node:fs";
 
+const args = new Set(process.argv.slice(2));
+
 const checks = [
   {
     file: "docs/strategy/TOSS_LISTING_COPY.md",
@@ -30,24 +32,40 @@ const checks = [
 const mojibakeMarkers = ["�", "?ㅻ", "罹", "怨?", "媛숈"];
 
 const issues = [];
+const fileResults = [];
 
 for (const check of checks) {
   const text = readFileSync(check.file, "utf8");
+  const fileIssues = [];
 
   for (const phrase of check.required) {
     if (!text.includes(phrase)) {
-      issues.push(`${check.file}: missing required phrase "${phrase}"`);
+      const issue = `${check.file}: missing required phrase "${phrase}"`;
+      issues.push(issue);
+      fileIssues.push(issue);
     }
   }
 
   for (const marker of mojibakeMarkers) {
     if (text.includes(marker)) {
-      issues.push(`${check.file}: possible mojibake marker "${marker}"`);
+      const issue = `${check.file}: possible mojibake marker "${marker}"`;
+      issues.push(issue);
+      fileIssues.push(issue);
     }
   }
+
+  fileResults.push({
+    file: check.file,
+    status: fileIssues.length === 0 ? "ready" : "not_ready",
+    issues: fileIssues
+  });
 }
 
-if (issues.length > 0) {
+const ready = issues.length === 0;
+
+if (args.has("--json")) {
+  console.log(JSON.stringify({ ready, files: fileResults, issues }, null, 2));
+} else if (!ready) {
   console.log("Korean copy check: not ready");
   console.log("");
 
@@ -55,14 +73,17 @@ if (issues.length > 0) {
     console.log(`- ${issue}`);
   }
 
-  process.exitCode = 1;
 } else {
   console.log("Korean copy check: ready");
   console.log("");
   console.log("| File | Status |");
   console.log("| --- | --- |");
 
-  for (const check of checks) {
-    console.log(`| ${check.file} | ready |`);
+  for (const result of fileResults) {
+    console.log(`| ${result.file} | ${result.status} |`);
   }
+}
+
+if (!ready) {
+  process.exitCode = 1;
 }
