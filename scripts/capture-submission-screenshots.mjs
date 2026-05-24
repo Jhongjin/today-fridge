@@ -1,6 +1,6 @@
 import { chromium } from "@playwright/test";
 import { spawn, spawnSync } from "node:child_process";
-import { mkdir, rm } from "node:fs/promises";
+import { mkdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 const host = "127.0.0.1";
@@ -9,11 +9,21 @@ const baseURL = `http://${host}:${port}`;
 const outputDir = join("qa", "artifacts", "submission-screenshots");
 const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 const args = new Set(process.argv.slice(2));
+const jsonOutput = args.has("--json");
+const screenshotFiles = [
+  "01-first-playable.png",
+  "02-recipe-book.png",
+  "03-completion-result.png",
+  "04-reward-claimed.png",
+  "05-hint-fairness.png",
+  "06-qa-toss-bridge.png"
+];
 
 const printHelp = () => {
-  console.log("Usage: node scripts/capture-submission-screenshots.mjs [--help]");
+  console.log("Usage: node scripts/capture-submission-screenshots.mjs [--json] [--help]");
   console.log("");
   console.log("Options:");
+  console.log("  --json                        Print machine-readable JSON and suppress Vite logs.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log(`Starts Vite on ${baseURL} and captures submission screenshots into ${outputDir}.`);
@@ -64,8 +74,26 @@ const capture = async (page, fileName) => {
   });
 };
 
+const readPngMetadata = async (fileName) => {
+  const bytes = await readFile(join(outputDir, fileName));
+
+  return {
+    file: fileName,
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    bytes: bytes.length,
+    kilobytes: Number((bytes.length / 1024).toFixed(1))
+  };
+};
+
+const screenshotSummary = async () => ({
+  ready: true,
+  outputDir,
+  screenshots: await Promise.all(screenshotFiles.map((fileName) => readPngMetadata(fileName)))
+});
+
 const server = spawn(npmCommand, ["run", "dev", "--", "--host", host, "--port", port], {
-  stdio: "inherit",
+  stdio: jsonOutput ? "ignore" : "inherit",
   shell: process.platform === "win32"
 });
 
@@ -119,7 +147,12 @@ try {
   await capture(bridgePage, "06-qa-toss-bridge.png");
 
   await browser.close();
-  console.log(`Saved submission screenshots to ${outputDir}`);
+
+  if (jsonOutput) {
+    console.log(JSON.stringify(await screenshotSummary(), null, 2));
+  } else {
+    console.log(`Saved submission screenshots to ${outputDir}`);
+  }
 } finally {
   if (process.platform === "win32") {
     spawnSync("taskkill", ["/pid", String(server.pid), "/T", "/F"], {

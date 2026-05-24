@@ -60,6 +60,7 @@ Commander review packets require `npm run qa:console-assets` before approval so 
 For automation evidence:
 
 ```bash
+npm run --silent qa:screenshots -- --json
 npm run --silent qa:console-assets -- --json
 ```
 
