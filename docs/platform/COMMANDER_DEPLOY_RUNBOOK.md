@@ -56,6 +56,7 @@ If `--commit` is omitted, the packet uses the current local `git rev-parse --sho
 
 The packet metadata includes the Queue Preview run URL and current local worktree status. Generate review packets from a clean tree after the intended commit is pushed and the successful Actions run is known.
 The Queue Preview run URL should use the GitHub Actions run page format, for example `https://github.com/<owner>/<repo>/actions/runs/<run-id>`.
+The preview or QR target should be an HTTPS URL.
 When the packet generator runs inside GitHub Actions, it can fill this URL from `GITHUB_REPOSITORY` and `GITHUB_RUN_ID`; local packet generation should pass `--actions-run-url` explicitly.
 
 The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, manifest, console asset, screenshot, and rating evidence Korean copy are checked for required phrases and known mojibake markers.

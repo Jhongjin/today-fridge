@@ -163,6 +163,8 @@ const commitsMatch = (actual, expected) => {
 const isGitHubActionsRunUrl = (value) =>
   /^https:\/\/github\.com\/[^/\s]+\/[^/\s]+\/actions\/runs\/\d+(?:[/?#][^\s]*)?$/.test(value.trim());
 
+const isHttpsUrl = (value) => /^https:\/\/[^\s]+$/.test(value.trim());
+
 export const checkCommanderReviewPacket = (text, options = {}) => {
   const issues = [];
 
@@ -202,6 +204,8 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
   if (!previewUrl || previewUrl === "pending") {
     issues.push("Preview URL metadata must be filled.");
+  } else if (!isHttpsUrl(previewUrl)) {
+    issues.push("Preview URL metadata must be an HTTPS URL.");
   }
 
   if (!qrSessionIndex || qrSessionIndex === "pending") {
