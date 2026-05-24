@@ -352,8 +352,32 @@ Decision notes:
 - TODO
 `;
 
+const printHelp = () => {
+  console.log("Usage: node scripts/create-commander-review-packet.mjs [options]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --commit <sha>                Reviewed commit SHA. Defaults to current git HEAD.");
+  console.log("  --actions-run-url <url>       Successful Queue Preview GitHub Actions run URL.");
+  console.log("  --preview-url <url>           HTTPS preview or QR target URL.");
+  console.log("  --session-index <path-or-url> QR session index evidence file or HTTPS link.");
+  console.log("  --reviewer <name>             Reviewer name. Defaults to commander.");
+  console.log("  --title <text>                Packet title.");
+  console.log("  --output <path>               Output packet path.");
+  console.log("  --external-rewards            Include external reward approval section.");
+  console.log("  --print                       Print packet instead of writing a file.");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log("When running inside GitHub Actions, the Queue Preview run URL can default from GITHUB_REPOSITORY and GITHUB_RUN_ID.");
+};
+
 const main = async () => {
   const args = parseArgs(process.argv.slice(2));
+
+  if (args.help) {
+    printHelp();
+    return;
+  }
+
   const generatedAt = new Date().toISOString();
   const commit = valueOf(args, "commit", readCurrentCommit());
   const externalRewards = booleanOf(args, "external-rewards");

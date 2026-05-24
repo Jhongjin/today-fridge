@@ -66,13 +66,13 @@ When a commander packet is checked locally, its `QR session index` metadata must
 After validating and indexing QR sessions, create a commander review packet:
 
 ```bash
-npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <preview-or-qr-url>
+npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <https-preview-or-qr-url> --session-index <qr-session-index-file-or-url>
 ```
 
 For external reward review:
 
 ```bash
-npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <preview-or-qr-url> --external-rewards
+npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <https-preview-or-qr-url> --session-index <qr-session-index-file-or-url> --external-rewards
 ```
 
 Default output:

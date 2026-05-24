@@ -49,7 +49,7 @@ npm run qr:external-rewards:preflight
 QR review packet:
 
 ```bash
-npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <preview-or-qr-url>
+npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <https-preview-or-qr-url> --session-index <qr-session-index-file-or-url>
 ```
 
 If `--commit` is omitted, the packet uses the current local `git rev-parse --short HEAD` value.
