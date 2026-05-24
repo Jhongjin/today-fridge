@@ -168,3 +168,4 @@
 - Phase 148 commander review packet checks now require the preview or QR target metadata to be an HTTPS URL.
 - Phase 149 commander review packet checks now require QR session index metadata to reference an existing local file or HTTPS evidence link.
 - Phase 150 readiness docs now summarize the commander packet metadata guard requirements across reviewed commit, Actions run, preview/QR target, and QR session evidence.
+- Phase 151 commander review packet checks now reject directory paths for local QR session index evidence.

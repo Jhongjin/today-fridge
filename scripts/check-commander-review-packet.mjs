@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const parseArgs = (argv) => {
@@ -165,6 +165,14 @@ const isGitHubActionsRunUrl = (value) =>
 
 const isHttpsUrl = (value) => /^https:\/\/[^\s]+$/.test(value.trim());
 
+const isExistingFile = (value) => {
+  try {
+    return statSync(value.trim()).isFile();
+  } catch {
+    return false;
+  }
+};
+
 export const checkCommanderReviewPacket = (text, options = {}) => {
   const issues = [];
 
@@ -210,7 +218,7 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
   if (!qrSessionIndex || qrSessionIndex === "pending") {
     issues.push("QR session index metadata must be filled.");
-  } else if (!isHttpsUrl(qrSessionIndex) && !existsSync(qrSessionIndex)) {
+  } else if (!isHttpsUrl(qrSessionIndex) && !isExistingFile(qrSessionIndex)) {
     issues.push("QR session index metadata must be an HTTPS URL or an existing local file.");
   }
 

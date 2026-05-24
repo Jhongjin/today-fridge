@@ -59,7 +59,7 @@ npm run qa:qr-session:index -- --output qa/qr-sessions/INDEX.md
 ```
 
 Use `--strict` when the index generation should fail unless at least one session exists and every session is complete.
-When a commander packet is checked locally, its `QR session index` metadata must point to an existing local file or an HTTPS evidence link.
+When a commander packet is checked locally, its `QR session index` metadata must point to an existing local file or an HTTPS evidence link. A directory path is not valid evidence.
 
 ## Commander Review Packet
 

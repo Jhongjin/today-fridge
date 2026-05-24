@@ -104,6 +104,7 @@
 - Validate commander packet preview URL shape. (Phase 148 done pending CI)
 - Require commander packet QR session index evidence reference. (Phase 149 done pending CI)
 - Refresh readiness docs after commander packet metadata guards. (Phase 150 done pending CI)
+- Require commander packet QR session index local evidence to be a file. (Phase 151 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)
