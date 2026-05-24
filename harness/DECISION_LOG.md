@@ -193,3 +193,4 @@
 - Phase 173 Queue Preview now checks QA helper CLI help surfaces for expected automation flags.
 - Phase 174 readiness/status docs now include QA helper surface in the Queue Preview summary evidence list.
 - Phase 175 game rating evidence packets can now be generated for store self-rating or GRAC certificate paths.
+- Phase 176 game rating evidence packets can now be checked and are required in commander review packet command evidence.

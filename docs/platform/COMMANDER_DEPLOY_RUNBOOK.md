@@ -70,6 +70,7 @@ It also requires a completed Preview Deploy Approval section, so the deploy pref
 It also requires a completed Toss Console Setup Approval section, so game category, upload assets, leaderboard settings, bundle upload candidate, preview/QR target, and console test/review state are captured as a decision.
 It also requires `npm run sdk:dependency-triage -- --strict`, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
 It also requires a completed SDK Dependency Approval section, so Node 24 coverage, audit counts, the no-force-fix policy, and remaining SDK risk are captured as a decision.
+It also requires `npm run qa:rating-evidence:check`, so the selected rating evidence packet is complete before final Toss review approval.
 It also requires a completed Game Rating Evidence Approval section, so the selected store self-rating or GRAC certificate path, classification fields, owner-name consistency, gameplay screenshots, and content guardrails are reviewed before final Toss submission.
 It also requires a completed Production Monitoring Approval section, so endpoint ownership, retention policy, access controls, deploy-preflight endpoint state, and any explicit deferral are captured as a decision.
 

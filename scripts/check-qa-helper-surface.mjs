@@ -38,6 +38,10 @@ const helpers = [
     required: ["--help", "--json", "--github-summary", "--require-real"]
   },
   {
+    script: "scripts/check-game-rating-evidence.mjs",
+    required: ["--help", "--json", "--github-summary", "--dir"]
+  },
+  {
     script: "scripts/check-korean-copy.mjs",
     required: ["--help", "--json", "--github-summary"]
   },

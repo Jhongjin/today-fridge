@@ -32,6 +32,14 @@ npm run qa:rating-evidence -- --path grac-certificate
 
 Use `--print` to inspect the packet without writing a file, or `--output <path>` to choose the evidence file location.
 
+Before commander approval, validate filled evidence packets with:
+
+```bash
+npm run qa:rating-evidence:check
+```
+
+Use `--github-summary` when running the checker in GitHub Actions.
+
 ## Store Self-Rating Checklist
 
 Prepare these values from the released store page and GRAC lookup:
@@ -87,6 +95,7 @@ Final Toss review cannot be requested until one evidence path above is complete 
 
 The commander review packet must include a completed Game Rating Evidence Approval section before final Toss review:
 
+- `npm run qa:rating-evidence:check` output for the reviewed rating evidence packet.
 - Selected path: Store self-rating or GRAC certificate.
 - Store URL or certificate PDF location.
 - Rating classification date, number, age rating, and content descriptors.

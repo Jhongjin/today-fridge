@@ -129,6 +129,7 @@
 - Add QA helper surface guard to Queue Preview. (Phase 173 done pending CI)
 - Refresh readiness docs for QA helper summary evidence. (Phase 174 done pending CI)
 - Add game rating evidence packet generator. (Phase 175 done pending CI)
+- Add game rating evidence packet checker. (Phase 176 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)
