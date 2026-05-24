@@ -161,3 +161,4 @@
 - Phase 141 commander review packets now require an explicit Toss console setup approval, follow-up, or blocker decision.
 - Phase 142 commander review packets now require an explicit real-device QR approval, follow-up, or blocker decision.
 - Phase 143 commander review packets now require an explicit preview deploy URL approval, skipped-state acceptance, or blocker decision.
+- Phase 144 commander review packet checks can now require the packet commit metadata to match the expected reviewed commit.

@@ -97,6 +97,7 @@
 - Default commander QR packet commit to current Git SHA. (Phase 119 done pending CI)
 - Record worktree status in commander QR packet. (Phase 120 done pending CI)
 - Add commander QR packet completeness validator. (Phase 121 done pending CI)
+- Gate commander review packet checks on expected commit. (Phase 144 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)

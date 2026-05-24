@@ -147,7 +147,20 @@ const isDecisionOption = (line) => decisionLabels.has(checkboxLabel(line));
 const checkedDecisionOptions = (text) =>
   checkedBoxes(text).filter((line) => decisionLabels.has(checkboxLabel(line)));
 
-export const checkCommanderReviewPacket = (text) => {
+const commitsMatch = (actual, expected) => {
+  const normalizedActual = actual.trim().toLowerCase();
+  const normalizedExpected = expected.trim().toLowerCase();
+
+  return (
+    normalizedActual.length > 0 &&
+    normalizedExpected.length > 0 &&
+    (normalizedActual === normalizedExpected ||
+      normalizedActual.startsWith(normalizedExpected) ||
+      normalizedExpected.startsWith(normalizedActual))
+  );
+};
+
+export const checkCommanderReviewPacket = (text, options = {}) => {
   const issues = [];
 
   for (const section of requiredSections) {
@@ -170,6 +183,11 @@ export const checkCommanderReviewPacket = (text) => {
 
   if (!commit || commit === "main" || commit === "pending") {
     issues.push("Commit metadata must be a reviewed commit SHA, not main or pending.");
+  }
+
+  const expectedCommit = typeof options.expectedCommit === "string" ? options.expectedCommit : "";
+  if (expectedCommit && !commitsMatch(commit, expectedCommit)) {
+    issues.push(`Commit metadata ${commit} does not match expected commit ${expectedCommit}.`);
   }
 
   if (!previewUrl || previewUrl === "pending") {
@@ -245,8 +263,8 @@ export const checkCommanderReviewPacket = (text) => {
 };
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--json]");
-  console.log("       node scripts/check-commander-review-packet.mjs --stdin [--json]");
+  console.log("Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--json]");
+  console.log("       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--json]");
   console.log("");
   console.log("Fails when a commander review packet still has TODOs, unchecked boxes, missing metadata, or no selected decision.");
 };
@@ -260,7 +278,9 @@ const main = () => {
   }
 
   const packet = readPacket(args);
-  const result = checkCommanderReviewPacket(packet.text);
+  const result = checkCommanderReviewPacket(packet.text, {
+    expectedCommit: typeof args["expected-commit"] === "string" ? args["expected-commit"] : ""
+  });
 
   if (args.json) {
     console.log(JSON.stringify({ ...result, source: packet.label }, null, 2));
