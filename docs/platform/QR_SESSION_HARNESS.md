@@ -46,7 +46,7 @@ The checker fails when a session has unresolved `TODO` markers, blank artifact l
 npm run qa:qr-session:check -- qa/qr-sessions/android.md
 ```
 
-Run `npm run qa:qr-session:check -- --help` to print the current validation options.
+Run `npm run qa:qr-session:check -- --help` to print the current validation options. Use `--github-summary` when running the checker in GitHub Actions.
 
 ## Commander Index
 

@@ -123,6 +123,7 @@
 - Require external reward prerequisite evidence in commander review packet. (Phase 167 done pending CI)
 - Write commander review packet check evidence to GitHub Actions summary. (Phase 168 done pending CI)
 - Write QR and commander review index evidence to GitHub Actions summary. (Phase 169 done pending CI)
+- Write QR session evidence check results to GitHub Actions summary. (Phase 170 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)

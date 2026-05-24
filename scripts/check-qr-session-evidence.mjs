@@ -1,4 +1,4 @@
-import { readdir, readFile, stat } from "node:fs/promises";
+import { appendFile, readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 
 const parseArgs = (argv) => {
@@ -146,12 +146,56 @@ const printTable = (rows) => {
   }
 };
 
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const writeGitHubSummary = async (result, args) => {
+  if (!args.flags.has("github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const externalRewardCount = result.rows.filter((row) => row.externalRewardCandidate).length;
+  const rows =
+    result.rows.length > 0
+      ? result.rows
+        .map((row) => `| ${escapeCell(row.file)} | ${row.status} | ${escapeCell(row.issues.length > 0 ? row.issues.join("; ") : "none")} |`)
+        .join("\n")
+      : "| none | not_ready | No QR session Markdown files found. |";
+  const issues =
+    result.rows.length === 0
+      ? "- No QR session Markdown files found."
+      : result.rows
+        .flatMap((row) => row.issues.map((issue) => `- ${row.file}: ${issue}`))
+        .join("\n") || "- None";
+
+  await appendFile(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### QR session evidence check
+
+| Metric | Value |
+| --- | --- |
+| Status | ${result.ready ? "ready" : "not ready"} |
+| Session files | ${result.sessionCount} |
+| External reward sessions | ${externalRewardCount} |
+
+| File | Status | Issues |
+| --- | --- | --- |
+${rows}
+
+## QR Session Evidence Issues
+
+${issues}
+`,
+    "utf8"
+  );
+};
+
 const printHelp = () => {
-  console.log("Usage: node scripts/check-qr-session-evidence.mjs [paths...] [--dir <dir>] [--json] [--help]");
+  console.log("Usage: node scripts/check-qr-session-evidence.mjs [paths...] [--dir <dir>] [--json] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --dir <dir>                   Directory to scan when no paths are provided. Defaults to qa/qr-sessions.");
   console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Pass Markdown files or directories as positional paths to validate a focused session set.");
@@ -186,6 +230,8 @@ const main = async () => {
     rows,
     issues: rows.length === 0 ? ["No QR session Markdown files found."] : []
   };
+
+  await writeGitHubSummary(result, args);
 
   if (args.flags.has("json")) {
     console.log(JSON.stringify(result, null, 2));
