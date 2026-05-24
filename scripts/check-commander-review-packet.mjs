@@ -239,6 +239,13 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
     issues.push("QR session index metadata must be an HTTPS URL or an existing local file.");
   }
 
+  const expectedSessionIndex = typeof options.expectedSessionIndex === "string" ? options.expectedSessionIndex : "";
+  if (expectedSessionIndex && !isHttpsUrl(expectedSessionIndex) && !isExistingFile(expectedSessionIndex)) {
+    issues.push("Expected QR session index must be an HTTPS URL or an existing local file.");
+  } else if (expectedSessionIndex && !urlsMatch(qrSessionIndex, expectedSessionIndex)) {
+    issues.push(`QR session index metadata ${qrSessionIndex} does not match expected session index ${expectedSessionIndex}.`);
+  }
+
   if (worktree !== "clean") {
     issues.push("Working tree metadata must be clean.");
   }
@@ -305,10 +312,10 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
 const printHelp = () => {
   console.log(
-    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--json]"
+    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--expected-session-index <path-or-url>] [--json]"
   );
   console.log(
-    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--json]"
+    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--expected-session-index <path-or-url>] [--json]"
   );
   console.log("");
   console.log("Fails when a commander review packet still has TODOs, unchecked boxes, missing metadata, or no selected decision.");
@@ -327,7 +334,8 @@ const main = () => {
     expectedCommit: typeof args["expected-commit"] === "string" ? args["expected-commit"] : "",
     expectedActionsRunUrl:
       typeof args["expected-actions-run-url"] === "string" ? args["expected-actions-run-url"] : "",
-    expectedPreviewUrl: typeof args["expected-preview-url"] === "string" ? args["expected-preview-url"] : ""
+    expectedPreviewUrl: typeof args["expected-preview-url"] === "string" ? args["expected-preview-url"] : "",
+    expectedSessionIndex: typeof args["expected-session-index"] === "string" ? args["expected-session-index"] : ""
   });
 
   if (args.json) {

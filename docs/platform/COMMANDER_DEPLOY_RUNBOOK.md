@@ -73,10 +73,10 @@ It also requires a completed Production Monitoring Approval section, so endpoint
 After the packet is filled, run:
 
 ```bash
-npm run qa:commander-review-packet:check -- <packet.md> --expected-commit <sha> --expected-actions-run-url <queue-preview-run-url> --expected-preview-url <https-preview-or-qr-url>
+npm run qa:commander-review-packet:check -- <packet.md> --expected-commit <sha> --expected-actions-run-url <queue-preview-run-url> --expected-preview-url <https-preview-or-qr-url> --expected-session-index <qr-session-index-file-or-url>
 ```
 
-Use the exact reviewed commit SHA, Queue Preview run URL, and HTTPS preview or QR target from the successful run. The checker accepts short or full SHA prefixes for the commit, but fails if the packet metadata points at a different commit, Actions run URL, or preview/QR target.
+Use the exact reviewed commit SHA, Queue Preview run URL, HTTPS preview or QR target, and QR session index evidence reference from the successful run. The checker accepts short or full SHA prefixes for the commit, but fails if the packet metadata points at a different commit, Actions run URL, preview/QR target, or QR session index.
 
 To summarize saved packets:
 

@@ -172,3 +172,4 @@
 - Phase 152 commander review packet generation now has help output that lists the current required metadata evidence options.
 - Phase 153 commander review packet checks can now require the packet Queue Preview run URL to match the expected Actions run.
 - Phase 154 commander review packet checks can now require the packet preview or QR target URL to match the expected HTTPS target.
+- Phase 155 commander review packet checks can now require the packet QR session index evidence reference to match the expected file or HTTPS link.
