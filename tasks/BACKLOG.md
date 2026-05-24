@@ -132,6 +132,7 @@
 - Add game rating evidence packet checker. (Phase 176 done pending CI)
 - Refresh readiness docs for rating evidence tooling. (Phase 177 done pending CI)
 - Add rating evidence checker pass to commander packet checklist. (Phase 178 done pending CI)
+- Tighten rating evidence checker on unchecked checklist items. (Phase 179 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)

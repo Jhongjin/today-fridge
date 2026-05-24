@@ -81,6 +81,7 @@ const hasSection = (text, heading) => new RegExp(`^## ${heading}$`, "m").test(te
 const checkboxLabel = (line) => line.replace(/^\s*- \[[ xX]\]\s*/, "").trim();
 
 const checkedBoxes = (text) => text.match(/^\s*- \[[xX]\].*$/gm) ?? [];
+const uncheckedBoxes = (text) => text.match(/^\s*- \[ \].*$/gm) ?? [];
 
 const checkedOptions = (text, labels) => checkedBoxes(text).filter((line) => labels.includes(checkboxLabel(line)));
 
@@ -150,6 +151,13 @@ const validateEvidence = (file, text) => {
   const decisionChecked = checkedOptions(sectionText(normalizedText, "Commander Rating Decision"), decisionLabels);
   if (decisionChecked.length !== 1) {
     issues.push("Commander Rating Decision must have exactly one checked decision.");
+  }
+
+  const allowedUncheckedLabels = new Set([...evidencePathLabels, ...decisionLabels]);
+  const uncheckedRequiredBoxes = uncheckedBoxes(normalizedText).filter((line) => !allowedUncheckedLabels.has(checkboxLabel(line)));
+
+  if (uncheckedRequiredBoxes.length > 0) {
+    issues.push(`Evidence still has ${uncheckedRequiredBoxes.length} unchecked checklist item(s).`);
   }
 
   if (/\bTODO\b/i.test(normalizedText)) {

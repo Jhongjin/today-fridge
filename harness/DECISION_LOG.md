@@ -196,3 +196,4 @@
 - Phase 176 game rating evidence packets can now be checked and are required in commander review packet command evidence.
 - Phase 177 readiness/checkpoint docs now point to the rating evidence generator and checker.
 - Phase 178 commander review packet evidence checklist now calls out the rating evidence checker pass.
+- Phase 179 rating evidence checks now reject unchecked non-decision checklist items.
