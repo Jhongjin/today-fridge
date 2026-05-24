@@ -1,6 +1,6 @@
 import { chromium } from "@playwright/test";
 import { spawn, spawnSync } from "node:child_process";
-import { mkdir, readFile, rm } from "node:fs/promises";
+import { appendFile, mkdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 const host = "127.0.0.1";
@@ -20,10 +20,11 @@ const screenshotFiles = [
 ];
 
 const printHelp = () => {
-  console.log("Usage: node scripts/capture-submission-screenshots.mjs [--json] [--help]");
+  console.log("Usage: node scripts/capture-submission-screenshots.mjs [--json] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --json                        Print machine-readable JSON and suppress Vite logs.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log(`Starts Vite on ${baseURL} and captures submission screenshots into ${outputDir}.`);
@@ -92,6 +93,31 @@ const screenshotSummary = async () => ({
   screenshots: await Promise.all(screenshotFiles.map((fileName) => readPngMetadata(fileName)))
 });
 
+const formatKilobytes = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
+
+const writeGitHubSummary = async (summary) => {
+  if (!args.has("--github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const rows = summary.screenshots
+    .map((screenshot) => `| ${screenshot.file} | ${screenshot.width}x${screenshot.height} | ${formatKilobytes(screenshot.bytes)} |`)
+    .join("\n");
+
+  await appendFile(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### Submission screenshots
+
+| Screenshot | Dimensions | Size |
+| --- | ---: | ---: |
+${rows}
+
+Output: \`${summary.outputDir}\`
+`,
+    "utf8"
+  );
+};
+
 const server = spawn(npmCommand, ["run", "dev", "--", "--host", host, "--port", port], {
   stdio: jsonOutput ? "ignore" : "inherit",
   shell: process.platform === "win32"
@@ -147,9 +173,11 @@ try {
   await capture(bridgePage, "06-qa-toss-bridge.png");
 
   await browser.close();
+  const summary = await screenshotSummary();
+  await writeGitHubSummary(summary);
 
   if (jsonOutput) {
-    console.log(JSON.stringify(await screenshotSummary(), null, 2));
+    console.log(JSON.stringify(summary, null, 2));
   } else {
     console.log(`Saved submission screenshots to ${outputDir}`);
   }

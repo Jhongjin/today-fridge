@@ -62,6 +62,7 @@ For automation evidence:
 
 ```bash
 npm run --silent qa:screenshots -- --json
+npm run --silent qa:screenshots -- --github-summary
 npm run --silent qa:console-assets -- --json
 ```
 
