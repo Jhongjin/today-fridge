@@ -50,6 +50,10 @@ jobs:
             npm install
           fi
 
+      - name: Check SDK dependency triage
+        if: hashFiles('package.json') != ''
+        run: npm run sdk:dependency-triage -- --strict --github-summary
+
       - name: Run unit tests
         if: hashFiles('package.json') != ''
         run: npm test --if-present

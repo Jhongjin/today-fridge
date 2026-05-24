@@ -5,7 +5,7 @@
 Observed on 2026-05-24:
 
 - Queue Preview validation succeeds on GitHub Actions.
-- Validate Harness writes Korean copy, bundle budget, and console asset evidence into the workflow summary.
+- Validate Harness writes SDK dependency triage, Korean copy, bundle budget, and console asset evidence into the workflow summary.
 - Optional Preview Deploy succeeds as a job, but deploy steps are skipped because required Vercel prerequisites are not configured. The job writes the same prerequisite table as `npm run deploy:check-prereqs`.
 - Production deploy remains manual through the `Commander Production Deploy` workflow.
 
@@ -74,6 +74,7 @@ npm run deploy:check-prereqs -- --json
 A queue completion is fully preview-deployed when:
 
 - `Validate Harness` passes.
+- The SDK dependency triage strict check passes inside `Validate Harness`.
 - The Korean copy guard passes inside `Validate Harness`.
 - Console assets are regenerated and dimension-checked inside `Validate Harness`.
 - `Optional Preview Deploy` runs `Install Vercel CLI`, `Pull Vercel preview environment`, and `Deploy preview` instead of skipping those steps.

@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const sdkPackageName = "@apps-in-toss/web-framework";
@@ -207,6 +207,71 @@ const printCountsRow = (label, counts) => {
   console.log(`| ${label} | ${counts.total} | ${counts.low} | ${counts.moderate} | ${counts.high} | ${counts.critical} |`);
 };
 
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const auditCountRows = (triage) => [
+  ["Production dependencies", triage.audit.production.counts],
+  ["Full dependency tree", triage.audit.full.counts]
+];
+
+const writeGitHubSummary = (triage, args) => {
+  if (!args.has("github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const majorHints = triage.fixHints.filter((hint) => hint.semverMajor);
+  const auditRows = auditCountRows(triage)
+    .map(([label, counts]) => `| ${label} | ${counts.total} | ${counts.low} | ${counts.moderate} | ${counts.high} | ${counts.critical} |`)
+    .join("\n");
+  const hintRows =
+    majorHints.length > 0
+      ? majorHints
+        .map(
+          (hint) =>
+            `| ${escapeCell(hint.source)} | ${escapeCell(hint.packageName)} | ${escapeCell(hint.version)} | ${hint.semverMajor ? "yes" : "no"} |`
+        )
+        .join("\n")
+      : "| none |  |  |  |";
+  const issues =
+    triage.strictFailures.length > 0 ? triage.strictFailures.map((failure) => `- ${failure}`).join("\n") : "- None";
+
+  appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### SDK dependency triage
+
+| Item | Value |
+| --- | --- |
+| Status | ${triage.strictFailures.length === 0 ? "ready" : "not ready"} |
+| Local Node | ${escapeCell(triage.runtime.node)} |
+| Local npm | ${escapeCell(triage.runtime.npm ?? "unknown")} |
+| SDK locked | ${escapeCell(`${triage.sdk.packageName}@${triage.sdk.lockedVersion ?? "missing"}`)} |
+| SDK requested | ${escapeCell(triage.sdk.requestedVersion ?? "missing")} |
+| SDK npm latest | ${escapeCell(triage.sdk.latestVersion ?? "unknown")} |
+| SDK latest status | ${escapeCell(triage.sdk.latestStatus)} |
+| Engine package | ${escapeCell(`${triage.enginePackage.packageName}@${triage.enginePackage.lockedVersion ?? "missing"} requires Node ${triage.enginePackage.nodeEngine ?? "unknown"}`)} |
+
+## SDK Audit Counts
+
+| Scope | Total | Low | Moderate | High | Critical |
+| --- | ---: | ---: | ---: | ---: | ---: |
+${auditRows}
+
+## SDK Major Fix Hints
+
+| Source | Suggested package | Version | Semver major |
+| --- | --- | --- | --- |
+${hintRows}
+
+## SDK Strict Issues
+
+${issues}
+
+Policy: do not run \`npm audit fix --force\` on the SDK tree without commander approval.
+`,
+    "utf8"
+  );
+};
+
 const printMarkdown = (triage) => {
   console.log("SDK dependency triage");
   console.log("");
@@ -253,11 +318,12 @@ const printMarkdown = (triage) => {
 };
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-sdk-dependency-triage.mjs [--json] [--strict] [--help]");
+  console.log("Usage: node scripts/check-sdk-dependency-triage.mjs [--json] [--strict] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --json                        Print machine-readable JSON.");
   console.log("  --strict                      Fail on unresolved SDK metadata or audit JSON checks.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Reports Apps in Toss SDK package metadata, Node engine requirements, and npm audit counts.");
@@ -289,6 +355,8 @@ const main = () => {
   } else {
     printMarkdown(triage);
   }
+
+  writeGitHubSummary(triage, args);
 
   if (args.has("strict") && triage.strictFailures.length > 0) {
     process.exitCode = 1;

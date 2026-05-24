@@ -23,6 +23,12 @@ Refresh command:
 npm run sdk:dependency-triage
 ```
 
+Queue Preview runs the strict form and writes the same dependency evidence to the workflow summary:
+
+```bash
+npm run sdk:dependency-triage -- --strict --github-summary
+```
+
 Commands:
 
 ```bash
