@@ -322,6 +322,7 @@ ${checkboxRows([
   "No console/page errors are observed, or every observed error has a linked note.",
   "Korean listing and metadata copy guard passed for this commit.",
   "Console logo, thumbnail, and upload screenshots were regenerated and dimensions verified.",
+  "Game rating evidence packet was generated and `npm run qa:rating-evidence:check` passed.",
   "External reward prerequisites passed or were explicitly not requested for this commit.",
   "SDK dependency triage was refreshed for this commit and has no strict failures.",
   "Clean leaderboard submit and leaderboard open remain separate user actions.",
