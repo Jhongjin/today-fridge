@@ -78,6 +78,19 @@ const readWorktreeStatus = () => {
   }
 };
 
+const readGitHubActionsRunUrl = () => {
+  const repository = process.env.GITHUB_REPOSITORY ?? "";
+  const runId = process.env.GITHUB_RUN_ID ?? "";
+
+  if (!repository || !runId) {
+    return "pending";
+  }
+
+  const serverUrl = (process.env.GITHUB_SERVER_URL ?? "https://github.com").replace(/\/+$/, "");
+
+  return `${serverUrl}/${repository}/actions/runs/${runId}`;
+};
+
 const renderExternalRewardSection = (enabled) => {
   if (!enabled) {
     return "";
@@ -345,7 +358,7 @@ const main = async () => {
   const commit = valueOf(args, "commit", readCurrentCommit());
   const externalRewards = booleanOf(args, "external-rewards");
   const packet = renderPacket({
-    actionsRunUrl: valueOf(args, "actions-run-url", "pending"),
+    actionsRunUrl: valueOf(args, "actions-run-url", readGitHubActionsRunUrl()),
     commit,
     externalRewards,
     generatedAt,

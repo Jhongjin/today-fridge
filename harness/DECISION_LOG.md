@@ -164,3 +164,4 @@
 - Phase 144 commander review packet checks can now require the packet commit metadata to match the expected reviewed commit.
 - Phase 145 commander review packets now require a Queue Preview run URL metadata field and surface it in the packet index.
 - Phase 146 commander review packet checks now require Queue Preview run metadata to use a GitHub Actions run URL shape.
+- Phase 147 commander review packet generation now defaults the Queue Preview run URL from GitHub Actions environment variables when available.
