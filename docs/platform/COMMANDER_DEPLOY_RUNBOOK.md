@@ -55,6 +55,7 @@ npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-pr
 If `--commit` is omitted, the packet uses the current local `git rev-parse --short HEAD` value.
 
 The packet metadata includes the Queue Preview run URL and current local worktree status. Generate review packets from a clean tree after the intended commit is pushed and the successful Actions run is known.
+The Queue Preview run URL should use the GitHub Actions run page format, for example `https://github.com/<owner>/<repo>/actions/runs/<run-id>`.
 
 The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, manifest, console asset, screenshot, and rating evidence Korean copy are checked for required phrases and known mojibake markers.
 It requires `npm run qa:console-assets`, so console logo, thumbnail, and upload screenshot dimensions are regenerated and verified against Toss console requirements.

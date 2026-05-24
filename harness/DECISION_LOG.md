@@ -163,3 +163,4 @@
 - Phase 143 commander review packets now require an explicit preview deploy URL approval, skipped-state acceptance, or blocker decision.
 - Phase 144 commander review packet checks can now require the packet commit metadata to match the expected reviewed commit.
 - Phase 145 commander review packets now require a Queue Preview run URL metadata field and surface it in the packet index.
+- Phase 146 commander review packet checks now require Queue Preview run metadata to use a GitHub Actions run URL shape.

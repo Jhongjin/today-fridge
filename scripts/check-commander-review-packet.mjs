@@ -160,6 +160,9 @@ const commitsMatch = (actual, expected) => {
   );
 };
 
+const isGitHubActionsRunUrl = (value) =>
+  /^https:\/\/github\.com\/[^/\s]+\/[^/\s]+\/actions\/runs\/\d+(?:[/?#][^\s]*)?$/.test(value.trim());
+
 export const checkCommanderReviewPacket = (text, options = {}) => {
   const issues = [];
 
@@ -193,6 +196,8 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
   if (!actionsRunUrl || actionsRunUrl === "pending") {
     issues.push("Queue Preview run metadata must be filled.");
+  } else if (!isGitHubActionsRunUrl(actionsRunUrl)) {
+    issues.push("Queue Preview run metadata must be a GitHub Actions run URL.");
   }
 
   if (!previewUrl || previewUrl === "pending") {
