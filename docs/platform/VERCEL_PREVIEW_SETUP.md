@@ -2,9 +2,10 @@
 
 ## Current Status
 
-Observed on 2026-05-23:
+Observed on 2026-05-24:
 
 - Queue Preview validation succeeds on GitHub Actions.
+- Validate Harness writes Korean copy, bundle budget, and console asset evidence into the workflow summary.
 - Optional Preview Deploy succeeds as a job, but deploy steps are skipped because required Vercel prerequisites are not configured. The job writes the same prerequisite table as `npm run deploy:check-prereqs`.
 - Production deploy remains manual through the `Commander Production Deploy` workflow.
 

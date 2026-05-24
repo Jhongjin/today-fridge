@@ -20,8 +20,8 @@ References:
 | First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
 | Manifest/app icon | Pass | Web manifest references the SVG app icon. |
-| Console upload assets | Partial pass | Console logo/thumbnail/screenshot PNGs can be generated locally and dimensions are guarded; final console upload and console setup decision are pending. |
-| Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget and blocks source maps. Must recheck after assets/audio. |
+| Console upload assets | Partial pass | Console logo/thumbnail/screenshot PNGs can be generated locally and dimensions are guarded; Queue Preview records the verified dimensions in the workflow summary. Final console upload and console setup decision are pending. |
+| Bundle size | Pass for prototype | CI checks the static `dist` bundle against a 5 MB default budget, blocks source maps, and records bundle evidence in the workflow summary. Must recheck after assets/audio. |
 | Sound controls | Partial pass | Mute persists locally, synthetic SFX exist for core gameplay, and pause/resume feedback is wired. Final BGM/custom assets pending. |
 | Background sound handling | Partial | SFX playback is suspended on page hide/show lifecycle events. Final BGM lifecycle still needs real-device testing once BGM is added. |
 | Safe area | Partial | CSS uses safe-area padding; real iOS Toss WebView test pending. |
@@ -79,6 +79,7 @@ Do not change without command-center review:
 ## 4. GitHub/Vercel Setup
 
 Preview auto-deploy is wired but currently skipped until secrets are configured. Use `npm run deploy:check-prereqs` and `docs/platform/VERCEL_PREVIEW_SETUP.md`, then record the Queue Preview run URL, HTTPS preview/QR target, and preview deploy decision in the commander review packet.
+Queue Preview summaries now include Korean copy guard status, bundle budget evidence, console asset evidence, and preview deploy prerequisite state.
 
 Required GitHub repository variable:
 
