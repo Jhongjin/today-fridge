@@ -1,4 +1,4 @@
-import { readFileSync, statSync } from "node:fs";
+import { appendFileSync, readFileSync, statSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const parseArgs = (argv) => {
@@ -176,6 +176,37 @@ const isExistingFile = (value) => {
   }
 };
 
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const writeGitHubSummary = ({ result, source }, args) => {
+  if (!args["github-summary"] || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const issues = result.issues.length > 0 ? result.issues.map((issue) => `- ${issue}`).join("\n") : "- None";
+
+  appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### Commander review packet check
+
+| Item | Value |
+| --- | --- |
+| Status | ${result.ready ? "ready" : "not ready"} |
+| Source | ${escapeCell(source)} |
+| Commit | ${escapeCell(result.metadata.Commit ?? "missing")} |
+| Queue Preview run | ${escapeCell(result.metadata["Queue Preview run"] ?? "missing")} |
+| Preview URL | ${escapeCell(result.metadata["Preview URL"] ?? "missing")} |
+| QR session index | ${escapeCell(result.metadata["QR session index"] ?? "missing")} |
+| Issues | ${result.issues.length} |
+
+## Commander Packet Issues
+
+${issues}
+`,
+    "utf8"
+  );
+};
+
 export const checkCommanderReviewPacket = (text, options = {}) => {
   const issues = [];
 
@@ -313,11 +344,20 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
 const printHelp = () => {
   console.log(
-    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--expected-session-index <path-or-url>] [--json]"
+    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--expected-session-index <path-or-url>] [--json] [--github-summary] [--help]"
   );
   console.log(
-    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--expected-session-index <path-or-url>] [--json]"
+    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--expected-session-index <path-or-url>] [--json] [--github-summary] [--help]"
   );
+  console.log("");
+  console.log("Options:");
+  console.log("  --expected-commit <sha>       Require packet commit metadata to match this SHA.");
+  console.log("  --expected-actions-run-url    Require packet Queue Preview run URL to match this URL.");
+  console.log("  --expected-preview-url        Require packet Preview URL to match this HTTPS URL.");
+  console.log("  --expected-session-index      Require packet QR session index to match this file or HTTPS URL.");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
+  console.log("  --help                        Show this help.");
   console.log("");
   console.log("Fails when a commander review packet still has TODOs, unchecked boxes, missing metadata, or no selected decision.");
 };
@@ -338,6 +378,8 @@ const main = () => {
     expectedPreviewUrl: typeof args["expected-preview-url"] === "string" ? args["expected-preview-url"] : "",
     expectedSessionIndex: typeof args["expected-session-index"] === "string" ? args["expected-session-index"] : ""
   });
+
+  writeGitHubSummary({ result, source: packet.label }, args);
 
   if (args.json) {
     console.log(JSON.stringify({ ...result, source: packet.label }, null, 2));

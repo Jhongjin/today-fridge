@@ -80,6 +80,7 @@ npm run qa:commander-review-packet:check -- <packet.md> --expected-commit <sha> 
 ```
 
 Use the exact reviewed commit SHA, Queue Preview run URL, HTTPS preview or QR target, and QR session index evidence reference from the successful run. The checker accepts short or full SHA prefixes for the commit, but fails if the packet metadata points at a different commit, Actions run URL, preview/QR target, or QR session index.
+Use `--github-summary` when running the packet checker inside GitHub Actions to write packet readiness, metadata, and issue count to the workflow summary.
 
 To summarize saved packets:
 
