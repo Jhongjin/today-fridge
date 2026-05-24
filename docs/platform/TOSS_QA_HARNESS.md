@@ -1,6 +1,6 @@
 # TOSS_QA_HARNESS
 
-Checked: 2026-05-23
+Checked: 2026-05-24
 
 Target: `오늘의 냉장고`, Toss Apps in Toss H5 casual game.
 
@@ -139,6 +139,7 @@ Use `docs/platform/QR_SESSION_HARNESS.md` as the evidence protocol.
 
 Before commander approval, run `npm run qa:qr-session:check` to catch incomplete evidence files.
 Use `npm run qa:qr-session:index` to summarize completed session files for the commander review packet.
+When either command runs inside GitHub Actions, add `--github-summary` so QR readiness and open issues are visible in the workflow summary.
 
 ## 8. Browser Verification Harness
 
@@ -170,6 +171,11 @@ Real SDK QR candidate:
 - Build with `VITE_TOSS_REAL_CLIENT=true` only for commander-approved QR previews.
 - The QA bridge still wins when present, so `?qa=toss-bridge*` scenarios remain deterministic even in a real-SDK candidate build.
 - Default browser, CI, and normal preview builds keep the local mock client.
+
+Automation evidence summaries:
+
+- Queue Preview writes SDK dependency triage, Korean copy guard, external reward prerequisite, bundle budget, console asset, and deploy prerequisite evidence to the workflow summary.
+- QR session checks, QR indexes, commander packet checks, commander packet indexes, and submission screenshot capture can also write GitHub summaries when run with `--github-summary`.
 
 External reward QA runner:
 

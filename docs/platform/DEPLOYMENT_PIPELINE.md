@@ -78,13 +78,15 @@ See `docs/platform/VERCEL_PREVIEW_SETUP.md` for setup steps and current skip dia
 Validation includes:
 
 - Unit tests.
+- SDK dependency triage.
 - Korean listing and metadata copy guard.
+- External reward prerequisite check.
 - Production build.
 - Static `dist` bundle budget check and source map guard.
 - Console logo, thumbnail, and upload screenshot generation with dimension verification.
 - Playwright mobile browser tests.
 
-For automation evidence, `npm run --silent check:bundle -- --json` prints total bytes, budget bytes, source map paths, and file sizes after `npm run build`. Queue Preview also runs `npm run qa:korean-copy -- --github-summary`, `npm run check:bundle -- --github-summary`, and `npm run qa:console-assets -- --github-summary` so the workflow summary records copy, bundle budget, and console asset evidence.
+For automation evidence, `npm run --silent check:bundle -- --json` prints total bytes, budget bytes, source map paths, and file sizes after `npm run build`. Queue Preview also runs SDK dependency triage, Korean copy, external reward prerequisite, bundle budget, console asset, and deploy prerequisite checks with `--github-summary` so the workflow summary records the review evidence.
 
 GitHub validation uses Node `24` because Apps in Toss SDK packaging dependencies include a Node `>=24` engine requirement.
 

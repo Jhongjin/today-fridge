@@ -125,6 +125,7 @@
 - Write QR and commander review index evidence to GitHub Actions summary. (Phase 169 done pending CI)
 - Write QR session evidence check results to GitHub Actions summary. (Phase 170 done pending CI)
 - Write submission screenshot evidence to GitHub Actions summary. (Phase 171 done pending CI)
+- Refresh QA and deployment docs for GitHub summary evidence surface. (Phase 172 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)

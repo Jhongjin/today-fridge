@@ -189,3 +189,4 @@
 - Phase 169 QR session and commander review packet indexes now support GitHub Actions summaries.
 - Phase 170 QR session evidence checks now support GitHub Actions summaries.
 - Phase 171 submission screenshot capture now supports GitHub Actions summaries.
+- Phase 172 QA harness and deployment docs now reflect the full GitHub summary evidence surface.
