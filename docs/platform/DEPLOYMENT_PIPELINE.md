@@ -82,6 +82,8 @@ Validation includes:
 - Console logo, thumbnail, and upload screenshot generation with dimension verification.
 - Playwright mobile browser tests.
 
+For automation evidence, `npm run --silent check:bundle -- --json` prints total bytes, budget bytes, source map paths, and file sizes after `npm run build`.
+
 GitHub validation uses Node `24` because Apps in Toss SDK packaging dependencies include a Node `>=24` engine requirement.
 
 ## Commander Production Deploy
