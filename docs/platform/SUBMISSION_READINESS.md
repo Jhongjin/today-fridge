@@ -32,7 +32,7 @@ References:
 | Rewarded ads | Mock UI only | Policy-safe completion mock and integrated QA scenario exist; real rewarded-ad adapter is available behind the external reward gate, with UI wiring pending QR evidence. |
 | Promotion points | Mock UI only | Fixed-action mock and integrated QA scenario exist; real `grantPromotionRewardForGame` adapter is available behind the external reward gate, with UI wiring pending QR evidence and promotion review. |
 | Error monitoring | Partial | Local hooks and optional `VITE_ERROR_MONITORING_ENDPOINT` transport exist; production endpoint owner, retention policy, and access controls must be approved or explicitly deferred in the commander review packet. |
-| QR test | Pending | Requires Apps in Toss console setup and a QR target. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
+| QR test | Pending | Requires Apps in Toss console setup, QR target, and commander packet QR approval. Session evidence harness exists in `docs/platform/QR_SESSION_HARNESS.md`. |
 
 ## 2. Submission Blockers
 
@@ -50,6 +50,7 @@ These must be completed before requesting review:
 - QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - QR session evidence can be summarized locally with `npm run qa:qr-session:index`.
 - Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
+- Commander QR review packets now require completed real-device QR approval or follow-up decision.
 - Commander QR review packets now require completed Toss console setup approval or follow-up decision.
 - Commander QR review packets now require completed SDK dependency approval or follow-up decision.
 - Commander QR review packets now require completed game rating evidence approval before final Toss review.

@@ -199,6 +199,29 @@ Notes:
 
 `;
 
+const renderRealDeviceQrSection = () => `## Real Device QR Approval
+
+${checkboxRows([
+  "Android supported QR session is complete and linked from the session index.",
+  "iOS supported QR session is complete and linked from the session index.",
+  "Unsupported or error-path QR session is complete or explicitly marked unavailable.",
+  "Game profile, game user key, leaderboard submit, and leaderboard open are verified on real Toss runtime.",
+  "Safe-area, back/close, sound/background, and first-playable timing checks are recorded.",
+  "No console/page errors are observed, or every observed error has a linked note."
+])}
+
+Real device QR decision:
+
+- [ ] Approved for Toss review request
+- [ ] Needs QR follow-up
+- [ ] Blocked until QR evidence is complete
+
+Notes:
+
+- TODO
+
+`;
+
 const renderPacket = ({
   commit,
   externalRewards,
@@ -221,6 +244,7 @@ const renderPacket = ({
 | Preview URL | ${previewUrl} |
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
+| Real device QR approval | required |
 | Toss console setup approval | required |
 | SDK dependency approval | required |
 | Game rating evidence | required |
@@ -263,7 +287,7 @@ ${checkboxRows([
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."
 ])}
 
-${renderTossConsoleSetupSection()}${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
+${renderRealDeviceQrSection()}${renderTossConsoleSetupSection()}${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
 
 ${checkboxRows([
   "First playable screen appears within 10 seconds on supported QR devices.",
@@ -273,6 +297,7 @@ ${checkboxRows([
   "Bundle budget and source-map guard passed for the reviewed commit.",
   "Queue Preview GitHub Actions passed for the reviewed commit.",
   "Preview deploy skipped state is understood when Vercel secrets/vars are not configured.",
+  "Real device QR approval section is complete.",
   "Toss console setup approval section is complete.",
   "Production monitoring approval section is complete."
 ])}

@@ -60,6 +60,7 @@ const requiredSections = [
   "Metadata",
   "Required Local Commands",
   "Evidence Checklist",
+  "Real Device QR Approval",
   "Toss Console Setup Approval",
   "SDK Dependency Approval",
   "Game Rating Evidence Approval",
@@ -129,6 +130,8 @@ const decisionLabels = new Set([
   "Approved for Toss console setup",
   "Needs console setup follow-up",
   "Blocked until console setup is complete",
+  "Needs QR follow-up",
+  "Blocked until QR evidence is complete",
   "Needs follow-up",
   "Rejected for now"
 ]);
@@ -189,6 +192,11 @@ export const checkCommanderReviewPacket = (text) => {
   const commanderDecisionChecked = checkedDecisionOptions(sectionText(text, "Commander Decision"));
   if (commanderDecisionChecked.length !== 1) {
     issues.push("Commander Decision must have exactly one checked decision.");
+  }
+
+  const qrDecisionChecked = checkedDecisionOptions(sectionText(text, "Real Device QR Approval"));
+  if (qrDecisionChecked.length !== 1) {
+    issues.push("Real device QR decision must have exactly one checked decision.");
   }
 
   const consoleSetupDecisionChecked = checkedDecisionOptions(sectionText(text, "Toss Console Setup Approval"));
