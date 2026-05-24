@@ -114,6 +114,7 @@
 - Add JSON output to submission screenshot capture. (Phase 158 done pending CI)
 - Add JSON output to bundle budget checks. (Phase 159 done pending CI)
 - Use deploy preflight script for Optional Preview Deploy gate summaries. (Phase 160 done pending CI)
+- Write bundle budget evidence to Queue Preview summary. (Phase 161 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)

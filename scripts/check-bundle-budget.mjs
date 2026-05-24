@@ -1,5 +1,5 @@
 import { readdir, stat } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { appendFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const args = new Set(process.argv.slice(2));
@@ -10,32 +10,72 @@ const configuredBudget = process.env.BUNDLE_BUDGET_BYTES?.trim();
 const budgetBytes = Number(configuredBudget ? configuredBudget : defaultBudgetBytes);
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-bundle-budget.mjs [--json] [--help]");
+  console.log("Usage: node scripts/check-bundle-budget.mjs [--json] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Checks built dist size against BUNDLE_BUDGET_BYTES, defaulting to 5 MB, and fails on source maps.");
 };
 
 const formatBytes = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const writeGitHubSummary = (result) => {
+  if (!args.has("--github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const sourceMapText = result.sourceMaps?.length > 0 ? result.sourceMaps.join(", ") : "none";
+  const issues = result.issues?.length > 0 ? result.issues.map((issue) => `- ${issue}`).join("\n") : "- None";
+  const fileRows =
+    result.files?.length > 0
+      ? result.files
+        .map((file) => `| ${escapeCell(file.path)} | ${formatBytes(file.bytes)} |`)
+        .join("\n")
+      : "| none |  |";
+
+  appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### Bundle budget
+
+| Metric | Value |
+| --- | --- |
+| Status | ${result.ready ? "ready" : "not ready"} |
+| Total size | ${Number.isFinite(result.totalBytes) ? formatBytes(result.totalBytes) : "n/a"} |
+| Budget | ${Number.isFinite(result.budgetBytes) ? formatBytes(result.budgetBytes) : "n/a"} |
+| Over budget | ${Number.isFinite(result.overBudgetBytes) ? formatBytes(result.overBudgetBytes) : "n/a"} |
+| Source maps | ${escapeCell(sourceMapText)} |
+
+## Bundle Files
+
+| File | Size |
+| --- | ---: |
+${fileRows}
+
+## Bundle Issues
+
+${issues}
+`,
+    "utf8"
+  );
+};
 
 const printFailure = (message, extra = {}) => {
+  const result = {
+    ready: false,
+    distDir,
+    budgetBytes: Number.isFinite(budgetBytes) ? budgetBytes : null,
+    issues: [message],
+    ...extra
+  };
+
+  writeGitHubSummary(result);
+
   if (jsonOutput) {
-    console.log(
-      JSON.stringify(
-        {
-          ready: false,
-          distDir,
-          budgetBytes: Number.isFinite(budgetBytes) ? budgetBytes : null,
-          issues: [message],
-          ...extra
-        },
-        null,
-        2
-      )
-    );
+    console.log(JSON.stringify(result, null, 2));
   } else {
     console.error(message);
   }
@@ -117,6 +157,8 @@ if (jsonOutput) {
     console.error(issue);
   }
 }
+
+writeGitHubSummary(result);
 
 if (!result.ready) {
   process.exit(1);

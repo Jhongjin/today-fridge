@@ -178,3 +178,4 @@
 - Phase 158 submission screenshot capture now supports JSON output with generated PNG metadata.
 - Phase 159 bundle budget checks now support JSON output with bundle totals, file sizes, and source map findings.
 - Phase 160 Optional Preview Deploy now uses the deploy prerequisite preflight script for its GitHub output and summary.
+- Phase 161 Queue Preview bundle budget checks now write bundle evidence to the GitHub Actions summary.

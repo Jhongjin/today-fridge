@@ -64,7 +64,7 @@ jobs:
 
       - name: Check bundle budget
         if: hashFiles('package.json') != ''
-        run: npm run check:bundle --if-present
+        run: npm run check:bundle -- --github-summary
 
       - name: Install Playwright Chromium
         if: hashFiles('package.json') != ''
