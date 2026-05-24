@@ -183,3 +183,4 @@
 - Phase 163 Queue Preview Korean copy guard now writes file-level status to the GitHub Actions summary.
 - Phase 164 readiness docs now reflect Queue Preview summary evidence for copy, bundle, console assets, and deploy prerequisites.
 - Phase 165 Queue Preview now runs strict SDK dependency triage and writes SDK audit/latest evidence to the GitHub Actions summary.
+- Phase 166 Queue Preview now writes external reward prerequisite state to the GitHub Actions summary before build.

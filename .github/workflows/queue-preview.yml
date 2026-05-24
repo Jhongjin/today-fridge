@@ -62,6 +62,10 @@ jobs:
         if: hashFiles('package.json') != ''
         run: npm run qa:korean-copy -- --github-summary
 
+      - name: Check external reward prerequisites
+        if: hashFiles('package.json') != ''
+        run: npm run external-rewards:check-prereqs -- --github-summary
+
       - name: Build app
         if: hashFiles('package.json') != ''
         run: npm run build --if-present

@@ -1,3 +1,4 @@
+import { appendFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const externalRewardFlagKey = "VITE_TOSS_REAL_EXTERNAL_REWARDS";
@@ -96,12 +97,51 @@ const printTable = (rows) => {
   }
 };
 
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const statusLabel = (result) => (result.ready ? (result.requested ? "ready" : "not requested") : "not ready");
+
+const writeGitHubSummary = (result, args) => {
+  if (!args.has("github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const rows = result.rows
+    .map((row) => `| ${escapeCell(row.key)} | ${escapeCell(row.source)} | ${escapeCell(row.expected)} | ${escapeCell(row.status)} |`)
+    .join("\n");
+  const missing =
+    result.missingKeys.length > 0 ? result.missingKeys.map((key) => `- ${key}`).join("\n") : "- None";
+
+  appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### External reward prerequisites
+
+| Item | Value |
+| --- | --- |
+| Status | ${statusLabel(result)} |
+| Real rewards requested | ${result.requested ? "yes" : "no"} |
+| Require real mode | ${result.requireReal ? "yes" : "no"} |
+| Blocked reason | ${escapeCell(result.blockedReason ?? "none")} |
+
+| Key | Source | Expected | Status |
+| --- | --- | --- | --- |
+${rows}
+
+## External Reward Missing Values
+
+${missing}
+`,
+    "utf8"
+  );
+};
+
 const printHelp = () => {
-  console.log("Usage: node scripts/check-external-reward-prereqs.mjs [--require-real] [--json] [--help]");
+  console.log("Usage: node scripts/check-external-reward-prereqs.mjs [--require-real] [--json] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --require-real                Require the real external reward build gate.");
   console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Fails when real external rewards are requested without the required Toss env values.");
@@ -119,11 +159,12 @@ const main = () => {
     requireReal: args.has("require-real")
   });
 
+  writeGitHubSummary(result, args);
+
   if (args.has("json")) {
     console.log(JSON.stringify(result, null, 2));
   } else {
-    const label = result.ready ? (result.requested ? "ready" : "not requested") : "not ready";
-    console.log(`External reward QR prerequisites: ${label}`);
+    console.log(`External reward QR prerequisites: ${statusLabel(result)}`);
 
     if (result.blockedReason) {
       console.log(`Blocked reason: ${result.blockedReason}`);

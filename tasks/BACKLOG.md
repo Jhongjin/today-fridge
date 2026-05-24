@@ -119,6 +119,7 @@
 - Write Korean copy guard status to Queue Preview summary. (Phase 163 done pending CI)
 - Refresh readiness docs for Queue Preview summary evidence. (Phase 164 done pending CI)
 - Write SDK dependency triage evidence to Queue Preview summary. (Phase 165 done pending CI)
+- Write external reward prerequisite evidence to Queue Preview summary. (Phase 166 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)
