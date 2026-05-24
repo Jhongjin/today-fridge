@@ -131,6 +131,7 @@ Final submission approval requires:
 - A QR session index is generated with `npm run qa:qr-session:index` for commander review.
 - A commander review packet is generated with `npm run qa:commander-review-packet`.
 - Real device QR approval is recorded in the commander review packet.
+- Preview deploy approval or skipped-state acceptance is recorded in the commander review packet.
 - No console/page errors during QR flows.
 - Real leaderboard submit/open verified.
 - Production monitoring endpoint owner, retention policy, and access controls are approved or explicitly deferred in the commander review packet.

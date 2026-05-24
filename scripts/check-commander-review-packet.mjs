@@ -61,6 +61,7 @@ const requiredSections = [
   "Required Local Commands",
   "Evidence Checklist",
   "Real Device QR Approval",
+  "Preview Deploy Approval",
   "Toss Console Setup Approval",
   "SDK Dependency Approval",
   "Game Rating Evidence Approval",
@@ -132,6 +133,9 @@ const decisionLabels = new Set([
   "Blocked until console setup is complete",
   "Needs QR follow-up",
   "Blocked until QR evidence is complete",
+  "Approved with preview URL",
+  "Approved with preview deploy skipped",
+  "Blocked until preview deploy is ready",
   "Needs follow-up",
   "Rejected for now"
 ]);
@@ -197,6 +201,11 @@ export const checkCommanderReviewPacket = (text) => {
   const qrDecisionChecked = checkedDecisionOptions(sectionText(text, "Real Device QR Approval"));
   if (qrDecisionChecked.length !== 1) {
     issues.push("Real device QR decision must have exactly one checked decision.");
+  }
+
+  const previewDeployDecisionChecked = checkedDecisionOptions(sectionText(text, "Preview Deploy Approval"));
+  if (previewDeployDecisionChecked.length !== 1) {
+    issues.push("Preview deploy decision must have exactly one checked decision.");
   }
 
   const consoleSetupDecisionChecked = checkedDecisionOptions(sectionText(text, "Toss Console Setup Approval"));

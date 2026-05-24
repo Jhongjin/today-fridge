@@ -59,6 +59,7 @@ The packet metadata includes the current local worktree status. Generate review 
 The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, manifest, console asset, screenshot, and rating evidence Korean copy are checked for required phrases and known mojibake markers.
 It requires `npm run qa:console-assets`, so console logo, thumbnail, and upload screenshot dimensions are regenerated and verified against Toss console requirements.
 It also requires a completed Real Device QR Approval section, so Android/iOS QR sessions, Game Center runtime evidence, safe-area/back/sound checks, and observed errors are captured as a decision.
+It also requires a completed Preview Deploy Approval section, so the deploy preflight output, Queue Preview run, Optional Preview Deploy job result, preview URL or skipped reason, and manual production boundary are captured as a decision.
 It also requires a completed Toss Console Setup Approval section, so game category, upload assets, leaderboard settings, bundle upload candidate, preview/QR target, and console test/review state are captured as a decision.
 It also requires `npm run sdk:dependency-triage -- --strict`, so SDK latest metadata, Node engine requirements, and audit counts are refreshed against the reviewed commit.
 It also requires a completed SDK Dependency Approval section, so Node 24 coverage, audit counts, the no-force-fix policy, and remaining SDK risk are captured as a decision.
@@ -77,7 +78,7 @@ To summarize saved packets:
 npm run qa:commander-review-packet:index -- --strict
 ```
 
-The packet index includes `Required Commands`, QR, console setup, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
+The packet index includes `Required Commands`, preview deploy, QR, console setup, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
 
 Setup details:
 
@@ -136,6 +137,7 @@ If production deploy fails:
 
 - Real Toss SDK QR/device validation is pending.
 - Real device QR evidence must be completed or blocked in the commander review packet before final Toss review approval.
+- Preview deploy state must be approved with a URL, approved as an understood skip, or blocked in the commander review packet.
 - Korean listing and metadata copy must pass `npm run qa:korean-copy` before final review approval.
 - Console upload assets must be regenerated with `npm run qa:console-assets` before final review approval.
 - Toss console category, assets, leaderboard settings, bundle/QR target, and review state must be approved or blocked in the commander review packet.

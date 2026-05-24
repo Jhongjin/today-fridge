@@ -146,6 +146,13 @@ const realDeviceQrDecisionOf = (text) =>
     "Blocked until QR evidence is complete"
   ]);
 
+const previewDeployDecisionOf = (text) =>
+  checkedDecision(sectionText(text, "Preview Deploy Approval"), [
+    "Approved with preview URL",
+    "Approved with preview deploy skipped",
+    "Blocked until preview deploy is ready"
+  ]);
+
 const summarizePacket = async (file) => {
   const text = (await readFile(file, "utf8")).replace(/\r\n/g, "\n");
   const check = checkCommanderReviewPacket(text);
@@ -161,6 +168,7 @@ const summarizePacket = async (file) => {
     metadata: check.metadata,
     commanderDecision: commanderDecisionOf(text),
     realDeviceQrDecision: realDeviceQrDecisionOf(text),
+    previewDeployDecision: previewDeployDecisionOf(text),
     tossConsoleSetupDecision: tossConsoleSetupDecisionOf(text),
     sdkDependencyDecision: sdkDependencyDecisionOf(text),
     gameRatingEvidenceDecision: gameRatingEvidenceDecisionOf(text),
@@ -190,13 +198,13 @@ Generated at: ${generatedAt}
 
 ## Packets
 
-| File | Commit | Worktree | Required Commands | Preview URL | External Rewards | QR Decision | Console Setup Decision | SDK Dependency Decision | Rating Evidence Decision | Monitoring Decision | Commander Decision | External Reward Decision | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| File | Commit | Worktree | Required Commands | Preview URL | Preview Deploy Decision | External Rewards | QR Decision | Console Setup Decision | SDK Dependency Decision | Rating Evidence Decision | Monitoring Decision | Commander Decision | External Reward Decision | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows.length > 0 ? rows.map((row) => {
     const metadata = row.metadata;
 
-    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.realDeviceQrDecision)} | ${escapeCell(row.tossConsoleSetupDecision)} | ${escapeCell(row.sdkDependencyDecision)} | ${escapeCell(row.gameRatingEvidenceDecision)} | ${escapeCell(row.productionMonitoringDecision)} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
-  }).join("\n") : "| none |  |  |  |  |  |  |  |  |  |  |  |  | not_ready |"}
+    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(row.previewDeployDecision)} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.realDeviceQrDecision)} | ${escapeCell(row.tossConsoleSetupDecision)} | ${escapeCell(row.sdkDependencyDecision)} | ${escapeCell(row.gameRatingEvidenceDecision)} | ${escapeCell(row.productionMonitoringDecision)} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
+  }).join("\n") : "| none |  |  |  |  |  |  |  |  |  |  |  |  |  | not_ready |"}
 
 ## Open Issues
 

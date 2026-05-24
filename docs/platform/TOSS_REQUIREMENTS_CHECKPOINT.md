@@ -20,6 +20,7 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 | Test gate | The review button is enabled only after at least one test is completed. | Blocker. QR/device test must be completed in Toss and approved in the commander review packet before review. |
 | Bundle size | Uploaded app bundle must be 100 MB or less after extraction. | Current `dist` is about 199 KB and CI budget is 5 MB, so prototype is well under the platform cap. |
 | Production launch | Once approved, pressing launch immediately exposes the app to users. | Keep production deploy manual. Preview/CI automation is acceptable, production release needs commander approval. |
+| Preview deploy | Preview automation may deploy or skip depending on GitHub/Vercel prerequisites. | Record the Queue Preview run, Optional Preview Deploy result, preview URL or skipped reason, and preview deploy decision in the commander review packet. |
 | Live environment | Real service and QR environments can differ, including CORS/network behavior. Official domains must be allowlisted where relevant. | QR and live checks remain required, especially for API, asset, and analytics endpoints. |
 | Game Center availability | Game Center APIs are only for game-category mini apps. Non-game apps can fail or not work correctly. | Console category must be game. Runtime adapter keeps a mock fallback for non-Toss browser/CI. |
 | Game Center version | Leaderboard open is supported from Toss app `5.221.0` on Android/iOS and can return `undefined` on unsupported versions. | Adapter checks `isMinVersionSupported` and maps unsupported versions. |
@@ -39,5 +40,6 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 - Prepare game rating evidence path and owner checklist, then record it in the commander review packet.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session` and approve the QR decision in the commander review packet.
+- Record deploy preflight output and approve the preview deploy decision or skipped-state acceptance in the commander review packet.
 - Validate official SDK runtime paths on physical QR devices; revisit Node 24 engine and npm audit triage, then record the SDK dependency decision before final submission.
 - Decide whether deterministic client validation plus leaderboard audit receipts are sufficient for MVP, or add a server verification layer before wider promotion.

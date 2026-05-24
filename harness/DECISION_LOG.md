@@ -160,3 +160,4 @@
 - Phase 140 commander review packets now require an explicit SDK dependency risk approval, follow-up, or blocker decision.
 - Phase 141 commander review packets now require an explicit Toss console setup approval, follow-up, or blocker decision.
 - Phase 142 commander review packets now require an explicit real-device QR approval, follow-up, or blocker decision.
+- Phase 143 commander review packets now require an explicit preview deploy URL approval, skipped-state acceptance, or blocker decision.

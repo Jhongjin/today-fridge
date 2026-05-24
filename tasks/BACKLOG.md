@@ -88,6 +88,7 @@
 - Add commander QR review packet generator. (Phase 113 done pending CI)
 - Refresh submission readiness snapshot after QR tooling. (Phase 114 done pending CI)
 - Gate commander review on real-device QR decision. (Phase 142 done pending CI)
+- Gate commander review on preview deploy decision. (Phase 143 done pending CI)
 - Upgrade GitHub Actions Node 24-runtime action majors. (Phase 115 done pending CI)
 - Triage SDK dependency engine and audit warnings. (Phase 116 done pending CI)
 - Add SDK dependency triage refresh command. (Phase 117 done pending CI)

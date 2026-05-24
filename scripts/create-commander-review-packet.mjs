@@ -222,6 +222,29 @@ Notes:
 
 `;
 
+const renderPreviewDeploySection = () => `## Preview Deploy Approval
+
+${checkboxRows([
+  "`npm run deploy:check-prereqs` output is linked or summarized.",
+  "Queue Preview GitHub Actions run URL and commit are recorded.",
+  "Optional Preview Deploy job result is recorded as deployed, skipped, or failed.",
+  "Preview deployment URL is linked when available, or the skip reason is recorded when Vercel prerequisites are missing.",
+  "Vercel project/account ownership is confirmed before treating a preview URL as approval evidence.",
+  "Production deploy remains manual and commander-approved."
+])}
+
+Preview deploy decision:
+
+- [ ] Approved with preview URL
+- [ ] Approved with preview deploy skipped
+- [ ] Blocked until preview deploy is ready
+
+Notes:
+
+- TODO
+
+`;
+
 const renderPacket = ({
   commit,
   externalRewards,
@@ -242,6 +265,7 @@ const renderPacket = ({
 | Commit | ${commit} |
 | Working tree | ${worktreeStatus} |
 | Preview URL | ${previewUrl} |
+| Preview deploy approval | required |
 | QR session index | ${sessionIndex} |
 | External reward review | ${externalRewards ? "yes" : "no"} |
 | Real device QR approval | required |
@@ -287,7 +311,7 @@ ${checkboxRows([
   "Clean ranked score is not affected by booster, share, ad, or promotion rewards."
 ])}
 
-${renderRealDeviceQrSection()}${renderTossConsoleSetupSection()}${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
+${renderRealDeviceQrSection()}${renderPreviewDeploySection()}${renderTossConsoleSetupSection()}${renderSdkDependencySection()}${renderGameRatingEvidenceSection()}${renderProductionMonitoringSection()}## Platform Decision
 
 ${checkboxRows([
   "First playable screen appears within 10 seconds on supported QR devices.",
@@ -296,8 +320,8 @@ ${checkboxRows([
   "Sound mute and background/foreground behavior are acceptable.",
   "Bundle budget and source-map guard passed for the reviewed commit.",
   "Queue Preview GitHub Actions passed for the reviewed commit.",
-  "Preview deploy skipped state is understood when Vercel secrets/vars are not configured.",
   "Real device QR approval section is complete.",
+  "Preview deploy approval section is complete.",
   "Toss console setup approval section is complete.",
   "Production monitoring approval section is complete."
 ])}
