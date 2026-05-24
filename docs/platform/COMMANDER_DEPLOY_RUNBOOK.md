@@ -73,10 +73,10 @@ It also requires a completed Production Monitoring Approval section, so endpoint
 After the packet is filled, run:
 
 ```bash
-npm run qa:commander-review-packet:check -- <packet.md> --expected-commit <sha>
+npm run qa:commander-review-packet:check -- <packet.md> --expected-commit <sha> --expected-actions-run-url <queue-preview-run-url>
 ```
 
-Use the exact reviewed commit SHA from the successful `Queue Preview` run. The checker accepts short or full SHA prefixes, but fails if the packet metadata points at a different commit.
+Use the exact reviewed commit SHA and Queue Preview run URL from the successful run. The checker accepts short or full SHA prefixes for the commit, but fails if the packet metadata points at a different commit or Actions run URL.
 
 To summarize saved packets:
 

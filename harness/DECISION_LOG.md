@@ -170,3 +170,4 @@
 - Phase 150 readiness docs now summarize the commander packet metadata guard requirements across reviewed commit, Actions run, preview/QR target, and QR session evidence.
 - Phase 151 commander review packet checks now reject directory paths for local QR session index evidence.
 - Phase 152 commander review packet generation now has help output that lists the current required metadata evidence options.
+- Phase 153 commander review packet checks can now require the packet Queue Preview run URL to match the expected Actions run.

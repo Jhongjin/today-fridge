@@ -165,6 +165,8 @@ const isGitHubActionsRunUrl = (value) =>
 
 const isHttpsUrl = (value) => /^https:\/\/[^\s]+$/.test(value.trim());
 
+const urlsMatch = (actual, expected) => actual.trim() === expected.trim();
+
 const isExistingFile = (value) => {
   try {
     return statSync(value.trim()).isFile();
@@ -208,6 +210,14 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
     issues.push("Queue Preview run metadata must be filled.");
   } else if (!isGitHubActionsRunUrl(actionsRunUrl)) {
     issues.push("Queue Preview run metadata must be a GitHub Actions run URL.");
+  }
+
+  const expectedActionsRunUrl =
+    typeof options.expectedActionsRunUrl === "string" ? options.expectedActionsRunUrl : "";
+  if (expectedActionsRunUrl && !isGitHubActionsRunUrl(expectedActionsRunUrl)) {
+    issues.push("Expected Queue Preview run URL must be a GitHub Actions run URL.");
+  } else if (expectedActionsRunUrl && !urlsMatch(actionsRunUrl, expectedActionsRunUrl)) {
+    issues.push(`Queue Preview run metadata ${actionsRunUrl} does not match expected run ${expectedActionsRunUrl}.`);
   }
 
   if (!previewUrl || previewUrl === "pending") {
@@ -287,8 +297,12 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 };
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--json]");
-  console.log("       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--json]");
+  console.log(
+    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--json]"
+  );
+  console.log(
+    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--json]"
+  );
   console.log("");
   console.log("Fails when a commander review packet still has TODOs, unchecked boxes, missing metadata, or no selected decision.");
 };
@@ -303,7 +317,9 @@ const main = () => {
 
   const packet = readPacket(args);
   const result = checkCommanderReviewPacket(packet.text, {
-    expectedCommit: typeof args["expected-commit"] === "string" ? args["expected-commit"] : ""
+    expectedCommit: typeof args["expected-commit"] === "string" ? args["expected-commit"] : "",
+    expectedActionsRunUrl:
+      typeof args["expected-actions-run-url"] === "string" ? args["expected-actions-run-url"] : ""
   });
 
   if (args.json) {
