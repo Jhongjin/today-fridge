@@ -1,6 +1,6 @@
 import { chromium } from "@playwright/test";
 import { spawn, spawnSync } from "node:child_process";
-import { mkdir, readFile, rm } from "node:fs/promises";
+import { appendFile, mkdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 const args = new Set(process.argv.slice(2));
@@ -91,10 +91,11 @@ const assetSummary = (assets) => ({
 });
 
 const printHelp = () => {
-  console.log("Usage: node scripts/capture-console-assets.mjs [--json] [--help]");
+  console.log("Usage: node scripts/capture-console-assets.mjs [--json] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --json                        Print machine-readable JSON and suppress Vite logs.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log(`Starts Vite on ${baseURL}, captures Toss console assets into ${outputDir}, and verifies PNG dimensions.`);
@@ -113,6 +114,29 @@ const printVerifiedAssets = (assets) => {
   for (const asset of assets) {
     console.log(`| ${asset.fileName} | ${asset.width}x${asset.height} | ${formatKilobytes(asset.bytes)} |`);
   }
+};
+
+const writeGitHubSummary = async (assets) => {
+  if (!args.has("--github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const rows = assets
+    .map((asset) => `| ${asset.fileName} | ${asset.width}x${asset.height} | ${formatKilobytes(asset.bytes)} |`)
+    .join("\n");
+
+  await appendFile(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### Console assets
+
+| Asset | Dimensions | Size |
+| --- | ---: | ---: |
+${rows}
+
+Output: \`${outputDir}\`
+`,
+    "utf8"
+  );
 };
 
 const verifyAssetDimensions = async () => {
@@ -323,6 +347,8 @@ try {
   await captureVerticalScreenshots(browser);
   await captureThumbnail(browser);
   const verifiedAssets = await verifyAssetDimensions();
+  await writeGitHubSummary(verifiedAssets);
+
   if (jsonOutput) {
     console.log(JSON.stringify(assetSummary(verifiedAssets), null, 2));
   } else {

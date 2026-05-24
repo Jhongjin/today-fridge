@@ -72,7 +72,7 @@ jobs:
 
       - name: Capture console assets
         if: hashFiles('package.json') != ''
-        run: npm run qa:console-assets --if-present
+        run: npm run qa:console-assets -- --github-summary
 
       - name: Run browser tests
         if: hashFiles('package.json') != ''
