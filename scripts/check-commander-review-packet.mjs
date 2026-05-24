@@ -226,6 +226,13 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
     issues.push("Preview URL metadata must be an HTTPS URL.");
   }
 
+  const expectedPreviewUrl = typeof options.expectedPreviewUrl === "string" ? options.expectedPreviewUrl : "";
+  if (expectedPreviewUrl && !isHttpsUrl(expectedPreviewUrl)) {
+    issues.push("Expected preview URL must be an HTTPS URL.");
+  } else if (expectedPreviewUrl && !urlsMatch(previewUrl, expectedPreviewUrl)) {
+    issues.push(`Preview URL metadata ${previewUrl} does not match expected preview URL ${expectedPreviewUrl}.`);
+  }
+
   if (!qrSessionIndex || qrSessionIndex === "pending") {
     issues.push("QR session index metadata must be filled.");
   } else if (!isHttpsUrl(qrSessionIndex) && !isExistingFile(qrSessionIndex)) {
@@ -298,10 +305,10 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
 const printHelp = () => {
   console.log(
-    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--json]"
+    "Usage: node scripts/check-commander-review-packet.mjs <packet.md> [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--json]"
   );
   console.log(
-    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--json]"
+    "       node scripts/check-commander-review-packet.mjs --stdin [--expected-commit <sha>] [--expected-actions-run-url <url>] [--expected-preview-url <url>] [--json]"
   );
   console.log("");
   console.log("Fails when a commander review packet still has TODOs, unchecked boxes, missing metadata, or no selected decision.");
@@ -319,7 +326,8 @@ const main = () => {
   const result = checkCommanderReviewPacket(packet.text, {
     expectedCommit: typeof args["expected-commit"] === "string" ? args["expected-commit"] : "",
     expectedActionsRunUrl:
-      typeof args["expected-actions-run-url"] === "string" ? args["expected-actions-run-url"] : ""
+      typeof args["expected-actions-run-url"] === "string" ? args["expected-actions-run-url"] : "",
+    expectedPreviewUrl: typeof args["expected-preview-url"] === "string" ? args["expected-preview-url"] : ""
   });
 
   if (args.json) {
