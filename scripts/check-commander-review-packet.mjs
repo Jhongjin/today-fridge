@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const parseArgs = (argv) => {
@@ -210,6 +210,8 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
   if (!qrSessionIndex || qrSessionIndex === "pending") {
     issues.push("QR session index metadata must be filled.");
+  } else if (!isHttpsUrl(qrSessionIndex) && !existsSync(qrSessionIndex)) {
+    issues.push("QR session index metadata must be an HTTPS URL or an existing local file.");
   }
 
   if (worktree !== "clean") {

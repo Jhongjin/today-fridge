@@ -166,3 +166,4 @@
 - Phase 146 commander review packet checks now require Queue Preview run metadata to use a GitHub Actions run URL shape.
 - Phase 147 commander review packet generation now defaults the Queue Preview run URL from GitHub Actions environment variables when available.
 - Phase 148 commander review packet checks now require the preview or QR target metadata to be an HTTPS URL.
+- Phase 149 commander review packet checks now require QR session index metadata to reference an existing local file or HTTPS evidence link.

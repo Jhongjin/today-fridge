@@ -102,6 +102,7 @@
 - Validate commander packet Queue Preview run URL shape. (Phase 146 done pending CI)
 - Default commander packet Queue Preview run URL from GitHub Actions env. (Phase 147 done pending CI)
 - Validate commander packet preview URL shape. (Phase 148 done pending CI)
+- Require commander packet QR session index evidence reference. (Phase 149 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)
