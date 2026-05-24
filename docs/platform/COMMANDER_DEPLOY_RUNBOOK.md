@@ -49,12 +49,12 @@ npm run qr:external-rewards:preflight
 QR review packet:
 
 ```bash
-npm run qa:commander-review-packet -- --commit <sha> --preview-url <preview-or-qr-url>
+npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <preview-or-qr-url>
 ```
 
 If `--commit` is omitted, the packet uses the current local `git rev-parse --short HEAD` value.
 
-The packet metadata includes the current local worktree status. Generate review packets from a clean tree after the intended commit is pushed.
+The packet metadata includes the Queue Preview run URL and current local worktree status. Generate review packets from a clean tree after the intended commit is pushed and the successful Actions run is known.
 
 The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, manifest, console asset, screenshot, and rating evidence Korean copy are checked for required phrases and known mojibake markers.
 It requires `npm run qa:console-assets`, so console logo, thumbnail, and upload screenshot dimensions are regenerated and verified against Toss console requirements.
@@ -80,7 +80,7 @@ To summarize saved packets:
 npm run qa:commander-review-packet:index -- --strict
 ```
 
-The packet index includes `Required Commands`, preview deploy, QR, console setup, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
+The packet index includes `Required Commands`, Queue Preview run, preview deploy, QR, console setup, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
 
 Setup details:
 

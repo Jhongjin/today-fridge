@@ -198,13 +198,13 @@ Generated at: ${generatedAt}
 
 ## Packets
 
-| File | Commit | Worktree | Required Commands | Preview URL | Preview Deploy Decision | External Rewards | QR Decision | Console Setup Decision | SDK Dependency Decision | Rating Evidence Decision | Monitoring Decision | Commander Decision | External Reward Decision | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| File | Commit | Queue Preview Run | Worktree | Required Commands | Preview URL | Preview Deploy Decision | External Rewards | QR Decision | Console Setup Decision | SDK Dependency Decision | Rating Evidence Decision | Monitoring Decision | Commander Decision | External Reward Decision | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows.length > 0 ? rows.map((row) => {
     const metadata = row.metadata;
 
-    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(row.previewDeployDecision)} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.realDeviceQrDecision)} | ${escapeCell(row.tossConsoleSetupDecision)} | ${escapeCell(row.sdkDependencyDecision)} | ${escapeCell(row.gameRatingEvidenceDecision)} | ${escapeCell(row.productionMonitoringDecision)} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
-  }).join("\n") : "| none |  |  |  |  |  |  |  |  |  |  |  |  |  | not_ready |"}
+    return `| ${escapeCell(row.file)} | ${escapeCell(metadata.Commit)} | ${escapeCell(metadata["Queue Preview run"])} | ${escapeCell(metadata["Working tree"])} | ${escapeCell(row.requiredCommands)} | ${escapeCell(metadata["Preview URL"])} | ${escapeCell(row.previewDeployDecision)} | ${escapeCell(metadata["External reward review"])} | ${escapeCell(row.realDeviceQrDecision)} | ${escapeCell(row.tossConsoleSetupDecision)} | ${escapeCell(row.sdkDependencyDecision)} | ${escapeCell(row.gameRatingEvidenceDecision)} | ${escapeCell(row.productionMonitoringDecision)} | ${escapeCell(row.commanderDecision)} | ${escapeCell(row.externalRewardDecision)} | ${row.status} |`;
+  }).join("\n") : "| none |  |  |  |  |  |  |  |  |  |  |  |  |  |  | not_ready |"}
 
 ## Open Issues
 

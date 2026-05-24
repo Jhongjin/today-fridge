@@ -177,6 +177,7 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
 
   const metadata = parseMetadata(text);
   const commit = metadata.get("Commit") ?? "";
+  const actionsRunUrl = metadata.get("Queue Preview run") ?? "";
   const previewUrl = metadata.get("Preview URL") ?? "";
   const qrSessionIndex = metadata.get("QR session index") ?? "";
   const worktree = metadata.get("Working tree") ?? "";
@@ -188,6 +189,10 @@ export const checkCommanderReviewPacket = (text, options = {}) => {
   const expectedCommit = typeof options.expectedCommit === "string" ? options.expectedCommit : "";
   if (expectedCommit && !commitsMatch(commit, expectedCommit)) {
     issues.push(`Commit metadata ${commit} does not match expected commit ${expectedCommit}.`);
+  }
+
+  if (!actionsRunUrl || actionsRunUrl === "pending") {
+    issues.push("Queue Preview run metadata must be filled.");
   }
 
   if (!previewUrl || previewUrl === "pending") {

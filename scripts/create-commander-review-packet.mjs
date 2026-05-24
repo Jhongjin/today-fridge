@@ -246,6 +246,7 @@ Notes:
 `;
 
 const renderPacket = ({
+  actionsRunUrl,
   commit,
   externalRewards,
   generatedAt,
@@ -263,6 +264,7 @@ const renderPacket = ({
 | Generated at | ${generatedAt} |
 | Reviewer | ${reviewer} |
 | Commit | ${commit} |
+| Queue Preview run | ${actionsRunUrl} |
 | Working tree | ${worktreeStatus} |
 | Preview URL | ${previewUrl} |
 | Preview deploy approval | required |
@@ -343,6 +345,7 @@ const main = async () => {
   const commit = valueOf(args, "commit", readCurrentCommit());
   const externalRewards = booleanOf(args, "external-rewards");
   const packet = renderPacket({
+    actionsRunUrl: valueOf(args, "actions-run-url", "pending"),
     commit,
     externalRewards,
     generatedAt,
