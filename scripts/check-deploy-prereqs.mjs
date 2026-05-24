@@ -1,3 +1,5 @@
+import { appendFileSync } from "node:fs";
+
 const parseArgs = (argv) => {
   const args = new Set();
 
@@ -51,14 +53,36 @@ const optional = [
 ];
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-deploy-prereqs.mjs [--json] [--strict] [--help]");
+  console.log("Usage: node scripts/check-deploy-prereqs.mjs [--json] [--strict] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --json                        Print machine-readable JSON.");
   console.log("  --strict                      Exit non-zero when required preview deploy values are missing.");
+  console.log("  --github-summary              Write enabled output and a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Reports required Vercel preview deployment values and optional monitoring endpoints.");
+};
+
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const renderGitHubSummary = ({ ready, rows }) => `### Preview deploy prerequisites
+
+| Key | Source | Expected | Status |
+| --- | --- | --- | --- |
+${rows.map((row) => `| ${escapeCell(row.key)} | ${escapeCell(row.source)} | ${escapeCell(row.expected)} | ${escapeCell(row.status)} |`).join("\n")}
+
+${ready ? "Preview deploy prerequisites are ready." : "Preview deploy skipped. Set repository variable `AUTO_DEPLOY_ENABLED=true` and secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` to enable automatic preview deployments."}
+`;
+
+const writeGitHubActionsOutput = ({ ready, rows }) => {
+  if (process.env.GITHUB_OUTPUT) {
+    appendFileSync(process.env.GITHUB_OUTPUT, `enabled=${ready ? "true" : "false"}\n`, "utf8");
+  }
+
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    appendFileSync(process.env.GITHUB_STEP_SUMMARY, renderGitHubSummary({ ready, rows }), "utf8");
+  }
 };
 
 const args = parseArgs(process.argv.slice(2));
@@ -91,6 +115,10 @@ const optionalRows = optional.map((item) => {
 });
 const rows = [...requiredRows, ...optionalRows];
 const ready = requiredRows.every((row) => row.status === "ready");
+
+if (args.has("github-summary")) {
+  writeGitHubActionsOutput({ ready, rows });
+}
 
 if (args.has("json")) {
   console.log(

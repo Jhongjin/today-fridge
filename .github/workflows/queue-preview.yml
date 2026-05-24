@@ -92,6 +92,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Node for deployment preflight
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
       - name: Check deployment prerequisites
         id: deploy_gate
         env:
@@ -99,17 +104,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          if [ "$AUTO_DEPLOY_ENABLED" = "true" ] && [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-            {
-              echo "### Preview deploy skipped"
-              echo ""
-              echo "Set repository variable \`AUTO_DEPLOY_ENABLED=true\` and secrets \`VERCEL_TOKEN\`, \`VERCEL_ORG_ID\`, \`VERCEL_PROJECT_ID\` to enable automatic preview deployments."
-            } >> "$GITHUB_STEP_SUMMARY"
-          fi
+        run: npm run deploy:check-prereqs -- --github-summary
 
       - name: Install Vercel CLI
         if: steps.deploy_gate.outputs.enabled == 'true'

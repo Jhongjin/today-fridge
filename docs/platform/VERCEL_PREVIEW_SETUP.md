@@ -5,7 +5,7 @@
 Observed on 2026-05-23:
 
 - Queue Preview validation succeeds on GitHub Actions.
-- Optional Preview Deploy succeeds as a job, but deploy steps are skipped because required Vercel prerequisites are not configured.
+- Optional Preview Deploy succeeds as a job, but deploy steps are skipped because required Vercel prerequisites are not configured. The job writes the same prerequisite table as `npm run deploy:check-prereqs`.
 - Production deploy remains manual through the `Commander Production Deploy` workflow.
 
 ## Required GitHub Settings

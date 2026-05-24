@@ -47,6 +47,8 @@ The workflow always validates required command-center files. It deploys preview 
 - Repository secret `VERCEL_ORG_ID`.
 - Repository secret `VERCEL_PROJECT_ID`.
 
+Optional Preview Deploy uses `npm run deploy:check-prereqs -- --github-summary` to write the deploy gate output and workflow summary.
+
 Optional variable:
 
 - `VERCEL_CLI_VERSION`, for example `latest` or a pinned version.
