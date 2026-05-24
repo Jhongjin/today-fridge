@@ -92,6 +92,8 @@ For automation evidence:
 npm run --silent qa:korean-copy -- --json
 ```
 
+Queue Preview runs `npm run qa:korean-copy -- --github-summary` so the workflow summary records the file-level copy guard status.
+
 ## Review Notes
 
 - The current MVP uses a mock Toss client.

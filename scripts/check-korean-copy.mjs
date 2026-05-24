@@ -1,12 +1,13 @@
-import { readFileSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 
 const args = new Set(process.argv.slice(2));
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-korean-copy.mjs [--json] [--help]");
+  console.log("Usage: node scripts/check-korean-copy.mjs [--json] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --github-summary              Write a Markdown summary for GitHub Actions.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Checks required Korean listing, metadata, console asset, screenshot, and rating evidence copy.");
@@ -53,6 +54,32 @@ const mojibakeMarkers = ["�", "?ㅻ", "罹", "怨?", "媛숈"];
 const issues = [];
 const fileResults = [];
 
+const escapeCell = (value) => String(value ?? "").replace(/\|/g, "\\|");
+
+const writeGitHubSummary = ({ ready, files, issues }) => {
+  if (!args.has("--github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  const rows = files.map((result) => `| ${escapeCell(result.file)} | ${result.status} |`).join("\n");
+  const issueRows = issues.length > 0 ? issues.map((issue) => `- ${issue}`).join("\n") : "- None";
+
+  appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY,
+    `### Korean copy guard
+
+| File | Status |
+| --- | --- |
+${rows}
+
+## Korean Copy Issues
+
+${issueRows}
+`,
+    "utf8"
+  );
+};
+
 for (const check of checks) {
   const text = readFileSync(check.file, "utf8");
   const fileIssues = [];
@@ -81,6 +108,8 @@ for (const check of checks) {
 }
 
 const ready = issues.length === 0;
+
+writeGitHubSummary({ ready, files: fileResults, issues });
 
 if (args.has("--json")) {
   console.log(JSON.stringify({ ready, files: fileResults, issues }, null, 2));

@@ -56,7 +56,7 @@ jobs:
 
       - name: Check Korean copy
         if: hashFiles('package.json') != ''
-        run: npm run qa:korean-copy --if-present
+        run: npm run qa:korean-copy -- --github-summary
 
       - name: Build app
         if: hashFiles('package.json') != ''
