@@ -54,6 +54,8 @@ npm run deploy:check-prereqs
 
 The preflight also reports optional `VITE_ANALYTICS_ENDPOINT` and `VITE_ERROR_MONITORING_ENDPOINT` rows. Missing optional endpoints do not make strict mode fail, but the commander review packet must record whether production monitoring is approved or explicitly deferred.
 
+Use `npm run deploy:check-prereqs -- --help` to print the current local preflight options.
+
 Strict mode exits non-zero when anything is missing:
 
 ```bash

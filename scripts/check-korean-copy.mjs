@@ -2,6 +2,21 @@ import { readFileSync } from "node:fs";
 
 const args = new Set(process.argv.slice(2));
 
+const printHelp = () => {
+  console.log("Usage: node scripts/check-korean-copy.mjs [--json] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log("Checks required Korean listing, metadata, console asset, screenshot, and rating evidence copy.");
+};
+
+if (args.has("--help")) {
+  printHelp();
+  process.exit(0);
+}
+
 const checks = [
   {
     file: "docs/strategy/TOSS_LISTING_COPY.md",

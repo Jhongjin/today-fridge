@@ -2,10 +2,20 @@ import { readdir, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
+const args = new Set(process.argv.slice(2));
 const distDir = join(process.cwd(), "dist");
 const defaultBudgetBytes = 5 * 1024 * 1024;
 const configuredBudget = process.env.BUNDLE_BUDGET_BYTES?.trim();
 const budgetBytes = Number(configuredBudget ? configuredBudget : defaultBudgetBytes);
+
+const printHelp = () => {
+  console.log("Usage: node scripts/check-bundle-budget.mjs [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log("Checks built dist size against BUNDLE_BUDGET_BYTES, defaulting to 5 MB, and fails on source maps.");
+};
 
 const formatBytes = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
 
@@ -31,6 +41,11 @@ const walk = async (dir) => {
 
   return files.flat();
 };
+
+if (args.has("--help")) {
+  printHelp();
+  process.exit(0);
+}
 
 if (!existsSync(distDir)) {
   console.error("dist directory not found. Run npm run build before checking the bundle budget.");

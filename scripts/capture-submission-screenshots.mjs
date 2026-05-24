@@ -8,6 +8,21 @@ const port = "5174";
 const baseURL = `http://${host}:${port}`;
 const outputDir = join("qa", "artifacts", "submission-screenshots");
 const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+const args = new Set(process.argv.slice(2));
+
+const printHelp = () => {
+  console.log("Usage: node scripts/capture-submission-screenshots.mjs [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log(`Starts Vite on ${baseURL} and captures submission screenshots into ${outputDir}.`);
+};
+
+if (args.has("--help")) {
+  printHelp();
+  process.exit(0);
+}
 
 const waitForServer = async () => {
   const startedAt = Date.now();

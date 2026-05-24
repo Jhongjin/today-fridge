@@ -50,7 +50,24 @@ const optional = [
   }
 ];
 
+const printHelp = () => {
+  console.log("Usage: node scripts/check-deploy-prereqs.mjs [--json] [--strict] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --strict                      Exit non-zero when required preview deploy values are missing.");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log("Reports required Vercel preview deployment values and optional monitoring endpoints.");
+};
+
 const args = parseArgs(process.argv.slice(2));
+
+if (args.has("help")) {
+  printHelp();
+  process.exit(0);
+}
+
 const requiredRows = required.map((item) => {
   const value = process.env[item.key] ?? "";
   const ready = item.ready(value);

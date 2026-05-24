@@ -97,10 +97,14 @@ const printTable = (rows) => {
 };
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-external-reward-prereqs.mjs [--require-real] [--json]");
+  console.log("Usage: node scripts/check-external-reward-prereqs.mjs [--require-real] [--json] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --require-real                Require the real external reward build gate.");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --help                        Show this help.");
   console.log("");
   console.log("Fails when real external rewards are requested without the required Toss env values.");
-  console.log("--require-real also fails when VITE_TOSS_REAL_EXTERNAL_REWARDS is not true.");
 };
 
 const main = () => {

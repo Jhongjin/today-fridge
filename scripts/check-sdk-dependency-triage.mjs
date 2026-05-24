@@ -253,10 +253,14 @@ const printMarkdown = (triage) => {
 };
 
 const printHelp = () => {
-  console.log("Usage: node scripts/check-sdk-dependency-triage.mjs [--json] [--strict]");
+  console.log("Usage: node scripts/check-sdk-dependency-triage.mjs [--json] [--strict] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --strict                      Fail on unresolved SDK metadata or audit JSON checks.");
+  console.log("  --help                        Show this help.");
   console.log("");
   console.log("Reports Apps in Toss SDK package metadata, Node engine requirements, and npm audit counts.");
-  console.log("--strict fails when the SDK latest version cannot be confirmed, differs from the lock, or audit JSON is unavailable.");
 };
 
 const main = () => {

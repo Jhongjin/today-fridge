@@ -174,3 +174,4 @@
 - Phase 154 commander review packet checks can now require the packet preview or QR target URL to match the expected HTTPS target.
 - Phase 155 commander review packet checks can now require the packet QR session index evidence reference to match the expected file or HTTPS link.
 - Phase 156 QR session and commander review index helpers now expose help output for evidence operators.
+- Phase 157 deploy, copy, asset, screenshot, bundle, SDK, and external reward helper scripts now expose consistent help output.

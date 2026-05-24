@@ -39,6 +39,7 @@ npm run deploy:check-prereqs
 ```
 
 The preflight reports required Vercel deploy secrets and optional analytics/error-monitoring endpoints. Missing optional endpoints do not block preview deploy by themselves.
+Run `npm run deploy:check-prereqs -- --help` to print the current preflight options.
 
 External reward QR candidate preflight:
 
@@ -62,6 +63,7 @@ When the packet generator runs inside GitHub Actions, it can fill this URL from 
 
 The generated packet requires `npm run qa:korean-copy` before approval, so listing, HTML, manifest, console asset, screenshot, and rating evidence Korean copy are checked for required phrases and known mojibake markers.
 It requires `npm run qa:console-assets`, so console logo, thumbnail, and upload screenshot dimensions are regenerated and verified against Toss console requirements.
+Both verification helpers accept `--help` to print the current options without starting capture work.
 It also requires a completed Real Device QR Approval section, so Android/iOS QR sessions, Game Center runtime evidence, safe-area/back/sound checks, and observed errors are captured as a decision.
 It also requires a completed Preview Deploy Approval section, so the deploy preflight output, Queue Preview run, Optional Preview Deploy job result, preview URL or skipped reason, and manual production boundary are captured as a decision.
 It also requires a completed Toss Console Setup Approval section, so game category, upload assets, leaderboard settings, bundle upload candidate, preview/QR target, and console test/review state are captured as a decision.

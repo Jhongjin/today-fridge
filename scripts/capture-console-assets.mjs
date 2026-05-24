@@ -90,6 +90,21 @@ const assetSummary = (assets) => ({
   }))
 });
 
+const printHelp = () => {
+  console.log("Usage: node scripts/capture-console-assets.mjs [--json] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --json                        Print machine-readable JSON and suppress Vite logs.");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log(`Starts Vite on ${baseURL}, captures Toss console assets into ${outputDir}, and verifies PNG dimensions.`);
+};
+
+if (args.has("--help")) {
+  printHelp();
+  process.exit(0);
+}
+
 const printVerifiedAssets = (assets) => {
   console.log("");
   console.log("| Console asset | Dimensions | Size |");
