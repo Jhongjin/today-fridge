@@ -12,6 +12,7 @@
     "qa:screenshots": "node scripts/capture-submission-screenshots.mjs",
     "qa:console-assets": "node scripts/capture-console-assets.mjs",
     "qa:korean-copy": "node scripts/check-korean-copy.mjs",
+    "qa:helper-surface": "node scripts/check-qa-helper-surface.mjs",
     "qa:qr-session": "node scripts/create-qr-session.mjs",
     "qa:qr-session:check": "node scripts/check-qr-session-evidence.mjs",
     "qa:qr-session:index": "node scripts/build-qr-session-index.mjs",

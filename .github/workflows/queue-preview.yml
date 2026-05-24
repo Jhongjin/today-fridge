@@ -54,6 +54,10 @@ jobs:
         if: hashFiles('package.json') != ''
         run: npm run sdk:dependency-triage -- --strict --github-summary
 
+      - name: Check QA helper surface
+        if: hashFiles('package.json') != ''
+        run: npm run qa:helper-surface -- --github-summary
+
       - name: Run unit tests
         if: hashFiles('package.json') != ''
         run: npm test --if-present
