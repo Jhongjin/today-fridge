@@ -214,8 +214,27 @@ ${row.issues.map((issue) => `- ${issue}`).join("\n")}`).join("\n\n") : "- None"}
 `;
 };
 
+const printHelp = () => {
+  console.log("Usage: node scripts/build-commander-review-index.mjs [paths...] [--dir <dir>] [--output <path>] [--json] [--strict] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --dir <dir>                   Directory to scan when no paths are provided. Defaults to qa/review-packets.");
+  console.log("  --output <path>               Write the Markdown index to a file instead of stdout.");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --strict                      Exit non-zero unless at least one packet exists and every packet is ready.");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log("Pass Markdown files or directories as positional paths to index a focused commander packet set.");
+};
+
 const main = async () => {
   const args = parseArgs(process.argv.slice(2));
+
+  if (args.flags.has("help")) {
+    printHelp();
+    return;
+  }
+
   const roots = args.positional.length > 0 ? args.positional : [args.values.dir ?? join("qa", "review-packets")];
   const files = [];
 

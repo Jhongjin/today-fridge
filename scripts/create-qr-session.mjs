@@ -219,8 +219,32 @@ Decision notes:
 - TODO
 `;
 
+const printHelp = () => {
+  console.log("Usage: node scripts/create-qr-session.mjs [options]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --platform <name>             Device platform. Defaults to android.");
+  console.log("  --device <name>               Physical device name. Defaults to unknown-device.");
+  console.log("  --toss-version <version>      Toss app version on the device. Defaults to unknown.");
+  console.log("  --mode <name>                 QR test mode. Defaults to supported.");
+  console.log("  --preview-url <url>           Approved preview or QR target URL. Defaults to pending.");
+  console.log("  --commit <sha>                Git commit under test. Defaults to main.");
+  console.log("  --tester <name>               Tester name. Defaults to commander.");
+  console.log("  --external-rewards            Include contacts/ad/promotion QR evidence sections.");
+  console.log("  --external-reward-mode <mode> External reward runtime. Defaults to real when enabled.");
+  console.log("  --output <path>               Output session path.");
+  console.log("  --print                       Print session instead of writing a file.");
+  console.log("  --help                        Show this help.");
+};
+
 const main = async () => {
   const args = parseArgs(process.argv.slice(2));
+
+  if (args.help) {
+    printHelp();
+    return;
+  }
+
   const timestamp = new Date().toISOString();
   const platform = valueOf(args, "platform", "android");
   const mode = valueOf(args, "mode", "supported");

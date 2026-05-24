@@ -85,6 +85,7 @@ npm run qa:commander-review-packet:index -- --strict
 ```
 
 The packet index includes `Required Commands`, Queue Preview run, preview deploy, QR, console setup, SDK dependency, rating evidence, and monitoring decision columns so missing approval evidence is visible before commander review.
+Run `npm run qa:commander-review-packet:index -- --help` to print the current index options.
 
 Setup details:
 

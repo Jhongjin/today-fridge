@@ -109,6 +109,7 @@
 - Gate commander packet checks on expected Queue Preview run URL. (Phase 153 done pending CI)
 - Gate commander packet checks on expected preview URL. (Phase 154 done pending CI)
 - Gate commander packet checks on expected QR session index. (Phase 155 done pending CI)
+- Add help output to QR session and commander review index helpers. (Phase 156 done pending CI)
 - Add commander QR packet review index generator. (Phase 122 done pending CI)
 - Add dedicated HTTP error monitoring transport. (Phase 123 done pending CI)
 - Add production monitoring approval check to commander QR packet. (Phase 124 done pending CI)

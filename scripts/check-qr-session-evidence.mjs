@@ -146,8 +146,25 @@ const printTable = (rows) => {
   }
 };
 
+const printHelp = () => {
+  console.log("Usage: node scripts/check-qr-session-evidence.mjs [paths...] [--dir <dir>] [--json] [--help]");
+  console.log("");
+  console.log("Options:");
+  console.log("  --dir <dir>                   Directory to scan when no paths are provided. Defaults to qa/qr-sessions.");
+  console.log("  --json                        Print machine-readable JSON.");
+  console.log("  --help                        Show this help.");
+  console.log("");
+  console.log("Pass Markdown files or directories as positional paths to validate a focused session set.");
+};
+
 const main = async () => {
   const args = parseArgs(process.argv.slice(2));
+
+  if (args.flags.has("help")) {
+    printHelp();
+    return;
+  }
+
   const roots = args.positional.length > 0 ? args.positional : [args.values.dir ?? join("qa", "qr-sessions")];
   const files = [];
 

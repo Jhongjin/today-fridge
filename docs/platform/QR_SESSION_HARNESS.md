@@ -26,6 +26,8 @@ Useful flags:
 | `--output` | `qa/qr-sessions/android.md` | Optional custom file path. |
 | `--print` | | Print to stdout without writing a file. |
 
+Run `npm run qa:qr-session -- --help` to print the current generator options.
+
 Default output:
 
 `qa/qr-sessions/<timestamp>-<platform>-<mode>.md`
@@ -44,6 +46,8 @@ The checker fails when a session has unresolved `TODO` markers, blank artifact l
 npm run qa:qr-session:check -- qa/qr-sessions/android.md
 ```
 
+Run `npm run qa:qr-session:check -- --help` to print the current validation options.
+
 ## Commander Index
 
 To generate a review index for all session files:
@@ -59,6 +63,7 @@ npm run qa:qr-session:index -- --output qa/qr-sessions/INDEX.md
 ```
 
 Use `--strict` when the index generation should fail unless at least one session exists and every session is complete.
+Run `npm run qa:qr-session:index -- --help` to print the current index options.
 When a commander packet is checked locally, its `QR session index` metadata must point to an existing local file or an HTTPS evidence link. A directory path is not valid evidence.
 
 ## Commander Review Packet
