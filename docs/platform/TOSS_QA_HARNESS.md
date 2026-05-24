@@ -204,6 +204,7 @@ Automated scenarios:
 - Latest Apps in Toss game guide reviewed.
 - Toss SDK integration smoke test completed.
 - Real-device QR approval or blocker recorded in the commander review packet.
+- Reviewed commit, Queue Preview run URL, HTTPS preview/QR target, and QR session index evidence recorded in the commander review packet.
 - Preview deploy approval, skipped-state acceptance, or blocker recorded in the commander review packet.
 - Bundle size reviewed.
 - CORS and production origins reviewed.

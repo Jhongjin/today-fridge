@@ -50,6 +50,7 @@ These must be completed before requesting review:
 - QR session evidence can be checked locally with `npm run qa:qr-session:check`.
 - QR session evidence can be summarized locally with `npm run qa:qr-session:index`.
 - Commander QR review packets can be generated with `npm run qa:commander-review-packet`.
+- Commander QR review packet checks now require expected commit matching, a GitHub Actions Queue Preview run URL, an HTTPS preview/QR target, and a QR session index evidence reference.
 - Commander QR review packets now require completed real-device QR approval or follow-up decision.
 - Commander QR review packets now require completed preview deploy approval, skipped-state acceptance, or blocker decision.
 - Commander QR review packets now require completed Toss console setup approval or follow-up decision.
@@ -77,7 +78,7 @@ Do not change without command-center review:
 
 ## 4. GitHub/Vercel Setup
 
-Preview auto-deploy is wired but currently skipped until secrets are configured. Use `npm run deploy:check-prereqs` and `docs/platform/VERCEL_PREVIEW_SETUP.md`, then record the preview deploy decision in the commander review packet.
+Preview auto-deploy is wired but currently skipped until secrets are configured. Use `npm run deploy:check-prereqs` and `docs/platform/VERCEL_PREVIEW_SETUP.md`, then record the Queue Preview run URL, HTTPS preview/QR target, and preview deploy decision in the commander review packet.
 
 Required GitHub repository variable:
 

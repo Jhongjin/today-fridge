@@ -40,6 +40,7 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 - Prepare game rating evidence path and owner checklist, then record it in the commander review packet.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session` and approve the QR decision in the commander review packet.
+- Fill commander review packet metadata with the reviewed commit, Queue Preview run URL, HTTPS preview/QR target, and QR session index evidence reference.
 - Record deploy preflight output and approve the preview deploy decision or skipped-state acceptance in the commander review packet.
 - Validate official SDK runtime paths on physical QR devices; revisit Node 24 engine and npm audit triage, then record the SDK dependency decision before final submission.
 - Decide whether deterministic client validation plus leaderboard audit receipts are sufficient for MVP, or add a server verification layer before wider promotion.
