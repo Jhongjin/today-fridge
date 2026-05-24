@@ -23,6 +23,15 @@ This is a product/design position, not a legal classification. Final rating evid
 | Store self-rating | The same game is released through an open market such as App Store, Google Play, One Store, or Microsoft Store. | Store URL plus self-rating game information from GRAC lookup. |
 | GRAC certificate | The game is directly rated by the Game Rating and Administration Committee. | Game rating classification certificate PDF plus matching certificate fields. |
 
+Create a review evidence packet with:
+
+```bash
+npm run qa:rating-evidence -- --path store-self-rating
+npm run qa:rating-evidence -- --path grac-certificate
+```
+
+Use `--print` to inspect the packet without writing a file, or `--output <path>` to choose the evidence file location.
+
 ## Store Self-Rating Checklist
 
 Prepare these values from the released store page and GRAC lookup:

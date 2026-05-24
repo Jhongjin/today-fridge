@@ -58,6 +58,10 @@ const helpers = [
     required: ["--help", "--print", "--output", "--external-rewards"]
   },
   {
+    script: "scripts/create-game-rating-evidence.mjs",
+    required: ["--help", "--print", "--output", "--path"]
+  },
+  {
     script: "scripts/create-qr-session.mjs",
     required: ["--help", "--print", "--output", "--external-rewards"]
   }

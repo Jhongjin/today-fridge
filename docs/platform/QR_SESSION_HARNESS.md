@@ -91,6 +91,7 @@ It also includes a Preview Deploy Approval section. Final Toss review approval r
 It also includes a Toss Console Setup Approval section. Final Toss review approval requires console category, upload assets, leaderboard setup, bundle or `.ait` candidate path, QR target, and exactly one console setup decision.
 It also includes an SDK Dependency Approval section. Final Toss review approval requires refreshed SDK triage output, Node 24 coverage notes, audit counts, and exactly one SDK dependency decision.
 It also includes a Game Rating Evidence Approval section. Final Toss review approval requires one selected rating evidence path, linked classification evidence, required gameplay screenshots, and exactly one rating evidence decision.
+Use `npm run qa:rating-evidence` to create the rating evidence packet that feeds that commander decision.
 It also includes a Production Monitoring Approval section. Preview or production approval requires endpoint owner, retention, access-control, and deploy-preflight endpoint state notes, plus exactly one monitoring decision.
 
 ## Required Session Set
