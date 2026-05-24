@@ -56,13 +56,14 @@ These must be completed before requesting review:
 - Commander QR review packets now require completed Toss console setup approval or follow-up decision.
 - Commander QR review packets now require completed SDK dependency approval or follow-up decision.
 - Commander QR review packets now require completed game rating evidence approval before final Toss review.
+- Game rating evidence packets can be generated with `npm run qa:rating-evidence` and checked with `npm run qa:rating-evidence:check`.
 - Commander QR review packets now require completed production monitoring approval or explicit deferral.
 - Sound lifecycle once BGM/custom SFX assets are added.
 - Safe Area verification on iOS and Android.
 - Production monitoring endpoint owner, retention policy, and access-control approval or explicit deferral recorded in the commander review packet.
 - App bundle packaging path and `.ait` upload check recorded in the commander review packet.
 - Console-ready PNG logo, thumbnail, screenshot assets, leaderboard setup, and console review state recorded in the commander review packet.
-- Game rating classification evidence recorded in the commander review packet.
+- Game rating classification evidence packet checked and recorded in the commander review packet.
 - Rating evidence checklist is documented in `docs/platform/GAME_RATING_EVIDENCE.md`.
 
 ## 3. Policy-Sensitive Items

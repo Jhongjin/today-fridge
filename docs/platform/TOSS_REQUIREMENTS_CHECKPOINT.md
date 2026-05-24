@@ -37,7 +37,7 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 - Generate console-ready 600 x 600 PNG logo and 1932 x 828 PNG thumbnail with `npm run qa:console-assets`.
 - Generate at least 3 vertical 636 x 1048 PNG screenshots for upload with `npm run qa:console-assets`.
 - Record game category, console asset upload, leaderboard setup, bundle/QR target, and console review state in the commander review packet.
-- Prepare game rating evidence path and owner checklist, then record it in the commander review packet.
+- Prepare game rating evidence path and owner checklist with `npm run qa:rating-evidence`, validate it with `npm run qa:rating-evidence:check`, then record it in the commander review packet.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session` and approve the QR decision in the commander review packet.
 - Fill commander review packet metadata with the reviewed commit, Queue Preview run URL, HTTPS preview/QR target, and QR session index evidence reference.
