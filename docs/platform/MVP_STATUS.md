@@ -30,7 +30,7 @@
 - `npm run qa:korean-copy`
 - `npm run external-rewards:check-prereqs`
 - `npm run qa:commander-review-packet -- --print --commit <sha> --actions-run-url <queue-preview-run-url> --preview-url <https-preview-or-qr-url> --session-index <qr-index-evidence>`
-- Queue Preview summary evidence for SDK dependency triage, Korean copy, external reward prerequisites, bundle budget, console assets, and deploy prerequisites.
+- Queue Preview summary evidence for SDK dependency triage, QA helper surface, Korean copy, external reward prerequisites, bundle budget, console assets, and deploy prerequisites.
 
 ## Current Submission Blockers
 

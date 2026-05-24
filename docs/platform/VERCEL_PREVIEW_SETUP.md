@@ -5,7 +5,7 @@
 Observed on 2026-05-24:
 
 - Queue Preview validation succeeds on GitHub Actions.
-- Validate Harness writes SDK dependency triage, Korean copy, external reward prerequisite, bundle budget, and console asset evidence into the workflow summary.
+- Validate Harness writes SDK dependency triage, QA helper surface, Korean copy, external reward prerequisite, bundle budget, and console asset evidence into the workflow summary.
 - Optional Preview Deploy succeeds as a job, but deploy steps are skipped because required Vercel prerequisites are not configured. The job writes the same prerequisite table as `npm run deploy:check-prereqs`.
 - Production deploy remains manual through the `Commander Production Deploy` workflow.
 
@@ -75,6 +75,7 @@ A queue completion is fully preview-deployed when:
 
 - `Validate Harness` passes.
 - The SDK dependency triage strict check passes inside `Validate Harness`.
+- The QA helper surface check passes inside `Validate Harness`.
 - The Korean copy guard passes inside `Validate Harness`.
 - External reward prerequisites are recorded inside `Validate Harness`; real reward mode must be ready before QR candidate builds.
 - Console assets are regenerated and dimension-checked inside `Validate Harness`.

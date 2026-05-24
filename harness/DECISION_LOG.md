@@ -191,3 +191,4 @@
 - Phase 171 submission screenshot capture now supports GitHub Actions summaries.
 - Phase 172 QA harness and deployment docs now reflect the full GitHub summary evidence surface.
 - Phase 173 Queue Preview now checks QA helper CLI help surfaces for expected automation flags.
+- Phase 174 readiness/status docs now include QA helper surface in the Queue Preview summary evidence list.
