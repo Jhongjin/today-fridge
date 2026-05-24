@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
 const parseArgs = (argv) => {
@@ -203,14 +203,23 @@ ${row.issues.map((issue) => `- ${issue}`).join("\n")}`).join("\n\n") : "- None"}
 `;
 };
 
+const writeGitHubSummary = async (markdown, args) => {
+  if (!args.flags.has("github-summary") || !process.env.GITHUB_STEP_SUMMARY) {
+    return;
+  }
+
+  await appendFile(process.env.GITHUB_STEP_SUMMARY, `${markdown}\n`, "utf8");
+};
+
 const printHelp = () => {
-  console.log("Usage: node scripts/build-qr-session-index.mjs [paths...] [--dir <dir>] [--output <path>] [--json] [--strict] [--help]");
+  console.log("Usage: node scripts/build-qr-session-index.mjs [paths...] [--dir <dir>] [--output <path>] [--json] [--strict] [--github-summary] [--help]");
   console.log("");
   console.log("Options:");
   console.log("  --dir <dir>                   Directory to scan when no paths are provided. Defaults to qa/qr-sessions.");
   console.log("  --output <path>               Write the Markdown index to a file instead of stdout.");
   console.log("  --json                        Print machine-readable JSON.");
   console.log("  --strict                      Exit non-zero unless at least one session exists and every session is ready.");
+  console.log("  --github-summary              Write the Markdown index to GitHub Actions summary.");
   console.log("  --help                        Show this help.");
   console.log("");
   console.log("Pass Markdown files or directories as positional paths to index a focused session set.");
@@ -245,12 +254,13 @@ const main = async () => {
     sessionCount: rows.length,
     rows
   };
+  const markdown = renderMarkdown({ generatedAt, rows });
+
+  await writeGitHubSummary(markdown, args);
 
   if (args.flags.has("json")) {
     console.log(JSON.stringify(result, null, 2));
   } else {
-    const markdown = renderMarkdown({ generatedAt, rows });
-
     if (args.values.output) {
       await mkdir(dirname(args.values.output), { recursive: true });
       await writeFile(args.values.output, markdown, "utf8");

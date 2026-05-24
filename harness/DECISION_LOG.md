@@ -186,3 +186,4 @@
 - Phase 166 Queue Preview now writes external reward prerequisite state to the GitHub Actions summary before build.
 - Phase 167 commander review packets now require the external reward prerequisite check in the local command evidence list.
 - Phase 168 commander review packet checks now support GitHub Actions summaries and list their current help options.
+- Phase 169 QR session and commander review packet indexes now support GitHub Actions summaries.
