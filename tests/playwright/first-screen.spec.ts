@@ -52,6 +52,10 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByTestId("cell-tofu_1_fresh")).toHaveClass(/tile--highlighted/);
   await expect(page.getByTestId("cell-green_onion_1_fresh")).toBeVisible();
   await expect(page.getByTestId("cell-kimchi_5_expiring")).toBeVisible();
+
+  const viewport = page.viewportSize();
+  const firstTileBox = await page.getByTestId("cell-rice_1_fresh").boundingBox();
+  expect(firstTileBox?.y ?? Number.POSITIVE_INFINITY).toBeLessThan(viewport?.height ?? 0);
 });
 
 test("qa analytics panel shows live event history", async ({ page }) => {
