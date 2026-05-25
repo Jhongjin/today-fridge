@@ -29,14 +29,15 @@ Official Apps in Toss docs rechecked on 2026-05-23.
 | Score validation | Toss Game Center does not provide separate server score validation; the game must validate score calculation itself. | Deterministic engine tests and clean-run fairness gates are mandatory. Real anti-tamper remains limited until server validation is added. |
 | Leaderboard management | Leaderboard UI/data is managed by Toss Game Center; SDK does not directly edit/delete individual entries. | Avoid admin-like leaderboard assumptions in UI and docs. |
 | SDK package | Current npm metadata reports `@apps-in-toss/web-framework@2.6.0` with Apps in Toss and Granite dependency set. | Dependency is locked locally; official SDK wrappers lazy-load behind explicit QR-candidate flags while injected/mock paths remain the default for browser and CI. Dependency-audit triage is tracked in `docs/platform/SDK_DEPENDENCY_TRIAGE.md` and must be decided in the commander review packet. |
-| Console assets | Console logo requires a 600 x 600 PNG with a background. Thumbnail requires 1932 x 828 PNG. Screenshots are optional but vertical uploads require at least 3 images at 636 x 1048 PNG. | Harness ready. Run `npm run qa:console-assets` to generate upload-size PNGs, then record upload state in the commander review packet. |
+| Console assets | Console logo requires a 600 x 600 PNG with a background. Thumbnail requires 1932 x 828 PNG. Screenshots are optional but vertical uploads require at least 3 images at 636 x 1048 PNG. | Harness ready. Run `npm run qa:console-assets` for upload-size PNGs and `npm run qa:screenshots` for first-fold/full-flow review evidence, then record both states in the commander review packet. |
 | Leaderboard setup | Console requires score unit, sort policy, and leaderboard settings. | Blocker. Use score unit `점`, higher-is-better sort, and clean-score policy only; record setup state in the commander review packet. |
 
 ## Current Gaps To Convert Into Queues
 
 - Generate console-ready 600 x 600 PNG logo and 1932 x 828 PNG thumbnail with `npm run qa:console-assets`.
 - Generate at least 3 vertical 636 x 1048 PNG screenshots for upload with `npm run qa:console-assets`.
-- Record game category, console asset upload, leaderboard setup, bundle/QR target, and console review state in the commander review packet.
+- Regenerate first-fold and full-flow submission screenshots with `npm run qa:screenshots`.
+- Record game category, console asset upload, submission screenshot evidence, leaderboard setup, bundle/QR target, and console review state in the commander review packet.
 - Prepare game rating evidence path and owner checklist with `npm run qa:rating-evidence`, validate it with `npm run qa:rating-evidence:check`, then record it in the commander review packet.
 - See `docs/platform/GAME_RATING_EVIDENCE.md` for the locked rating evidence checklist.
 - Complete Toss QR test once console access and `.ait` bundle path are ready; record evidence with `npm run qa:qr-session` and approve the QR decision in the commander review packet.

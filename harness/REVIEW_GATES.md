@@ -79,6 +79,7 @@ Required:
 - Real device QR test.
 - Bundle size review.
 - Safe area review.
+- Commander review packet with console asset and submission screenshot evidence.
 - Error monitoring plan.
 - Rollback path.
 
@@ -86,4 +87,5 @@ Pass criteria:
 
 - Toss app game flow works on supported iOS and Android versions.
 - The game reaches first playable UI within target load time.
+- First-fold and full-flow screenshots match the reviewed build.
 - QA blockers in `docs/platform/TOSS_QA_HARNESS.md` are closed.

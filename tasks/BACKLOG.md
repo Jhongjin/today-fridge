@@ -129,6 +129,7 @@
 - Write submission screenshot evidence to GitHub Actions summary. (Phase 171 done pending CI)
 - Run submission screenshot capture in Queue Preview. (Phase 182 done pending CI)
 - Require submission screenshot evidence in commander review packet. (Phase 185 done pending CI)
+- Align Toss requirements with submission screenshot gate. (Phase 186 done pending CI)
 - Refresh QA and deployment docs for GitHub summary evidence surface. (Phase 172 done pending CI)
 - Add QA helper surface guard to Queue Preview. (Phase 173 done pending CI)
 - Refresh readiness docs for QA helper summary evidence. (Phase 174 done pending CI)

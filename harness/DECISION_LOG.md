@@ -203,3 +203,4 @@
 - Phase 183 result and recipe book panels refreshed: modal surfaces now use the same mint/peach kitchen tone, recipe cards show ingredient chips, and score/reward evidence remains unchanged.
 - Phase 184 preview deploy evidence refreshed: latest checked Queue Preview run succeeded validation, but actual Vercel deploy steps remained skipped because deploy prerequisites were not enabled.
 - Phase 185 commander review packets now require `npm run qa:screenshots`, so first-fold and full-flow screenshot evidence must be refreshed before approval.
+- Phase 186 Toss requirements and review gates now call out `npm run qa:screenshots`, keeping submission screenshot evidence aligned with the commander packet gate.
