@@ -2,11 +2,13 @@
 
 ## Current Status
 
-Observed on 2026-05-24:
+Observed on 2026-05-25:
 
 - Queue Preview validation succeeds on GitHub Actions.
-- Validate Harness writes SDK dependency triage, QA helper surface, Korean copy, external reward prerequisite, bundle budget, and console asset evidence into the workflow summary.
+- Validate Harness writes SDK dependency triage, QA helper surface, Korean copy, external reward prerequisite, bundle budget, console asset, and submission screenshot evidence into the workflow summary.
 - Optional Preview Deploy succeeds as a job, but deploy steps are skipped because required Vercel prerequisites are not configured. The job writes the same prerequisite table as `npm run deploy:check-prereqs`.
+- Latest checked run: `26378854119` for commit `90def73`; `Install Vercel CLI`, `Pull Vercel preview environment`, and `Deploy preview` were skipped.
+- Local `npm run deploy:check-prereqs -- --json` still reports `AUTO_DEPLOY_ENABLED`, `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` missing from the current shell environment.
 - Production deploy remains manual through the `Commander Production Deploy` workflow.
 
 ## Required GitHub Settings
@@ -79,6 +81,7 @@ A queue completion is fully preview-deployed when:
 - The Korean copy guard passes inside `Validate Harness`.
 - External reward prerequisites are recorded inside `Validate Harness`; real reward mode must be ready before QR candidate builds.
 - Console assets are regenerated and dimension-checked inside `Validate Harness`.
+- Submission screenshots are captured and summarized inside `Validate Harness`.
 - `Optional Preview Deploy` runs `Install Vercel CLI`, `Pull Vercel preview environment`, and `Deploy preview` instead of skipping those steps.
 - The workflow summary contains a preview URL.
 - The commander review packet records the production monitoring approval or deferral decision before production promotion.

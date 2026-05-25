@@ -170,6 +170,7 @@
 - Add result-screen leaderboard open action. (Phase 23 done pending CI)
 - Document commander deployment runbook. (Phase 28 done pending CI)
 - Add Vercel preview deploy prerequisite preflight. (Phase 85 done pending CI)
+- Record latest preview deploy skipped evidence. (Phase 184 done pending CI)
 - Add submission screenshot QA script. (Phase 29 done pending CI)
 - Expand submission screenshots for recipe book and QA bridge. (Phase 45 done pending CI)
 - Clean stale screenshot artifacts before capture. (Phase 56 done pending CI)
