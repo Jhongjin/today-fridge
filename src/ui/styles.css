@@ -837,13 +837,16 @@ button:focus-visible {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 16px;
-  background: #ffffff;
-  border: 1px solid #d6e4da;
-  box-shadow: 0 18px 52px rgba(38, 57, 45, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 238, 0.94) 0%, rgba(255, 255, 255, 0.98) 36%),
+    #ffffff;
+  border: 1px solid #efcfb4;
+  box-shadow: 0 18px 52px rgba(92, 69, 46, 0.24);
 }
 
 .result-panel h2 {
   margin: 0;
+  color: #3d2c23;
   font-size: 22px;
 }
 
@@ -882,6 +885,7 @@ button:focus-visible {
 .result-score {
   display: block;
   margin: 6px 0 6px;
+  color: #1f3428;
   font-size: 30px;
 }
 
@@ -892,9 +896,9 @@ button:focus-visible {
   width: fit-content;
   margin: 0 0 10px;
   padding: 6px 10px;
-  border: 1px solid #d5e6dc;
+  border: 1px solid #cce9d8;
   border-radius: 8px;
-  background: #eef7f1;
+  background: #eaf9f0;
   color: #244d35;
   font-size: 14px;
   font-weight: 900;
@@ -907,7 +911,7 @@ button:focus-visible {
 
 .attempt-note {
   margin: -4px 0 10px;
-  color: #5d7165;
+  color: #6f5842;
   font-size: 14px;
   font-weight: 900;
 }
@@ -917,9 +921,9 @@ button:focus-visible {
   gap: 8px;
   margin: -2px 0 10px;
   padding: 10px;
-  border: 1px solid #d9e7de;
+  border: 1px solid #d8eadf;
   border-radius: 8px;
-  background: #f8fbf9;
+  background: #f5fbf7;
 }
 
 .mission-summary__header,
@@ -946,7 +950,7 @@ button:focus-visible {
 
 .mission-summary__item {
   padding: 4px 7px;
-  border: 1px solid #d5e4e9;
+  border: 1px solid #d8eadf;
   border-radius: 8px;
   background: #ffffff;
   color: #5d7165;
@@ -955,18 +959,18 @@ button:focus-visible {
 }
 
 .mission-summary__item--complete {
-  border-color: #287c49;
-  background: #eef7f1;
-  color: #287c49;
+  border-color: #5aa37a;
+  background: #eaf9f0;
+  color: #247145;
 }
 
 .best-note {
   margin: -4px 0 10px;
   padding: 8px 10px;
   border-radius: 8px;
-  background: #fff7e8;
-  border: 1px solid #f0ddba;
-  color: #6b5530;
+  background: #fff4db;
+  border: 1px solid #efcf9f;
+  color: #6b4a23;
   font-size: 14px;
   font-weight: 900;
 }
@@ -976,9 +980,9 @@ button:focus-visible {
   gap: 7px;
   margin: -4px 0 10px;
   padding: 9px 10px;
-  border: 1px solid #d5e4e9;
+  border: 1px solid #d7e5f1;
   border-radius: 8px;
-  background: #f2f7f9;
+  background: #f1f8ff;
 }
 
 .best-route span {
@@ -1011,6 +1015,10 @@ button:focus-visible {
   display: grid;
   gap: 5px;
   margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #eadfd0;
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.86);
 }
 
 .score-breakdown div {
@@ -1031,9 +1039,9 @@ button:focus-visible {
 .reward-summary div {
   min-height: 48px;
   padding: 8px 10px;
-  border: 1px solid #d9e7de;
+  border: 1px solid #d8eadf;
   border-radius: 8px;
-  background: #f7fbf8;
+  background: #f5fbf7;
 }
 
 .reward-summary span {
@@ -1057,9 +1065,9 @@ button:focus-visible {
   gap: 6px 12px;
   margin: -4px 0 12px;
   padding: 9px 10px;
-  border: 1px solid #f0ddba;
+  border: 1px solid #efcf9f;
   border-radius: 8px;
-  background: #fffaf0;
+  background: #fff4db;
 }
 
 .recipe-progress__title {
@@ -1085,21 +1093,21 @@ button:focus-visible {
   height: 8px;
   overflow: hidden;
   border-radius: 8px;
-  background: #f1e4c7;
+  background: #f0dfbe;
 }
 
 .recipe-progress__bar span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: #287c49;
+  background: #5aa37a;
 }
 
 .primary-action {
   width: 100%;
-  background: #287c49;
+  background: #2e8751;
   color: #ffffff;
-  border-color: #287c49;
+  border-color: #2e8751;
 }
 
 .recipe-book-panel {
@@ -1116,10 +1124,12 @@ button:focus-visible {
   padding: 16px;
   overflow: hidden;
   transform: translateX(-50%);
-  border: 1px solid #d6e4da;
+  border: 1px solid #efcfb4;
   border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 18px 52px rgba(38, 57, 45, 0.24);
+  background:
+    linear-gradient(180deg, #fff4df 0%, #fffdf9 34%),
+    #ffffff;
+  box-shadow: 0 18px 52px rgba(92, 69, 46, 0.24);
 }
 
 .recipe-book-panel__header {
@@ -1131,6 +1141,7 @@ button:focus-visible {
 
 .recipe-book-panel h2 {
   margin: 0;
+  color: #2d2f28;
   font-size: 22px;
 }
 
@@ -1141,9 +1152,9 @@ button:focus-visible {
   justify-content: space-between;
   gap: 12px;
   padding: 8px 10px;
-  border: 1px solid #f0ddba;
+  border: 1px solid #efcf9f;
   border-radius: 8px;
-  background: #fffaf0;
+  background: #fff4db;
 }
 
 .recipe-book-summary span,
@@ -1162,16 +1173,16 @@ button:focus-visible {
 
 .recipe-book-card {
   display: grid;
-  gap: 6px;
+  gap: 7px;
   padding: 10px;
-  border: 1px solid #d9e7de;
+  border: 1px solid #d8eadf;
   border-radius: 8px;
-  background: #f8fbf9;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .recipe-book-card--active {
-  border-color: #287c49;
-  background: #eef7f1;
+  border-color: #5aa37a;
+  background: #eaf9f0;
 }
 
 .recipe-book-card__title,
@@ -1190,11 +1201,27 @@ button:focus-visible {
 
 .recipe-book-card__title span {
   padding: 2px 7px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: #ffffff;
   color: #476253;
   font-size: 11px;
   font-weight: 900;
+}
+
+.recipe-book-card__ingredients {
+  display: flex;
+  gap: 5px;
+}
+
+.recipe-book-card__ingredients span {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #f0d6bb;
+  border-radius: 8px;
+  background: #fff8ed;
+  font-size: 18px;
 }
 
 .recipe-book-card p {
@@ -1215,14 +1242,14 @@ button:focus-visible {
   height: 7px;
   overflow: hidden;
   border-radius: 8px;
-  background: #e6eee9;
+  background: #e6f0ea;
 }
 
 .recipe-book-card__progress i {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: #287c49;
+  background: #5aa37a;
 }
 
 .qa-analytics-panel {

@@ -24,7 +24,7 @@ Immediately show:
 - Today's fridge board.
 - Today's recipe or rescue goal.
 - My best score.
-- Big `시작` action.
+- A visible first hinted action on the board.
 - Leaderboard/friend challenge entry.
 
 Avoid:
@@ -74,6 +74,7 @@ Keywords:
 - Bright, practical, warm.
 - Cute but not childish.
 - Clear silhouettes over decorative detail.
+- Soft mint, peach, blue, and berry accents that feel like a casual game HUD rather than a document form.
 
 Palette:
 
@@ -82,6 +83,8 @@ Palette:
 - Support: stainless blue-gray, charcoal.
 
 Avoid a one-note beige/cream look. Ingredients should carry much of the color.
+
+Result and collection panels should keep the same warm kitchen tone as the main screen. Use ingredient chips, soft progress bars, and clear action buttons so rewards and recipe progress feel collectible without looking like an admin report.
 
 ## 7. Ingredient Art Direction
 

@@ -48,6 +48,11 @@ export const RecipeBookPanel = ({
                 <strong>{item.name}</strong>
                 <span>{item.difficulty}</span>
               </div>
+              <div className="recipe-book-card__ingredients" aria-hidden="true">
+                {item.ingredientIds.map((id) => (
+                  <span key={`${item.id}-${id}`}>{getIngredient(id).icon}</span>
+                ))}
+              </div>
               <p>{item.ingredientIds.map((id) => getIngredient(id).name).join(" + ")}</p>
               <div className="recipe-book-card__progress">
                 <span>
