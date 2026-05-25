@@ -11,6 +11,7 @@ const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 const args = new Set(process.argv.slice(2));
 const jsonOutput = args.has("--json");
 const screenshotFiles = [
+  "00-first-viewport.png",
   "01-first-playable.png",
   "02-recipe-book.png",
   "03-completion-result.png",
@@ -28,6 +29,7 @@ const printHelp = () => {
   console.log("  --help                        Show this help.");
   console.log("");
   console.log(`Starts Vite on ${baseURL} and captures submission screenshots into ${outputDir}.`);
+  console.log("Includes a first-viewport fold screenshot plus full-page flow screenshots.");
 };
 
 if (args.has("--help")) {
@@ -68,10 +70,10 @@ const clickCleanRoute = async (page) => {
   }
 };
 
-const capture = async (page, fileName) => {
+const capture = async (page, fileName, options = {}) => {
   await page.screenshot({
     path: join(outputDir, fileName),
-    fullPage: true
+    fullPage: options.fullPage ?? true
   });
 };
 
@@ -136,6 +138,7 @@ try {
   });
 
   await page.goto(baseURL);
+  await capture(page, "00-first-viewport.png", { fullPage: false });
   await capture(page, "01-first-playable.png");
 
   await page.getByTestId("recipe-book-open").click();

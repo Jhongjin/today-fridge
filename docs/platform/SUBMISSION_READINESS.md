@@ -17,7 +17,7 @@ References:
 
 | Area | Status | Notes |
 | --- | --- | --- |
-| First playable screen | Partial pass | App loads a playable board locally and in CI. Real Toss QR test pending. |
+| First playable screen | Partial pass | App loads a playable board locally and in CI, and screenshot QA now records a 390x844 first-fold capture. Real Toss QR test pending. |
 | CSR/SSG | Pass | Vite static CSR app. |
 | Manifest/app icon | Pass | Web manifest references the SVG app icon. |
 | Console upload assets | Partial pass | Console logo/thumbnail/screenshot PNGs can be generated locally and dimensions are guarded; Queue Preview records the verified dimensions in the workflow summary. Final console upload and console setup decision are pending. |

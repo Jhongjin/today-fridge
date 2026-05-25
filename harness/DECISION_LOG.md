@@ -198,3 +198,4 @@
 - Phase 178 commander review packet evidence checklist now calls out the rating evidence checker pass.
 - Phase 179 rating evidence checks now reject unchecked non-decision checklist items.
 - Phase 180 first-screen visual direction refreshed: the top stack is now a compact warm kitchen/fridge hero HUD with a mission ticket, mascot, score chips, and preserved QA/test IDs.
+- Phase 181 submission screenshot evidence now includes `00-first-viewport.png`, a non-full-page 390x844 first-fold capture for Vercel/Toss first-impression review.

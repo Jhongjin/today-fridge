@@ -26,19 +26,21 @@ The output folder is ignored by git.
 
 ## Captures
 
-The script captures a 390x844 mobile viewport:
+The script captures a 390x844 mobile viewport. The first file is the visible first fold, and the remaining flow screenshots are full-page captures at the same mobile width:
 
-1. `01-first-playable.png`
-2. `02-recipe-book.png`
-3. `03-completion-result.png`
-4. `04-reward-claimed.png`
-5. `05-hint-fairness.png`
-6. `06-qa-toss-bridge.png`
+1. `00-first-viewport.png`
+2. `01-first-playable.png`
+3. `02-recipe-book.png`
+4. `03-completion-result.png`
+5. `04-reward-claimed.png`
+6. `05-hint-fairness.png`
+7. `06-qa-toss-bridge.png`
 
 ## Notes
 
 - The script starts a local Vite dev server on `127.0.0.1:5174`.
 - It closes the server after capture.
+- `00-first-viewport.png` is useful for checking the actual Vercel/Toss first impression before scrolling.
 - It uses the same clean route covered by Playwright.
 - It includes the recipe book and QA Toss bridge paths.
 - These screenshots are QA candidates, not final store assets.

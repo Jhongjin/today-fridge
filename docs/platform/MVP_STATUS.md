@@ -16,7 +16,7 @@
 - Official Apps in Toss SDK wrappers are available behind explicit QR-candidate runtime flags.
 - Real contacts viral, rewarded-ad, and promotion adapters are available behind a separate external reward gate.
 - Clean leaderboard submission is now blocked when the game user key is unavailable.
-- QA harness exists for analytics, Toss bridge smoke path, screenshots, console/page errors, SDK dependency triage, bundle size, source maps, QR evidence, commander review packets, and Queue Preview evidence summaries.
+- QA harness exists for analytics, Toss bridge smoke path, first-viewport/full-flow screenshots, console/page errors, SDK dependency triage, bundle size, source maps, QR evidence, commander review packets, and Queue Preview evidence summaries.
 - Quiet/reduced-motion settings persist locally and emit QA-visible settings analytics.
 
 ## Verified Locally
