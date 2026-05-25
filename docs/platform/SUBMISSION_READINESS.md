@@ -80,7 +80,7 @@ Do not change without command-center review:
 ## 4. GitHub/Vercel Setup
 
 Preview auto-deploy is wired but currently skipped until secrets are configured. Use `npm run deploy:check-prereqs` and `docs/platform/VERCEL_PREVIEW_SETUP.md`, then record the Queue Preview run URL, HTTPS preview/QR target, and preview deploy decision in the commander review packet.
-Queue Preview summaries now include SDK dependency triage, QA helper surface status, Korean copy guard status, external reward prerequisite state, bundle budget evidence, console asset evidence, and preview deploy prerequisite state.
+Queue Preview summaries now include SDK dependency triage, QA helper surface status, Korean copy guard status, external reward prerequisite state, bundle budget evidence, console asset evidence, submission screenshot evidence, and preview deploy prerequisite state.
 
 Required GitHub repository variable:
 

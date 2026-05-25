@@ -126,6 +126,7 @@
 - Write QR and commander review index evidence to GitHub Actions summary. (Phase 169 done pending CI)
 - Write QR session evidence check results to GitHub Actions summary. (Phase 170 done pending CI)
 - Write submission screenshot evidence to GitHub Actions summary. (Phase 171 done pending CI)
+- Run submission screenshot capture in Queue Preview. (Phase 182 done pending CI)
 - Refresh QA and deployment docs for GitHub summary evidence surface. (Phase 172 done pending CI)
 - Add QA helper surface guard to Queue Preview. (Phase 173 done pending CI)
 - Refresh readiness docs for QA helper summary evidence. (Phase 174 done pending CI)

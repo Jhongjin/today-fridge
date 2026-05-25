@@ -85,9 +85,10 @@ Validation includes:
 - Production build.
 - Static `dist` bundle budget check and source map guard.
 - Console logo, thumbnail, and upload screenshot generation with dimension verification.
+- Submission screenshot capture, including the first visible 390x844 fold.
 - Playwright mobile browser tests.
 
-For automation evidence, `npm run --silent check:bundle -- --json` prints total bytes, budget bytes, source map paths, and file sizes after `npm run build`. Queue Preview also runs SDK dependency triage, QA helper surface, Korean copy, external reward prerequisite, bundle budget, console asset, and deploy prerequisite checks with `--github-summary` so the workflow summary records the review evidence.
+For automation evidence, `npm run --silent check:bundle -- --json` prints total bytes, budget bytes, source map paths, and file sizes after `npm run build`. Queue Preview also runs SDK dependency triage, QA helper surface, Korean copy, external reward prerequisite, bundle budget, console asset, submission screenshot, and deploy prerequisite checks with `--github-summary` so the workflow summary records the review evidence.
 
 GitHub validation uses Node `24` because Apps in Toss SDK packaging dependencies include a Node `>=24` engine requirement.
 

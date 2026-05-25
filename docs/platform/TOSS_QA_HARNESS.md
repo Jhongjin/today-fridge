@@ -174,7 +174,7 @@ Real SDK QR candidate:
 
 Automation evidence summaries:
 
-- Queue Preview writes SDK dependency triage, QA helper surface, Korean copy guard, external reward prerequisite, bundle budget, console asset, and deploy prerequisite evidence to the workflow summary.
+- Queue Preview writes SDK dependency triage, QA helper surface, Korean copy guard, external reward prerequisite, bundle budget, console asset, submission screenshot, and deploy prerequisite evidence to the workflow summary.
 - QR session checks, QR indexes, commander packet checks, commander packet indexes, and submission screenshot capture can also write GitHub summaries when run with `--github-summary`.
 
 External reward QA runner:
