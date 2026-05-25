@@ -205,3 +205,4 @@
 - Phase 185 commander review packets now require `npm run qa:screenshots`, so first-fold and full-flow screenshot evidence must be refreshed before approval.
 - Phase 186 Toss requirements and review gates now call out `npm run qa:screenshots`, keeping submission screenshot evidence aligned with the commander packet gate.
 - Phase 187 first playable screen now includes a compact main dock for profile, daily refresh, and recipe-book progress so the top area reads more like a casual game home surface.
+- Phase 188 mobile first-screen QA now asserts the recipe-book main dock progress and ingredient icons across the supported viewport set.

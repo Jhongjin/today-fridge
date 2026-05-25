@@ -41,6 +41,9 @@ test("first playable screen is visible and readable", async ({ page }) => {
   await expect(page.getByTestId("daily-refresh-strip")).toBeVisible();
   await expect(page.getByTestId("daily-refresh-countdown")).toContainText(/후/);
   await expect(page.getByTestId("daily-streak")).toContainText(/연속 \d+일/);
+  await expect(page.getByTestId("recipe-dock")).toContainText("레시피북");
+  await expect(page.getByTestId("hero-recipe-piece-progress")).toHaveText("0/3");
+  await expect(page.locator('[data-testid="recipe-dock"] .recipe-dock__icons i')).toHaveCount(3);
   await expect(page.getByTestId("tutorial-strip")).toContainText("두부 3개");
   await expect(page.getByTestId("personal-best-value")).toHaveText("0");
   await expect(page.getByTestId("best-chase-label")).toHaveText("첫 기록 도전");
