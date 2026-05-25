@@ -103,11 +103,12 @@ Each hint should have one clear action and disappear after action.
 
 ### Booster Row
 
-- Three icon buttons with labels:
+- Three icon-led tool buttons with labels:
   - 정리집게
   - 냉동칸
   - 힌트
 - Disabled state should be obvious.
+- The row should feel like small kitchen tools, not plain document buttons.
 
 ### Bottom Info
 

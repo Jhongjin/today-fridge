@@ -42,6 +42,7 @@
 - Refresh first-screen visual direction. (Phase 180 done pending CI)
 - Refresh result and recipe book visual tone. (Phase 183 done pending CI)
 - Add playful first-screen main dock. (Phase 187 done pending CI)
+- Add icon-led booster tool buttons. (Phase 189 done pending CI)
 - Lock first-screen main dock in mobile QA. (Phase 188 done pending CI)
 - Define BGM mood references. (Phase 81 done pending CI)
 - Define SFX list and trigger map. (Phase 97 done pending CI)

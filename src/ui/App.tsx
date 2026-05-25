@@ -1,4 +1,4 @@
-import { BookOpen, Pause, Play, Share2, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
+import { BookOpen, Lightbulb, Pause, Play, Scissors, Share2, Snowflake, Trophy, Volume2, VolumeX, Waves, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createAudioController } from "../audio/audioController";
 import { createWebAudioOutput } from "../audio/webAudioOutput";
@@ -1212,19 +1212,23 @@ export const App = () => {
         </section>
 
         <section className="booster-row" aria-label="부스터">
-          <button type="button" disabled>
-            정리집게
+          <button className="booster-button booster-button--grab" type="button" disabled>
+            <Scissors size={17} aria-hidden="true" />
+            <span>정리집게</span>
           </button>
-          <button type="button" disabled>
-            냉동칸
+          <button className="booster-button booster-button--freeze" type="button" disabled>
+            <Snowflake size={17} aria-hidden="true" />
+            <span>냉동칸</span>
           </button>
           <button
+            className="booster-button booster-button--hint"
             type="button"
             onClick={useHintBooster}
             disabled={gameState.status !== "playing" || isPaused || profileGateLocked}
             data-testid="hint-booster"
           >
-            힌트
+            <Lightbulb size={17} aria-hidden="true" />
+            <span>힌트</span>
           </button>
         </section>
 

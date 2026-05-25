@@ -804,6 +804,37 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.booster-row button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+  box-shadow: 0 5px 12px rgba(86, 91, 73, 0.08);
+}
+
+.booster-row button svg {
+  flex: 0 0 auto;
+}
+
+.booster-button--grab {
+  border-color: #f0d2a5;
+  background: #fff8ec;
+  color: #6c4a19;
+}
+
+.booster-button--freeze {
+  border-color: #cfe0f4;
+  background: #f3f8ff;
+  color: #2f5771;
+}
+
+.booster-button--hint {
+  border-color: #c7e6d4;
+  background: #f1fbf5;
+  color: #255c3a;
+}
+
 .booster-row button:disabled {
   opacity: 0.56;
 }
