@@ -11,6 +11,7 @@ const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 const args = new Set(process.argv.slice(2));
 const jsonOutput = args.has("--json");
 const screenshotFiles = [
+  "00-small-first-viewport.png",
   "00-first-viewport.png",
   "01-first-playable.png",
   "02-recipe-book.png",
@@ -29,7 +30,7 @@ const printHelp = () => {
   console.log("  --help                        Show this help.");
   console.log("");
   console.log(`Starts Vite on ${baseURL} and captures submission screenshots into ${outputDir}.`);
-  console.log("Includes a first-viewport fold screenshot plus full-page flow screenshots.");
+  console.log("Includes 360 and 390 first-viewport fold screenshots plus full-page flow screenshots.");
 };
 
 if (args.has("--help")) {
@@ -131,6 +132,16 @@ try {
   await waitForServer();
 
   const browser = await chromium.launch();
+  const smallPage = await browser.newPage({
+    viewport: { width: 360, height: 740 },
+    isMobile: true,
+    hasTouch: true
+  });
+
+  await smallPage.goto(baseURL);
+  await capture(smallPage, "00-small-first-viewport.png", { fullPage: false });
+  await smallPage.close();
+
   const page = await browser.newPage({
     viewport: { width: 390, height: 844 },
     isMobile: true,

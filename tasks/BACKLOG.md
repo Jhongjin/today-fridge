@@ -182,6 +182,7 @@
 - Expand submission screenshots for recipe book and QA bridge. (Phase 45 done pending CI)
 - Clean stale screenshot artifacts before capture. (Phase 56 done pending CI)
 - Add first-viewport screenshot evidence. (Phase 181 done pending CI)
+- Add 360 first-viewport screenshot evidence. (Phase 192 done pending CI)
 - Add manifest app icon asset. (Phase 39 done pending CI)
 - Generate console-ready PNG logo, thumbnail, and upload screenshots. (Phase 58 done pending CI)
 - Verify console asset PNG dimensions after capture. (Phase 70 done pending CI)

@@ -209,3 +209,4 @@
 - Phase 189 booster controls now use icon-led kitchen tool buttons for grab, freezer, and hint actions so the lower first-screen controls match the softer game UI direction.
 - Phase 190 smallest mobile first-screen spacing now compresses at 374px and below so the fridge board still peeks into the first viewport after the main dock polish.
 - Phase 191 mobile first-screen QA now asserts the first board tile starts inside the viewport, preventing the playable board from slipping fully below the fold.
+- Phase 192 submission screenshot capture now includes `00-small-first-viewport.png`, a 360x740 first-fold evidence image for minimum-width review.
