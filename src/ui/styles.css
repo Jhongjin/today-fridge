@@ -1404,13 +1404,25 @@ button:focus-visible {
   font-size: 11px;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 374px) {
+  .app-shell {
+    padding: 8px;
+  }
+
   .phone-frame {
-    padding-inline: 10px;
+    min-height: calc(100vh - 16px);
+    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+    gap: 7px;
   }
 
   .main-hero {
+    gap: 7px;
     padding: 8px;
+  }
+
+  .top-bar {
+    min-height: 42px;
+    gap: 8px;
   }
 
   .brand-lockup__icon {
@@ -1423,13 +1435,111 @@ button:focus-visible {
     font-size: 18px;
   }
 
-  .goal-strip {
-    grid-template-columns: auto minmax(0, 1fr);
+  .top-actions {
+    gap: 4px;
   }
 
-  .goal-strip__actions {
-    grid-column: 2;
-    justify-content: flex-start;
+  .icon-button {
+    width: 40px;
+    height: 42px;
+  }
+
+  .score-strip,
+  .competition-strip,
+  .status-row {
+    gap: 5px;
+  }
+
+  .score-strip div,
+  .competition-strip div {
+    padding: 6px;
+  }
+
+  .competition-strip div {
+    min-height: 38px;
+  }
+
+  .goal-strip {
+    grid-template-columns: 44px minmax(0, 1fr) 36px;
+    gap: 7px;
+    padding: 8px;
+  }
+
+  .goal-strip__art {
+    width: 44px;
+    height: 52px;
+  }
+
+  .fridge-mascot {
+    width: 40px;
+    height: 48px;
+  }
+
+  .goal-strip strong {
+    font-size: 17px;
+  }
+
+  .goal-strip p {
+    font-size: 13px;
+  }
+
+  .goal-strip__ingredients span {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+
+  .goal-strip__actions > svg {
+    display: none;
+  }
+
+  .icon-button--compact {
+    width: 34px;
+    height: 34px;
+  }
+
+  .status-row .profile-gate,
+  .status-row .daily-refresh-strip,
+  .recipe-dock {
+    min-height: 54px;
+    padding: 6px;
+  }
+
+  .profile-gate strong,
+  .daily-refresh-strip span,
+  .recipe-dock span {
+    font-size: 11px;
+  }
+
+  .status-row .profile-gate span,
+  .status-row .daily-refresh-strip small {
+    font-size: 10px;
+  }
+
+  .status-row .daily-refresh-strip strong,
+  .recipe-dock strong {
+    font-size: 12px;
+  }
+
+  .recipe-dock__icons i {
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+  }
+
+  .coach-message {
+    min-height: 32px;
+    padding: 7px 9px;
+  }
+
+  .tutorial-strip {
+    min-height: 38px;
+    padding: 7px 9px;
+  }
+
+  .hint-row span {
+    min-height: 30px;
+    font-size: 11px;
   }
 
   .tile {
@@ -1438,14 +1548,6 @@ button:focus-visible {
 
   .tile__label {
     font-size: 12px;
-  }
-
-  .top-actions {
-    gap: 4px;
-  }
-
-  .icon-button {
-    width: 40px;
   }
 
   .tray {

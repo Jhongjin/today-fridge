@@ -24,6 +24,12 @@ Phase 187 adds a compact main dock inside the first playable screen:
 - Keep the board visible on first load; the dock should not introduce a start gate.
 - Use the recipe ingredient icons in the dock so collection progress feels tied to the current dish.
 
+Phase 190 keeps the 360 x 740 minimum viewport honest:
+
+- Compress only the smallest mobile layout so the fridge board's first row peeks into the first viewport.
+- Keep the larger 390/430 layouts roomier.
+- Do not hide required controls, status, or recipe progress.
+
 ## 2. Mobile Layout
 
 Target minimum viewport: `360x740`.

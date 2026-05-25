@@ -207,3 +207,4 @@
 - Phase 187 first playable screen now includes a compact main dock for profile, daily refresh, and recipe-book progress so the top area reads more like a casual game home surface.
 - Phase 188 mobile first-screen QA now asserts the recipe-book main dock progress and ingredient icons across the supported viewport set.
 - Phase 189 booster controls now use icon-led kitchen tool buttons for grab, freezer, and hint actions so the lower first-screen controls match the softer game UI direction.
+- Phase 190 smallest mobile first-screen spacing now compresses at 374px and below so the fridge board still peeks into the first viewport after the main dock polish.
