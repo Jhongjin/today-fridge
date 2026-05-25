@@ -137,15 +137,15 @@ const tutorialCopy: Record<Exclude<TutorialStep, "done">, string> = {
 const profileGateCopy: Record<ProfileGateStatus, { title: string; message: string }> = {
   checking: {
     title: "프로필 확인 중",
-    message: "토스 게임 프로필을 확인하고 있어요."
+    message: "게임 프로필 확인 중이에요."
   },
   ready: {
     title: "토스 게임 프로필 확인 완료",
-    message: "오늘 랭킹 도전이 준비됐어요."
+    message: "랭킹 도전 준비됐어요."
   },
   blocked: {
     title: "프로필 확인 필요",
-    message: "프로필을 만든 뒤 오늘 기록에 도전할 수 있어요."
+    message: "프로필 생성 후 도전 가능해요."
   },
   error: {
     title: "프로필 확인 실패",
@@ -1007,80 +1007,135 @@ export const App = () => {
       }`}
     >
       <section className="phone-frame" aria-label="오늘의 냉장고 게임">
-        <header className="top-bar">
-          <div>
-            <p className="eyebrow">오늘의 냉장고</p>
-            <h1>{board.title}</h1>
+        <header className="main-hero" aria-label="오늘의 냉장고 메인 화면">
+          <div className="top-bar">
+            <div className="brand-lockup">
+              <span className="brand-lockup__icon" aria-hidden="true">
+                🍳
+              </span>
+              <div>
+                <p className="eyebrow">오늘의 냉장고</p>
+                <h1>{board.title}</h1>
+              </div>
+            </div>
+            <div className="top-actions">
+              <button
+                className="icon-button"
+                type="button"
+                aria-label={muted ? "소리 켜기" : "소리 끄기"}
+                aria-pressed={muted}
+                data-testid="mute-button"
+                onClick={toggleMuted}
+              >
+                {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              </button>
+              <button
+                className="icon-button"
+                type="button"
+                aria-label="모션 줄이기"
+                aria-pressed={reduceMotion}
+                data-testid="reduce-motion-button"
+                onClick={toggleReduceMotion}
+              >
+                <Waves size={20} />
+              </button>
+              <button
+                className="icon-button"
+                type="button"
+                aria-label={isPaused ? "계속하기" : "일시정지"}
+                aria-pressed={isPaused}
+                onClick={isPaused ? resumeGame : pauseGame}
+                disabled={gameState.status !== "playing" || profileGateLocked}
+                data-testid="pause-button"
+              >
+                {isPaused ? <Play size={20} /> : <Pause size={20} />}
+              </button>
+            </div>
           </div>
-          <div className="top-actions">
-            <button
-              className="icon-button"
-              type="button"
-              aria-label={muted ? "소리 켜기" : "소리 끄기"}
-              aria-pressed={muted}
-              data-testid="mute-button"
-              onClick={toggleMuted}
+
+          <section className="goal-strip" aria-label="오늘의 목표">
+            <div className="goal-strip__art" aria-hidden="true">
+              <span className="fridge-mascot">
+                <span className="fridge-mascot__face" />
+                <span className="fridge-mascot__handle" />
+              </span>
+            </div>
+            <div className="goal-strip__copy">
+              <span className="goal-strip__label">오늘의 냉파 미션</span>
+              <strong>{recipe.name}</strong>
+              <p>{recipe.ingredientIds.map((id) => getIngredient(id).name).join(" + ")} 쏙쏙 담기</p>
+              <div className="goal-strip__ingredients" aria-hidden="true">
+                {recipe.ingredientIds.map((id) => {
+                  const ingredient = getIngredient(id);
+
+                  return <span key={id}>{ingredient.icon}</span>;
+                })}
+              </div>
+            </div>
+            <div className="goal-strip__actions">
+              <Trophy size={24} aria-hidden="true" />
+              <button
+                className="icon-button icon-button--compact"
+                type="button"
+                aria-label="레시피북 열기"
+                data-testid="recipe-book-open"
+                onClick={() => setRecipeBookOpen(true)}
+              >
+                <BookOpen size={18} />
+              </button>
+            </div>
+          </section>
+
+          <section className="score-strip" aria-label="현재 점수">
+            <div>
+              <span>점수</span>
+              <strong data-testid="score-value">{score.toLocaleString()}</strong>
+            </div>
+            <div>
+              <span>이동</span>
+              <strong>
+                {gameState.movesUsed}/{board.moveLimit}
+              </strong>
+            </div>
+            <div>
+              <span>구출</span>
+              <strong>
+                {gameState.rescuedCount}/{board.rescueTarget}
+              </strong>
+            </div>
+          </section>
+
+          <section className="competition-strip" aria-label="오늘 기록">
+            <div>
+              <span>내 최고</span>
+              <strong data-testid="personal-best-value">{personalBest.toLocaleString()}</strong>
+            </div>
+            <div className={bestChase.state === "ahead" ? "competition-strip__item--ahead" : ""} data-testid="best-chase">
+              <span data-testid="best-chase-label">{bestChase.label}</span>
+              <strong data-testid="best-chase-value">{bestChase.value}</strong>
+            </div>
+          </section>
+
+          <div className="status-row">
+            <section
+              className={`profile-gate profile-gate--${profileGateStatus}`}
+              aria-live="polite"
+              data-testid="profile-gate"
             >
-              {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-            </button>
-            <button
-              className="icon-button"
-              type="button"
-              aria-label="모션 줄이기"
-              aria-pressed={reduceMotion}
-              data-testid="reduce-motion-button"
-              onClick={toggleReduceMotion}
-            >
-              <Waves size={20} />
-            </button>
-            <button
-              className="icon-button"
-              type="button"
-              aria-label={isPaused ? "계속하기" : "일시정지"}
-              aria-pressed={isPaused}
-              onClick={isPaused ? resumeGame : pauseGame}
-              disabled={gameState.status !== "playing" || profileGateLocked}
-              data-testid="pause-button"
-            >
-              {isPaused ? <Play size={20} /> : <Pause size={20} />}
-            </button>
+              <strong>{profileGate.title}</strong>
+              <span>{profileGate.message}</span>
+            </section>
+
+            <section className="daily-refresh-strip" aria-label="다음 냉장고" data-testid="daily-refresh-strip">
+              <span>다음 냉장고</span>
+              <strong data-testid="daily-refresh-countdown">{dailyRefreshInfo.remainingLabel}</strong>
+              <div className="daily-refresh-strip__meta">
+                <small data-testid="daily-streak">연속 {dailyStreak.streakDays}일</small>
+                <small data-testid="daily-refresh-time">{dailyRefreshInfo.refreshTimeLabel}</small>
+              </div>
+            </section>
           </div>
         </header>
-
-        <section className="score-strip" aria-label="현재 점수">
-          <div>
-            <span>점수</span>
-            <strong data-testid="score-value">{score.toLocaleString()}</strong>
-          </div>
-          <div>
-            <span>이동</span>
-            <strong>
-              {gameState.movesUsed}/{board.moveLimit}
-            </strong>
-          </div>
-          <div>
-            <span>구출</span>
-            <strong>
-              {gameState.rescuedCount}/{board.rescueTarget}
-            </strong>
-          </div>
-        </section>
-
-        <section className="competition-strip" aria-label="오늘 기록">
-          <div>
-            <span>내 최고</span>
-            <strong data-testid="personal-best-value">{personalBest.toLocaleString()}</strong>
-          </div>
-          <div className={bestChase.state === "ahead" ? "competition-strip__item--ahead" : ""} data-testid="best-chase">
-            <span data-testid="best-chase-label">{bestChase.label}</span>
-            <strong data-testid="best-chase-value">{bestChase.value}</strong>
-          </div>
-        </section>
-
-        <section className={`profile-gate profile-gate--${profileGateStatus}`} aria-live="polite" data-testid="profile-gate">
-          <strong>{profileGate.title}</strong>
-          <span>{profileGate.message}</span>
-        </section>
 
         {bestRoute && gameState.status === "playing" ? (
           <section
@@ -1098,29 +1153,6 @@ export const App = () => {
             </div>
           </section>
         ) : null}
-
-        <section className="daily-refresh-strip" aria-label="다음 냉장고" data-testid="daily-refresh-strip">
-          <span>다음 냉장고</span>
-          <strong data-testid="daily-refresh-countdown">{dailyRefreshInfo.remainingLabel}</strong>
-          <div className="daily-refresh-strip__meta">
-            <small data-testid="daily-streak">연속 {dailyStreak.streakDays}일</small>
-            <small data-testid="daily-refresh-time">{dailyRefreshInfo.refreshTimeLabel}</small>
-          </div>
-        </section>
-
-        <section className="goal-strip" aria-label="오늘의 목표">
-          <div>
-            <span className="goal-strip__label">목표</span>
-            <strong>{recipe.name}</strong>
-            <p>{recipe.ingredientIds.map((id) => getIngredient(id).name).join(" + ")}</p>
-          </div>
-          <div className="goal-strip__actions">
-            <Trophy size={28} aria-hidden="true" />
-            <button className="icon-button icon-button--compact" type="button" aria-label="레시피북 열기" data-testid="recipe-book-open" onClick={() => setRecipeBookOpen(true)}>
-              <BookOpen size={18} />
-            </button>
-          </div>
-        </section>
 
         <p className="coach-message" data-testid="coach-message">
           {gameState.message}

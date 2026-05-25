@@ -39,6 +39,7 @@
 
 - Create first-screen wireframe. (Phase 1 MVP done in `docs/creative/FIRST_SCREEN_WIREFRAME.md`)
 - Define ingredient icon style. (Phase 96 done pending CI)
+- Refresh first-screen visual direction. (Phase 180 done pending CI)
 - Define BGM mood references. (Phase 81 done pending CI)
 - Define SFX list and trigger map. (Phase 97 done pending CI)
 - Add first-play accessibility toggles and result submit UX. (Phase 5 done pending CI)

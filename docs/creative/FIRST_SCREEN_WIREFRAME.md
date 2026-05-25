@@ -8,16 +8,27 @@ The first screen should immediately communicate:
 
 No marketing hero. No long explanation. The fridge board is the main screen.
 
+## 1.1 Visual Direction Refresh
+
+Phase 180 keeps the first screen playable immediately, but the top stack should read like a compact casual game main screen instead of a document summary.
+
+- Use one warm kitchen/fridge hero HUD around title, recipe mission, score, best score, profile state, and daily refresh.
+- Keep the recipe target as a mission ticket with a small fridge mascot and ingredient chips.
+- Keep board access visible without adding a start modal or extra tap.
+- Balance mint, peach, blue, and berry accents so the screen feels soft and collectible rather than flat green.
+- Preserve all existing controls, accessibility labels, and QA test IDs.
+
 ## 2. Mobile Layout
 
 Target minimum viewport: `360x740`.
 
 ```text
 ┌────────────────────────────────────┐
-│ 오늘의 냉장고        점수 0   일시정지 │
-├────────────────────────────────────┤
-│ 목표: 김치볶음밥  밥+김치+계란      │
-│ 임박 재료 0/4 구출                 │
+│ 오늘의 냉장고        소리 모션 정지 │
+│ 김치볶음밥 미션  밥 김치 계란       │
+│ 점수 0  이동 0/26  구출 0/4        │
+│ 내 최고 0     첫 기록 도전         │
+│ 다음 냉장고 19시간 후 / 연속 1일   │
 ├────────────────────────────────────┤
 │ ┌────┬────┬────┬────┬────┐        │
 │ │ 밥 │ 김치│ 계란│ 대파│ 두부│        │
@@ -148,4 +159,3 @@ Avoid:
 - No color-only state.
 - Pause and mute accessible from play screen.
 - No fast flashing combo effects.
-
