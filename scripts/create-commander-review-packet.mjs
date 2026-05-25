@@ -298,6 +298,7 @@ npm run qa:qr-session:check
 npm run qa:qr-session:index -- --strict
 npm run qa:korean-copy
 npm run qa:console-assets
+npm run qa:screenshots
 npm run qa:rating-evidence:check
 npm run external-rewards:check-prereqs
 npm run sdk:dependency-triage -- --strict
@@ -322,6 +323,7 @@ ${checkboxRows([
   "No console/page errors are observed, or every observed error has a linked note.",
   "Korean listing and metadata copy guard passed for this commit.",
   "Console logo, thumbnail, and upload screenshots were regenerated and dimensions verified.",
+  "Submission screenshots were regenerated, including `00-first-viewport.png` for first-fold review.",
   "Game rating evidence packet was generated and `npm run qa:rating-evidence:check` passed.",
   "External reward prerequisites passed or were explicitly not requested for this commit.",
   "SDK dependency triage was refreshed for this commit and has no strict failures.",

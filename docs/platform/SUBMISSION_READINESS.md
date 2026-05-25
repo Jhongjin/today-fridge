@@ -63,6 +63,7 @@ These must be completed before requesting review:
 - Production monitoring endpoint owner, retention policy, and access-control approval or explicit deferral recorded in the commander review packet.
 - App bundle packaging path and `.ait` upload check recorded in the commander review packet.
 - Console-ready PNG logo, thumbnail, screenshot assets, leaderboard setup, and console review state recorded in the commander review packet.
+- First-fold and full-flow submission screenshots regenerated with `npm run qa:screenshots` and recorded in the commander review packet.
 - Game rating classification evidence packet checked and recorded in the commander review packet.
 - Rating evidence checklist is documented in `docs/platform/GAME_RATING_EVIDENCE.md`.
 

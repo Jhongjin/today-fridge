@@ -202,3 +202,4 @@
 - Phase 182 Queue Preview now runs submission screenshot capture with GitHub summary output, so first-fold and flow screenshot metadata appear beside bundle and asset evidence.
 - Phase 183 result and recipe book panels refreshed: modal surfaces now use the same mint/peach kitchen tone, recipe cards show ingredient chips, and score/reward evidence remains unchanged.
 - Phase 184 preview deploy evidence refreshed: latest checked Queue Preview run succeeded validation, but actual Vercel deploy steps remained skipped because deploy prerequisites were not enabled.
+- Phase 185 commander review packets now require `npm run qa:screenshots`, so first-fold and full-flow screenshot evidence must be refreshed before approval.

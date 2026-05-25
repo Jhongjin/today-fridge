@@ -58,7 +58,7 @@ The script captures a 390x844 mobile viewport. The first file is the visible fir
 The console-asset script prints a file table, verifies these PNG dimensions after capture, and fails if any generated file is off-spec.
 In GitHub Actions, `npm run qa:console-assets -- --github-summary` writes the verified dimensions and file sizes to the workflow summary.
 
-Commander review packets require `npm run qa:console-assets` before approval so upload asset dimensions are rechecked for the reviewed commit. The packet also requires a Toss Console Setup Approval decision before final console submission.
+Commander review packets require both `npm run qa:console-assets` and `npm run qa:screenshots` before approval so upload asset dimensions and first-fold/full-flow screenshot evidence are rechecked for the reviewed commit. The packet also requires a Toss Console Setup Approval decision before final console submission.
 
 For automation evidence:
 

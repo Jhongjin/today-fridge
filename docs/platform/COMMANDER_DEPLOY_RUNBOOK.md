@@ -56,6 +56,7 @@ npm run qa:commander-review-packet -- --commit <sha> --actions-run-url <queue-pr
 If `--commit` is omitted, the packet uses the current local `git rev-parse --short HEAD` value.
 
 The packet metadata includes the Queue Preview run URL and current local worktree status. Generate review packets from a clean tree after the intended commit is pushed and the successful Actions run is known.
+The required local commands include both `npm run qa:console-assets` and `npm run qa:screenshots` so console upload assets and the first-fold/full-flow screenshot evidence are refreshed for the exact reviewed commit.
 The Queue Preview run URL should use the GitHub Actions run page format, for example `https://github.com/<owner>/<repo>/actions/runs/<run-id>`.
 The preview or QR target should be an HTTPS URL.
 The QR session index should be either an existing local Markdown file, such as `qa/qr-sessions/INDEX.md`, or an HTTPS evidence link.
