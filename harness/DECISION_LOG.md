@@ -204,3 +204,4 @@
 - Phase 184 preview deploy evidence refreshed: latest checked Queue Preview run succeeded validation, but actual Vercel deploy steps remained skipped because deploy prerequisites were not enabled.
 - Phase 185 commander review packets now require `npm run qa:screenshots`, so first-fold and full-flow screenshot evidence must be refreshed before approval.
 - Phase 186 Toss requirements and review gates now call out `npm run qa:screenshots`, keeping submission screenshot evidence aligned with the commander packet gate.
+- Phase 187 first playable screen now includes a compact main dock for profile, daily refresh, and recipe-book progress so the top area reads more like a casual game home surface.

@@ -18,6 +18,12 @@ Phase 180 keeps the first screen playable immediately, but the top stack should 
 - Balance mint, peach, blue, and berry accents so the screen feels soft and collectible rather than flat green.
 - Preserve all existing controls, accessibility labels, and QA test IDs.
 
+Phase 187 adds a compact main dock inside the first playable screen:
+
+- Treat profile state, next-fridge timing, and recipe-book progress as small game badges instead of document rows.
+- Keep the board visible on first load; the dock should not introduce a start gate.
+- Use the recipe ingredient icons in the dock so collection progress feels tied to the current dish.
+
 ## 2. Mobile Layout
 
 Target minimum viewport: `360x740`.

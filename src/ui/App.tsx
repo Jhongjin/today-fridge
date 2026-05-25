@@ -1116,7 +1116,7 @@ export const App = () => {
             </div>
           </section>
 
-          <div className="status-row">
+          <div className="status-row main-dock">
             <section
               className={`profile-gate profile-gate--${profileGateStatus}`}
               aria-live="polite"
@@ -1132,6 +1132,18 @@ export const App = () => {
               <div className="daily-refresh-strip__meta">
                 <small data-testid="daily-streak">연속 {dailyStreak.streakDays}일</small>
                 <small data-testid="daily-refresh-time">{dailyRefreshInfo.refreshTimeLabel}</small>
+              </div>
+            </section>
+
+            <section className="recipe-dock" aria-label="레시피북 진행" data-testid="recipe-dock">
+              <span>레시피북</span>
+              <strong data-testid="hero-recipe-piece-progress">
+                {recipePieceProgress}/{recipePieceTarget}
+              </strong>
+              <div className="recipe-dock__icons" aria-hidden="true">
+                {recipe.ingredientIds.map((id) => (
+                  <i key={`dock-${id}`}>{getIngredient(id).icon}</i>
+                ))}
               </div>
             </section>
           </div>
