@@ -210,3 +210,4 @@
 - Phase 190 smallest mobile first-screen spacing now compresses at 374px and below so the fridge board still peeks into the first viewport after the main dock polish.
 - Phase 191 mobile first-screen QA now asserts the first board tile starts inside the viewport, preventing the playable board from slipping fully below the fold.
 - Phase 192 submission screenshot capture now includes `00-small-first-viewport.png`, a 360x740 first-fold evidence image for minimum-width review.
+- Phase 193 commander review packet wording now requires both 360 and 390 first-fold screenshot evidence names in the regenerated screenshot checklist.
